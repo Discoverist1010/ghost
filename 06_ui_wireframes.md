@@ -11,7 +11,7 @@ Design for projection in a large conference room: a supervisory command centre /
 - Presenter button text: 24px or larger, with large targets and clear focus states.
 - The intentionally illegible, fast audit stream is the sole exception for information the audience is not expected to parse. Its material event appears later at full scale.
 
-Use dark navy as the field, cyan for observation, gold for investigation, amber for escalation and red only for a hard stop or high-risk state. Pair color with words and shape; color alone must not carry the meaning. Keep motion deliberate and allow pause, replay and step-through.
+Use white as the field and near-black for primary text. Use blue for observation, deep gold for investigation, amber for escalation and red only for a hard stop or high-risk state. Keep every combination readable on a bright projector. Pair color with words and shape; color alone must not carry the meaning. Keep motion deliberate and allow pause, replay and step-through.
 
 ## Presentation states
 

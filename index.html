@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#ffffff">
+    <title>REGULATOR//GHOST — Human in the Right Loop</title>
+    <link rel="stylesheet" href="/styles.css">
+  </head>
+  <body>
+    <div class="app-shell">
+      <header class="topbar">
+        <div class="brand" aria-label="Regulator Ghost">REGULATOR<span class="brand-slash">//</span>GHOST</div>
+        <div class="topbar-meta"><span class="simulation-mark">SYNTHETIC SIMULATION</span><span id="chapter" aria-live="polite">01 / PRODUCTIVITY</span></div>
+      </header>
+
+      <main id="stage" class="stage"></main>
+
+      <nav class="presenter-bar" aria-label="Presenter controls">
+        <button id="previousButton" class="nav-button nav-button-secondary" type="button" data-action="previous">← Back</button>
+        <div class="presenter-middle">
+          <div id="sceneCount" class="scene-count">01 / 19</div>
+          <div class="progress-track" aria-hidden="true"><div id="progressFill" class="progress-fill"></div></div>
+        </div>
+        <div class="presenter-actions">
+          <button id="utilityButton" class="nav-button nav-button-secondary utility-button" type="button" data-action="open-evidence">Evidence</button>
+          <button id="nextButton" class="nav-button nav-button-primary" type="button" data-action="next">Next →</button>
+        </div>
+      </nav>
+    </div>
+
+    <div id="drawer" class="drawer-backdrop" hidden>
+      <section class="drawer" role="dialog" aria-modal="true" aria-labelledby="drawerTitle">
+        <div class="drawer-header">
+          <h2 id="drawerTitle">Evidence</h2>
+          <button class="drawer-close" type="button" data-action="close-drawer" aria-label="Close detail panel">×</button>
+        </div>
+        <div id="drawerBody" class="drawer-body"></div>
+      </section>
+    </div>
+
+    <noscript>This presentation needs JavaScript to replay its synthetic scenario.</noscript>
+    <script type="module" src="/src/app.mjs"></script>
+  </body>
+</html>

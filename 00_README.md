@@ -28,6 +28,7 @@ The core claim is that putting a human into every machine-speed action loop is n
 
 ## Projection and presentation contract
 
+- Use a white background with dark, high-contrast type and restrained accent colors. The interface should read as a supervisory decision theatre, not a dense dashboard.
 - Hero numbers and critical state changes: approximately 80–140px.
 - Major headlines: approximately 52–76px.
 - Primary messages and conclusions: approximately 34–48px.
@@ -49,6 +50,16 @@ The presenter should never need to say, “You probably can't read this.”
 - The runtime gate applies explicit identity, mandate, materiality, reversibility, evidence and breach checks. The main probabilistic restriction ends in **ESCALATE**.
 - Every run yields an event log, agent action trace, evidence packet, score history, gate disposition and human review state; any presenter-selected approval, rejection or challenge is recorded as an action.
 
-Recommended implementation: a self-contained single-page presentation app, with deterministic scenario JSON and a scripted state machine. React/Next.js or Streamlit remain possible; select the stack when implementation begins.
+The implementation is a dependency-free single-page presentation app using browser-native JavaScript, CSS and a small Node development server. One deterministic run generates the trace, score history, supervisory finding and gate outcome; no real model or live data service is involved. Event fingerprints in the exported run are demo identifiers, not cryptographic proof.
+
+## Run the presentation
+
+With Node.js 20 or newer:
+
+```sh
+npm run dev
+```
+
+Open `http://127.0.0.1:4173`. Use the on-screen Back and Next buttons, or the left/right arrow keys. On the log-flood scene, use Pause or Replay (keyboard `P` / `R`). Press `F` for fullscreen. Evidence opens the original event and causal links; Export replay evidence downloads the complete synthetic run. Run the scenario checks with `npm test`. No dependency install is required.
 
 The remaining documents specify the scenes, agent boundaries, scenarios, synthetic data, runtime decisions, visual states and evaluation checks. If a detail conflicts, this contract and the causal order in `01_storyboard.md` govern the main demo.
