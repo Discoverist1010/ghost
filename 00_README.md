@@ -8,17 +8,17 @@ This is a synthetic decision theatre, not a live supervisory system. Use scripte
 
 ## Governing question
 
-At every major scene, a person at the back of a large conference room must immediately understand:
+At every major beat, a person at the back of a large conference room must immediately understand:
 
-1. **WHAT DID THE AI JUST LEARN?**
-2. **WHAT DOES IT NOW WANT TO DO?**
-3. **IS IT AUTHORISED TO DO IT?**
+1. **WHAT JUST CHANGED?**
+2. **WHY DOES IT MATTER?**
+3. **WHO HAS AUTHORITY NOW?**
 
-These answers outrank dashboard completeness. Reveal one dominant idea per scene. Do not bury material meaning in a tooltip, legend, small label or dense table.
+The earlier questions—what AI learned, what it wants to do and whether it is authorised—remain the conceptual test. They are not permanent on-screen chrome. These answers outrank dashboard completeness. Reveal one dominant idea at a time; do not bury material meaning in a tooltip, legend, small label or dense table.
 
 ## Narrative contract
 
-The main path is: Productivity → Sentinel → Investigator → agent/sub-agent expansion → naive human-in-the-loop stress test → Supervisory AI and Human in the Right Loop → Bank Compliance challenge → predictive intervention without breach → counterfactual → runtime authority gate → closing questions. Metric gaming and Agent Swarm are optional advanced scenarios.
+The main path has ten audience beats: Productivity → Sentinel → Investigator → agent/sub-agent expansion → naive human-in-the-loop overload → Supervisory AI and Human in the Right Loop → Bank Compliance challenge and trust → predictive intervention without breach → counterfactual and runtime authority gate → closing ghost questions. Multiple small presenter-controlled reveals may occur inside one beat. Metric gaming and Agent Swarm remain optional advanced scenarios.
 
 The Human-in-the-Right-Loop sequence is core. One objective creates 8 active agent instances, 27 sub-tasks and 486 interleaved events in a scripted 3.2-second burst. Event `EntityGraph/T-17` changes Entity X from central-bank-related to commercial-counterparty; risk rises 39 → 76. The event exists in the raw trace but is hard to find during the flood. A separate Supervisory AI compresses the trace to one material issue with linked original evidence and a human decision about the reclassification and proposed intervention.
 
@@ -28,14 +28,16 @@ The core claim is that putting a human into every machine-speed action loop is n
 
 ## Projection and presentation contract
 
-- Use a white background with dark, high-contrast type and restrained accent colors. The interface should read as a supervisory decision theatre, not a dense dashboard.
-- Hero numbers and critical state changes: approximately 80–140px.
-- Major headlines: approximately 52–76px.
+- Use a deep navy / near-black field with near-white primary type. Cyan marks observation, amber marks uncertainty and escalation, and red is reserved for genuine denial or danger. The interface should read as a high-end institutional decision theatre.
+- Hero numbers and critical state changes: approximately 110–170px.
+- Hero verdicts and reveals: approximately 64–90px.
+- Major headlines: approximately 54–76px.
 - Primary messages and conclusions: approximately 34–48px.
 - Supporting text the audience must read: at least approximately 26–30px.
-- Presenter controls: 24px+ text and large targets.
+- Presenter controls: approximately 22–26px text or larger, with clear focus states.
 - Tiny, fast audit text is permitted only for the intentional log-flood effect; every material conclusion is repeated at audience-readable scale.
-- Presentation mode shows one dominant state at a time. Technical detail may be revealed in secondary panels without competing with the main message.
+- Presentation mode shows one dominant state at a time, without vertical scrolling at 1920×1080. Technical detail is in optional drawers.
+- The audience sees a ten-beat counter, not the implementation's internal state count. Navigation chrome stays discreet.
 - The presenter can pause at the naive review demand, the material-issue reveal, the no-breach reveal and the final questions.
 
 The presenter should never need to say, “You probably can't read this.”
@@ -60,6 +62,6 @@ With Node.js 20 or newer:
 npm run dev
 ```
 
-Open `http://127.0.0.1:4173`. Use the on-screen Back and Next buttons, or the left/right arrow keys. On the log-flood scene, use Pause or Replay (keyboard `P` / `R`). Press `F` for fullscreen. Evidence opens the original event and causal links; Export replay evidence downloads the complete synthetic run. Run the scenario checks with `npm test`. No dependency install is required.
+Open `http://127.0.0.1:4173`. Use the discreet on-screen arrows, Right/Space for next and Left for previous. `R` replays the current animation, `P` pauses it, `F` toggles fullscreen, Esc closes a detail drawer, and Home resets. Contextual detail controls open original events and causal links; the drawer exports the complete synthetic run. Run the scenario and presentation-state checks with `npm test`. No dependency install is required.
 
 The remaining documents specify the scenes, agent boundaries, scenarios, synthetic data, runtime decisions, visual states and evaluation checks. If a detail conflicts, this contract and the causal order in `01_storyboard.md` govern the main demo.

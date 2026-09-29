@@ -1,6 +1,8 @@
 .DS_Store
 node_modules/
 coverage/
+*.log
+regulator-ghost-replay*.json
 .env
 .env.*
 !.env.example

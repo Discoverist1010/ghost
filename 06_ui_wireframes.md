@@ -1,35 +1,34 @@
 # Presentation UI and Wireframes
 
-Design for projection in a large conference room: a supervisory command centre / decision theatre, not a dense financial dashboard. The audience should track one narrative beat without searching the screen. Every major beat answers, in plain audience-readable language: **What did AI learn? What does it want to do? Is it authorised?** These may sit in a consistent three-part footer or appear as three sequential large statements, but none may depend on a tiny label.
+Design for 1920×1080 projection in a large conference room. The screen should feel like a high-end institutional command centre and decision theatre. At each major moment the audience should identify the one change in under two seconds: **What changed? Why does it matter? Who has authority now?** The earlier learn/want/authorised questions remain a design test, never a permanent footer.
 
-## Type and interaction scale
+## Type, contrast and space
 
-- Hero numbers and state changes: approximately 80–140px.
-- Major headlines: approximately 52–76px.
+- Hero numbers and state changes: approximately 110–170px.
+- Hero verdicts: approximately 64–90px.
+- Major headlines: approximately 54–76px.
 - Primary conclusions: approximately 34–48px.
 - Supporting text that must be read: at least approximately 26–30px.
-- Presenter button text: 24px or larger, with large targets and clear focus states.
-- The intentionally illegible, fast audit stream is the sole exception for information the audience is not expected to parse. Its material event appears later at full scale.
+- Presenter button text: approximately 22–26px or larger, with large targets and clear focus states.
+- The deliberately unreadable audit stream is the sole exception; its material event appears later at full scale.
 
-Use white as the field and near-black for primary text. Use blue for observation, deep gold for investigation, amber for escalation and red only for a hard stop or high-risk state. Keep every combination readable on a bright projector. Pair color with words and shape; color alone must not carry the meaning. Keep motion deliberate and allow pause, replay and step-through.
+Use a deep navy / near-black field, near-white type, restrained cyan for observation, amber for uncertainty/escalation and red only for genuine denial or danger. Pair color with words; color alone does not carry the meaning. Presentation mode has no vertical scroll at 1920×1080. A small corner control shows only Back, the current beat out of ten, and Next. Contextual detail controls appear only when the story needs them.
 
-## Presentation states
+## Ten audience beats
 
-1. **Productivity:** a calm summary and human-owned next question; minimal command-centre framing.
-2. **Sentinel:** an oversized `27 → 42` and a single monitoring alert.
-3. **Investigator:** an oversized `42 → 61` marked provisional, with the chosen evidence path.
-4. **Expansion:** a graph, not a list: Sentinel → Investigator → EntityGraph, HistoricalTransactions, DisclosureReview, CounterpartyCheck and PolicyMapper. Show Interpreter and parallel function lanes. The graph resolves to `8 AGENTS / 27 SUB-TASKS`.
-5. **Naive assurance and flood:** first `HUMAN OVERSIGHT: ENABLED / ALL AGENT ACTIONS: LOGGED / ALL ACTIONS: REVIEWABLE`; then animate `8 AGENTS` → `27 SUB-TASKS` → `486 EVENTS` → `3.2 SECONDS`. The log panel contains the actual T-17 change among ordinary events. Do not visually isolate it during the flood.
-6. **Naive review pause:** oversized `HUMAN REVIEW REQUIRED`, `486 EVENTS`, `AUTHORISE / REJECT`; then `BUT COULD THEY REALISTICALLY FIND IT?` The two buttons demonstrate the inadequate prompt and do not approve an actual intervention.
-7. **Supervisory AI reveal:** dramatic `486 EVENTS` → `1 MATERIAL ISSUE`. Expand one readable causal chain: `EntityGraph/T-17` reclassification → Investigator risk recalculation `39 → 76` → Interpreter restriction recommendation → runtime mandate boundary. Show the three loops as distinct bands: machine activity, AI control and human authority.
-8. **Right-loop card:** `HUMAN DECISION REQUIRED`; ask “Is the entity reclassification valid?” and “If valid, is intervention justified?” Link to original events, evidence, uncertainty, disagreement and a challenge action. Show the complete human task, not only a summary score.
-9. **Trust question and Bank challenge:** `WHO SUPERVISES THE SUPERVISORY AI?` then reveal provenance, causal trace, independence, uncertainty, disagreement, reproducibility, contestability and authority. Bank Compliance submits attributed counter-evidence.
-10. **Predictive boundary:** `RISK 76` and `74% PREDICTED MATERIAL EVENT`, followed by the dominant reveal `NO RULE HAS BEEN BREACHED`. The proposal is an enhanced liquidity restriction, not an executed action.
-11. **Counterfactual and gate:** `76 → 39` dominates after Entity X's original classification is tested. Then show the runtime checks and a full-screen `ESCALATE`; state clearly that the restriction was not executed.
-12. **Closing:** sequential full-screen questions: `WHO IS THE SUPERVISOR?`, `WHERE IS THE RIGHT LOOP?`, `WHO SUPERVISES THE SUPERVISORY AI?`, ending on “Where should human judgement sit in a machine-speed financial system?”
+1. **AI helps humans:** calm “AI HELPS HUMANS SUPERVISE,” three synthetic source counts, and human agency.
+2. **AI observes:** “27 → 42,” then the liquidity change and Sentinel's autonomous observation.
+3. **Agent investigates:** “42 → 61,” then “INVESTIGATOR CHOSE THE NEXT CHECKS” with only entity graph, history and disclosures.
+4. **Agent expansion:** “ONE OBJECTIVE,” then a branching graph, then “8 AGENTS,” then “27 SUB-TASKS.” Complexity emerges rather than appearing as a static architecture.
+5. **Human loop overload:** reassuring governance claims, interactive “START WORKFLOW,” the actual 486-event flood in 3.2 seconds, then “HUMAN REVIEW REQUIRED / 486 EVENTS.” Clicking either tempting AUTHORISE / REJECT button reveals “ON WHAT BASIS?” and records no approval.
+6. **AI supervises AI:** “486 EVENTS,” then “1 MATERIAL ISSUE,” then the four-step causal chain, the two-question human decision card, and the concise three-loop visual. No trust-control grid competes with the central reveal.
+7. **Challenge and trust:** ask “WHO SUPERVISES THE SUPERVISORY AI?” and show only provenance, uncertainty and contestability on stage. Bank Compliance submits counter-evidence; the result is “SUPERVISORY FACT: CONTESTED” with a visibly broken causal link.
+8. **Predictive boundary:** the persuasive 76 and 74% case, the proposed restriction, then a near-empty “NO RULE HAS BEEN BREACHED” state, followed by “PREDICTION ≠ PERMISSION.”
+9. **Counterfactual and authority:** “76 → 39,” then “ONE FACT CHANGED.” Gate checks arrive sequentially before a separate full-stage “ESCALATE / RESTRICTION NOT EXECUTED.”
+10. **The ghost:** one closing beat with sequential questions: “WHO IS THE SUPERVISOR?”, “WHERE IS THE RIGHT LOOP?”, “WHO SUPERVISES THE SUPERVISORY AI?”
 
-## Secondary views
+## Secondary views and controls
 
-Use the original command-centre layout only when the presenter opens detail: agent/status rail at left, evidence and causal links at right, trace at bottom. Collapse it for the hero states. Evidence cards show source, confidence, missing information and exact trace links. The gate can display its four possible dispositions—DENY, OBSERVE, ESCALATE, AUTO_EXECUTE—but only the current disposition dominates.
+Evidence drawers are optional drill-down views for source IDs, timestamps, evidence, fingerprints, causal links, human review and the full eight Supervisory AI trust controls. The audience never needs to open one to understand the story. The stage retains a visible synthetic-teaching-simulation label.
 
-Presenter controls include Next, Back, Pause/Resume, Replay Flood, Reveal Source Event and Open Evidence. The scripted 3.2-second burst can always be replayed or stepped through after the dramatic reveal. Do not autoplay across a human discussion pause.
+Keyboard: Right/Space next, Left previous, R replay the current animation, P pause/resume it, F fullscreen, Esc close detail, Home reset. Motion represents a state change—branching, the real log burst, 486 → 1, causal reconstruction, gate checks or 76 → 39. No autonomous transition may force the presenter past a discussion pause.

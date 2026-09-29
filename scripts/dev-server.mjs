@@ -45,6 +45,20 @@ const server = createServer(async (request, response) => {
   }
 });
 
+server.on('error', (error) => {
+  if (error.code === 'EADDRINUSE') {
+    process.stderr.write('Port ' + port + ' is already in use. Stop that server or set PORT to another port.\n');
+    process.exitCode = 1;
+    return;
+  }
+  if (error.code === 'EPERM') {
+    process.stderr.write('Cannot listen on 127.0.0.1:' + port + ' in this environment.\n');
+    process.exitCode = 1;
+    return;
+  }
+  throw error;
+});
+
 server.listen(port, '127.0.0.1', () => {
   process.stdout.write(`REGULATOR//GHOST at http://127.0.0.1:${port}\n`);
 });

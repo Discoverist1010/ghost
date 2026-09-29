@@ -169,6 +169,7 @@ export function buildRun() {
   return {
     id: 'GHOST-MAIN-001', version: '1.0', synthetic: true,
     objective: 'Assess synthetic liquidity anomaly involving Entity X',
+    sourceCounts: { filings: 24, policySources: 8, transactions: 1240 },
     agents: [...AGENTS], tasks, events, evidence: Object.values(EVIDENCE),
     scoreHistory, gateInput,
     prediction: { percent: 74, event: 'material event', illustrative: true, ruleBreach: false },

@@ -3,29 +3,21 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="theme-color" content="#ffffff">
+    <meta name="theme-color" content="#080f1c">
     <title>REGULATOR//GHOST — Human in the Right Loop</title>
     <link rel="stylesheet" href="/styles.css">
   </head>
   <body>
     <div class="app-shell">
-      <header class="topbar">
-        <div class="brand" aria-label="Regulator Ghost">REGULATOR<span class="brand-slash">//</span>GHOST</div>
-        <div class="topbar-meta"><span class="simulation-mark">SYNTHETIC SIMULATION</span><span id="chapter" aria-live="polite">01 / PRODUCTIVITY</span></div>
-      </header>
-
-      <main id="stage" class="stage"></main>
-
-      <nav class="presenter-bar" aria-label="Presenter controls">
-        <button id="previousButton" class="nav-button nav-button-secondary" type="button" data-action="previous">← Back</button>
-        <div class="presenter-middle">
-          <div id="sceneCount" class="scene-count">01 / 19</div>
-          <div class="progress-track" aria-hidden="true"><div id="progressFill" class="progress-fill"></div></div>
-        </div>
-        <div class="presenter-actions">
-          <button id="utilityButton" class="nav-button nav-button-secondary utility-button" type="button" data-action="open-evidence">Evidence</button>
-          <button id="nextButton" class="nav-button nav-button-primary" type="button" data-action="next">Next →</button>
-        </div>
+      <div class="stage-identity" aria-hidden="true">REGULATOR<span>//</span>GHOST</div>
+      <div class="simulation-mark">SYNTHETIC TEACHING SIMULATION</div>
+      <main id="stage" class="stage" aria-label="Presentation stage"></main>
+      <div id="cueAnnouncement" class="sr-only" aria-live="polite"></div>
+      <button id="contextButton" class="context-button" type="button" data-action="open-evidence" hidden>Inspect evidence</button>
+      <nav class="presenter-control" aria-label="Presenter controls">
+        <button id="previousButton" type="button" data-action="previous" aria-label="Previous reveal">←</button>
+        <span id="beatCounter" aria-live="polite">BEAT 1/10</span>
+        <button id="nextButton" type="button" data-action="next" aria-label="Next reveal">→</button>
       </nav>
     </div>
 
@@ -40,6 +32,6 @@
     </div>
 
     <noscript>This presentation needs JavaScript to replay its synthetic scenario.</noscript>
-    <script type="module" src="/src/app.mjs"></script>
+    <script type="module" src="/src/theatre.mjs"></script>
   </body>
 </html>

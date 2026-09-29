@@ -9,6 +9,7 @@ test('the visible flood is a reproducible, causally linked run', () => {
   assert.equal(validateRun(first), true);
   assert.equal(first.events.length, 486);
   assert.equal(first.tasks.length, 27);
+  assert.deepEqual(first.sourceCounts, { filings: 24, policySources: 8, transactions: 1240 });
   assert.equal(new Set(first.events.map((event) => event.actor)).size, AGENTS.length);
   assert.equal(first.events.at(-1).atMs, 3200);
 
@@ -27,6 +28,8 @@ test('the visible flood is a reproducible, causally linked run', () => {
   assert.deepEqual(recommendation.parentIds, [risk.id]);
   assert.deepEqual(mandate.parentIds, [recommendation.id]);
   assert.deepEqual(supervise(first.events).sourceEventIds, [classification.id, risk.id, recommendation.id, mandate.id]);
+  assert.deepEqual([first.counterfactual.before, first.counterfactual.after], [76, 39]);
+  assert.ok(first.counterfactual.evidenceIds.includes("EV-BANK-01"));
 });
 
 test('the supervisory finding fails closed when a causal event is missing', () => {

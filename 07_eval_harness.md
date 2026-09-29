@@ -3,12 +3,12 @@
 The acceptance check is both causal and visual: the story must be reconstructable from synthetic data, and a distant viewer must understand each major state without reading a dense panel. The main run is deterministic and repeatable.
 
 ## Expected Behaviour Tests
-- At each scene, identify a large, legible answer to what AI learned, what it proposes and whether it has authority.
-- The main path contains the Human-in-the-Right-Loop sequence and can be presented in 3–5 minutes with manual pauses.
+- At each beat, identify the one state change, its consequence and the authority boundary within two seconds. The learn/want/authorised questions guide design; they are not a permanent footer.
+- The main path has ten visible narrative beats, contains the Human-in-the-Right-Loop sequence and can be presented in 3–5 minutes with manual pauses.
 - One objective expands to 8 active agent instances and 27 sub-tasks, shown as a branching/concurrent graph.
 - The scripted flood emits exactly 486 ordered, interleaved events across 3.2 simulated seconds. The trace contains T-17's classification change and a linked `39 → 76` risk update. Replay produces the same order and IDs.
 - The provisional `27 → 42 → 61` phase, the central-bank-related baseline of 39, the T-17 rise to 76 and the later `76 → 39` counterfactual have explicit, attributed causes. No score jumps silently.
-- The naive `AUTHORISE / REJECT` prompt is demonstrative only; it cannot execute a restriction.
+- The naive AUTHORISE / REJECT controls are clickable, but either reveals “ON WHAT BASIS?” and neither records approval or executes a restriction.
 - Supervisory AI produces exactly one material finding from the 486-event main burst, with original event/evidence references and a causal trace through the proposed restriction and mandate boundary.
 - The finding exposes provenance, causal trace, independence, uncertainty, disagreement, reproducibility, contestability and authority. A reviewer can reach the raw events and challenge the interpretation.
 - The human card names the two decisions: reclassification validity and intervention justification.
@@ -44,10 +44,11 @@ The log is an output of the same scenario state as the screen, not a separately 
 
 ## Presentation Checks
 
-- Review the demo at the target projection resolution and from the back of a large room or equivalent scaled viewing distance.
-- Verify all audience-critical text meets the type scale in `00_README.md` and `06_ui_wireframes.md`; only the intentional log flood may be unreadable.
-- Pause at `HUMAN REVIEW REQUIRED`, `1 MATERIAL ISSUE`, `NO RULE HAS BEEN BREACHED` and `ESCALATE`; each must make sense without a small legend.
-- Confirm presenter controls have large targets, can step back and replay, and never force the presenter past a discussion pause.
+- Review at 1920×1080 from the back of a large room or equivalent scaled viewing distance. Normal presentation states must fit without vertical scrolling.
+- Check the type scale in the build contract and UI guide; only the intentional log flood may be unreadable. No key meaning depends on the detail drawer.
+- Pause on 27 → 42; 8 AGENTS / 27 SUB-TASKS; 486 EVENTS / 3.2 SECONDS; HUMAN REVIEW REQUIRED; ON WHAT BASIS?; 486 → 1 MATERIAL ISSUE; HUMAN DECISION REQUIRED; WHO SUPERVISES THE SUPERVISORY AI?; SUPERVISORY FACT: CONTESTED; 76 / 74%; NO RULE HAS BEEN BREACHED; 76 → 39; ESCALATE; and WHO IS THE SUPERVISOR? Each must make sense without visually searching the screen.
+- Confirm the visible counter names ten beats rather than internal reveal states. Advance, back, pause, replay, fullscreen, detail-close and reset controls work. Animations never move to the next reveal automatically.
+- Confirm the dark field, near-white type and restrained accents remain readable on a bright projector. Check that no constant or decorative animation competes with a reveal.
 
 ## Demo Safety
 No live client, transaction or institution data. All names synthetic. No claim of real supervisory capability.
