@@ -9,6 +9,11 @@ test('the visible flood is a reproducible, causally linked run', () => {
   assert.equal(validateRun(first), true);
   assert.equal(first.events.length, 486);
   assert.equal(first.tasks.length, 27);
+  assert.deepEqual(first.caseContext, {
+    exception: 'failed trade', count: 1, openingEventId: 'E-0001',
+    context: 'Synthetic asset-servicing exception; not an observed industry incident',
+  });
+  assert.equal(first.events[0].kind, 'SETTLEMENT_EXCEPTION_REPORTED');
   assert.deepEqual(first.sourceCounts, { filings: 24, policySources: 8, transactions: 1240 });
   assert.equal(new Set(first.events.map((event) => event.actor)).size, AGENTS.length);
   assert.equal(first.events.at(-1).atMs, 3200);
@@ -17,12 +22,15 @@ test('the visible flood is a reproducible, causally linked run', () => {
   for (const event of first.events) assert.equal(event.actor, tasksById.get(event.taskId).actor);
 
   const classification = first.events.find((event) => event.kind === 'CLASSIFICATION_CHANGED');
+  const baseline = first.events.find((event) => event.kind === 'BASELINE_CONFIRMED');
   const risk = first.events.find((event) => event.kind === 'RISK_UPDATED');
   const recommendation = first.events.find((event) => event.kind === 'INTERVENTION_RECOMMENDED');
   const mandate = first.events.find((event) => event.kind === 'MANDATE_BOUNDARY_IDENTIFIED');
   assert.equal(classification.taskId, 'T-17');
   assert.equal(classification.before, 'central-bank-related');
   assert.equal(classification.after, 'commercial-counterparty');
+  assert.deepEqual(baseline.parentIds, [first.caseContext.openingEventId]);
+  assert.deepEqual(classification.parentIds, [baseline.id]);
   assert.deepEqual(risk.parentIds, [classification.id]);
   assert.deepEqual([risk.before, risk.after], [39, 76]);
   assert.deepEqual(recommendation.parentIds, [risk.id]);

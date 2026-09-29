@@ -4,13 +4,14 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="theme-color" content="#080f1c">
+    <link rel="icon" href="data:,">
     <title>REGULATOR//GHOST — Human in the Right Loop</title>
     <link rel="stylesheet" href="/styles.css">
   </head>
   <body>
     <div class="app-shell">
       <div class="stage-identity" aria-hidden="true">REGULATOR<span>//</span>GHOST</div>
-      <div class="simulation-mark">SYNTHETIC TEACHING SIMULATION</div>
+      <div id="stageStatus" class="simulation-mark" aria-hidden="true"></div>
       <main id="stage" class="stage" aria-label="Presentation stage"></main>
       <div id="cueAnnouncement" class="sr-only" aria-live="polite"></div>
       <button id="contextButton" class="context-button" type="button" data-action="open-evidence" hidden>Inspect evidence</button>

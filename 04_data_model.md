@@ -1,6 +1,6 @@
 # Synthetic Data Model
 
-All IDs and relationships are synthetic. Store the scripted scenario as one reproducible run with stable IDs. Rendered screens derive from the same run; do not maintain a separate decorative log or score sequence.
+All IDs and relationships are synthetic. This document describes the **conceptual data contract and possible extensions**; the implemented fields are in `src/scenario.mjs`. Do not read every field below as already present in the exported run. Rendered synthetic screens derive from one reproducible run, not a decorative log or independent score sequence.
 
 ## Entities
 - entity_id
@@ -70,7 +70,7 @@ One objective expands to exactly 27 sub-tasks across eight active machine-activi
 - disposition
 - wall_clock_timestamp (optional; distinct from simulated time)
 
-The main burst contains exactly 486 ordered, replayable events spanning 3.2 simulated seconds. It includes `EntityGraph/T-17 CLASSIFICATION_CHANGED Entity X: central-bank-related → commercial-counterparty`, the downstream `RISK_UPDATED 39 → 76`, and hundreds of ordinary retrieval, relationship, hashing, confidence, policy, tool, trace and parsing events. The audience may not read the fast log, but the material event must be a real trace record with a stable ID.
+The main burst contains exactly 486 ordered, replayable events spanning 3.2 simulated seconds. Its opening event `E-0001` reports one synthetic failed trade. A linked baseline event leads to `EntityGraph/T-17 CLASSIFICATION_CHANGED Entity X: central-bank-related → commercial-counterparty`, then `RISK_UPDATED 39 → 76`, surrounded by hundreds of ordinary events. The audience may not read the fast log, but the material event is a real trace record with a stable ID.
 
 ## Supervisory Finding
 
@@ -86,4 +86,4 @@ The main finding refers to T-17 and the specific risk, recommendation and mandat
 
 - review_id, finding_id, question, evidence_seen_ids, reviewer_identity, decision (`pending`, `approve`, `reject`, `challenge`), rationale, timestamp
 
-The meaningful question is whether the reclassification is valid and, if so, whether intervention is justified. The main scripted presentation may end with decision `pending`; any presenter-selected decision or challenge appends an event. Record whether the reviewer opened the underlying source and whether they accepted or challenged the Supervisory AI's interpretation.
+The meaningful question is whether the reclassification is valid and, if so, whether intervention is justified. The main scripted presentation may end with decision `pending`. The current implementation records a presenter choice or challenge in the exported `humanReview` state, not as an additional member of the fixed 486-event raw trace. It also records whether the reviewer opened the source. A future persistent review ledger would need its own append-only events.

@@ -1,6 +1,6 @@
 # REGULATOR//GHOST Demo Build Contract
 
-Purpose: build a 3–5 minute, presenter-led teaching simulation for a 30-minute senior financial-services panel on autonomous AI, agentic supervision, runtime governance and human judgement at machine speed.
+Purpose: provide a presenter-led decision theatre for a 30-minute senior financial-services panel on autonomous AI, agentic supervision, runtime governance and human judgement at machine speed.
 
 Audience: senior executives from product, network management, custody, brokerage, asset management/investment, operations, compliance, risk and regulation.
 
@@ -18,9 +18,11 @@ The earlier questions—what AI learned, what it wants to do and whether it is a
 
 ## Narrative contract
 
-The main path has ten audience beats: Productivity → Sentinel → Investigator → agent/sub-agent expansion → naive human-in-the-loop overload → Supervisory AI and Human in the Right Loop → Bank Compliance challenge and trust → predictive intervention without breach → counterfactual and runtime authority gate → closing ghost questions. Multiple small presenter-controlled reveals may occur inside one beat. Metric gaming and Agent Swarm remain optional advanced scenarios.
+The main path has ten audience beats: public financial activity → observe/investigate/judge/act authority ladder → one synthetic failed trade → naive human-in-the-loop overload → Supervisory AI and Human in the Right Loop → agentic transactions and predictive intervention → source counterfactual and Bank Compliance challenge → runtime authority gate → correlated agent decisions as a research question → closing ghost questions. Multiple small presenter-controlled reveals may occur inside one beat. Metric gaming remains an optional synthetic red-team scenario, not a main-path claim.
 
-The Human-in-the-Right-Loop sequence is core. One objective creates 8 active agent instances, 27 sub-tasks and 486 interleaved events in a scripted 3.2-second burst. Event `EntityGraph/T-17` changes Entity X from central-bank-related to commercial-counterparty; risk rises 39 → 76. The event exists in the raw trace but is hard to find during the flood. A separate Supervisory AI compresses the trace to one material issue with linked original evidence and a human decision about the reclassification and proposed intervention.
+Three real-world arcs frame the synthetic case: capital-markets exception handling, agentic payments/digital assets, and possible correlated decisions in asset management. Public examples have explicit evidence maturity and primary-source links in `PUBLIC_SOURCES.md`. Their existence does not validate the synthetic scores, timings or supervisory logic.
+
+The Human-in-the-Right-Loop sequence is core. One synthetic failed trade opens a related liquidity investigation: 8 agent roles, 27 sub-tasks and 486 interleaved events in a scripted 3.2-second burst. Event `EntityGraph/T-17` changes Entity X from central-bank-related to commercial-counterparty; risk rises 39 → 76. The event exists in the raw trace but is hard to find during the flood. A separate Supervisory AI compresses the trace to one material issue with linked original evidence and a human decision about the reclassification and proposed intervention.
 
 The demo must teach three visibly distinct loops: machine activity, AI supervisory/control, and human authority/judgement. It must then ask who supervises the Supervisory AI and expose provenance, causal trace, independence, uncertainty, disagreement, reproducibility, contestability and authority limits.
 
@@ -44,13 +46,13 @@ The presenter should never need to say, “You probably can't read this.”
 
 ## Success and delivery criteria
 
-- The audience can distinguish productivity support, autonomous investigation, AI supervision of AI and authorised intervention.
+- The audience can distinguish public commercial deployment, pilots, regulatory research and the synthetic case; autonomous investigation, AI supervision of AI and authorised intervention remain distinct.
 - The audience can explain why deterministic prevention differs from probabilistic pre-emption, and why a score or prediction is not a breach.
 - The material `EntityGraph/T-17` event is genuinely present among 486 replayable events, and the displayed causal chain points back to it.
 - A human sees the specific judgement required, not an undifferentiated approve/reject prompt over 486 events.
 - The Supervisory AI can flag and escalate but cannot edit evidence, expand mandates, approve its own conclusion or execute a restriction.
 - The runtime gate applies explicit identity, mandate, materiality, reversibility, evidence and breach checks. The main probabilistic restriction ends in **ESCALATE**.
-- Every run yields an event log, agent action trace, evidence packet, score history, gate disposition and human review state; any presenter-selected approval, rejection or challenge is recorded as an action.
+- Every run yields an event log, agent action trace, evidence packet, score history, gate disposition and human review state; a naive authorise/reject click records an *attempt*, never a substantive decision or execution.
 
 The implementation is a dependency-free single-page presentation app using browser-native JavaScript, CSS and a small Node development server. One deterministic run generates the trace, score history, supervisory finding and gate outcome; no real model or live data service is involved. Event fingerprints in the exported run are demo identifiers, not cryptographic proof.
 

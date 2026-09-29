@@ -1,74 +1,81 @@
 # REGULATOR//GHOST
 
-**Where should human judgement sit in a machine-speed financial system?**
+**Where does intelligence end and authority begin?**
 
-REGULATOR//GHOST is a 3–5 minute, presenter-led decision theatre for a financial-services audience. One synthetic supervisory objective expands into eight agents, 27 sub-tasks and 486 events in 3.2 seconds. A separate supervisory control identifies one material issue and hands a specific judgement to a human. The runtime gate then shows where delegated authority stops.
-
-This is a **synthetic teaching simulation**. It is not a production supervisory system, legal or regulatory advice, or calibrated predictive analytics.
+REGULATOR//GHOST is a presenter-led decision theatre for financial-services audiences. It places one reproducible, **synthetic teaching simulation** inside three real-world arcs: capital-markets operations, agentic transactions, and correlated investment decisions. The public examples are documented in [PUBLIC_SOURCES.md](PUBLIC_SOURCES.md); they are context, **not claims that this demo is deployed**.
 
 ## The idea in 30 seconds
 
-AI first helps a person read. Then an agent chooses its own investigative checks. At machine speed, a complete audit trail becomes too large for a human to supervise action by action. A separate Supervisory AI selects the material issue—but that makes it an attention allocator whose own finding must be traceable and challengeable. A risk score of 76 and an illustrative 74% prediction do not create authority to restrict activity. The runtime disposition is **ESCALATE**; the proposed restriction is not executed.
+One synthetic failed trade opens an investigation. Eight agents create 27 sub-tasks and 486 audit events in 3.2 simulated seconds. A material entity reclassification is logged but buried. Asking a person to approve the whole trace produces **ON WHAT BASIS?** A separate simulated Supervisory AI links the one event that matters to a proposed restriction. The human can then judge the disputed fact and consequence. Even with a risk coefficient of 76 and illustrative 74% prediction, the runtime gate says **ESCALATE**: intelligence has not created authority.
 
 ```mermaid
 flowchart LR
-  A["One synthetic objective"] --> B["8 agents · 27 sub-tasks"]
-  B --> C["486 real trace events"]
-  C --> D["Supervisory AI: 1 linked issue"]
-  D --> E["Human judges the disputed fact"]
-  E --> F["Runtime gate: ESCALATE"]
+  A[Public financial activity] --> B[Agent autonomy]
+  B --> C[486-event synthetic case]
+  C --> D[1 material issue]
+  D --> E[Human judgement]
+  E --> F[Runtime authority gate]
+  F --> G[Systemic question]
 ```
 
-## What the audience sees
+## The three arcs
 
-The ten beats move from AI assistance to autonomous observation, agent investigation, parallel expansion, human review overload, AI supervising AI, contestability, predictive intervention, counterfactual and runtime authority, then the closing ghost question. Each beat uses small presenter-controlled reveals. The stage is designed for 1920×1080 projection, with optional evidence drawers for deeper questions.
+| Arc | Public grounding | Question on stage |
+| --- | --- | --- |
+| Capital-markets operations | Broadridge reports production exception workflows; Standard Chartered describes an illustrative failed-trade agent workflow. | If one exception generates hundreds of machine actions, what can a human meaningfully review? |
+| Payments and digital assets | Sygnum reports a controlled live-mainnet pilot with client signing; payment networks report pilots and rollouts; BIS/MAS research programmable compliance. | What can an agent prepare, initiate or execute, and under whose mandate? |
+| Asset management | IOSCO and the FSB discuss AI use and vulnerabilities; BIS Project Logos studies correlated portfolio agents in simulation. | Could individually compliant agents create a collective outcome no one intended? |
 
-The flood is generated from the same deterministic run as the later explanation. `EntityGraph/T-17` genuinely changes Entity X's *derived* classification from central-bank-related to commercial-counterparty. A linked risk update moves 39 → 76. The original source remains intact. A Bank Compliance challenge supports the 76 → 39 counterfactual. The Supervisory AI finding cites the exact classification, score, recommendation and mandate events.
+Source maturity and important qualifications are in [PUBLIC_SOURCES.md](PUBLIC_SOURCES.md). The synthetic failed-trade case is **not** a claim that any named firm, regulator or market has experienced this sequence.
+
+## Main show
+
+Ten audience beats: real financial activity → authority ladder → one failed trade → human-review overload → AI supervising AI and the right human loop → agentic transactions and predictive intervention → the one-fact counterfactual and AI challenge → runtime **ESCALATE** → correlated-agent research question → closing governance question. Presenter-controlled reveals sit *within* beats; the stage does not display ten dense dashboards.
+
+The important event, `EntityGraph/T-17`, is truly in the 486-event stream. It changes a *derived* classification from central-bank-related to commercial-counterparty. A linked score update moves **39 → 76**; an institutional challenge supports a **76 → 39** counterfactual. The original source is never overwritten. The Supervisory AI finding cites the exact classification, score, recommendation and mandate-boundary events. Evidence, trust controls and the complete run remain available in contextual drawers and export.
+
+The human-in-the-right-loop distinction is concrete: a person should not be asked to approve 486 undifferentiated machine actions. They should judge whether the material classification is valid and, if so, whether intervention is justified. The Supervisory AI is itself an **attention allocator**: its provenance, uncertainty, contestability, independence, disagreement, causal trace, reproducibility and limited authority are inspectable.
 
 ## Run locally
 
-Requires Node.js 20 or newer. No dependency install, live model, API key, market feed or external network access is needed.
+Requires Node.js 20 or newer. No installation, API key, live LLM, market feed or network connection is needed.
 
 ```sh
 npm run dev
 ```
 
-Open [http://127.0.0.1:4173](http://127.0.0.1:4173). If that port is already in use, stop the existing server or run `PORT=4174 npm run dev` and open port 4174. Stop the server with Ctrl-C.
+Open [http://127.0.0.1:4173](http://127.0.0.1:4173). If that port is occupied, use `PORT=4174 npm run dev`. Stop the server with Ctrl-C. Run `npm test` for deterministic scenario and presentation-state checks.
 
 | Control | Action |
 | --- | --- |
 | Right arrow / Space | Next reveal |
 | Left arrow | Previous reveal |
-| R | Replay the current animated reveal |
-| P | Pause or resume the current animation |
-| F | Enter or leave fullscreen |
-| Esc | Close a detail drawer |
-| Home | Reset the presentation |
+| R | Replay an animated reveal |
+| P | Pause or resume an animation |
+| F | Toggle fullscreen |
+| Esc | Close the detail drawer |
+| Home | Reset the show |
 
-The small on-screen arrows provide the same forward/back controls. The naive **AUTHORISE / REJECT** buttons are deliberately interactive: either leads to **ON WHAT BASIS?** and neither records approval. Contextual detail controls open original events, evidence, trust controls and the gate; the drawer can export the complete synthetic run.
+The discreet on-screen arrows work too. **AUTHORISE / REJECT** in the naive-review moment are interactive teaching controls: neither records approval; both lead to **ON WHAT BASIS?** Evidence controls appear only where relevant. The drawer exports the full synthetic run.
 
-## How it is built
+## Architecture and boundaries
 
-- [src/scenario.mjs](src/scenario.mjs) creates the deterministic run, causal event links, supervisory finding and runtime disposition.
-- [src/presentation.mjs](src/presentation.mjs) defines ten audience beats and their internal reveals.
-- [src/theatre.mjs](src/theatre.mjs) renders the stage, handles presenter input, replays the actual event stream and exposes drill-down evidence.
-- [styles.css](styles.css) supplies the dark, low-chrome projection layout. [scripts/dev-server.mjs](scripts/dev-server.mjs) serves local files with Node alone.
-- `npm test` runs the scenario and presentation-state checks.
+- [src/scenario.mjs](src/scenario.mjs): deterministic synthetic run, evidence links, causal reconstruction, counterfactual and authority gate.
+- [src/presentation.mjs](src/presentation.mjs): ten beats with internal presenter cues and non-executing naive-review logic.
+- [src/theatre.mjs](src/theatre.mjs): projection stage, actual event replay, keyboard controls and evidence drawer.
+- [styles.css](styles.css): dark, low-chrome 16:9 theatre; the main stage does not scroll at desktop projection size.
+- [tests/](tests/): trace, gate and presentation-state assertions. [scripts/dev-server.mjs](scripts/dev-server.mjs) uses Node alone.
 
-The gate separates a deterministic prohibited transaction from a probabilistic restriction proposal. In the main run, no rule has been breached. The proposed action exceeds autonomous mandate, concerns a material intervention and has disputed evidence, so it remains unexecuted and goes to a human. The human's task is to judge the reclassification and whether intervention is justified—not to approve 486 undifferentiated events.
+The runtime gate distinguishes a deterministic prohibited transaction from a probabilistic proposed restriction. In the main run, **no rule has been breached**, evidence is disputed and the simulated agent has recommendation—not execution—authority. **ESCALATE** means the restriction is not executed. The gate is a teaching model, not a legal decision engine or implementation of a public framework.
 
-## Evidence status and limits
+## Evidence maturity and limitations
 
-The main path is labelled **SYNTHETIC TEACHING SIMULATION** on screen. Future optional scenarios should carry explicit evidence-status labels: **LIVE PRODUCTION**, **LIVE PILOT**, **OFFICIAL PROTOTYPE**, **REGULATORY RESEARCH** or **SYNTHETIC STRESS TEST**. These labels describe evidence maturity; they are not claims about this demo.
+The evidence vocabulary distinguishes **LIVE PRODUCTION**, **LIVE PILOT**, **OFFICIAL PROTOTYPE**, **REGULATORY RESEARCH** and **SYNTHETIC TEACHING SIMULATION** across the stage and source notes. Commercial labels describe the linked public examples, not this software. The correlated-agent sell sequence is a research hypothesis, **not an observed production incident**. Metric gaming remains an optional future **SYNTHETIC RED-TEAM TEST**, not part of the main show.
 
-All entities, transactions, scores, predictions, timings and events here are invented. The 74% figure is illustrative, not a calibrated probability or regulatory threshold. The Supervisory AI is a deterministic simulated control, not a deployed independent model. Demo event fingerprints are stable identifiers, not cryptographic proof. No employer, regulator or public body endorses this implementation. It contains no real client or institution data and makes no claim of operational supervisory capability.
-
-## Public inspirations
-
-The concept is inspired by public work on SupTech, AI risk governance and financial stability, including the [BIS Financial Stability Institute's SupTech study](https://www.bis.org/publications/fsi-insight-37-suptech-tools-prudential-supervision-and-their-use-during-pandemic), the [NIST AI Risk Management Framework](https://www.nist.gov/itl/ai-risk-management-framework), and the [FSB's report on AI and financial stability](https://www.fsb.org/2024/11/fsb-assesses-the-financial-stability-implications-of-artificial-intelligence/). These are conceptual references, not specifications for this simulation or endorsements of it.
+All entities, transactions, scores, percentages, timings and case events in the core run are invented. The 74% prediction is illustrative, not calibrated analytics or a regulatory threshold. The Supervisory AI is deterministic simulated logic, not a live independent AI model. Event fingerprints are stable demo identifiers, not cryptographic proof. This repository contains no real transaction or client data, employer-confidential material or internal policy text. It is **not a production supervisory platform, legal or regulatory advice, or an endorsement by Broadridge, Standard Chartered, Sygnum, BIS, MAS, FSB, IOSCO, IMDA or any employer**.
 
 ## Licence and contributions
 
-No open-source licence has been selected or added. Public visibility alone does not make this an open-source release; [GitHub's licensing guidance](https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/licensing-a-repository) explains the distinction. Licence selection is an open project decision. Suggestions are welcome through issues; please do not include confidential information.
+No open-source licence has been selected. Public availability does not imply unrestricted reuse; see [GitHub's licensing guidance](https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/licensing-a-repository). Licence selection remains an explicit project decision. Suggestions are welcome through issues; do not submit confidential information.
 
-The [build contract](00_README.md), [storyboard](01_storyboard.md) and [evaluation plan](07_eval_harness.md) provide the full design rationale.
+For the underlying design intent, see the [build contract](00_README.md), [storyboard](01_storyboard.md) and [evaluation plan](07_eval_harness.md).

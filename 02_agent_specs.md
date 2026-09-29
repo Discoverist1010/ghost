@@ -1,6 +1,6 @@
 # Agent Specifications
 
-All roles below are simulated. Each action has an actor identity, mandate, input references and audit event. The 8-agent headline counts the active machine-activity instances in the flood: Sentinel, Investigator, Interpreter and the five named specialist sub-agents. They share 27 bounded sub-tasks, including parallel liquidity analysis, transaction clustering, provenance, regulatory mapping, confidence calibration, audit writing and institutional-response processing. Supervisory AI and Bank Compliance Agent enter after the burst and are not included in that count.
+All roles below are simulated. The run opens with one synthetic failed-trade exception and a related liquidity signal. The 8-agent headline counts machine-activity roles in the flood: Sentinel, Investigator, Interpreter and five named specialist sub-agents. They share 27 bounded sub-tasks, including liquidity analysis, transaction clustering, provenance, regulatory mapping, confidence calibration and audit writing. The presentation's eight branch labels are **workstreams mapped to task IDs**, not eight additional agent identities. Supervisory AI and Bank Compliance Agent enter after the burst and are not included in the eight.
 
 ## Sentinel Agent
 Role: continuously monitor synthetic transactions and risk signals.

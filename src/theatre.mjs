@@ -13,6 +13,7 @@ if (!finding?.sourceEventIds.includes(classification?.id) ||
 const stage = document.getElementById("stage");
 const beatCounter = document.getElementById("beatCounter");
 const announcer = document.getElementById("cueAnnouncement");
+const stageStatus = document.getElementById("stageStatus");
 const previousButton = document.getElementById("previousButton");
 const nextButton = document.getElementById("nextButton");
 const contextButton = document.getElementById("contextButton");
@@ -49,15 +50,25 @@ function button(label, action, className = "quiet-button") {
   return '<button type="button" class="' + className + '" data-action="' + action + '">' + label + "</button>";
 }
 
+function maturity(label, note = "") {
+  return '<p class="maturity"><span>' + escapeHTML(label) + '</span>' +
+    (note ? '<small>' + escapeHTML(note) + '</small>' : '') + '</p>';
+}
+
 function renderTree() {
-  const specialists = run.agents.slice(2, 7);
-  return '<div class="agent-tree">' +
-    '<div class="tree-lead"><div class="agent-node">SENTINEL</div><span>↓</span><div class="agent-node investigator">INVESTIGATOR</div></div>' +
-    '<div class="tree-branch-line" aria-hidden="true"></div>' +
-    '<div class="tree-specialists">' + specialists.map((agent, index) =>
-      '<div class="agent-node specialist" style="--delay:' + (index * 180) + 'ms">' + escapeHTML(agent.replace(/([a-z])([A-Z])/g, "$1 $2")) + "</div>"
-    ).join("") + "</div>" +
-    '<div class="tree-interpreter">+ INTERPRETER · parallel analysis and control tasks</div></div>';
+  const workstreams = [
+    ['TRADE DATA', 'T-09'], ['SETTLEMENT', 'T-11'], ['ENTITY GRAPH', 'T-17'],
+    ['CASH', 'T-14'], ['COUNTERPARTY', 'T-06'], ['MARKET RULE', 'T-07'],
+    ['DISCLOSURE', 'T-05'], ['AUDIT', 'T-24'],
+  ];
+  if (!workstreams.every(([, taskId]) => run.tasks.some((task) => task.id === taskId))) {
+    throw new Error('A displayed workstream is not linked to a synthetic task.');
+  }
+  return '<div class="exception-tree"><p class="tree-origin">1 FAILED TRADE</p>' +
+    '<div class="tree-stem" aria-hidden="true">↓</div><p class="tree-orchestrator">INVESTIGATOR</p>' +
+    '<div class="workstreams">' + workstreams.map(([label, taskId], index) =>
+      '<span style="--delay:' + (index * 120) + 'ms" data-task-id="' + taskId + '">' + label + '</span>'
+    ).join('') + '</div></div>';
 }
 
 function renderCausalChain() {
@@ -83,46 +94,55 @@ const trustQuestions = [
 ];
 
 const gateChecks = [
-  ["IDENTITY", run.gateInput.verifiedIdentity ? "Verified ✓" : "Unverified"],
-  ["MANDATE", run.gateInput.mandate === "recommend" ? "Recommend only" : run.gateInput.mandate],
+  ["IDENTITY", run.gateInput.identity + (run.gateInput.verifiedIdentity ? " · VERIFIED ✓" : " · UNVERIFIED")],
+  ["MANDATE", run.gateInput.mandate === "recommend" ? "Analytics + recommendation only" : run.gateInput.mandate],
   ["PROPOSED ACTION", run.gateInput.proposedAction === "restrict_activity" ? "Restrict liquidity activity" : run.gateInput.proposedAction],
   ["MATERIALITY", run.gateInput.materiality === "high" ? "High" : run.gateInput.materiality],
   ["EVIDENCE", run.gateInput.evidenceQuality === "disputed" ? "Disputed" : run.gateInput.evidenceQuality],
+  ["AUTONOMOUS EXECUTION AUTHORITY", gate.disposition === "ESCALATE" ? "INSUFFICIENT" : gate.disposition],
 ];
 
 function renderView(id) {
   switch (id) {
-    case "productivity":
+    case "reality":
       return wrap(id,
-        '<p class="stage-label">A familiar starting point</p>' +
-        '<h1 class="hero-verdict">AI HELPS HUMANS SUPERVISE</h1>' +
-        '<p class="evidence-inline">' + run.sourceCounts.filings + ' synthetic filings <span>·</span> ' +
-          run.sourceCounts.policySources + ' policy sources <span>·</span> ' +
-          run.sourceCounts.transactions.toLocaleString("en-US") + ' sample transactions</p>' +
-        '<p class="primary-line">Human still chooses what happens next.</p>', "calm");
-    case "sentinel":
+        '<h1 class="hero-verdict wide">AUTONOMOUS FINANCE IS MOVING FROM ANSWERS TO ACTIONS</h1>' +
+        maturity('PUBLIC ACTIVITY', 'Production, pilots and research are distinguished in the next reveal'), "centered");
+    case "reality-arcs":
       return wrap(id,
-        scoreFlow(run.scoreHistory[0].score, run.scoreHistory[1].score) +
-        '<p class="primary-line">Liquidity pattern changed.</p>' +
-        '<p class="support-line">Sentinel observed without waiting to be prompted.</p>', "centered");
-    case "investigator-score":
+        '<div class="arc-columns">' +
+          '<div><strong>CAPITAL MARKETS</strong><p>Agents investigate trade fails and operational exceptions.</p>' + maturity('LIVE PRODUCTION') + '</div>' +
+          '<div><strong>PAYMENTS / DIGITAL ASSETS</strong><p>Agents prepare or initiate financial transactions.</p>' + maturity('LIVE PILOT') + '</div>' +
+          '<div><strong>ASSET MANAGEMENT</strong><p>AI participates in research, portfolio decisions and execution.</p>' + maturity('REGULATORY RESEARCH') + '</div>' +
+        '</div>', "centered");
+    case "reality-authority":
       return wrap(id,
-        scoreFlow(run.scoreHistory[1].score, run.scoreHistory[2].score) +
-        '<p class="primary-line">Risk rises while entity context is still unknown.</p>' +
-        '<p class="support-line">The score is provisional.</p>', "centered");
-    case "investigator-checks":
+        '<h1 class="hero-verdict wide">THE NEXT QUESTION IS NOT WHETHER AI WILL BE USED.</h1>' +
+        '<p class="primary-line">It is what authority accompanies its use.</p>', "centered");
+    case "ladder":
       return wrap(id,
-        '<h1 class="hero-verdict">INVESTIGATOR CHOSE THE NEXT CHECKS</h1>' +
-        '<div class="spaced-terms"><span>ENTITY GRAPH</span><span>HISTORY</span><span>DISCLOSURES</span></div>' +
-        '<p class="support-line">No human selected the individual queries.</p>', "centered");
-    case "one-objective":
-      return wrap(id, '<h1 class="hero-verdict solitary">ONE OBJECTIVE</h1>', "centered");
+        '<div class="authority-ladder"><span>OBSERVE</span><i>↓</i><span>INVESTIGATE</span><i>↓</i><span>JUDGE</span><i>↓</i><span>ACT</span></div>', "centered");
+    case "ladder-meaning":
+      return wrap(id,
+        '<div class="ladder-meaning"><div><strong>OBSERVE</strong><span>Find · summarise · detect</span></div>' +
+        '<div><strong>INVESTIGATE</strong><span>Choose queries · tools · evidence</span></div>' +
+        '<div><strong>JUDGE</strong><span>Infer · recommend</span></div>' +
+        '<div><strong>ACT</strong><span>Execute · restrict · block</span></div></div>', "centered");
+    case "ladder-question":
+      return wrap(id,
+        '<h1 class="hero-verdict impact">AUTONOMOUS TO DO WHAT?</h1>' +
+        '<p class="primary-line">The question is how much authority accompanies intelligence.</p>', "centered");
+    case "failed-trade":
+      return wrap(id,
+        '<div class="hero-pair">' + number(run.caseContext.count, "cyan") + '<h1 class="hero-unit">FAILED TRADE</h1></div>' +
+        maturity('SYNTHETIC TEACHING SIMULATION', 'Pattern inspired by public asset-servicing examples'), "centered");
     case "agent-tree":
-      return wrap(id, renderTree(), "centered");
-    case "agent-count":
-      return wrap(id, number(run.agents.length, "cyan") + '<h1 class="hero-unit">AGENTS</h1>', "centered");
-    case "task-count":
-      return wrap(id, number(run.tasks.length, "cyan") + '<h1 class="hero-unit">SUB-TASKS</h1>', "centered");
+      return wrap(id, renderTree() + maturity('SYNTHETIC TEACHING SIMULATION', 'Workstreams map to tasks in the exported trace'), "centered");
+    case "exception-scale":
+      return wrap(id,
+        '<div class="dual-metric"><div>' + number(run.agents.length, "cyan") + '<span>AGENTS</span></div>' +
+        '<div>' + number(run.tasks.length, "cyan") + '<span>SUB-TASKS</span></div></div>' +
+        '<p class="support-line">One exception. Many autonomous actions.</p>', "centered");
     case "oversight-promise":
       return wrap(id,
         '<div class="assurance-lines"><p><span>✓</span> HUMAN OVERSIGHT ENABLED</p>' +
@@ -148,12 +168,14 @@ function renderView(id) {
     case "naive-basis":
       return wrap(id,
         '<h1 class="hero-verdict impact">ON WHAT BASIS?</h1>' +
-        '<p class="primary-line">Logged. Present. Auditable.</p>' +
-        '<p class="support-line">Cognitively out of reach.</p>', "centered");
+        '<p class="primary-line">Logged. Auditable. Theoretically reviewable.</p>' +
+        '<p class="support-line">But cognitively out of reach.</p>', "centered");
     case "compression-before":
       return wrap(id, number(run.events.length) + '<h1 class="hero-unit">EVENTS</h1>', "centered");
     case "compression-after":
-      return wrap(id, number(finding ? 1 : 0, "cyan") + '<h1 class="hero-unit">MATERIAL ISSUE</h1>', "centered compressed");
+      return wrap(id,
+        '<p class="compressed-source">' + run.events.length + ' EVENTS <span>→</span></p>' +
+        number(finding ? 1 : 0, "cyan") + '<h1 class="hero-unit">MATERIAL ISSUE</h1>', "centered compressed");
     case "causal-chain":
       return wrap(id, '<h1 class="stage-heading">THE CHAIN THAT MATTERS</h1>' + renderCausalChain(), "centered");
     case "human-decision":
@@ -161,67 +183,68 @@ function renderView(id) {
         '<h1 class="hero-verdict">HUMAN DECISION REQUIRED</h1>' +
         '<div class="decision-questions"><p>Is the Entity X reclassification valid?</p>' +
         '<p>If valid, is intervention justified?</p></div>' +
-        '<p class="support-line">Humans sit at boundaries of authority, not every boundary of computation.</p>', "centered");
-    case "three-loops":
+        '<p class="support-line">Humans at boundaries of authority, not every boundary of computation.</p>', "centered");
+    case "attention-question":
       return wrap(id,
-        '<div class="loop-bands">' +
-          '<div><strong>MACHINE ACTIVITY</strong><span>Queries · retrieval · tools · scoring</span><em>MACHINE SPEED</em></div>' +
-          '<div><strong>SUPERVISORY CONTROL</strong><span>AI watches agents, conflicts and boundaries</span><em>AI SUPERVISES AI</em></div>' +
-          '<div><strong>HUMAN AUTHORITY</strong><span>Material intervention · override · policy · legal judgement</span><em>HUMAN JUDGEMENT</em></div>' +
-        "</div>", "centered");
-    case "trust-question":
-      return wrap(id,
-        '<h1 class="hero-verdict">WHO SUPERVISES THE SUPERVISORY AI?</h1>' +
-        '<p class="pipeline">' + run.events.length + ' RAW EVENTS <span>→</span> SUPERVISORY AI <span>→</span> ' +
-        (finding ? 1 : 0) + ' ISSUE <span>→</span> HUMAN</p>', "centered");
+        '<p class="pipeline">' + run.events.length + ' EVENTS <span>→</span> SUPERVISORY AI <span>→</span> ' +
+        (finding ? 1 : 0) + ' ISSUE <span>→</span> HUMAN</p>' +
+        '<h1 class="hero-verdict impact">WHO DECIDED WHAT THE HUMAN SAW?</h1>', "centered");
     case "trust-questions":
       return wrap(id,
-        '<p class="stage-label">The attention allocator must be challengeable</p>' +
+        '<p class="stage-label">THE ATTENTION ALLOCATOR MUST BE CHALLENGEABLE</p>' +
         '<div class="trust-questions">' + trustQuestions.map(([title, question]) =>
           '<div><strong>' + title + "</strong><span>" + question + "</span></div>"
         ).join("") + "</div>", "centered");
-    case "bank-supervisory":
+    case "agentic-finance":
       return wrap(id,
-        '<p class="stage-label">SUPERVISORY AI</p>' +
-        '<h1 class="hero-verdict">ENTITY X = COMMERCIAL COUNTERPARTY</h1>', "centered");
-    case "bank-response":
-      return wrap(id,
-        '<p class="stage-label">BANK COMPLIANCE AGENT</p>' +
-        '<h1 class="hero-verdict">COUNTER-EVIDENCE RECEIVED</h1>', "centered");
-    case "bank-contested":
-      return wrap(id,
-        '<div class="broken-link"><span>ENTITY X CLASSIFICATION</span><i aria-hidden="true">╳</i><span>RESTRICTION</span></div>' +
-        '<h1 class="hero-verdict amber">SUPERVISORY FACT: CONTESTED</h1>' +
-        '<p class="support-line">Neither agent may rewrite source evidence.</p>', "centered");
-    case "risk-score":
-      return wrap(id,
-        number(run.scoreHistory[4].score, "amber") + '<h1 class="hero-unit">RISK COEFFICIENT</h1>', "centered");
+        '<h1 class="hero-verdict wide">AGENTS ARE MOVING CLOSER TO FINANCIAL ACTION</h1>' +
+        '<div class="action-terms"><span>PAYMENTS</span><span>DIGITAL ASSETS</span><span>TREASURY</span></div>' +
+        '<p class="support-line">Moving money or assets requires an authority model.</p>' +
+        maturity('LIVE PILOT', 'Examples are documented in PUBLIC_SOURCES.md'), "centered");
     case "risk-prediction":
       return wrap(id,
         '<div class="dual-metric"><div>' + number(run.scoreHistory[4].score) +
           '<span>RISK COEFFICIENT</span></div><div>' + number(run.prediction.percent + "%", "amber") +
-          '<span>PREDICTED MATERIAL EVENT</span></div></div>', "centered");
+          '<span>PREDICTED MATERIAL EVENT</span></div></div>' +
+          maturity('SYNTHETIC TEACHING SIMULATION', 'Illustrative values, not calibrated forecasts'), "centered");
     case "risk-proposal":
       return wrap(id,
         '<p class="stage-label">' + run.scoreHistory[4].score + ' RISK · ' + run.prediction.percent + '% PREDICTED MATERIAL EVENT</p>' +
         '<h1 class="hero-verdict">RECOMMEND: ENHANCED LIQUIDITY RESTRICTION</h1>', "centered");
     case "no-breach":
-      return wrap(id, '<h1 class="hero-verdict impact">NO RULE HAS BEEN BREACHED</h1>', "centered");
-    case "prediction-permission":
       return wrap(id,
-        '<h1 class="hero-verdict">PREDICTION ≠ PERMISSION</h1>' +
-        '<p class="support-line">Probabilistic pre-emption ≠ deterministic prevention.</p>', "centered");
+        '<h1 class="hero-verdict impact">NO RULE HAS BEEN BREACHED</h1>' +
+        '<p class="primary-line">PREDICTION ≠ PERMISSION</p>', "centered");
+    case "source-current":
+      return wrap(id,
+        '<p class="stage-label">DERIVED CLASSIFICATION · ' + escapeHTML(classification.actor + '/' + classification.taskId) + '</p>' +
+        '<h1 class="hero-verdict">ENTITY X: COMMERCIAL COUNTERPARTY</h1>' +
+        '<p class="primary-line">Risk ' + run.scoreHistory[4].score + '</p>', "centered");
+    case "source-challenge":
+      return wrap(id,
+        '<p class="stage-label">ORIGINAL SOURCE RECORD · ' + EVIDENCE.entityFiling.id + '</p>' +
+        '<h1 class="hero-verdict">ENTITY X IS CENTRAL-BANK-RELATED</h1>' +
+        '<p class="support-line">The derived classification conflicts with its source.</p>', "centered");
     case "counterfactual":
       return wrap(id,
-        scoreFlow(run.scoreHistory[4].score, run.scoreHistory[5].score) +
-        '<p class="support-line">Entity X restored to central-bank-related.</p>', "centered");
+        scoreFlow(run.counterfactual.before, run.counterfactual.after) +
+        '<p class="support-line">Entity X restored to the source classification.</p>', "centered");
     case "one-fact":
       return wrap(id,
         '<h1 class="hero-verdict">ONE FACT CHANGED</h1>' +
-        '<p class="primary-line">Same rules. Same model. Different fact.</p>', "centered");
+        '<p class="primary-line">Same model. Same rules. Different fact.</p>', "centered");
+    case "bank-response":
+      return wrap(id,
+        '<p class="stage-label">BANK COMPLIANCE AGENT</p>' +
+        '<h1 class="hero-verdict">COUNTER-EVIDENCE SUBMITTED</h1>', "centered");
+    case "bank-contested":
+      return wrap(id,
+        '<h1 class="hero-verdict amber">SUPERVISORY FACT: CONTESTED</h1>' +
+        '<p class="primary-line">AI may challenge AI.</p>' +
+        '<p class="support-line">Neither gets to rewrite the evidence.</p>', "centered");
     case "gate-run":
       return wrap(id,
-        '<h1 class="stage-heading">RUNTIME AUTHORITY</h1>' +
+        '<h1 class="stage-heading">RUNTIME AUTHORITY CHECK</h1>' +
         '<div class="gate-steps">' + gateChecks.map(([label, value]) =>
           '<div class="gate-step"><span>' + label + "</span><strong>" + value + "</strong></div>"
         ).join("") + "</div>" +
@@ -230,7 +253,22 @@ function renderView(id) {
       return wrap(id,
         '<h1 class="hero-verdict mega amber">' + gate.disposition + "</h1>" +
         '<p class="primary-line">RESTRICTION NOT EXECUTED</p>' +
-        '<p class="support-line">High confidence does not manufacture authority.</p>', "centered");
+        '<p class="support-line">Confidence does not create authority.</p>', "centered");
+    case "correlated-context":
+      return wrap(id,
+        '<h1 class="hero-verdict">CORRELATED AGENT DECISIONS</h1>' +
+        '<p class="primary-line">What if many agents make the same valid choice?</p>' +
+        maturity('REGULATORY RESEARCH', 'BIS Project Logos examines this question in simulation'), "centered");
+    case "correlated-agents":
+      return wrap(id,
+        '<div class="portfolio-lines">' + ['A', 'B', 'C', 'D', 'E'].map((agent, index) =>
+          '<div style="--delay:' + (index * 160) + 'ms"><span>PORTFOLIO AGENT ' + agent + '</span><strong>SELL →</strong><em>WITHIN MANDATE</em></div>'
+        ).join('') + '</div>' + maturity('RESEARCH HYPOTHESIS', 'Illustrative, not an observed production event'), "centered");
+    case "correlated-outcome":
+      return wrap(id,
+        '<div class="system-effects"><span>MARKET LIQUIDITY ↓</span><span>SETTLEMENT DEMAND ↑</span><span>COLLATERAL PRESSURE ↑</span></div>' +
+        '<h1 class="hero-verdict amber">NO AGENT FAILED. THE SYSTEM CHANGED.</h1>' +
+        maturity('REGULATORY RESEARCH', 'A systemic question, not a reported incident'), "centered");
     case "ghost-supervisor":
       return wrap(id, '<h1 class="hero-verdict impact">WHO IS THE SUPERVISOR?</h1>', "centered");
     case "ghost-loop":
@@ -246,10 +284,15 @@ function renderView(id) {
 }
 
 const detailActions = {
+  "failed-trade": ["Inspect synthetic case", "open-evidence"],
+  "agent-tree": ["Inspect synthetic case", "open-evidence"],
   "causal-chain": ["Inspect original event", "open-source"],
   "human-decision": ["Inspect and record decision", "open-review"],
-  "trust-question": ["Inspect trust controls", "open-trust"],
+  "attention-question": ["Inspect trust controls", "open-trust"],
   "trust-questions": ["Inspect trust controls", "open-trust"],
+  "source-current": ["Inspect source evidence", "open-source"],
+  "source-challenge": ["Inspect source evidence", "open-source"],
+  "counterfactual": ["Inspect source evidence", "open-source"],
   "bank-contested": ["Inspect source evidence", "open-source"],
   "gate-run": ["Inspect gate rule", "open-gate"],
   "escalate": ["Inspect gate and export", "open-gate"],
@@ -269,6 +312,10 @@ function renderCue() {
   const cue = currentCue(presentation);
   stage.dataset.cue = cue.id;
   stage.innerHTML = renderView(cue.id);
+  stageStatus.textContent = cue.beat === 10 ? '' : cue.beat === 1 || cue.id === 'agentic-finance' ?
+    'PUBLIC SOURCE CONTEXT' : cue.beat === 2 ? 'AUTHORITY FRAMEWORK' :
+    cue.beat === 9 ? 'REGULATORY RESEARCH' : 'SYNTHETIC TEACHING SIMULATION';
+  document.querySelector('.app-shell').classList.toggle('is-closing', cue.beat === 10);
   beatCounter.textContent = "BEAT " + cue.beat + "/" + BEATS.length;
   announcer.textContent = "Beat " + cue.beat + ": " + BEATS[cue.beat - 1] + ". " + cue.id.replaceAll("-", " ");
   previousButton.disabled = presentation.cueIndex === 0;
@@ -488,6 +535,7 @@ function drawerContent(kind) {
     title: "Replay evidence",
     body: "<p>This is one deterministic synthetic run. The stage counters, original log, supervisory finding and gate all refer to the same data.</p>" +
       detailBlock("Run", run.id + " · version " + run.version) +
+      detailBlock("Opening exception", run.caseContext.count + " " + run.caseContext.exception + " · " + run.caseContext.openingEventId + " · " + run.caseContext.context) +
       detailBlock("Scale", run.agents.length + " agents · " + run.tasks.length + " sub-tasks · " + run.events.length + " events · " + (run.events.at(-1).atMs / 1000).toFixed(1) + " simulated seconds") +
       detailBlock("Material event", finding.sourceEventIds[0] + ": " + classification.summary) +
       detailBlock("Causal event IDs", finding.sourceEventIds.join(" → ")) +

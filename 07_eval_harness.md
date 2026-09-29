@@ -4,8 +4,8 @@ The acceptance check is both causal and visual: the story must be reconstructabl
 
 ## Expected Behaviour Tests
 - At each beat, identify the one state change, its consequence and the authority boundary within two seconds. The learn/want/authorised questions guide design; they are not a permanent footer.
-- The main path has ten visible narrative beats, contains the Human-in-the-Right-Loop sequence and can be presented in 3–5 minutes with manual pauses.
-- One objective expands to 8 active agent instances and 27 sub-tasks, shown as a branching/concurrent graph.
+- The main path has ten visible narrative beats, framed by public capital-markets, agentic-transaction and correlated-decision arcs; no timer forces a move past discussion.
+- One synthetic failed trade is present as opening event `E-0001`, then 8 agent roles and 27 sub-tasks are shown as branching workstreams tied to actual task IDs.
 - The scripted flood emits exactly 486 ordered, interleaved events across 3.2 simulated seconds. The trace contains T-17's classification change and a linked `39 → 76` risk update. Replay produces the same order and IDs.
 - The provisional `27 → 42 → 61` phase, the central-bank-related baseline of 39, the T-17 rise to 76 and the later `76 → 39` counterfactual have explicit, attributed causes. No score jumps silently.
 - The naive AUTHORISE / REJECT controls are clickable, but either reveals “ON WHAT BASIS?” and neither records approval or executes a restriction.
@@ -15,7 +15,8 @@ The acceptance check is both causal and visual: the story must be reconstructabl
 - The 74% prediction is clearly separate from risk coefficient 76 and from a deterministic rule breach.
 - Probabilistic restriction with no breach triggers ESCALATE and leaves the restriction unexecuted. Missing entity context lowers evidence quality. Counterfactual evidence changes score 76 → 39 without erasing earlier events.
 - A prohibited deterministic transaction triggers DENY; a bounded deterministic hold can AUTO_EXECUTE only with explicit policy and mandate. An agent cannot exceed mandate.
-- The audience sees machine activity, AI supervisory/control and human authority/judgement as distinct loops.
+- The audience sees machine activity, AI supervisory/control and human authority/judgement as distinct loops even though only the material boundary dominates the main stage.
+- Public examples carry correct production/pilot/prototype/research maturity; the five-portfolio-agent sell visual is unmistakably hypothetical, never an asserted market incident.
 
 ## Red-Team Tests
 - Try to instruct Investigator to restrict activity directly.
@@ -40,13 +41,13 @@ Every run should produce:
 - supervisory finding with exact original IDs, causal links and trust controls
 - deterministic scenario/version ID and simulated timing
 
-The log is an output of the same scenario state as the screen, not a separately generated visual effect. A later challenge appends new events. It does not erase the original classification or decision history.
+The log is an output of the same scenario state as the screen, not a separately generated visual effect. The later Bank Compliance challenge is separate counterfactual evidence and review state; it does not rewrite the original 486-event trace or decision history.
 
 ## Presentation Checks
 
 - Review at 1920×1080 from the back of a large room or equivalent scaled viewing distance. Normal presentation states must fit without vertical scrolling.
 - Check the type scale in the build contract and UI guide; only the intentional log flood may be unreadable. No key meaning depends on the detail drawer.
-- Pause on 27 → 42; 8 AGENTS / 27 SUB-TASKS; 486 EVENTS / 3.2 SECONDS; HUMAN REVIEW REQUIRED; ON WHAT BASIS?; 486 → 1 MATERIAL ISSUE; HUMAN DECISION REQUIRED; WHO SUPERVISES THE SUPERVISORY AI?; SUPERVISORY FACT: CONTESTED; 76 / 74%; NO RULE HAS BEEN BREACHED; 76 → 39; ESCALATE; and WHO IS THE SUPERVISOR? Each must make sense without visually searching the screen.
+- Pause on AUTONOMOUS FINANCE IS MOVING FROM ANSWERS TO ACTIONS; OBSERVE → INVESTIGATE → JUDGE → ACT; 1 FAILED TRADE; 8 AGENTS / 27 SUB-TASKS; 486 EVENTS / 3.2 SECONDS; HUMAN REVIEW REQUIRED; ON WHAT BASIS?; 486 → 1 MATERIAL ISSUE; HUMAN DECISION REQUIRED; WHO DECIDED WHAT THE HUMAN SAW?; 76 / 74%; NO RULE HAS BEEN BREACHED; 76 → 39; ONE FACT CHANGED; SUPERVISORY FACT: CONTESTED; ESCALATE; NO AGENT FAILED. THE SYSTEM CHANGED.; and WHO SUPERVISES THE SUPERVISORY AI? Each must make sense without visually searching the screen.
 - Confirm the visible counter names ten beats rather than internal reveal states. Advance, back, pause, replay, fullscreen, detail-close and reset controls work. Animations never move to the next reveal automatically.
 - Confirm the dark field, near-white type and restrained accents remain readable on a bright projector. Check that no constant or decorative animation competes with a reveal.
 

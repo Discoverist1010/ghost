@@ -109,17 +109,26 @@ function makeRoutineEvent(index, tasks) {
 }
 
 function replaceEvent(events, index, details) {
-  events[index] = { ...events[index], ...details };
+  const event = { ...events[index], ...details };
+  events[index] = {
+    ...event,
+    inputHash: fingerprint(`${index}:${event.taskId}:${event.actor}`),
+    outputHash: fingerprint(`${index}:${event.summary}`),
+  };
 }
 
 export function buildRun() {
   const tasks = makeTasks();
   const events = Array.from({ length: 486 }, (_, index) => makeRoutineEvent(index, tasks));
 
+  replaceEvent(events, 0, {
+    actor: 'Sentinel', taskId: 'T-01', kind: 'SETTLEMENT_EXCEPTION_REPORTED',
+    summary: 'One synthetic failed trade opened; related liquidity pattern flagged for investigation',
+  });
   replaceEvent(events, 31, {
     actor: 'DisclosureReview', taskId: 'T-05', kind: 'BASELINE_CONFIRMED',
     summary: 'Entity X central-bank-related baseline confirmed; risk 61 → 39',
-    before: 61, after: 39, evidenceIds: [EVIDENCE.entityFiling.id],
+    before: 61, after: 39, parentIds: [eventId(0)], evidenceIds: [EVIDENCE.entityFiling.id],
   });
   replaceEvent(events, 237, {
     actor: 'EntityGraph', taskId: 'T-17', kind: 'CLASSIFICATION_CHANGED',
@@ -155,7 +164,7 @@ export function buildRun() {
   ];
 
   const gateInput = {
-    verifiedIdentity: true,
+    identity: 'Sentinel-04', verifiedIdentity: true,
     mandate: 'recommend',
     proposedAction: 'restrict_activity',
     materiality: 'high',
@@ -168,7 +177,11 @@ export function buildRun() {
 
   return {
     id: 'GHOST-MAIN-001', version: '1.0', synthetic: true,
-    objective: 'Assess synthetic liquidity anomaly involving Entity X',
+    objective: 'Investigate a synthetic failed trade and its related liquidity signal involving Entity X',
+    caseContext: {
+      exception: 'failed trade', count: 1, openingEventId: eventId(0),
+      context: 'Synthetic asset-servicing exception; not an observed industry incident',
+    },
     sourceCounts: { filings: 24, policySources: 8, transactions: 1240 },
     agents: [...AGENTS], tasks, events, evidence: Object.values(EVIDENCE),
     scoreHistory, gateInput,
@@ -227,10 +240,19 @@ export function evaluateGate(input) {
 export function validateRun(run) {
   const uniqueIds = new Set(run.events.map((event) => event.id));
   const finding = supervise(run.events);
-  return run.synthetic === true && run.agents.length === 8 && run.tasks.length === 27 &&
+  const baseline = run.events.find((event) => event.kind === 'BASELINE_CONFIRMED');
+  const classification = run.events.find((event) => event.kind === 'CLASSIFICATION_CHANGED');
+  return run.synthetic === true && run.caseContext?.openingEventId === run.events[0]?.id &&
+    run.events[0]?.kind === 'SETTLEMENT_EXCEPTION_REPORTED' &&
+    baseline?.parentIds.includes(run.caseContext.openingEventId) &&
+    classification?.parentIds.includes(baseline.id) &&
+    run.agents.length === 8 && run.tasks.length === 27 &&
     run.events.length === 486 && uniqueIds.size === 486 &&
     run.events[0].atMs === 0 && run.events.at(-1).atMs === 3200 &&
-    run.events.every((event, index) => event.sequence === index + 1 && event.atMs >= (run.events[index - 1]?.atMs ?? 0)) &&
+    run.events.every((event, index) => event.sequence === index + 1 &&
+      event.atMs >= (run.events[index - 1]?.atMs ?? 0) &&
+      event.inputHash === fingerprint(`${index}:${event.taskId}:${event.actor}`) &&
+      event.outputHash === fingerprint(`${index}:${event.summary}`)) &&
     finding?.sourceEventIds.length === 4 &&
     evaluateGate(run.gateInput).disposition === 'ESCALATE';
 }
