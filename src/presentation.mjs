@@ -13,19 +13,16 @@ export const BEATS = Object.freeze([
 export const CUES = Object.freeze([
   { id: 'opening', steps: ['answers-to-actions', 'authority-ladder'] },
   { id: 'operations', steps: ['failed-trade', 'oversight-promise', 'event-flood', 'naive-review', 'naive-basis'] },
-  { id: 'supervision', steps: ['material-issue', 'attention-reliance'] },
-  { id: 'prediction', steps: ['agentic-finance', 'predictive-case', 'no-breach'] },
-  { id: 'material-case', steps: ['classification', 'risk-change', 'recommendation', 'source-challenge', 'bank-challenge', 'counterfactual'] },
+  { id: 'supervision', steps: ['material-issue'] },
+  { id: 'prediction', steps: ['predictive-case', 'no-breach'] },
+  { id: 'material-case', steps: ['causal-explanation', 'source-challenge', 'counterfactual'] },
   { id: 'authority', steps: ['human-decision', 'gate-run', 'escalate'] },
   { id: 'systemic', steps: ['correlated-agents', 'correlated-outcome'] },
   { id: 'ghost', steps: ['who-supervises', 'right-loop', 'supervisory-ai'] },
 ]);
 
 export const CASE_ACTIONS = Object.freeze([
-  'SHOW CONSEQUENCE',
-  'SHOW RECOMMENDATION',
   'CHECK SOURCE',
-  'SHOW CHALLENGE',
   'RUN COUNTERFACTUAL',
   'HUMAN DECISION',
 ]);

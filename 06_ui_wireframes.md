@@ -10,22 +10,20 @@ Design for 1920×1080 projection in a large conference room. The screen should f
 - Primary conclusions: approximately 34–48px.
 - Supporting text that must be read: at least approximately 26–30px.
 - Presenter button text: approximately 22–26px or larger, with large targets and clear focus states.
-- The deliberately unreadable audit stream is the sole exception; its material event appears later at full scale.
+- The deliberately unreadable audit stream is the sole exception; the material event's consequence appears later at full scale, while the event ID remains in Evidence.
 
 Use a deep navy / near-black field, near-white type, restrained cyan for observation, amber for authority/escalation and red only for genuine denial or danger. Pair color with words; color alone does not carry the meaning. Presentation mode has no vertical scroll at 1920×1080. A small corner control shows only Back, the current beat out of eight, and Next. Contextual detail controls appear only when the story needs them.
 
-## Ten audience beats
+## Eight audience beats
 
-1. **Reality first:** autonomous finance is moving from answers to actions; three widely separated public arcs with evidence-maturity labels.
-2. **Authority ladder:** OBSERVE → INVESTIGATE → JUDGE → ACT; end on “AUTONOMOUS TO DO WHAT?”
-3. **Capital-markets exception:** “1 FAILED TRADE,” workstreams branching from Investigator, then “8 AGENTS / 27 SUB-TASKS.” The case is explicitly synthetic.
-4. **Human-loop overload:** reassuring governance claims, actual 486-event flood in 3.2 seconds, then “HUMAN REVIEW REQUIRED / 486 EVENTS.” AUTHORISE / REJECT reveals “ON WHAT BASIS?” and records no approval.
-5. **Right loop:** “486 EVENTS → 1 MATERIAL ISSUE,” four linked causal steps, two specific human questions, then “WHO DECIDED WHAT THE HUMAN SAW?” Only provenance, uncertainty and contestability are on stage.
-6. **Agentic transactions:** payments/digital assets/treasury context, 76 and 74%, proposed restriction, then a near-empty “NO RULE HAS BEEN BREACHED / PREDICTION ≠ PERMISSION.”
-7. **One disputed fact:** commercial derived classification versus central-bank-related source; “76 → 39,” “ONE FACT CHANGED,” Bank Compliance counter-evidence and “SUPERVISORY FACT: CONTESTED.”
-8. **Runtime authority:** six checks arrive sequentially before a separate “ESCALATE / RESTRICTION NOT EXECUTED” state.
-9. **Correlated decisions:** five hypothetical portfolio agents each sell within mandate; aggregate pressure yields “NO AGENT FAILED. THE SYSTEM CHANGED.” Label as regulatory research, not an incident.
-10. **The ghost:** one closing beat with sequential questions: “WHO IS THE SUPERVISOR?”, “WHERE IS THE RIGHT LOOP?”, “WHO SUPERVISES THE SUPERVISORY AI?”
+1. **From answers to actions:** autonomous finance moves from answers to actions; operations, transactions and portfolios are signposts. OBSERVE → INVESTIGATE → JUDGE → ACT leads to “AUTONOMOUS TO DO WHAT?”
+2. **Agents help — humans lose the thread:** “1 FAILED TRADE” branches into specialist workstreams and “8 AGENTS / 27 SUB-TASKS.” Reassuring oversight claims meet the actual 486-event flood in 3.2 seconds. AUTHORISE / REJECT reveals “ON WHAT BASIS?” without recording approval.
+3. **AI supervises AI:** “486 EVENTS → 1 MATERIAL ISSUE” compresses the flood. “WHO DECIDED WHAT THE HUMAN SAW?” exposes the reliance problem. Entity X remains hidden; provenance, uncertainty and contestability are subdued or in Evidence.
+4. **Prediction is not permission:** payments / digital assets / treasury context shares one state with 76 risk, 74% illustrative prediction and the proposed restriction. The next state clears to “NO RULE HAS BEEN BREACHED / PREDICTION ≠ PERMISSION.”
+5. **One fact changes the case:** a single stage has three presenter states. “WHY 76?” animates classification → risk → recommendation within one click; “CHECK SOURCE” brings in the central-bank-related record and Bank Compliance counter-evidence without changing the score; “RUN COUNTERFACTUAL” visibly collapses 76 → 39 while the recommendation retracts.
+6. **The right loop / authority:** two specific human questions follow immediately. Four grouped gate checks—identity + mandate, action + materiality, evidence, execution authority—lead to the only main-path “ESCALATE / RESTRICTION NOT EXECUTED.”
+7. **When correct agents become a system:** five hypothetical portfolio agents each sell within mandate; aggregate pressure yields “NO AGENT FAILED. THE SYSTEM CHANGED.” Label as regulatory research, not an incident.
+8. **The ghost:** one closing beat with sequential questions: “WHO IS THE SUPERVISOR?”, “WHERE IS THE RIGHT LOOP?”, “WHO SUPERVISES THE SUPERVISORY AI?”
 
 ## Secondary views and controls
 

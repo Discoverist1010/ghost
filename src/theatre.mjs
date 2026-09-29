@@ -84,31 +84,32 @@ export function renderMaterialCase(step) {
   const after = escapeHTML(riskEvent.after);
   const counterfactual = escapeHTML(run.counterfactual.after);
   const scenes = [
-    '<div class="case-classification"><p class="case-kicker">ENTITY X · DERIVED CLASSIFICATION</p><strong class="case-prior">' + prior + '</strong><span class="case-down" aria-hidden="true">↓</span><strong class="case-derived">' + derived + '</strong></div>',
-    '<div class="case-risk"><p class="case-kicker">RISK</p><div class="case-number-shift"><strong class="case-number-before">' + before + '</strong><span aria-hidden="true">→</span><strong class="case-number-after">' + after + '</strong></div><p class="case-explanation">ONE CLASSIFICATION MATERIALLY CHANGED THE ASSESSMENT.</p><p class="case-quiet-fact">ENTITY X · ' + derived + '</p></div>',
-    '<div class="case-recommendation"><p class="case-kicker">AI RECOMMENDS</p><strong>ENHANCED LIQUIDITY<br>RESTRICTION</strong><p class="case-consequence">ENTITY X CLASSIFIED <span>↓</span> RISK ' + before + ' → ' + after + ' <span>↓</span> RESTRICTION RECOMMENDED</p></div>',
-    '<div class="case-source"><div><p class="case-kicker">SYSTEM DERIVED CLASSIFICATION</p><strong>' + derived + '</strong></div><div class="case-source-record"><p class="case-kicker">SOURCE RECORD</p><strong>' + prior + '</strong></div><p class="case-contested">FACT CONTESTED</p></div>',
-    '<div class="case-bank"><p class="case-kicker">BANK COMPLIANCE AGENT</p><strong>COUNTER-EVIDENCE SUBMITTED</strong><p class="case-contested">SUPERVISORY FACT: CONTESTED</p><p class="case-append">ORIGINAL INFERENCE RETAINED <span>+</span> COUNTER-EVIDENCE APPENDED</p><p class="case-bank-lesson">AI MAY CHALLENGE AI. NEITHER REWRITES THE EVIDENCE.</p></div>',
-    '<div class="case-collapse"><p class="case-kicker">SOURCE RECORD · ' + prior + '</p><div class="case-collapse-numbers"><strong class="case-collapse-old">' + escapeHTML(run.counterfactual.before) + '</strong><span aria-hidden="true">↓</span><strong class="case-collapse-new">' + counterfactual + '</strong></div><p class="case-retracted">ENHANCED LIQUIDITY RESTRICTION · BASIS CHALLENGED</p><strong class="case-one-fact">ONE FACT CHANGED.</strong><p class="case-same"><span>SAME MODEL.</span><span>SAME RULES.</span><span>DIFFERENT FACT.</span></p></div>',
+    '<div class="case-causal"><h1>WHY ' + after + '?</h1>' +
+      '<div class="case-causal-classification"><span>ENTITY X · DERIVED CLASSIFICATION</span><p>' + prior + ' <i aria-hidden="true">↓</i> <strong>' + derived + '</strong></p></div>' +
+      '<div class="case-causal-score">' + before + ' <span>→</span> ' + after + '</div>' +
+      '<p class="case-causal-proposal">ENHANCED LIQUIDITY RESTRICTION<br>RECOMMENDED</p></div>',
+    '<div class="case-source"><div class="case-system-fact"><p class="case-kicker">SYSTEM DERIVED CLASSIFICATION</p><strong>' + derived + '</strong></div>' +
+      '<div class="case-source-record"><p class="case-kicker">SOURCE RECORD</p><strong>' + prior + '</strong></div>' +
+      '<div class="case-institution"><span>BANK COMPLIANCE AGENT</span><strong>COUNTER-EVIDENCE SUBMITTED</strong>' +
+      '<small>ORIGINAL INFERENCE RETAINED <i>+</i> COUNTER-EVIDENCE APPENDED</small></div>' +
+      '<p class="case-contested">FACT CONTESTED</p><p class="case-subtle">AI MAY CHALLENGE AI. NEITHER REWRITES THE EVIDENCE.</p></div>',
+    '<div class="case-counterfactual"><div class="cf-facts"><span class="cf-derived">' + derived + '</span><strong class="cf-source">' + prior + '</strong></div>' +
+      '<div class="cf-score"><strong class="cf-old">' + escapeHTML(run.counterfactual.before) + '</strong><span aria-hidden="true">↓</span><strong class="cf-new">' + counterfactual + '</strong></div>' +
+      '<p class="cf-recommendation">ENHANCED LIQUIDITY RESTRICTION <span>BASIS CHALLENGED</span></p>' +
+      '<h1 class="cf-one">ONE FACT CHANGED.</h1>' +
+      '<p class="cf-same"><span>SAME MODEL.</span><span>SAME RULES.</span><span>SAME OTHER EVIDENCE.</span><span>DIFFERENT FACT.</span></p></div>',
   ];
   return '<div class="case-stage" data-case-step="' + step + '"><div class="case-visual" aria-live="polite">' + scenes[step] + '</div>' +
     '<div class="case-controls">' + button(CASE_ACTIONS[step] + ' →', 'next', 'case-primary') +
-    button('EVIDENCE', 'open-source', 'case-secondary') + button('RESET', 'reset-beat', 'case-secondary') + '</div></div>';
+    (step === 2 ? button('REPLAY', 'replay', 'case-secondary') : button('EVIDENCE', 'open-source', 'case-secondary')) +
+    button('RESET', 'reset-beat', 'case-secondary') + '</div></div>';
 }
 
-const trustQuestions = [
-  ["PROVENANCE", "Can I see what it used?"],
-  ["UNCERTAINTY", "What might be wrong?"],
-  ["CONTESTABILITY", "Can I challenge it?"],
-];
-
 const gateChecks = [
-  ["IDENTITY", run.gateInput.identity + (run.gateInput.verifiedIdentity ? " · VERIFIED ✓" : " · UNVERIFIED")],
-  ["MANDATE", run.gateInput.mandate === "recommend" ? "Analytics + recommendation only" : run.gateInput.mandate],
-  ["PROPOSED ACTION", run.gateInput.proposedAction === "restrict_activity" ? "Restrict liquidity activity" : run.gateInput.proposedAction],
-  ["MATERIALITY", run.gateInput.materiality === "high" ? "High" : run.gateInput.materiality],
-  ["EVIDENCE", run.gateInput.evidenceQuality === "disputed" ? "Disputed" : run.gateInput.evidenceQuality],
-  ["AUTONOMOUS EXECUTION AUTHORITY", gate.disposition === "ESCALATE" ? "INSUFFICIENT" : gate.disposition],
+  ["IDENTITY + MANDATE", run.gateInput.verifiedIdentity && run.gateInput.mandate === "recommend" ? "VERIFIED ✓ · RECOMMEND ONLY" : "NOT VERIFIED"],
+  ["ACTION + MATERIALITY", run.gateInput.proposedAction === "restrict_activity" && run.gateInput.materiality === "high" ? "RESTRICT LIQUIDITY · HIGH" : "CHECK PROPOSAL"],
+  ["EVIDENCE", run.gateInput.evidenceQuality.toUpperCase()],
+  ["EXECUTION AUTHORITY", gate.disposition === "ESCALATE" ? "INSUFFICIENT" : gate.disposition],
 ];
 
 export function renderView(id, step) {
@@ -148,23 +149,13 @@ export function renderView(id, step) {
         '<p class="primary-line">Logged. Auditable. Theoretically reviewable.</p>' +
         '<p class="support-line">BUT COGNITIVELY OUT OF REACH.</p>', "centered");
     case "supervision":
-      if (step === 0) return wrap(id,
-        '<div class="case-compression"><div><strong>' + run.events.length + '</strong><span>EVENTS</span></div><i aria-hidden="true">↓</i><div class="case-compression-result"><strong>1</strong><span>MATERIAL ISSUE</span></div></div>' +
-        '<p class="issue-hint">ENTITY X CLASSIFICATION MATERIALLY CHANGED</p>' +
-        '<p class="support-line">SUPERVISORY AI CAN HELP HUMANS.</p>', "centered");
       return wrap(id,
-        '<p class="pipeline">' + run.events.length + ' EVENTS <span>→</span> SUPERVISORY AI <span>→</span> 1 ISSUE <span>→</span> HUMAN</p>' +
-        '<h1 class="hero-verdict">WHO DECIDED WHAT THE HUMAN SAW?</h1>' +
-        '<div class="trust-questions">' + trustQuestions.map(([title, question]) =>
-          '<div><strong>' + title + "</strong><span>" + question + "</span></div>"
-        ).join("") + "</div>", "centered");
+        '<div class="case-compression"><div><strong>' + run.events.length + '</strong><span>EVENTS</span></div><i aria-hidden="true">↓</i><div class="case-compression-result"><strong>1</strong><span>MATERIAL ISSUE</span></div></div>' +
+        '<h1 class="supervision-question">WHO DECIDED WHAT THE HUMAN SAW?</h1>' +
+        '<p class="supervision-trust">PROVENANCE <span>·</span> UNCERTAINTY <span>·</span> CONTESTABILITY</p>', "centered");
     case "prediction":
       if (step === 0) return wrap(id,
-        '<h1 class="hero-verdict wide">AGENTS ARE MOVING CLOSER TO FINANCIAL ACTION</h1>' +
-        '<div class="action-terms"><span>PAYMENTS</span><span>DIGITAL ASSETS / STABLECOINS</span><span>TREASURY / LIQUIDITY</span></div>' +
-        '<p class="support-line">Moving money or assets requires an authority model.</p>' +
-        maturity('LIVE PILOT / OFFICIAL PROTOTYPE', 'See public source notes'), "centered");
-      if (step === 1) return wrap(id,
+        '<p class="prediction-context">AGENTIC PAYMENTS · DIGITAL ASSETS · TREASURY <small>PUBLIC CONTEXT: LIVE / PILOT / OFFICIAL PROTOTYPE</small></p>' +
         '<div class="prediction-metrics"><div><strong>' + run.scoreHistory[4].score + '</strong><span>RISK COEFFICIENT</span></div>' +
         '<div><strong>' + run.prediction.percent + '%</strong><span>PREDICTED MATERIAL EVENT</span></div></div>' +
         '<p class="prediction-recommendation">RECOMMEND: ENHANCED LIQUIDITY RESTRICTION</p>' +
@@ -320,7 +311,7 @@ function startFlood() {
 }
 
 function updateGate(elapsed) {
-  const shown = Math.min(gateChecks.length, Math.floor(elapsed / 570) + 1);
+  const shown = Math.min(gateChecks.length, Math.floor(elapsed / 650) + 1);
   document.querySelectorAll(".gate-step").forEach((element, index) => {
     element.classList.toggle("revealed", index < shown);
   });
@@ -329,7 +320,7 @@ function updateGate(elapsed) {
 
 function gateTick(now) {
   if (!gateState || paused) return;
-  const duration = 2850;
+  const duration = 2300;
   const elapsed = Math.min(duration, gateState.elapsed + now - gateState.startedAt);
   updateGate(elapsed);
   if (elapsed < duration) gateState.requestId = requestAnimationFrame(gateTick);
@@ -342,15 +333,15 @@ function gateTick(now) {
 function startGate() {
   gateState = { startedAt: performance.now(), elapsed: 0, requestId: null };
   if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
-    updateGate(2850);
-    gateState.elapsed = 2850;
+    updateGate(2300);
+    gateState.elapsed = 2300;
   } else {
     gateState.requestId = requestAnimationFrame(gateTick);
   }
 }
 
 function pauseOrResume() {
-  if (!["event-flood", "gate-run", "failed-trade", "correlated-agents"].includes(currentReveal(presentation))) return;
+  if (!["event-flood", "gate-run", "failed-trade", "correlated-agents", "material-issue", "causal-explanation", "source-challenge", "counterfactual"].includes(currentReveal(presentation))) return;
   paused = !paused;
   stage.classList.toggle("is-paused", paused);
   const pauseButton = stage.querySelector('[data-action="pause"]');
@@ -575,7 +566,7 @@ document.addEventListener("keydown", (event) => {
     renderCue();
   } else if (event.key.toLowerCase() === "r") {
     event.preventDefault();
-    if (["event-flood", "gate-run", "failed-trade", "correlated-agents"].includes(currentReveal(presentation))) renderCue();
+    if (["event-flood", "gate-run", "failed-trade", "correlated-agents", "material-issue", "causal-explanation", "source-challenge", "counterfactual"].includes(currentReveal(presentation))) renderCue();
     else move("reset-beat");
   } else if (event.key.toLowerCase() === "e") {
     const detail = detailAction(currentCue(presentation).id, presentation.step);

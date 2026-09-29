@@ -7,7 +7,7 @@ const reveals = CUES.flatMap((cue) => cue.steps);
 test("eight escalating beats contain only meaningful presenter advances", () => {
   assert.equal(BEATS.length, 8);
   assert.equal(CUES.length, 8);
-  assert.equal(reveals.length - 1, 25);
+  assert.equal(reveals.length - 1, 20);
   assert.deepEqual(CUES.map((cue) => cue.id), [
     "opening", "operations", "supervision", "prediction", "material-case", "authority", "systemic", "ghost",
   ]);
@@ -19,14 +19,11 @@ test("problems land before their solutions and the story never backtracks", () =
   before("failed-trade", "event-flood");
   before("event-flood", "naive-basis");
   before("naive-basis", "material-issue");
-  before("material-issue", "attention-reliance");
-  before("agentic-finance", "predictive-case");
+  before("material-issue", "predictive-case");
   before("predictive-case", "no-breach");
-  before("no-breach", "classification");
-  before("classification", "risk-change");
-  before("recommendation", "source-challenge");
-  before("source-challenge", "bank-challenge");
-  before("bank-challenge", "counterfactual");
+  before("no-breach", "causal-explanation");
+  before("causal-explanation", "source-challenge");
+  before("source-challenge", "counterfactual");
   before("counterfactual", "human-decision");
   before("human-decision", "gate-run");
   before("gate-run", "escalate");
@@ -48,8 +45,8 @@ test("naive authorise and reject reveal the inadequate basis without approving",
 
 test("causal case is one beat with source and counterfactual before human authority", () => {
   let state = { ...createPresentationState(), cueIndex: 4 };
-  assert.equal(CASE_ACTIONS.length, 6);
-  for (let step = 1; step < 6; step++) {
+  assert.equal(CASE_ACTIONS.length, 3);
+  for (let step = 1; step < 3; step++) {
     state = transition(state, "next");
     assert.equal(state.cueIndex, 4);
     assert.equal(state.step, step);
@@ -61,7 +58,7 @@ test("causal case is one beat with source and counterfactual before human author
   state = transition(state, "previous");
   assert.equal(currentReveal(state), "counterfactual");
   state = transition(state, "reset-beat");
-  assert.equal(currentReveal(state), "classification");
+  assert.equal(currentReveal(state), "causal-explanation");
 });
 
 test("back and reset keep the eight-beat presenter path stable", () => {
