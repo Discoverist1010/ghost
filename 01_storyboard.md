@@ -1,6 +1,6 @@
 # Main storyboard and presenter cues
 
-For a 30-minute panel, this is a presenter-paced segment, not an auto-advancing slide deck. The audience sees eight **beats** and 20 meaningful advances. Each answer creates the next question; the story never backtracks.
+For a 30-minute panel, this is a presenter-paced segment, not an auto-advancing slide deck. The audience sees eight **beats** and 26 meaningful advances. Beat 7's acts and the final Ghost reveals add depth without adding a ninth beat. Each answer creates the next question; the story never backtracks.
 
 | Beat | Dominant reveal | Presenter point |
 | --- | --- | --- |
@@ -10,8 +10,8 @@ For a 30-minute panel, this is a presenter-paced segment, not an auto-advancing 
 | 4. Prediction is not permission | Payments / digital assets / treasury context accompanies 76 risk, illustrative 74% prediction and restriction recommendation → **NO RULE HAS BEEN BREACHED** | “A useful forecast is not a legal or delegated authority to intervene.” |
 | 5. One fact changes the case | Three controlled states on one stage: **WHY 76?** (classification → 39→76 → restriction), **CHECK SOURCE** (Bank Compliance counter-evidence and fact contested), **RUN COUNTERFACTUAL** (animated **76→39** and **ONE FACT CHANGED**) | “The explanation persuaded us; a disputed fact changed its conclusion. Neither AI rewrites the source.” |
 | 6. The right loop / authority | **HUMAN DECISION REQUIRED** with two specific questions → four grouped runtime checks → one **ESCALATE** verdict | “A meaningful human judgement precedes the authority check. Confidence does not create authority.” |
-| 7. When correct agents become a system | Asset-management research context → five hypothetical portfolio agents sell within mandate → aggregate liquidity, settlement and collateral effects → **NO AGENT FAILED. THE SYSTEM CHANGED.** | “Individual controls do not resolve every population-level effect. This is research, not a claimed incident.” |
-| 8. The ghost | WHO IS THE SUPERVISOR? → WHERE IS THE RIGHT LOOP? → WHO SUPERVISES THE SUPERVISORY AI? | “Where should human judgement sit in a machine-speed financial system?” |
+| 7. When correct agents become a system | **OPTIMISE → FEEDBACK → TRANSMIT** on one persistent stage. Six distinct, within-mandate agents react independently to a common signal; first-wave flow changes market conditions, those conditions feed back into a stronger second wave, then pressure propagates through broker, collateral and custody functions. **NO AGENT FAILED. THE SYSTEM CHANGED.** → **WHO IS SUPERVISING THE SYSTEM?** | “Nobody changed the mandate. Nobody malfunctioned. The agents changed the environment their own models were observing—and optimised again.” This is a synthetic research illustration, not an incident. |
+| 8. The ghost | WHO IS THE SUPERVISOR? → WHERE IS THE RIGHT LOOP? → WHO SUPERVISES THE SUPERVISORY AI? → three propositions → **WHERE DOES INTELLIGENCE END AND AUTHORITY BEGIN?** | Do not answer or add a checklist. Leave the room on the question. |
 
 ## Trace continuity
 
@@ -21,4 +21,12 @@ The failed trade is `E-0001` in the 486-event synthetic trace. `EntityGraph/T-17
 
 The machine activity loop may contain hundreds of queries, retrievals and tool actions. A separate simulated supervisory control reduces those to a material issue. A human then judges the source fact and intervention. This makes the supervisory control an **attention allocator**; the main stage asks about provenance, uncertainty and contestability, and the drawer exposes the full eight-control framework. The control may flag and escalate, never silently intervene.
 
-See [PUBLIC_SOURCES.md](PUBLIC_SOURCES.md) for the public grounding and evidence-status distinctions. Every case number and the five-agent sell visual are teaching illustrations, not observed industry incidents.
+## Beat 7 presenter rhythm
+
+The six portfolios have different objectives and constraints; they do not communicate. **MARKET SIGNAL** introduces volatility up, market depth down and expected downside up. Their staggered, individually rational decisions converge toward de-risking. Pause on **DIFFERENT OBJECTIVES. SIMILAR RESPONSE. NO COORDINATION REQUIRED.**
+
+**EXECUTE** sends staggered first-wave flows into the market. Depth falls, spread and volatility rise. Those changed conditions flow back to the same agents; each re-optimises, then a stronger second wave follows. Pause on **CORRELATION BECOMES FEEDBACK.** **FOLLOW THE CONSEQUENCES** traces illustrative pressure from market to broker/prime, clearing/collateral and custody/post-trade. Pause separately on **NO AGENT FAILED.** and **THE SYSTEM CHANGED.** The bridge asks **WHO IS SUPERVISING THE SYSTEM?** before the Ghost stage clears the room.
+
+Final spoken synthesis: “Autonomous AI may begin as a productivity engine, become an operational actor, and increasingly participate in supervision. The question is not simply whether the future supervisor is human or AI. It is how we design a financial system in which machines can act at machine speed, while judgement, authority and accountability remain deliberately governed.” Then reveal **WHERE DOES INTELLIGENCE END AND AUTHORITY BEGIN?** and stop.
+
+See [PUBLIC_SOURCES.md](PUBLIC_SOURCES.md) for the public grounding and evidence-status distinctions. Every case number and the six-agent systemic visual are teaching illustrations, not observed industry incidents.

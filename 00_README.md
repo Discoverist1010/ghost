@@ -18,7 +18,7 @@ The earlier questions—what AI learned, what it wants to do and whether it is a
 
 ## Narrative contract
 
-The main path has eight audience beats and 20 presenter advances: from answers to actions → agents help but humans lose the thread → AI supervises AI and allocates attention → prediction is not permission → one fact changes the case → human judgement and runtime authority → individually correct agents create a systemic problem → closing ghost questions. The Supervisory AI first exposes only one material issue; the causal explanation, source challenge and counterfactual wait until after the predictive no-breach reveal. The causal case uses three controlled states: why 76, check source, run counterfactual. ESCALATE appears once, after the human decision. Metric gaming remains an optional synthetic red-team scenario, not a main-path claim.
+The main path has eight audience beats and 26 presenter advances: from answers to actions → agents help but humans lose the thread → AI supervises AI and allocates attention → prediction is not permission → one fact changes the case → human judgement and runtime authority → individually correct agents create a systemic problem → closing ghost questions. Beat 7 and the final Ghost gain controlled reveals, not additional beats. The Supervisory AI first exposes only one material issue; the causal explanation, source challenge and counterfactual wait until after the predictive no-breach reveal. The causal case uses three controlled states: why 76, check source, run counterfactual. ESCALATE appears once, after the human decision. Metric gaming remains an optional synthetic red-team scenario, not a main-path claim.
 
 Three real-world arcs frame the synthetic case: capital-markets exception handling, agentic payments/digital assets, and possible correlated decisions in asset management. Public examples have explicit evidence maturity and primary-source links in `PUBLIC_SOURCES.md`. Their existence does not validate the synthetic scores, timings or supervisory logic.
 
@@ -27,6 +27,8 @@ The Human-in-the-Right-Loop sequence is core. One synthetic failed trade opens a
 The demo must teach three visibly distinct loops: machine activity, AI supervisory/control, and human authority/judgement. It must then ask who supervises the Supervisory AI and expose provenance, causal trace, independence, uncertainty, disagreement, reproducibility, contestability and authority limits.
 
 The core claim is that putting a human into every machine-speed action loop is neither meaningful nor scalable. Human judgement belongs at deliberately designed boundaries. AI supervision helps find those boundaries, but its own selection and interpretation must be challengeable and reconstructable.
+
+The final escalation asks what happens if individual-agent controls work: six independently optimising, within-mandate portfolio agents may respond similarly to a shared market signal. Their aggregate actions may alter the conditions they observe, prompting further actions and transmitting pressure through market, broker, collateral and custody functions. This is a **REGULATORY RESEARCH / SYNTHETIC ILLUSTRATION**, not an observed incident, deterministic forecast or extension of the 486-event run. Beat 7 follows **OPTIMISE → FEEDBACK → TRANSMIT → SYSTEM CHANGED → WHO SUPERVISES THE SYSTEM?** before the Ghost closes on the title question.
 
 ## Projection and presentation contract
 

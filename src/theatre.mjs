@@ -1,5 +1,5 @@
 import { buildRun, EVIDENCE, evaluateGate, supervise, validateRun } from "./scenario.mjs";
-import { BEATS, CASE_ACTIONS, CUES, createPresentationState, currentCue, currentReveal, transition } from "./presentation.mjs";
+import { BEATS, CASE_ACTIONS, CUES, SYSTEMIC_ACTIONS, SYSTEMIC_AGENTS, SYSTEMIC_ANNOUNCEMENTS, createPresentationState, currentCue, currentReveal, transition } from "./presentation.mjs";
 
 const run = buildRun();
 if (!validateRun(run)) throw new Error("The synthetic run failed its trace contract.");
@@ -105,6 +105,54 @@ export function renderMaterialCase(step) {
     button('RESET', 'reset-beat', 'case-secondary') + '</div></div>';
 }
 
+function renderSystemicAgent(agent, index) {
+  const side = index < 3 ? 'left' : 'right';
+  const first = 250 + index * 200;
+  const feedback = 2400 + index * 100;
+  const second = 3150 + index * 120;
+  const secondFlow = 4400 + index * 120;
+  return '<article class="systemic-agent" data-agent-id="' + agent.id + '" style="--first-delay:' + first + 'ms;--feedback-delay:' + feedback + 'ms;--second-delay:' + second + 'ms;--second-flow-delay:' + secondFlow + 'ms">' +
+    '<strong class="agent-name">PORTFOLIO ' + agent.id + '</strong>' +
+    '<div class="agent-intent"><span>' + escapeHTML(agent.objective) + '</span><small>' + escapeHTML(agent.constraint) + '</small></div>' +
+    '<strong class="agent-response">' + escapeHTML(agent.response) + '</strong>' +
+    '<div class="agent-reoptimise"><small>' + escapeHTML(agent.feedback) + '</small><strong>' + escapeHTML(agent.secondResponse) + '</strong></div>' +
+    '<span class="agent-mandate">✓ WITHIN MANDATE</span>' +
+    '<span class="agent-flow agent-flow--first" aria-hidden="true">' + (side === 'left' ? '→' : '←') + '</span>' +
+    '<span class="agent-flow agent-flow--feedback" aria-hidden="true">' + (side === 'left' ? '←' : '→') + '</span>' +
+    '<span class="agent-flow agent-flow--second" aria-hidden="true">' + (side === 'left' ? '⇢' : '⇠') + '</span></article>';
+}
+
+export function renderSystemic(step) {
+  const agents = SYSTEMIC_AGENTS.map(renderSystemicAgent);
+  return '<div class="systemic-stage" data-phase="' + step + '">' +
+    '<header class="systemic-head"><p>REGULATORY RESEARCH / SYNTHETIC ILLUSTRATION</p><h1>CORRELATED AGENT DECISIONS</h1></header>' +
+    '<div class="systemic-network">' +
+      '<div class="systemic-agents systemic-agents--left">' + agents.slice(0, 3).join('') + '</div>' +
+      '<div class="systemic-market"><div class="market-common"><strong>SAME MARKET</strong><span>OVERLAPPING DATA</span><span>SIMILAR AI INFRASTRUCTURE</span></div>' +
+        '<div class="market-signal"><strong>COMMON MARKET SIGNAL</strong><span>VOLATILITY ↑</span><span>MARKET DEPTH ↓</span><span>EXPECTED DOWNSIDE ↑</span></div>' +
+        '<div class="market-direction">DE-RISK / SELL</div>' +
+        '<div class="market-effects"><strong>AGGREGATE MARKET EFFECT</strong><span>MARKET DEPTH ↓↓</span><span>BID–ASK SPREAD ↑</span><span>VOLATILITY ↑</span><small>SECOND WAVE INTENSIFIES PRESSURE</small></div>' +
+        '<div class="market-feedback">CHANGED MARKET → AGENTS RE-OPTIMISE</div>' +
+        '<div class="market-transmit"><strong>MARKET</strong><span>LIQUIDITY ↓</span><span>VOLATILITY ↑</span></div>' +
+      '</div>' +
+      '<div class="systemic-agents systemic-agents--right">' + agents.slice(3).join('') + '</div>' +
+      '<div class="systemic-transmission">' +
+        '<div><strong>BROKER / PRIME</strong><span>Margin requirements ↑</span><span>Funding demand ↑</span></div>' +
+        '<div><strong>CLEARING / COLLATERAL</strong><span>Collateral calls ↑</span><span>Eligible collateral demand ↑</span></div>' +
+        '<div><strong>CUSTODY / POST-TRADE</strong><span>Settlement activity ↑</span><span>Cash / FX requirements ↑</span></div>' +
+      '</div>' +
+      '<div class="systemic-punch"><strong>NO AGENT FAILED.</strong><strong>THE SYSTEM CHANGED.</strong></div>' +
+      '<div class="systemic-bridge"><p>WE SPENT THIS SESSION ASKING<br>HOW TO GOVERN AUTONOMOUS AGENTS.</p>' +
+        '<p>BUT THE FINANCIAL SYSTEM IS NOT SIMPLY<br>THE SUM OF INDIVIDUALLY GOVERNED AGENTS.</p>' +
+        '<h2>WHO IS SUPERVISING THE SYSTEM?</h2></div>' +
+    '</div>' +
+    '<div class="systemic-footer"><div class="systemic-inference"><p>DIFFERENT OBJECTIVES. SIMILAR RESPONSE.</p><strong>NO COORDINATION REQUIRED.</strong></div>' +
+      '<div class="systemic-cycle">OPTIMISE → ACT → MARKET CHANGES → OBSERVE → OPTIMISE AGAIN</div>' +
+      '<div class="systemic-feedback-punch">CORRELATION BECOMES FEEDBACK.</div>' +
+      button(SYSTEMIC_ACTIONS[step] + ' →', 'next', 'systemic-primary') + '</div>' +
+    '</div>';
+}
+
 const gateChecks = [
   ["IDENTITY + MANDATE", run.gateInput.verifiedIdentity && run.gateInput.mandate === "recommend" ? "VERIFIED ✓ · RECOMMEND ONLY" : "NOT VERIFIED"],
   ["ACTION + MATERIALITY", run.gateInput.proposedAction === "restrict_activity" && run.gateInput.materiality === "high" ? "RESTRICT LIQUIDITY · HIGH" : "CHECK PROPOSAL"],
@@ -182,23 +230,16 @@ export function renderView(id, step) {
         '<p class="primary-line">RESTRICTION NOT EXECUTED</p>' +
         '<p class="support-line">CONFIDENCE DOES NOT CREATE AUTHORITY.</p>', "centered");
     case "systemic":
-      if (step === 0) return wrap(id,
-        '<p class="stage-label">ASSET MANAGEMENT · REGULATORY RESEARCH</p>' +
-        '<h1 class="stage-heading">CORRELATED AGENT DECISIONS</h1>' +
-        '<div class="portfolio-lines">' + ['A', 'B', 'C', 'D', 'E'].map((agent, index) =>
-          '<div style="--delay:' + (index * 160) + 'ms"><span>PORTFOLIO AGENT ' + agent + '</span><strong>SELL →</strong><em>WITHIN MANDATE</em></div>'
-        ).join('') + '</div>' + maturity('RESEARCH HYPOTHESIS', 'Not an observed production incident'), "centered");
-      return wrap(id,
-        '<div class="system-effects"><span>MARKET LIQUIDITY ↓</span><span>SETTLEMENT DEMAND ↑</span><span>COLLATERAL / FUNDING PRESSURE ↑</span></div>' +
-        '<h1 class="system-verdict"><span>NO AGENT FAILED.</span><span>THE SYSTEM CHANGED.</span></h1>' +
-        maturity('REGULATORY RESEARCH', 'A systemic question, not a reported incident'), "centered");
+      return wrap(id, renderSystemic(step), "centered");
     case "ghost":
       if (step === 0) return wrap(id, '<h1 class="hero-verdict impact">WHO IS THE SUPERVISOR?</h1>', "centered");
-      if (step === 1) return wrap(id, '<h1 class="hero-verdict impact">WHERE IS THE RIGHT LOOP?</h1>', "centered");
-      return wrap(id,
-        '<h1 class="hero-verdict">WHO SUPERVISES THE SUPERVISORY AI?</h1>' +
-        '<p class="primary-line">WHERE SHOULD HUMAN JUDGEMENT SIT IN A MACHINE-SPEED FINANCIAL SYSTEM?</p>' +
-        '<p class="closing-line">INTELLIGENCE CAN BECOME DISTRIBUTED.<br>ACCOUNTABILITY CANNOT DISAPPEAR INTO THE NETWORK.</p>', "centered");
+      if (step === 1) return wrap(id, '<h1 class="hero-verdict impact">WHERE IS THE RIGHT LOOP?</h1>' +
+        '<p class="ghost-support">HUMAN JUDGEMENT AT THE DECISION THAT ACTUALLY MATTERS.</p>', "centered");
+      if (step === 2) return wrap(id, '<h1 class="hero-verdict">WHO SUPERVISES<br>THE SUPERVISORY AI?</h1>' +
+        '<p class="ghost-support">AND WHO SUPERVISES THE SYSTEM<br>THAT EMERGES FROM ALL OF THEM?</p>', "centered");
+      if (step === 3) return wrap(id, '<div class="ghost-propositions"><p>INTELLIGENCE CAN BE DISTRIBUTED.</p>' +
+        '<p>AUTHORITY MUST BE DELIBERATE.</p><p>ACCOUNTABILITY CANNOT DISAPPEAR INTO THE NETWORK.</p></div>', "centered");
+      return wrap(id, '<h1 class="ghost-final">WHERE DOES INTELLIGENCE END<br>AND AUTHORITY BEGIN?</h1>', "centered");
     default:
       throw new Error("Unknown presentation cue: " + id);
   }
@@ -220,23 +261,31 @@ function stopAnimations() {
   gateState = null;
 }
 
-function renderCue() {
+function renderCue(forceReplay = false) {
   stopAnimations();
   paused = false;
   stage.classList.remove("is-paused");
   const cue = currentCue(presentation);
+  const persistentSystemic = !forceReplay && cue.id === 'systemic' && stage.dataset.cue === 'systemic' && stage.querySelector?.('.systemic-stage');
   stage.dataset.cue = cue.id;
   stage.dataset.reveal = currentReveal(presentation);
-  stage.innerHTML = renderView(cue.id, presentation.step);
+  if (persistentSystemic) {
+    persistentSystemic.dataset.phase = String(presentation.step);
+    persistentSystemic.querySelector('.systemic-primary').textContent = SYSTEMIC_ACTIONS[presentation.step] + ' →';
+  } else {
+    stage.innerHTML = renderView(cue.id, presentation.step);
+  }
   stageStatus.textContent = cue.id === 'ghost' ? '' : cue.id === 'opening' ? 'PUBLIC ACTIVITY' :
-    cue.id === 'systemic' ? 'REGULATORY RESEARCH' :
+    cue.id === 'systemic' ? 'REGULATORY RESEARCH / SYNTHETIC ILLUSTRATION' :
     cue.id === 'prediction' ? 'PUBLIC CONTEXT / SYNTHETIC CASE' : 'SYNTHETIC TEACHING SIMULATION';
   document.querySelector('.app-shell').classList.toggle('is-closing', cue.id === 'ghost');
   beatCounter.textContent = "BEAT " + (presentation.cueIndex + 1) + "/" + BEATS.length;
-  announcer.textContent = "Beat " + (presentation.cueIndex + 1) + ": " + BEATS[presentation.cueIndex] + ". " + currentReveal(presentation).replaceAll("-", " ");
+  announcer.textContent = "Beat " + (presentation.cueIndex + 1) + ": " + BEATS[presentation.cueIndex] + ". " +
+    (cue.id === 'systemic' ? SYSTEMIC_ANNOUNCEMENTS[presentation.step] : currentReveal(presentation).replaceAll("-", " "));
   previousButton.disabled = presentation.cueIndex === 0 && presentation.step === 0;
   nextButton.disabled = presentation.cueIndex === CUES.length - 1 && presentation.step === cue.steps.length - 1;
-  nextButton.setAttribute("aria-label", cue.id === "material-case" ? CASE_ACTIONS[presentation.step] : "Next reveal");
+  nextButton.setAttribute("aria-label", cue.id === "material-case" ? CASE_ACTIONS[presentation.step] :
+    cue.id === 'systemic' ? SYSTEMIC_ACTIONS[presentation.step] : "Next reveal");
   const detail = detailAction(cue.id, presentation.step);
   contextButton.hidden = !detail || cue.id === "material-case";
   if (detail) {
@@ -341,7 +390,7 @@ function startGate() {
 }
 
 function pauseOrResume() {
-  if (!["event-flood", "gate-run", "failed-trade", "correlated-agents", "material-issue", "causal-explanation", "source-challenge", "counterfactual"].includes(currentReveal(presentation))) return;
+  if (currentCue(presentation).id !== 'systemic' && !["event-flood", "gate-run", "failed-trade", "material-issue", "causal-explanation", "source-challenge", "counterfactual"].includes(currentReveal(presentation))) return;
   paused = !paused;
   stage.classList.toggle("is-paused", paused);
   const pauseButton = stage.querySelector('[data-action="pause"]');
@@ -513,7 +562,7 @@ document.addEventListener("click", (event) => {
   if (action === "next" || action === "previous" || action === "reset-beat") move(action);
   else if (action === "naive-authorise") move("authorise");
   else if (action === "naive-reject") move("reject");
-  else if (action === "replay") renderCue();
+  else if (action === "replay") renderCue(true);
   else if (action === "pause") pauseOrResume();
   else if (action === "open-evidence") openDrawer("evidence");
   else if (action === "open-source") openDrawer("source");
@@ -566,7 +615,7 @@ document.addEventListener("keydown", (event) => {
     renderCue();
   } else if (event.key.toLowerCase() === "r") {
     event.preventDefault();
-    if (["event-flood", "gate-run", "failed-trade", "correlated-agents", "material-issue", "causal-explanation", "source-challenge", "counterfactual"].includes(currentReveal(presentation))) renderCue();
+    if (currentCue(presentation).id === 'systemic' || ["event-flood", "gate-run", "failed-trade", "material-issue", "causal-explanation", "source-challenge", "counterfactual"].includes(currentReveal(presentation))) renderCue(true);
     else move("reset-beat");
   } else if (event.key.toLowerCase() === "e") {
     const detail = detailAction(currentCue(presentation).id, presentation.step);

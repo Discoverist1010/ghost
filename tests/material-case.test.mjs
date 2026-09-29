@@ -26,7 +26,7 @@ globalThis.document = {
 globalThis.Element = class {};
 globalThis.window = { matchMedia: () => ({ matches: true }) };
 
-const { renderMaterialCase, renderView } = await import("../src/theatre.mjs");
+const { renderMaterialCase, renderSystemic, renderView } = await import("../src/theatre.mjs");
 const { CUES } = await import("../src/presentation.mjs");
 
 test("early supervisory compression withholds later risk and authority facts", () => {
@@ -88,6 +88,69 @@ test("projection stage cannot scroll and counterfactual motion has a causal sequ
   assert.match(css, /\.cf-same span:nth-child\(4\)\s*\{[^}]*2\.55s/);
 });
 
+test("Beat 7 shows six distinct within-mandate decisions without implying an incident or coordination", () => {
+  const markup = renderSystemic(0);
+  assert.match(markup, /REGULATORY RESEARCH \/ SYNTHETIC ILLUSTRATION/);
+  assert.equal((markup.match(/data-agent-id="[A-F]"/g) ?? []).length, 6);
+  assert.equal((markup.match(/✓ WITHIN MANDATE/g) ?? []).length, 6);
+  for (const objective of [
+    'MAXIMISE RISK-ADJUSTED RETURN', 'MAINTAIN TARGET VOLATILITY', 'LIMIT DRAWDOWN',
+    'PRESERVE LIQUIDITY', 'TRACK BENCHMARK EFFICIENTLY', 'PROTECT FUNDING / COLLATERAL BUFFER',
+  ]) assert.ok(markup.includes(objective));
+  assert.match(markup, /SAME MARKET.*OVERLAPPING DATA.*SIMILAR AI INFRASTRUCTURE/);
+  assert.match(markup, /NO COORDINATION REQUIRED/);
+  assert.doesNotMatch(markup, /AGENT SWARM|LIVE PRODUCTION|OBSERVED MARKET INCIDENT|agent-to-agent|data-peer/);
+  const delays = [...markup.matchAll(/--first-delay:(\d+)ms;--feedback-delay:(\d+)ms;--second-delay:(\d+)ms;--second-flow-delay:(\d+)ms/g)]
+    .map((match) => match.slice(1).map(Number));
+  assert.equal(delays.length, 6);
+  for (let index = 1; index < delays.length; index++) {
+    for (let column = 0; column < 4; column++) assert.ok(delays[index][column] > delays[index - 1][column]);
+  }
+  assert.ok(delays[0][0] < delays[0][1] && delays[0][1] < delays[0][2] && delays[0][2] < delays[0][3]);
+});
+
+test("Beat 7 signal, market feedback, second wave and institutional transmission are sequenced", () => {
+  const css = readFileSync(new URL("../styles.css", import.meta.url), "utf8");
+  const markup = renderSystemic(2);
+  assert.match(markup, /COMMON MARKET SIGNAL.*VOLATILITY ↑.*MARKET DEPTH ↓.*EXPECTED DOWNSIDE ↑/);
+  assert.match(markup, /MARKET DEPTH ↓↓.*BID–ASK SPREAD ↑.*VOLATILITY ↑/);
+  assert.match(markup, /CHANGED MARKET → AGENTS RE-OPTIMISE/);
+  assert.match(markup, /SECOND WAVE INTENSIFIES PRESSURE/);
+  assert.match(css, /data-phase="1"\] \.market-signal[^}]*visibility:\s*visible/);
+  assert.match(css, /data-phase="1"\] \.agent-response[^}]*--first-delay/);
+  assert.match(css, /data-phase="2"\] \.agent-flow--first[^}]*--first-delay/);
+  assert.match(css, /data-phase="2"\] \.market-effects[^}]*1\.4s/);
+  assert.match(css, /data-phase="2"\] \.agent-flow--feedback[^}]*--feedback-delay/);
+  assert.match(css, /data-phase="2"\] \.agent-reoptimise[^}]*--second-delay/);
+  assert.match(css, /data-phase="2"\] \.agent-flow--second[^}]*--second-flow-delay/);
+  assert.ok(markup.indexOf('BROKER / PRIME') < markup.indexOf('CLEARING / COLLATERAL'));
+  assert.ok(markup.indexOf('CLEARING / COLLATERAL') < markup.indexOf('CUSTODY / POST-TRADE'));
+  assert.match(css, /systemic-transmission > div:nth-child\(1\)[^}]*\.55s/);
+  assert.match(css, /systemic-transmission > div:nth-child\(2\)[^}]*1\.2s/);
+  assert.match(css, /systemic-transmission > div:nth-child\(3\)[^}]*1\.85s/);
+  assert.ok(markup.indexOf('NO AGENT FAILED.') < markup.indexOf('THE SYSTEM CHANGED.'));
+  assert.match(css, /systemic-punch strong:first-child[^}]*\.3s/);
+  assert.match(css, /systemic-punch strong:last-child[^}]*1\.55s/);
+  assert.match(css, /\.stage\s*\{[^}]*overflow:\s*hidden;/);
+  assert.match(css, /\.cue\s*\{[^}]*overflow:\s*hidden;/);
+  assert.match(css, /\.cue--systemic \.cue-content\s*\{[^}]*max-height:\s*800px/);
+  assert.ok(800 <= 1080 - 110 - 116); // The 1920×1080 stage leaves 854px for the cue.
+  assert.ok(125 + 3 * 99 + 2 * 21 <= 800 - 58 - 2 * 16 - 150); // Transmission path within the nominal network.
+});
+
+test("Ghost closes the systemic argument on the session question without new chrome", () => {
+  assert.match(renderView('ghost', 0), /WHO IS THE SUPERVISOR/);
+  assert.match(renderView('ghost', 1), /WHERE IS THE RIGHT LOOP/);
+  assert.match(renderView('ghost', 2), /WHO SUPERVISES<br>THE SUPERVISORY AI/);
+  assert.match(renderView('ghost', 2), /WHO SUPERVISES THE SYSTEM/);
+  const propositions = renderView('ghost', 3);
+  assert.ok(propositions.indexOf('INTELLIGENCE CAN BE DISTRIBUTED') < propositions.indexOf('AUTHORITY MUST BE DELIBERATE'));
+  assert.ok(propositions.indexOf('AUTHORITY MUST BE DELIBERATE') < propositions.indexOf('ACCOUNTABILITY CANNOT DISAPPEAR'));
+  const final = renderView('ghost', 4);
+  assert.match(final, /WHERE DOES INTELLIGENCE END<br>AND AUTHORITY BEGIN/);
+  assert.doesNotMatch(final, /THANK YOU|CHECKLIST|REGULATORY RESEARCH|maturity/);
+});
+
 test("keyboard advances through every stage without changing the eight-beat contract", () => {
   const keydown = listeners.get("keydown");
   let verdicts = 0;
@@ -104,4 +167,37 @@ test("keyboard advances through every stage without changing the eight-beat cont
   }
   assert.equal(verdicts, 1);
   assert.equal(element("nextButton").disabled, true);
+});
+
+test("Beat 7 keeps one DOM stage across acts and replays only on request", () => {
+  const keydown = listeners.get('keydown');
+  const stage = element('stage');
+  let writes = 0;
+  let markup = stage.innerHTML;
+  Object.defineProperty(stage, 'innerHTML', {
+    configurable: true,
+    get() { return markup; },
+    set(value) { writes++; markup = value; },
+  });
+  const primary = { textContent: '' };
+  const persistent = { dataset: { phase: '0' }, querySelector: () => primary };
+  stage.querySelector = (selector) => selector === '.systemic-stage' && markup?.includes('class="systemic-stage"') ? persistent : null;
+  const key = (name) => keydown({ key: name, target: null, preventDefault() {} });
+  key('Home');
+  for (const cue of CUES.slice(0, 6)) for (const _ of cue.steps) key('ArrowRight');
+  assert.equal(stage.dataset.reveal, 'optimise-base');
+  const beforeAdvance = writes;
+  key('ArrowRight');
+  assert.equal(stage.dataset.reveal, 'market-signal');
+  assert.equal(persistent.dataset.phase, '1');
+  assert.equal(primary.textContent, 'EXECUTE →');
+  assert.match(element('cueAnnouncement').textContent, /staggered independent de-risking/);
+  assert.equal(writes, beforeAdvance);
+  key('r');
+  assert.equal(stage.dataset.reveal, 'market-signal');
+  assert.equal(writes, beforeAdvance + 1);
+  key('ArrowLeft');
+  assert.equal(stage.dataset.reveal, 'optimise-base');
+  assert.equal(persistent.dataset.phase, '0');
+  assert.equal(primary.textContent, 'MARKET SIGNAL →');
 });

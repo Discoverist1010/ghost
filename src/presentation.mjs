@@ -17,14 +17,37 @@ export const CUES = Object.freeze([
   { id: 'prediction', steps: ['predictive-case', 'no-breach'] },
   { id: 'material-case', steps: ['causal-explanation', 'source-challenge', 'counterfactual'] },
   { id: 'authority', steps: ['human-decision', 'gate-run', 'escalate'] },
-  { id: 'systemic', steps: ['correlated-agents', 'correlated-outcome'] },
-  { id: 'ghost', steps: ['who-supervises', 'right-loop', 'supervisory-ai'] },
+  { id: 'systemic', steps: ['optimise-base', 'market-signal', 'execute-feedback', 'transmit', 'system-changed', 'system-supervision-bridge'] },
+  { id: 'ghost', steps: ['who-supervises', 'right-loop', 'supervisory-ai', 'final-propositions', 'final-question'] },
 ]);
 
 export const CASE_ACTIONS = Object.freeze([
   'CHECK SOURCE',
   'RUN COUNTERFACTUAL',
   'HUMAN DECISION',
+]);
+
+// Beat 7 is a labelled synthetic mechanism-of-concern, not a second scenario run.
+export const SYSTEMIC_AGENTS = Object.freeze([
+  { id: 'A', objective: 'MAXIMISE RISK-ADJUSTED RETURN', constraint: 'Risk budget', response: 'REDUCE RISK', feedback: 'Risk budget tighter', secondResponse: 'DE-RISK MORE' },
+  { id: 'B', objective: 'MAINTAIN TARGET VOLATILITY', constraint: 'Volatility ceiling', response: 'REDUCE RISK', feedback: 'Volatility target breached', secondResponse: 'DE-RISK MORE' },
+  { id: 'C', objective: 'LIMIT DRAWDOWN', constraint: 'Loss threshold', response: 'CUT EXPOSURE', feedback: 'Drawdown worsens', secondResponse: 'DE-RISK MORE' },
+  { id: 'D', objective: 'PRESERVE LIQUIDITY', constraint: 'Cash floor', response: 'RAISE CASH', feedback: 'Liquidity deteriorates', secondResponse: 'RAISE MORE CASH' },
+  { id: 'E', objective: 'TRACK BENCHMARK EFFICIENTLY', constraint: 'Tracking-risk constraint', response: 'REDUCE ACTIVE RISK', feedback: 'Risk constraint tightens', secondResponse: 'REDUCE MORE' },
+  { id: 'F', objective: 'PROTECT FUNDING / COLLATERAL BUFFER', constraint: 'Liquidity constraint', response: 'INCREASE LIQUIDITY', feedback: 'Buffer pressure rises', secondResponse: 'RAISE MORE LIQUIDITY' },
+]);
+
+export const SYSTEMIC_ACTIONS = Object.freeze([
+  'MARKET SIGNAL', 'EXECUTE', 'FOLLOW THE CONSEQUENCES', 'CONTINUE', 'CONTINUE', 'CONTINUE',
+]);
+
+export const SYSTEMIC_ANNOUNCEMENTS = Object.freeze([
+  'Six portfolios have different objectives. Each is within mandate.',
+  'A common market signal produces staggered independent de-risking. No coordination is required.',
+  'Aggregate actions change the market. Those conditions feed back to the agents before a second wave.',
+  'The illustrated pressure transmits from market to broker, clearing and custody functions.',
+  'No agent failed. The system changed.',
+  'Who is supervising the system?',
 ]);
 
 export function createPresentationState() {

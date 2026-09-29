@@ -4,7 +4,7 @@ The acceptance check is both causal and visual: the story must be reconstructabl
 
 ## Expected Behaviour Tests
 - At each beat, identify the one state change, its consequence and the authority boundary within two seconds. The learn/want/authorised questions guide design; they are not a permanent footer.
-- The main path has eight visible narrative beats and 20 presenter advances. Public capital-markets, agentic-transaction and correlated-decision arcs arrive when they raise the stakes; no timer forces a move past discussion.
+- The main path has eight visible narrative beats and 26 presenter advances. Public capital-markets, agentic-transaction and correlated-decision arcs arrive when they raise the stakes; no timer forces a move past discussion.
 - One synthetic failed trade is present as opening event `E-0001`, then 8 agent roles and 27 sub-tasks are shown as branching workstreams tied to actual task IDs.
 - The scripted flood emits exactly 486 ordered, interleaved events across 3.2 simulated seconds. The trace contains T-17's classification change and a linked `39 → 76` risk update. Replay produces the same order and IDs.
 - The provisional `27 → 42 → 61` phase, the central-bank-related baseline of 39, the T-17 rise to 76 and the later `76 → 39` counterfactual have explicit, attributed causes. No score jumps silently.
@@ -18,7 +18,9 @@ The acceptance check is both causal and visual: the story must be reconstructabl
 - Probabilistic restriction with no breach triggers ESCALATE and leaves the restriction unexecuted. Missing entity context lowers evidence quality. Counterfactual evidence changes score 76 → 39 without erasing earlier events.
 - A prohibited deterministic transaction triggers DENY; a bounded deterministic hold can AUTO_EXECUTE only with explicit policy and mandate. An agent cannot exceed mandate.
 - The audience sees machine activity, AI supervisory/control and human authority/judgement as distinct loops even though only the material boundary dominates the main stage.
-- Public examples carry correct production/pilot/prototype/research maturity; the five-portfolio-agent sell visual is unmistakably hypothetical, never an asserted market incident.
+- Beat 7 remains labelled **REGULATORY RESEARCH / SYNTHETIC ILLUSTRATION**. Six portfolio agents have distinct objectives and constraints, each visibly within mandate. A shared market signal precedes staggered independent responses; no agent-to-agent coordination is drawn.
+- Staggered first-wave actions alter market depth, spread and volatility. Changed market conditions visibly return to the agents before their staggered re-optimisation and stronger second wave. Transmission to broker/prime, clearing/collateral and custody/post-trade follows the market effect; none is presented as inevitable.
+- **NO AGENT FAILED.** lands before **THE SYSTEM CHANGED.** The same Beat 7 stage then bridges to **WHO IS SUPERVISING THE SYSTEM?** before Ghost clears the stage. The six-agent illustration is not a reported incident or a second deterministic run.
 
 ## Red-Team Tests
 - Try to instruct Investigator to restrict activity directly.
@@ -49,7 +51,7 @@ The log is an output of the same scenario state as the screen, not a separately 
 
 - Review at 1920×1080 from the back of a large room or equivalent scaled viewing distance. Normal presentation states must fit without vertical scrolling.
 - Check the type scale in the build contract and UI guide; only the intentional log flood may be unreadable. No key meaning depends on the detail drawer.
-- Pause on AUTONOMOUS FINANCE IS MOVING FROM ANSWERS TO ACTIONS; OBSERVE → INVESTIGATE → JUDGE → ACT; 1 FAILED TRADE; 8 AGENTS / 27 SUB-TASKS; 486 EVENTS / 3.2 SECONDS; HUMAN REVIEW REQUIRED; ON WHAT BASIS?; 486 → 1 MATERIAL ISSUE; WHO DECIDED WHAT THE HUMAN SAW?; 76 / 74%; NO RULE HAS BEEN BREACHED; WHY 76?; SOURCE RECORD: CENTRAL-BANK-RELATED; 76 → 39; ONE FACT CHANGED; HUMAN DECISION REQUIRED; EXECUTION AUTHORITY: INSUFFICIENT; ESCALATE; NO AGENT FAILED. THE SYSTEM CHANGED.; and WHO SUPERVISES THE SUPERVISORY AI? Each must make sense without visually searching the screen.
+- Pause on AUTONOMOUS FINANCE IS MOVING FROM ANSWERS TO ACTIONS; OBSERVE → INVESTIGATE → JUDGE → ACT; 1 FAILED TRADE; 8 AGENTS / 27 SUB-TASKS; 486 EVENTS / 3.2 SECONDS; HUMAN REVIEW REQUIRED; ON WHAT BASIS?; 486 → 1 MATERIAL ISSUE; WHO DECIDED WHAT THE HUMAN SAW?; 76 / 74%; NO RULE HAS BEEN BREACHED; WHY 76?; SOURCE RECORD: CENTRAL-BANK-RELATED; 76 → 39; ONE FACT CHANGED; HUMAN DECISION REQUIRED; EXECUTION AUTHORITY: INSUFFICIENT; ESCALATE; NO COORDINATION REQUIRED; CORRELATION BECOMES FEEDBACK; NO AGENT FAILED; THE SYSTEM CHANGED; WHO IS SUPERVISING THE SYSTEM?; and WHERE DOES INTELLIGENCE END AND AUTHORITY BEGIN? Each must make sense without visually searching the screen.
 - Confirm the visible counter names eight beats rather than internal reveal states. Advance, back, pause, replay, fullscreen, detail-close and reset controls work. Animations never move to the next presenter-controlled reveal automatically. ESCALATE appears only once on the main path, after the human decision and sequential gate.
 - Confirm the dark field, near-white type and restrained accents remain readable on a bright projector. Check that no constant or decorative animation competes with a reveal.
 

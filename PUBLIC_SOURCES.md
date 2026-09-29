@@ -29,7 +29,7 @@ REGULATOR//GHOST uses public examples to frame governance questions. **None of t
 
 | Status | Primary source | What it supports |
 | --- | --- | --- |
-| **REGULATORY RESEARCH** | [BIS Innovation Hub: Project Logos](https://www.bis.org/project/logos) | Ongoing simulated research into LLM portfolio agents and conditions that may amplify or dampen correlated decisions. The five-agent sell visual is a hypothetical illustration, **not an observed market incident**. |
+| **REGULATORY RESEARCH** | [BIS Innovation Hub: Project Logos](https://www.bis.org/project/logos) | Ongoing simulated research into LLM portfolio agents and conditions that may amplify or dampen correlated decisions. The six-agent optimise/feedback/transmit visual is a hypothetical mechanism-of-concern, **not an observed market incident**. |
 | **REGULATORY RESEARCH** | [FSB: financial-stability implications of AI](https://www.fsb.org/2024/11/fsb-assesses-the-financial-stability-implications-of-artificial-intelligence/) | Identifies market correlation, common dependencies, cyber and model risk as potential vulnerabilities. |
 | **REGULATORY RESEARCH** | [IOSCO: AI in capital markets consultation](https://www.iosco.org/library/pubdocs/pdf/IOSCOPD788.pdf) and [AI/ML use by intermediaries and asset managers](https://www.iosco.org/library/pubdocs/pdf/IOSCOPD684.pdf) | Documents AI uses and risks in securities markets; does not claim that this demo's correlated-agent outcome has happened. |
 
