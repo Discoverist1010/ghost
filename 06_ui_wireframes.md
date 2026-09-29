@@ -12,7 +12,7 @@ Design for 1920×1080 projection in a large conference room. The screen should f
 - Presenter button text: approximately 22–26px or larger, with large targets and clear focus states.
 - The deliberately unreadable audit stream is the sole exception; its material event appears later at full scale.
 
-Use a deep navy / near-black field, near-white type, restrained cyan for observation, amber for uncertainty/escalation and red only for genuine denial or danger. Pair color with words; color alone does not carry the meaning. Presentation mode has no vertical scroll at 1920×1080. A small corner control shows only Back, the current beat out of ten, and Next. Contextual detail controls appear only when the story needs them.
+Use a deep navy / near-black field, near-white type, restrained cyan for observation, amber for authority/escalation and red only for genuine denial or danger. Pair color with words; color alone does not carry the meaning. Presentation mode has no vertical scroll at 1920×1080. A small corner control shows only Back, the current beat out of eight, and Next. Contextual detail controls appear only when the story needs them.
 
 ## Ten audience beats
 

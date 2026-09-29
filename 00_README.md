@@ -18,7 +18,7 @@ The earlier questions—what AI learned, what it wants to do and whether it is a
 
 ## Narrative contract
 
-The main path has ten audience beats: public financial activity → observe/investigate/judge/act authority ladder → one synthetic failed trade → naive human-in-the-loop overload → Supervisory AI and Human in the Right Loop → agentic transactions and predictive intervention → Bank Compliance challenge → runtime authority gate → correlated agent decisions as a research question → closing ghost questions. The material causal case, including its source counterfactual and simple authority outcome, stays on one stage with presenter-controlled micro-reveals. Metric gaming remains an optional synthetic red-team scenario, not a main-path claim.
+The main path has eight audience beats: from answers to actions → agents help but humans lose the thread → AI supervises AI and allocates attention → prediction is not permission → one fact changes the case → human judgement and runtime authority → individually correct agents create a systemic problem → closing ghost questions. The Supervisory AI first exposes only one material issue; the causal explanation, source challenge and counterfactual wait until after the predictive no-breach reveal. ESCALATE appears once, after the human decision. Metric gaming remains an optional synthetic red-team scenario, not a main-path claim.
 
 Three real-world arcs frame the synthetic case: capital-markets exception handling, agentic payments/digital assets, and possible correlated decisions in asset management. Public examples have explicit evidence maturity and primary-source links in `PUBLIC_SOURCES.md`. Their existence does not validate the synthetic scores, timings or supervisory logic.
 
@@ -39,7 +39,7 @@ The core claim is that putting a human into every machine-speed action loop is n
 - Presenter controls: approximately 22–26px text or larger, with clear focus states.
 - Tiny, fast audit text is permitted only for the intentional log-flood effect; every material conclusion is repeated at audience-readable scale.
 - Presentation mode shows one dominant state at a time, without vertical scrolling at 1920×1080. Technical detail is in optional drawers.
-- The audience sees a ten-beat counter, not the implementation's internal state count. Navigation chrome stays discreet.
+- The audience sees an eight-beat counter, not the implementation's internal reveal count. Navigation chrome stays discreet.
 - The presenter can pause at the naive review demand, the material-issue reveal, the no-breach reveal and the final questions.
 
 The presenter should never need to say, “You probably can't read this.”

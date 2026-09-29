@@ -30,7 +30,7 @@ Source maturity and important qualifications are in [PUBLIC_SOURCES.md](PUBLIC_S
 
 ## Main show
 
-Ten audience beats: real financial activity → authority ladder → one failed trade → human-review overload → AI supervising AI and the right human loop → agentic transactions and predictive intervention → an institutional AI challenge → runtime **ESCALATE** → correlated-agent research question → closing governance question. The material case is **one stage**: six presenter clicks uncover classification, risk, recommendation, source challenge, counterfactual and authority in sequence. The beat counter does not advance between those reveals.
+Eight escalating audience beats: answers → actions; agents help but humans lose the thread; AI supervises AI but allocates human attention; prediction is not permission; one disputed fact changes the case; human judgement and the runtime authority gate; individually correct agents create systemic effects; the ghost. The causal case is **one stage** after the no-breach reveal: classification → 39→76 → recommendation → source conflict → institutional challenge → 76→39. Only then does the show ask for a human decision and run the single **ESCALATE** verdict.
 
 The important event, `EntityGraph/T-17`, is truly in the 486-event stream. It changes a *derived* classification from central-bank-related to commercial-counterparty. A linked score update moves **39 → 76**; an institutional challenge supports a **76 → 39** counterfactual. The original source is never overwritten. The Supervisory AI finding cites the exact classification, score, recommendation and mandate-boundary events. Evidence, trust controls and the complete run remain available in contextual drawers and export.
 
@@ -50,8 +50,8 @@ Open [http://127.0.0.1:4173](http://127.0.0.1:4173). If that port is occupied, u
 | --- | --- |
 | Right arrow / Space | Next reveal |
 | Left arrow | Previous reveal |
-| R | Reset the material-case beat; replay other animated reveals |
-| E | Open original evidence during the material-case beat |
+| R | Reset the current beat, or replay its active animation |
+| E | Open contextual evidence where available |
 | P | Pause or resume an animation |
 | F | Toggle fullscreen |
 | Esc | Close the detail drawer |
@@ -62,7 +62,7 @@ The discreet on-screen arrows work too. **AUTHORISE / REJECT** in the naive-revi
 ## Architecture and boundaries
 
 - [src/scenario.mjs](src/scenario.mjs): deterministic synthetic run, evidence links, causal reconstruction, counterfactual and authority gate.
-- [src/presentation.mjs](src/presentation.mjs): ten beats with internal presenter cues and non-executing naive-review logic.
+- [src/presentation.mjs](src/presentation.mjs): eight beats with presenter-controlled micro-reveals and non-executing naive-review logic.
 - [src/theatre.mjs](src/theatre.mjs): projection stage, actual event replay, keyboard controls and evidence drawer.
 - [styles.css](styles.css): dark, low-chrome 16:9 theatre; the main stage does not scroll at desktop projection size.
 - [tests/](tests/): trace, gate and presentation-state assertions. [scripts/dev-server.mjs](scripts/dev-server.mjs) uses Node alone.
