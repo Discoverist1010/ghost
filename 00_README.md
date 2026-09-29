@@ -18,7 +18,7 @@ The earlier questions—what AI learned, what it wants to do and whether it is a
 
 ## Narrative contract
 
-The main path has ten audience beats: public financial activity → observe/investigate/judge/act authority ladder → one synthetic failed trade → naive human-in-the-loop overload → Supervisory AI and Human in the Right Loop → agentic transactions and predictive intervention → source counterfactual and Bank Compliance challenge → runtime authority gate → correlated agent decisions as a research question → closing ghost questions. Multiple small presenter-controlled reveals may occur inside one beat. Metric gaming remains an optional synthetic red-team scenario, not a main-path claim.
+The main path has ten audience beats: public financial activity → observe/investigate/judge/act authority ladder → one synthetic failed trade → naive human-in-the-loop overload → Supervisory AI and Human in the Right Loop → agentic transactions and predictive intervention → Bank Compliance challenge → runtime authority gate → correlated agent decisions as a research question → closing ghost questions. The material causal case, including its source counterfactual and simple authority outcome, stays on one stage with presenter-controlled micro-reveals. Metric gaming remains an optional synthetic red-team scenario, not a main-path claim.
 
 Three real-world arcs frame the synthetic case: capital-markets exception handling, agentic payments/digital assets, and possible correlated decisions in asset management. Public examples have explicit evidence maturity and primary-source links in `PUBLIC_SOURCES.md`. Their existence does not validate the synthetic scores, timings or supervisory logic.
 

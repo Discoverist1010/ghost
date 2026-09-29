@@ -10,6 +10,7 @@ The acceptance check is both causal and visual: the story must be reconstructabl
 - The provisional `27 → 42 → 61` phase, the central-bank-related baseline of 39, the T-17 rise to 76 and the later `76 → 39` counterfactual have explicit, attributed causes. No score jumps silently.
 - The naive AUTHORISE / REJECT controls are clickable, but either reveals “ON WHAT BASIS?” and neither records approval or executes a restriction.
 - Supervisory AI produces exactly one material finding from the 486-event main burst, with original event/evidence references and a causal trace through the proposed restriction and mandate boundary.
+- The material case is one cue with an initial 486 → 1 state and six controlled reveals: classification, risk, recommendation, source challenge, counterfactual and authority. Right/Space and Left traverse microstates without changing the beat number; R returns to 486 → 1; E opens original evidence. No raw event IDs appear on the main stage.
 - The finding exposes provenance, causal trace, independence, uncertainty, disagreement, reproducibility, contestability and authority. A reviewer can reach the raw events and challenge the interpretation.
 - The human card names the two decisions: reclassification validity and intervention justification.
 - The 74% prediction is clearly separate from risk coefficient 76 and from a deterministic rule breach.

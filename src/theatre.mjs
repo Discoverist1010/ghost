@@ -1,13 +1,23 @@
 import { buildRun, EVIDENCE, evaluateGate, supervise, validateRun } from "./scenario.mjs";
-import { BEATS, CUES, createPresentationState, currentCue, transition } from "./presentation.mjs";
+import { BEATS, CASE_ACTIONS, CUES, createPresentationState, currentCue, transition } from "./presentation.mjs";
 
 const run = buildRun();
 if (!validateRun(run)) throw new Error("The synthetic run failed its trace contract.");
 const finding = supervise(run.events);
 const gate = evaluateGate(run.gateInput);
 const classification = run.events.find((event) => event.kind === "CLASSIFICATION_CHANGED");
+const riskEvent = run.events.find((event) => event.kind === "RISK_UPDATED" && event.parentIds.includes(classification?.id));
+const proposalEvent = run.events.find((event) => event.kind === "INTERVENTION_RECOMMENDED" && event.parentIds.includes(riskEvent?.id));
 if (!finding?.sourceEventIds.includes(classification?.id) ||
-    !run.counterfactual.evidenceIds.includes(EVIDENCE.bankResponse.id)) {
+    !finding.sourceEventIds.includes(riskEvent?.id) ||
+    !finding.sourceEventIds.includes(proposalEvent?.id) ||
+    !run.counterfactual.evidenceIds.includes(EVIDENCE.bankResponse.id) ||
+    !EVIDENCE.entityFiling.finding.includes(classification.before) ||
+    run.counterfactual.before !== riskEvent.after ||
+    run.counterfactual.after !== riskEvent.before ||
+    proposalEvent.proposedAction !== run.gateInput.proposedAction ||
+    run.gateInput.mandate !== "recommend" ||
+    gate.disposition !== "ESCALATE") {
   throw new Error("The presentation has lost its source-event or challenge link.");
 }
 const stage = document.getElementById("stage");
@@ -42,10 +52,6 @@ function number(value, tone = "") {
   return '<span class="hero-number ' + tone + '">' + escapeHTML(value) + "</span>";
 }
 
-function scoreFlow(before, after, tone = "cyan") {
-  return '<div class="score-flow">' + number(before) + '<span class="score-arrow">→</span>' + number(after, tone) + "</div>";
-}
-
 function button(label, action, className = "quiet-button") {
   return '<button type="button" class="' + className + '" data-action="' + action + '">' + label + "</button>";
 }
@@ -71,20 +77,24 @@ function renderTree() {
     ).join('') + '</div></div>';
 }
 
-function renderCausalChain() {
-  const summaries = [
-    "Entity X reclassified",
-    "Risk " + run.scoreHistory[3].score + " → " + run.scoreHistory[4].score,
-    "Restriction recommended",
-    "Mandate boundary identified",
+export function renderMaterialCase(step) {
+  const prior = escapeHTML(classification.before.replaceAll('-', ' ').toUpperCase());
+  const derived = escapeHTML(classification.after.replaceAll('-', ' ').toUpperCase());
+  const before = escapeHTML(riskEvent.before);
+  const after = escapeHTML(riskEvent.after);
+  const counterfactual = escapeHTML(run.counterfactual.after);
+  const scenes = [
+    '<div class="case-compression"><div><strong>' + run.events.length + '</strong><span>EVENTS</span></div><i aria-hidden="true">↓</i><div class="case-compression-result"><strong>' + (finding ? 1 : 0) + '</strong><span>MATERIAL ISSUE</span></div></div>',
+    '<div class="case-classification"><p class="case-kicker">ENTITY X · DERIVED CLASSIFICATION</p><strong class="case-prior">' + prior + '</strong><span class="case-down" aria-hidden="true">↓</span><strong class="case-derived">' + derived + '</strong></div>',
+    '<div class="case-risk"><p class="case-kicker">RISK</p><div class="case-number-shift"><strong class="case-number-before">' + before + '</strong><span aria-hidden="true">→</span><strong class="case-number-after">' + after + '</strong></div><p class="case-explanation">ONE CLASSIFICATION MATERIALLY CHANGED THE ASSESSMENT.</p><p class="case-quiet-fact">ENTITY X · ' + derived + '</p></div>',
+    '<div class="case-recommendation"><p class="case-kicker">AI RECOMMENDS</p><strong>ENHANCED LIQUIDITY<br>RESTRICTION</strong><p class="case-consequence">ENTITY X CLASSIFIED <span>↓</span> RISK ' + before + ' → ' + after + ' <span>↓</span> RESTRICTION RECOMMENDED</p></div>',
+    '<div class="case-source"><div><p class="case-kicker">SYSTEM DERIVED CLASSIFICATION</p><strong>' + derived + '</strong></div><div class="case-source-record"><p class="case-kicker">SOURCE RECORD</p><strong>' + prior + '</strong></div><p class="case-contested">FACT CONTESTED</p></div>',
+    '<div class="case-collapse"><p class="case-kicker">SOURCE RECORD · ' + prior + '</p><div class="case-collapse-numbers"><strong class="case-collapse-old">' + escapeHTML(run.counterfactual.before) + '</strong><span aria-hidden="true">↓</span><strong class="case-collapse-new">' + counterfactual + '</strong></div><p class="case-retracted">ENHANCED LIQUIDITY RESTRICTION · BASIS CHALLENGED</p><strong class="case-one-fact">ONE FACT CHANGED.</strong><p class="case-same"><span>SAME MODEL.</span><span>SAME RULES.</span><span>DIFFERENT FACT.</span></p></div>',
+    '<div class="case-authority"><p class="case-kicker">AUTHORITY GATE</p><div class="case-permission"><span>AGENT MAY RECOMMEND</span><small>BUT</small><span>AGENT MAY NOT EXECUTE</span></div><strong class="case-escalate">' + escapeHTML(gate.disposition) + '</strong><p class="case-not-executed">RESTRICTION NOT EXECUTED</p></div>',
   ];
-  return '<div class="causal-chain">' + finding.causalTrace.map((event, index) =>
-    '<div class="causal-step" style="--delay:' + (index * 650) + 'ms">' +
-      '<span class="causal-actor">' + escapeHTML(index === 3 ? "Runtime control" : event.actor) + "</span>" +
-      '<strong>' + summaries[index] + "</strong>" +
-      '<span class="causal-id">' + escapeHTML(event.id) + "</span>" +
-    "</div>"
-  ).join("") + "</div>";
+  return '<div class="case-stage" data-case-step="' + step + '"><div class="case-visual" aria-live="polite">' + scenes[step] + '</div>' +
+    '<div class="case-controls">' + button(CASE_ACTIONS[step] + ' →', 'next', 'case-primary') +
+    button('EVIDENCE', 'open-source', 'case-secondary') + button('RESET', 'case-reset', 'case-secondary') + '</div></div>';
 }
 
 const trustQuestions = [
@@ -170,14 +180,8 @@ function renderView(id) {
         '<h1 class="hero-verdict impact">ON WHAT BASIS?</h1>' +
         '<p class="primary-line">Logged. Auditable. Theoretically reviewable.</p>' +
         '<p class="support-line">But cognitively out of reach.</p>', "centered");
-    case "compression-before":
-      return wrap(id, number(run.events.length) + '<h1 class="hero-unit">EVENTS</h1>', "centered");
-    case "compression-after":
-      return wrap(id,
-        '<p class="compressed-source">' + run.events.length + ' EVENTS <span>→</span></p>' +
-        number(finding ? 1 : 0, "cyan") + '<h1 class="hero-unit">MATERIAL ISSUE</h1>', "centered compressed");
-    case "causal-chain":
-      return wrap(id, '<h1 class="stage-heading">THE CHAIN THAT MATTERS</h1>' + renderCausalChain(), "centered");
+    case "material-case":
+      return wrap(id, renderMaterialCase(presentation.caseStep), "centered");
     case "human-decision":
       return wrap(id,
         '<h1 class="hero-verdict">HUMAN DECISION REQUIRED</h1>' +
@@ -204,7 +208,7 @@ function renderView(id) {
     case "risk-prediction":
       return wrap(id,
         '<div class="dual-metric"><div>' + number(run.scoreHistory[4].score) +
-          '<span>RISK COEFFICIENT</span></div><div>' + number(run.prediction.percent + "%", "amber") +
+          '<span>RISK COEFFICIENT</span></div><div>' + number(run.prediction.percent + "%", "cyan") +
           '<span>PREDICTED MATERIAL EVENT</span></div></div>' +
           maturity('SYNTHETIC TEACHING SIMULATION', 'Illustrative values, not calibrated forecasts'), "centered");
     case "risk-proposal":
@@ -215,28 +219,10 @@ function renderView(id) {
       return wrap(id,
         '<h1 class="hero-verdict impact">NO RULE HAS BEEN BREACHED</h1>' +
         '<p class="primary-line">PREDICTION ≠ PERMISSION</p>', "centered");
-    case "source-current":
-      return wrap(id,
-        '<p class="stage-label">DERIVED CLASSIFICATION · ' + escapeHTML(classification.actor + '/' + classification.taskId) + '</p>' +
-        '<h1 class="hero-verdict">ENTITY X: COMMERCIAL COUNTERPARTY</h1>' +
-        '<p class="primary-line">Risk ' + run.scoreHistory[4].score + '</p>', "centered");
-    case "source-challenge":
-      return wrap(id,
-        '<p class="stage-label">ORIGINAL SOURCE RECORD · ' + EVIDENCE.entityFiling.id + '</p>' +
-        '<h1 class="hero-verdict">ENTITY X IS CENTRAL-BANK-RELATED</h1>' +
-        '<p class="support-line">The derived classification conflicts with its source.</p>', "centered");
-    case "counterfactual":
-      return wrap(id,
-        scoreFlow(run.counterfactual.before, run.counterfactual.after) +
-        '<p class="support-line">Entity X restored to the source classification.</p>', "centered");
-    case "one-fact":
-      return wrap(id,
-        '<h1 class="hero-verdict">ONE FACT CHANGED</h1>' +
-        '<p class="primary-line">Same model. Same rules. Different fact.</p>', "centered");
     case "bank-response":
       return wrap(id,
         '<p class="stage-label">BANK COMPLIANCE AGENT</p>' +
-        '<h1 class="hero-verdict">COUNTER-EVIDENCE SUBMITTED</h1>', "centered");
+        '<h1 class="hero-verdict">COUNTER-EVIDENCE ON RECORD</h1>', "centered");
     case "bank-contested":
       return wrap(id,
         '<h1 class="hero-verdict amber">SUPERVISORY FACT: CONTESTED</h1>' +
@@ -286,13 +272,10 @@ function renderView(id) {
 const detailActions = {
   "failed-trade": ["Inspect synthetic case", "open-evidence"],
   "agent-tree": ["Inspect synthetic case", "open-evidence"],
-  "causal-chain": ["Inspect original event", "open-source"],
+  "material-case": ["Inspect original event", "open-source"],
   "human-decision": ["Inspect and record decision", "open-review"],
   "attention-question": ["Inspect trust controls", "open-trust"],
   "trust-questions": ["Inspect trust controls", "open-trust"],
-  "source-current": ["Inspect source evidence", "open-source"],
-  "source-challenge": ["Inspect source evidence", "open-source"],
-  "counterfactual": ["Inspect source evidence", "open-source"],
   "bank-contested": ["Inspect source evidence", "open-source"],
   "gate-run": ["Inspect gate rule", "open-gate"],
   "escalate": ["Inspect gate and export", "open-gate"],
@@ -317,11 +300,13 @@ function renderCue() {
     cue.beat === 9 ? 'REGULATORY RESEARCH' : 'SYNTHETIC TEACHING SIMULATION';
   document.querySelector('.app-shell').classList.toggle('is-closing', cue.beat === 10);
   beatCounter.textContent = "BEAT " + cue.beat + "/" + BEATS.length;
-  announcer.textContent = "Beat " + cue.beat + ": " + BEATS[cue.beat - 1] + ". " + cue.id.replaceAll("-", " ");
+  announcer.textContent = "Beat " + cue.beat + ": " + BEATS[cue.beat - 1] + ". " +
+    (cue.id === "material-case" ? CASE_ACTIONS[presentation.caseStep] : cue.id.replaceAll("-", " "));
   previousButton.disabled = presentation.cueIndex === 0;
   nextButton.disabled = presentation.cueIndex === CUES.length - 1;
+  nextButton.setAttribute("aria-label", cue.id === "material-case" ? CASE_ACTIONS[presentation.caseStep] : "Next reveal");
   const detail = detailActions[cue.id];
-  contextButton.hidden = !detail;
+  contextButton.hidden = !detail || cue.id === "material-case";
   if (detail) {
     contextButton.textContent = detail[0];
     contextButton.dataset.action = detail[1];
@@ -594,7 +579,7 @@ document.addEventListener("click", (event) => {
   }
   const action = control.dataset.action;
   const value = control.dataset.value;
-  if (action === "next" || action === "previous") move(action);
+  if (action === "next" || action === "previous" || action === "case-reset") move(action);
   else if (action === "naive-authorise") move("authorise");
   else if (action === "naive-reject") move("reject");
   else if (action === "replay") { if (currentCue(presentation).animation) renderCue(); }
@@ -648,8 +633,15 @@ document.addEventListener("keydown", (event) => {
     presentation = transition(presentation, "reset");
     Object.assign(review, { classification: "pending", intervention: "pending", openedEvidence: false, challenged: false });
     renderCue();
+  } else if (event.key.toLowerCase() === "r" && currentCue(presentation).id === "material-case") {
+    event.preventDefault();
+    move("case-reset");
   } else if (event.key.toLowerCase() === "r" && currentCue(presentation).animation) {
+    event.preventDefault();
     renderCue();
+  } else if (event.key.toLowerCase() === "e" && currentCue(presentation).id === "material-case") {
+    event.preventDefault();
+    openDrawer("source");
   } else if (event.key.toLowerCase() === "p" && currentCue(presentation).animation) {
     pauseOrResume();
   } else if (event.key.toLowerCase() === "f" && document.fullscreenEnabled) {

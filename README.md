@@ -30,7 +30,7 @@ Source maturity and important qualifications are in [PUBLIC_SOURCES.md](PUBLIC_S
 
 ## Main show
 
-Ten audience beats: real financial activity → authority ladder → one failed trade → human-review overload → AI supervising AI and the right human loop → agentic transactions and predictive intervention → the one-fact counterfactual and AI challenge → runtime **ESCALATE** → correlated-agent research question → closing governance question. Presenter-controlled reveals sit *within* beats; the stage does not display ten dense dashboards.
+Ten audience beats: real financial activity → authority ladder → one failed trade → human-review overload → AI supervising AI and the right human loop → agentic transactions and predictive intervention → an institutional AI challenge → runtime **ESCALATE** → correlated-agent research question → closing governance question. The material case is **one stage**: six presenter clicks uncover classification, risk, recommendation, source challenge, counterfactual and authority in sequence. The beat counter does not advance between those reveals.
 
 The important event, `EntityGraph/T-17`, is truly in the 486-event stream. It changes a *derived* classification from central-bank-related to commercial-counterparty. A linked score update moves **39 → 76**; an institutional challenge supports a **76 → 39** counterfactual. The original source is never overwritten. The Supervisory AI finding cites the exact classification, score, recommendation and mandate-boundary events. Evidence, trust controls and the complete run remain available in contextual drawers and export.
 
@@ -50,7 +50,8 @@ Open [http://127.0.0.1:4173](http://127.0.0.1:4173). If that port is occupied, u
 | --- | --- |
 | Right arrow / Space | Next reveal |
 | Left arrow | Previous reveal |
-| R | Replay an animated reveal |
+| R | Reset the material-case beat; replay other animated reveals |
+| E | Open original evidence during the material-case beat |
 | P | Pause or resume an animation |
 | F | Toggle fullscreen |
 | Esc | Close the detail drawer |
