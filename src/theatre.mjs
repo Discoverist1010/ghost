@@ -154,11 +154,11 @@ function renderView(id) {
       return wrap(id,
         '<div class="flood-layout"><div class="flood-metric">' +
           '<span id="floodNumber" class="hero-number cyan">' + run.agents.length + "</span>" +
-          '<span id="floodUnit" class="hero-unit">AGENTS</span></div>' +
+          '<span id="floodUnit" class="hero-unit">AGENTS</span>' +
+          '<div class="stage-actions">' + button("Replay", "replay", "quiet-button") +
+            button("Pause", "pause", "quiet-button") + "</div></div>" +
           '<div class="flood-log" aria-hidden="true"><div class="flood-log-head">INTERLEAVED ACTION TRACE <span id="floodCount">000 / ' + run.events.length + '</span></div>' +
-          '<div id="floodLines" class="flood-log-lines"></div></div></div>' +
-        '<div class="stage-actions">' + button("Replay", "replay", "quiet-button") +
-          button("Pause", "pause", "quiet-button") + "</div>", "flood");
+          '<div id="floodLines" class="flood-log-lines"></div></div></div>', "flood");
     case "naive-review":
       return wrap(id,
         '<h1 class="hero-verdict">HUMAN REVIEW REQUIRED</h1>' +

@@ -103,12 +103,12 @@ button:disabled { cursor: default; opacity: .35; }
 .quiet-button:hover { border-color: var(--cyan); color: var(--text); }
 
 .flood-layout { width: 100%; display: grid; grid-template-columns: minmax(0, .9fr) minmax(0, 1.1fr); align-items: center; gap: 48px; }
-.flood-metric { display: flex; flex-direction: column; justify-content: center; align-items: flex-start; gap: 18px; }
+.flood-metric { display: flex; flex-direction: column; justify-content: center; align-items: flex-start; gap: 18px; min-width: 0; padding-left: clamp(40px, 5vw, 90px); }
 .flood-log { height: min(55vh, 590px); border-top: 2px solid var(--line); border-bottom: 2px solid var(--line); background: #0d1b2c; overflow: hidden; }
 .flood-log-head { display: flex; justify-content: space-between; gap: 16px; padding: 16px 18px; border-bottom: 1px solid var(--line); color: var(--quiet); font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 15px; font-weight: 700; letter-spacing: .08em; white-space: nowrap; }
 .flood-log-lines { height: calc(100% - 51px); overflow: hidden; padding: 10px 16px; color: #8fa0b3; font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 13px; line-height: 1.28; }
 .log-line { white-space: nowrap; }
-.stage-actions { position: absolute; bottom: 108px; left: 6vw; display: flex; gap: 12px; }
+.stage-actions { display: flex; gap: 14px; margin-top: 48px; }
 .naive-count { display: flex; align-items: baseline; gap: 28px; }
 .naive-count span:last-child { color: var(--secondary); font-size: clamp(48px, 4.2vw, 68px); font-weight: 760; }
 .naive-actions { display: flex; gap: 20px; }
@@ -230,7 +230,8 @@ button:disabled { cursor: default; opacity: .35; }
   .score-arrow { font-size: 62px; }
   .flood-layout { grid-template-columns: 1fr; }
   .flood-log { height: 32vh; }
-  .stage-actions { position: static; }
+  .flood-metric { padding-left: 0; }
+  .stage-actions { margin-top: 24px; }
   .naive-count, .naive-actions { flex-wrap: wrap; justify-content: center; }
   .naive-actions .stage-button { min-width: 0; }
   .causal-step { grid-template-columns: 1fr; gap: 7px; }
