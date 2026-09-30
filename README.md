@@ -30,7 +30,7 @@ Source maturity and important qualifications are in [PUBLIC_SOURCES.md](PUBLIC_S
 
 ## Main show
 
-Eight escalating audience beats, 26 presenter advances: answers → actions; agents help but humans lose the thread; AI supervises AI but allocates human attention; prediction is not permission; one disputed fact changes the case; human judgement and the runtime authority gate; individually correct agents create systemic effects; the ghost. The causal case is **one stage with three reveals** after the no-breach moment: a coherent explanation (classification → 39→76 → recommendation), a separate source and Bank Compliance challenge, then an animated 76→39 counterfactual. Only then does the show ask for a human decision and run the single **ESCALATE** verdict.
+Eight escalating audience beats, 27 presenter advances: answers → actions; agents help but humans lose the thread; AI supervises AI but allocates human attention; prediction is not permission; one disputed fact changes the case; human judgement and the runtime authority gate; individually correct agents create systemic effects; the ghost. The causal case is **one stage with three reveals** after the no-breach moment: a coherent explanation (classification → 39→76 → recommendation), a separate source and Bank Compliance challenge, then an animated 76→39 counterfactual. The challenge does not make the second AI correct. The show then asks what verification human judgement needs before the single **ESCALATE** verdict.
 
 The on-stage authority ladder is **ASSIST → INVESTIGATE → ASSESS → ACT**; supervision is a later meta-control, not another rung. A restrained corner indicator tracks the AI role and either its human benefit or its governance question. Main-stage detail controls say **SHOW MORE**; the drawers retain precise evidence and source language.
 
@@ -38,7 +38,7 @@ Beat 7 then asks what happens when individual controls work. Six hypothetical po
 
 The important event, `EntityGraph/T-17` (`EVT-0238`), is truly in the 486-trace-event stream. It changes a *derived* classification from central-bank-related to commercial-counterparty. A linked score update moves **39 → 76**; an institutional challenge supports a **76 → 39** counterfactual. The original source is never overwritten. The Supervisory AI finding cites the exact classification, score, recommendation and mandate-boundary events. Evidence, trust controls and the complete run remain available in contextual drawers and export.
 
-The human-in-the-right-loop distinction is concrete: a person should not be asked to approve 486 undifferentiated machine actions. They should judge whether the material classification is valid and, if so, whether intervention is justified. The Supervisory AI is itself an **attention allocator**: its provenance, uncertainty, contestability, independence, disagreement, causal trace, reproducibility and limited authority are inspectable.
+The human-in-the-right-loop distinction is concrete: a person should not be asked to approve 486 undifferentiated machine actions. They should own the consequential judgement, while recognising that contested evidence may still need manual verification or AI-assisted validation. Human authority is not automatic certainty. The Supervisory AI is itself an **attention allocator**: its provenance, uncertainty, contestability, independence, disagreement, causal trace, reproducibility and limited authority are inspectable.
 
 ## Run locally
 

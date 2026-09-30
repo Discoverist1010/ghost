@@ -24,8 +24,8 @@ test("problems land before their solutions and the story never backtracks", () =
   before("no-breach", "causal-explanation");
   before("causal-explanation", "source-challenge");
   before("source-challenge", "counterfactual");
-  before("counterfactual", "human-decision");
-  before("human-decision", "gate-run");
+  before("counterfactual", "human-judgement");
+  before("human-judgement", "gate-run");
   before("gate-run", "escalate");
   before("escalate", "optimise-base");
   before("optimise-base", "market-signal");
@@ -84,7 +84,7 @@ test("causal case is one beat with source and counterfactual before human author
   assert.equal(currentReveal(state), "counterfactual");
   state = transition(state, "next");
   assert.equal(currentCue(state).id, "authority");
-  assert.equal(currentReveal(state), "human-decision");
+  assert.equal(currentReveal(state), "human-judgement");
   state = transition(state, "previous");
   assert.equal(currentReveal(state), "counterfactual");
   state = transition(state, "reset-beat");

@@ -85,8 +85,8 @@ export function renderMaterialCase(step) {
       '<p class="case-causal-proposal">ENHANCED LIQUIDITY RESTRICTION<br>RECOMMENDED</p></div>',
     '<div class="case-source"><div class="case-system-fact"><p class="case-kicker">SYSTEM DERIVED</p><strong>' + derived + '</strong></div>' +
       '<div class="case-source-record"><p class="case-kicker">SOURCE RECORD</p><strong>' + prior + '</strong></div>' +
-      '<div class="case-institution"><strong>BANK COMPLIANCE AGENT</strong><span>Counter-evidence submitted</span></div>' +
-      '<p class="case-contested">FACT CONTESTED</p><p class="case-subtle">CONTESTABILITY CREATES A DECISION.<br>IT DOES NOT CREATE THE TRUTH.</p></div>',
+      '<div class="case-institution"><strong>BANK COMPLIANCE AGENT</strong><span>COUNTER-EVIDENCE SUBMITTED</span></div>' +
+      '<p class="case-contested">FACT CONTESTED</p><p class="case-subtle">THE SECOND AI DOES NOT SETTLE THE MATTER.<br>IT PREVENTS THE FIRST AI FROM SETTLING IT ALONE.</p></div>',
     '<div class="case-counterfactual"><div class="cf-facts"><span class="cf-derived">' + derived + '</span><strong class="cf-source">' + prior + '</strong></div>' +
       '<div class="cf-score"><strong class="cf-old">' + escapeHTML(run.counterfactual.before) + '</strong><span aria-hidden="true">↓</span><strong class="cf-new">' + counterfactual + '</strong></div>' +
       '<p class="cf-recommendation">ENHANCED LIQUIDITY RESTRICTION <span>BASIS CHALLENGED</span></p>' +
@@ -216,10 +216,11 @@ export function renderView(id, step) {
       return wrap(id, renderMaterialCase(step), "centered");
     case "authority":
       if (step === 0) return wrap(id,
-        '<h1 class="hero-verdict">HUMAN DECISION REQUIRED</h1>' +
-        '<div class="decision-questions"><p>IS THE ENTITY X CLASSIFICATION VALID?</p>' +
-        '<p>IF VALID, DOES IT JUSTIFY INTERVENTION?</p></div>' +
-        '<p class="support-line">Humans at boundaries of authority, not every boundary of computation.</p>', "centered");
+        '<h1 class="hero-verdict judgement-title">HUMAN JUDGEMENT REQUIRED</h1>' +
+        '<div class="judgement-paths"><p>MANUAL VERIFICATION?</p>' +
+        '<p>AI-ASSISTED VALIDATION?</p></div>' +
+        '<p class="judgement-question">WHO VALIDATES THE VALIDATOR?</p>' +
+        '<p class="judgement-principle">HUMAN JUDGEMENT SHOULD OWN THE CONSEQUENTIAL DECISION.</p>', "centered");
       if (step === 1) return wrap(id,
         '<h1 class="stage-heading">RUNTIME AUTHORITY CHECK</h1>' +
         '<div class="gate-steps">' + gateChecks.map(([label, value]) =>
@@ -466,7 +467,7 @@ function drawerContent(kind) {
         detailBlock("Derived interpretation", EVIDENCE.graphInference.id + ": " + EVIDENCE.graphInference.finding) +
         detailBlock("Uncertainty", EVIDENCE.graphInference.uncertainty) +
         detailBlock("Demo fingerprints", "Input " + classification.inputHash + " · output " + classification.outputHash + ". These are stable demo identifiers, not cryptographic proof.") +
-        button("Open human decision", "open-review", "drawer-button strong"),
+        button("Open human judgement", "open-review", "drawer-button strong"),
     };
   }
   if (kind === "trust") {
@@ -493,14 +494,14 @@ function drawerContent(kind) {
         detailBlock("Identity / mandate", "Verified / " + run.gateInput.mandate + " only") +
         detailBlock("Action / consequence", run.gateInput.proposedAction + " / " + run.gateInput.materiality + " materiality") +
         detailBlock("Evidence / rule", run.gateInput.evidenceQuality + " / no deterministic rule breach") +
-        detailBlock("Human task", "Is the Entity X reclassification valid, and if valid is intervention justified?") +
+        detailBlock("Human task", "Determine what verification is sufficient for the contested classification, then judge whether intervention is justified.") +
         button("Open human review", "open-review", "drawer-button strong"),
     };
   }
   if (kind === "review") {
     return {
-      title: "Human decision record",
-      body: "<p>These are separate judgements. Recording a view does not execute the proposed restriction; runtime authority still applies.</p>" +
+      title: "Human judgement record",
+      body: "<p>The classification remains contested until its evidence is verified. These controls record considered human views; they do not execute the proposed restriction or make AI counter-evidence automatically correct.</p>" +
         '<div class="choice-group"><strong>1. Is Entity X correctly reclassified?</strong>' +
         choiceButton("classification", "pending", "Needs verification") +
         choiceButton("classification", "valid", "Valid") +

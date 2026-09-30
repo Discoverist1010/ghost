@@ -46,9 +46,9 @@ test("three presenter states reveal causal explanation, challenge, then counterf
   assert.match(states[0], /ENHANCED LIQUIDITY RESTRICTION/);
   assert.match(states[1], /SOURCE RECORD/);
   assert.match(states[1], /BANK COMPLIANCE AGENT/);
-  assert.match(states[1], /Counter-evidence submitted/);
+  assert.match(states[1], /COUNTER-EVIDENCE SUBMITTED/);
   assert.match(states[1], /FACT CONTESTED/);
-  assert.match(states[1], /CONTESTABILITY CREATES A DECISION\.<br>IT DOES NOT CREATE THE TRUTH\./);
+  assert.match(states[1], /THE SECOND AI DOES NOT SETTLE THE MATTER\.<br>IT PREVENTS THE FIRST AI FROM SETTLING IT ALONE\./);
   assert.doesNotMatch(states[1], /AI MAY CHALLENGE AI|NEITHER REWRITES THE EVIDENCE|ORIGINAL INFERENCE RETAINED/);
   assert.doesNotMatch(states[1], /cf-new|ONE FACT CHANGED|>39</);
   assert.match(states[2], /cf-old">76/);
@@ -91,9 +91,30 @@ test("prediction and contestability keep their claims legible without making cha
   assert.ok(challenge.indexOf("SYSTEM DERIVED") < challenge.indexOf("SOURCE RECORD"));
   assert.ok(challenge.indexOf("SOURCE RECORD") < challenge.indexOf("BANK COMPLIANCE AGENT"));
   assert.ok(challenge.indexOf("BANK COMPLIANCE AGENT") < challenge.indexOf("FACT CONTESTED"));
-  assert.match(challenge, /<div class="case-institution"><strong>BANK COMPLIANCE AGENT<\/strong><span>Counter-evidence submitted<\/span><\/div>/);
+  assert.match(challenge, /<div class="case-institution"><strong>BANK COMPLIANCE AGENT<\/strong><span>COUNTER-EVIDENCE SUBMITTED<\/span><\/div>/);
   assert.match(css, /\.case-institution strong\s*\{[^}]*font-size:\s*clamp\(31px, 2\.4vw, 41px\)/);
   assert.match(css, /\.case-subtle\s*\{[^}]*font-size:\s*clamp\(29px, 2\.2vw, 37px\)/);
+});
+
+test("human judgement stays uncertain while the runtime gate owns execution authority", () => {
+  const css = readFileSync(new URL("../styles.css", import.meta.url), "utf8");
+  const judgement = renderView("authority", 0);
+  const gate = renderView("authority", 1);
+  const verdict = renderView("authority", 2);
+  assert.match(judgement, /HUMAN JUDGEMENT REQUIRED/);
+  assert.ok(judgement.indexOf("MANUAL VERIFICATION?") < judgement.indexOf("AI-ASSISTED VALIDATION?"));
+  assert.ok(judgement.indexOf("AI-ASSISTED VALIDATION?") < judgement.indexOf("WHO VALIDATES THE VALIDATOR?"));
+  assert.match(judgement, /HUMAN JUDGEMENT SHOULD OWN THE CONSEQUENTIAL DECISION/);
+  assert.doesNotMatch(judgement, /HUMAN DECISION REQUIRED|IS THE ENTITY X CLASSIFICATION VALID|Humans at boundaries/);
+  assert.match(css, /\.judgement-paths p:first-child[^}]*\.35s/);
+  assert.match(css, /\.judgement-paths p:last-child[^}]*\.95s/);
+  assert.match(css, /\.judgement-question[^}]*1\.55s/);
+  assert.match(css, /\.judgement-question\s*\{[^}]*color:\s*var\(--amber\)/);
+  assert.match(gate, /EVIDENCE<\/span><strong>DISPUTED/);
+  assert.match(gate, /EXECUTION AUTHORITY<\/span><strong>INSUFFICIENT/);
+  assert.match(css, /\.gate-step:nth-child\(n\+3\)\.revealed strong\s*\{[^}]*color:\s*var\(--amber\)/);
+  assert.match(verdict, /ESCALATE/);
+  assert.doesNotMatch(judgement + gate, /ESCALATE/);
 });
 
 test("projection stage cannot scroll and counterfactual motion has a causal sequence", () => {
