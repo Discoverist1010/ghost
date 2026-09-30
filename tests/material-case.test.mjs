@@ -26,7 +26,7 @@ globalThis.document = {
 globalThis.Element = class {};
 globalThis.window = { matchMedia: () => ({ matches: true }) };
 
-const { formatTraceLine, renderMaterialCase, renderSystemic, renderView } = await import("../src/theatre.mjs");
+const { formatTraceLine, renderGateDetails, renderMaterialCase, renderSystemic, renderView } = await import("../src/theatre.mjs");
 const { CUES, NARRATIVE_INDICATORS } = await import("../src/presentation.mjs");
 
 test("early supervisory compression withholds later risk and authority facts", () => {
@@ -62,8 +62,7 @@ test("three presenter states reveal causal explanation, challenge, then counterf
   for (const markup of states) {
     assert.doesNotMatch(markup, /ESCALATE|E-0238|E-0252|E-0270|E-0301|EntityGraph|Interpreter|PolicyMapper/);
   }
-  assert.match(renderView("authority", 2), /ESCALATE/);
-  assert.equal((renderView("authority", 1).match(/class="gate-step"/g) ?? []).length, 4);
+  assert.match(renderView("authority", 0), /ESCALATE/);
   assert.match(renderView("prediction", 0), /AI INVESTIGATOR ASSESSMENT/);
   assert.match(renderView("prediction", 0), /<span>AI RECOMMENDS<\/span><strong>ENHANCED LIQUIDITY RESTRICTION<\/strong>/);
   assert.doesNotMatch(renderView("prediction", 0), /AGENTIC PAYMENTS|DIGITAL ASSETS|TREASURY/);
@@ -98,23 +97,30 @@ test("prediction and contestability keep their claims legible without making cha
 
 test("human judgement stays uncertain while the runtime gate owns execution authority", () => {
   const css = readFileSync(new URL("../styles.css", import.meta.url), "utf8");
-  const judgement = renderView("authority", 0);
-  const gate = renderView("authority", 1);
-  const verdict = renderView("authority", 2);
+  const judgement = renderView("authority", 1);
+  const verdict = renderView("authority", 0);
+  const details = renderGateDetails();
   assert.match(judgement, /HUMAN JUDGEMENT REQUIRED/);
   assert.ok(judgement.indexOf("MANUAL VERIFICATION?") < judgement.indexOf("AI-ASSISTED VALIDATION?"));
   assert.ok(judgement.indexOf("AI-ASSISTED VALIDATION?") < judgement.indexOf("WHO VALIDATES THE VALIDATOR?"));
-  assert.match(judgement, /HUMAN JUDGEMENT SHOULD OWN THE CONSEQUENTIAL DECISION/);
+  assert.match(judgement, /AUTHORITY MAY BE HUMAN\.<br>CERTAINTY MAY STILL DEPEND ON MACHINES\./);
   assert.doesNotMatch(judgement, /HUMAN DECISION REQUIRED|IS THE ENTITY X CLASSIFICATION VALID|Humans at boundaries/);
   assert.match(css, /\.judgement-paths p:first-child[^}]*\.35s/);
   assert.match(css, /\.judgement-paths p:last-child[^}]*\.95s/);
   assert.match(css, /\.judgement-question[^}]*1\.55s/);
   assert.match(css, /\.judgement-question\s*\{[^}]*color:\s*var\(--amber\)/);
-  assert.match(gate, /EVIDENCE<\/span><strong>DISPUTED/);
-  assert.match(gate, /EXECUTION AUTHORITY<\/span><strong>INSUFFICIENT/);
-  assert.match(css, /\.gate-step:nth-child\(n\+3\)\.revealed strong\s*\{[^}]*color:\s*var\(--amber\)/);
+  assert.match(verdict, /EVIDENCE: <strong>DISPUTED/);
+  assert.match(verdict, /MANDATE: <strong>RECOMMEND ONLY/);
   assert.match(verdict, /ESCALATE/);
-  assert.doesNotMatch(judgement + gate, /ESCALATE/);
+  assert.match(verdict, /RESTRICTION NOT EXECUTED/);
+  assert.match(verdict, /THE SYSTEM DOESN'T NEED TO KNOW WHO IS RIGHT<br>IN ORDER TO KNOW IT SHOULD NOT ACT\./);
+  assert.doesNotMatch(judgement, /ESCALATE/);
+  assert.doesNotMatch(verdict + judgement, /RUNTIME AUTHORITY CHECK|gate-step|CONFIDENCE DOES NOT CREATE AUTHORITY/);
+  for (const label of ['IDENTITY + MANDATE', 'ACTION + MATERIALITY', 'EVIDENCE', 'EXECUTION AUTHORITY', 'Gate rule / reason']) assert.ok(details.includes(label));
+  assert.match(details, /VERIFIED ✓ · RECOMMEND ONLY/);
+  assert.match(details, /RESTRICT LIQUIDITY · HIGH/);
+  assert.match(details, /INSUFFICIENT/);
+  assert.match(details, /ESCALATE/);
 });
 
 test("projection stage cannot scroll and counterfactual motion has a causal sequence", () => {
@@ -250,6 +256,9 @@ test('stage furniture and detail language follow the eight-beat hierarchy', () =
     assert.doesNotMatch(markup, /SYNTHETIC TEACHING SIMULATION|REGULATORY RESEARCH|SYNTHETIC ILLUSTRATION|ILLUSTRATIVE, NOT CALIBRATED|PUBLIC CONTEXT|LIVE \/ PILOT \/ OFFICIAL PROTOTYPE|INSPECT SYNTHETIC|INSPECT ORIGINAL|INSPECT TRUST|INSPECT GATE/i);
   }
   assert.match(renderMaterialCase(0), />SHOW MORE<\/button>/);
+  const mainPath = CUES.flatMap((cue) => cue.steps.map((_, step) => renderView(cue.id, step))).join('');
+  assert.doesNotMatch(mainPath, /RUNTIME AUTHORITY CHECK|class="gate-steps"/);
+  assert.equal((mainPath.match(/>ESCALATE<\/h1>/g) ?? []).length, 1);
   assert.match(renderView('operations', 2), /INTERLEAVED AGENT TRACE/);
   assert.match(renderView('operations', 3), /TRACE EVENTS/);
 });
@@ -287,6 +296,8 @@ test("keyboard advances through every stage without changing the eight-beat cont
       assert.ok(element('stageStatus').innerHTML.includes(`AI ROLE: <strong>${indicator.role}</strong>`));
       assert.ok(element('stageStatus').innerHTML.includes(`${indicator.label}: <strong>${indicator.value}</strong>`));
       if (reveal === "escalate") verdicts++;
+      if (reveal === "escalate") assert.equal(element("contextButton").dataset.action, "open-gate");
+      if (reveal === "human-judgement") assert.equal(element("contextButton").dataset.action, "open-review");
       if (cueIndex !== CUES.length - 1 || reveal !== CUES[cueIndex].steps.at(-1)) {
         keydown({ key: "ArrowRight", target: null, preventDefault() {} });
       }

@@ -7,7 +7,7 @@ const reveals = CUES.flatMap((cue) => cue.steps);
 test("eight escalating beats keep the systemic argument inside Beat 7", () => {
   assert.equal(BEATS.length, 8);
   assert.equal(CUES.length, 8);
-  assert.equal(reveals.length - 1, 27);
+  assert.equal(reveals.length - 1, 26);
   assert.deepEqual(CUES.map((cue) => cue.id), [
     "opening", "operations", "supervision", "prediction", "material-case", "authority", "systemic", "ghost",
   ]);
@@ -24,10 +24,11 @@ test("problems land before their solutions and the story never backtracks", () =
   before("no-breach", "causal-explanation");
   before("causal-explanation", "source-challenge");
   before("source-challenge", "counterfactual");
-  before("counterfactual", "human-judgement");
-  before("human-judgement", "gate-run");
-  before("gate-run", "escalate");
-  before("escalate", "optimise-base");
+  before("source-challenge", "escalate");
+  before("counterfactual", "escalate");
+  before("escalate", "human-judgement");
+  before("human-judgement", "optimise-base");
+  assert.equal(reveals.includes("gate-run"), false);
   before("optimise-base", "market-signal");
   before("market-signal", "execute-feedback");
   before("execute-feedback", "transmit");
@@ -84,7 +85,7 @@ test("causal case is one beat with source and counterfactual before human author
   assert.equal(currentReveal(state), "counterfactual");
   state = transition(state, "next");
   assert.equal(currentCue(state).id, "authority");
-  assert.equal(currentReveal(state), "human-judgement");
+  assert.equal(currentReveal(state), "escalate");
   state = transition(state, "previous");
   assert.equal(currentReveal(state), "counterfactual");
   state = transition(state, "reset-beat");

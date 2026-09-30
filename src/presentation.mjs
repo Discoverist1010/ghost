@@ -27,7 +27,7 @@ export const CUES = Object.freeze([
   { id: 'supervision', steps: ['material-issue'] },
   { id: 'prediction', steps: ['predictive-case', 'no-breach'] },
   { id: 'material-case', steps: ['causal-explanation', 'source-challenge', 'counterfactual'] },
-  { id: 'authority', steps: ['human-judgement', 'gate-run', 'escalate'] },
+  { id: 'authority', steps: ['escalate', 'human-judgement'] },
   { id: 'systemic', steps: ['optimise-base', 'market-signal', 'execute-feedback', 'transmit', 'system-pressure', 'system-changed', 'system-supervision-bridge'] },
   { id: 'ghost', steps: ['who-supervises', 'right-loop', 'supervisory-ai', 'final-propositions', 'final-question'] },
 ]);
@@ -35,7 +35,7 @@ export const CUES = Object.freeze([
 export const CASE_ACTIONS = Object.freeze([
   'CHECK SOURCE',
   'RUN COUNTERFACTUAL',
-  'HUMAN JUDGEMENT',
+  'CHECK AUTHORITY',
 ]);
 
 // Beat 7 is a labelled synthetic mechanism-of-concern, not a second scenario run.

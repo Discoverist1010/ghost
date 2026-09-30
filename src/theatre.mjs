@@ -33,7 +33,6 @@ const drawerBody = document.getElementById("drawerBody");
 
 let presentation = createPresentationState();
 let floodState = null;
-let gateState = null;
 let paused = false;
 let focusBeforeDrawer = null;
 const review = { classification: "pending", intervention: "pending", openedEvidence: false, challenged: false };
@@ -215,22 +214,17 @@ export function renderView(id, step) {
     case "material-case":
       return wrap(id, renderMaterialCase(step), "centered");
     case "authority":
-      if (step === 0) return wrap(id,
+      if (step === 1) return wrap(id,
         '<h1 class="hero-verdict judgement-title">HUMAN JUDGEMENT REQUIRED</h1>' +
         '<div class="judgement-paths"><p>MANUAL VERIFICATION?</p>' +
         '<p>AI-ASSISTED VALIDATION?</p></div>' +
         '<p class="judgement-question">WHO VALIDATES THE VALIDATOR?</p>' +
-        '<p class="judgement-principle">HUMAN JUDGEMENT SHOULD OWN THE CONSEQUENTIAL DECISION.</p>', "centered");
-      if (step === 1) return wrap(id,
-        '<h1 class="stage-heading">RUNTIME AUTHORITY CHECK</h1>' +
-        '<div class="gate-steps">' + gateChecks.map(([label, value]) =>
-          '<div class="gate-step"><span>' + label + "</span><strong>" + value + "</strong></div>"
-        ).join("") + "</div>" +
-        '<p id="gateStatus" class="gate-status">CHECKING DELEGATED AUTHORITY</p>', "centered");
+        '<p class="judgement-principle">AUTHORITY MAY BE HUMAN.<br>CERTAINTY MAY STILL DEPEND ON MACHINES.</p>', "centered");
       return wrap(id,
-        '<h1 class="hero-verdict mega amber">' + gate.disposition + "</h1>" +
-        '<p class="primary-line">RESTRICTION NOT EXECUTED</p>' +
-        '<p class="support-line">CONFIDENCE DOES NOT CREATE AUTHORITY.</p>', "centered");
+        '<div class="authority-facts"><p>EVIDENCE: <strong>' + run.gateInput.evidenceQuality.toUpperCase() + '</strong></p><p>MANDATE: <strong>RECOMMEND ONLY</strong></p></div>' +
+        '<h1 class="hero-verdict mega amber authority-verdict">' + gate.disposition + "</h1>" +
+        '<p class="primary-line authority-restraint">RESTRICTION NOT EXECUTED</p>' +
+        '<p class="authority-punch">THE SYSTEM DOESN\'T NEED TO KNOW WHO IS RIGHT<br>IN ORDER TO KNOW IT SHOULD NOT ACT.</p>', "centered");
     case "systemic":
       return wrap(id, renderSystemic(step), "centered");
     case "ghost":
@@ -252,16 +246,14 @@ function detailAction(id, step) {
   if (id === "supervision") return ["SHOW MORE", "open-trust"];
   if (id === "prediction") return ["SHOW MORE", "open-evidence"];
   if (id === "material-case") return ["SHOW MORE", "open-source"];
-  if (id === "authority") return step === 0 ? ["SHOW MORE", "open-review"] : ["SHOW MORE", "open-gate"];
+  if (id === "authority") return step === 1 ? ["SHOW MORE", "open-review"] : ["SHOW MORE", "open-gate"];
   if (id === "systemic") return ["SHOW MORE", "open-systemic"];
   return null;
 }
 
 function stopAnimations() {
   if (floodState?.requestId) cancelAnimationFrame(floodState.requestId);
-  if (gateState?.requestId) cancelAnimationFrame(gateState.requestId);
   floodState = null;
-  gateState = null;
 }
 
 function renderCue(forceReplay = false) {
@@ -297,7 +289,6 @@ function renderCue(forceReplay = false) {
     contextButton.dataset.action = detail[1];
   }
   if (currentReveal(presentation) === "event-flood") startFlood();
-  if (currentReveal(presentation) === "gate-run") startGate();
 }
 
 function move(action) {
@@ -367,38 +358,8 @@ function startFlood() {
   }
 }
 
-function updateGate(elapsed) {
-  const shown = Math.min(gateChecks.length, Math.floor(elapsed / 650) + 1);
-  document.querySelectorAll(".gate-step").forEach((element, index) => {
-    element.classList.toggle("revealed", index < shown);
-  });
-  if (shown === gateChecks.length) document.getElementById("gateStatus").textContent = "CHECK COMPLETE · REVEAL DISPOSITION";
-}
-
-function gateTick(now) {
-  if (!gateState || paused) return;
-  const duration = 2300;
-  const elapsed = Math.min(duration, gateState.elapsed + now - gateState.startedAt);
-  updateGate(elapsed);
-  if (elapsed < duration) gateState.requestId = requestAnimationFrame(gateTick);
-  else {
-    gateState.elapsed = duration;
-    gateState.requestId = null;
-  }
-}
-
-function startGate() {
-  gateState = { startedAt: performance.now(), elapsed: 0, requestId: null };
-  if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
-    updateGate(2300);
-    gateState.elapsed = 2300;
-  } else {
-    gateState.requestId = requestAnimationFrame(gateTick);
-  }
-}
-
 function pauseOrResume() {
-  if (currentCue(presentation).id !== 'systemic' && !["event-flood", "gate-run", "failed-trade", "material-issue", "causal-explanation", "source-challenge", "counterfactual"].includes(currentReveal(presentation))) return;
+  if (currentCue(presentation).id !== 'systemic' && !["event-flood", "escalate", "human-judgement", "failed-trade", "material-issue", "causal-explanation", "source-challenge", "counterfactual"].includes(currentReveal(presentation))) return;
   paused = !paused;
   stage.classList.toggle("is-paused", paused);
   const pauseButton = stage.querySelector('[data-action="pause"]');
@@ -407,7 +368,7 @@ function pauseOrResume() {
     pauseButton.setAttribute("aria-pressed", String(paused));
   }
   const clock = performance.now();
-  for (const animation of [floodState, gateState]) {
+  for (const animation of [floodState]) {
     if (!animation) continue;
     if (paused) {
       animation.elapsed += clock - animation.startedAt;
@@ -415,7 +376,7 @@ function pauseOrResume() {
       animation.requestId = null;
     } else {
       animation.startedAt = clock;
-      animation.requestId = requestAnimationFrame(animation === floodState ? floodTick : gateTick);
+      animation.requestId = requestAnimationFrame(floodTick);
     }
   }
 }
@@ -423,6 +384,13 @@ function pauseOrResume() {
 function detailBlock(label, value) {
   return '<div class="detail-block"><div class="detail-key">' + escapeHTML(label) +
     '</div><div class="detail-value">' + escapeHTML(value) + "</div></div>";
+}
+
+export function renderGateDetails() {
+  return gateChecks.map(([label, value]) => detailBlock(label, value)).join('') +
+    detailBlock("Disposition", gate.disposition) +
+    detailBlock("Gate rule / reason", gate.code + ": " + gate.reason) +
+    detailBlock("Evidence / rule", run.gateInput.evidenceQuality + " / no deterministic rule breach");
 }
 
 function agentDetail(event) {
@@ -489,11 +457,7 @@ function drawerContent(kind) {
     return {
       title: "Runtime gate · original proposal",
       body: "<p>The original 76-based restriction proposal is evaluated with the later evidence dispute attached. The restriction is not executed.</p>" +
-        detailBlock("Disposition", gate.disposition) +
-        detailBlock("Decisive rule", gate.code + ": " + gate.reason) +
-        detailBlock("Identity / mandate", "Verified / " + run.gateInput.mandate + " only") +
-        detailBlock("Action / consequence", run.gateInput.proposedAction + " / " + run.gateInput.materiality + " materiality") +
-        detailBlock("Evidence / rule", run.gateInput.evidenceQuality + " / no deterministic rule breach") +
+        renderGateDetails() +
         detailBlock("Human task", "Determine what verification is sufficient for the contested classification, then judge whether intervention is justified.") +
         button("Open human review", "open-review", "drawer-button strong"),
     };
@@ -647,7 +611,7 @@ document.addEventListener("keydown", (event) => {
     renderCue();
   } else if (event.key.toLowerCase() === "r") {
     event.preventDefault();
-    if (currentCue(presentation).id === 'systemic' || ["event-flood", "gate-run", "failed-trade", "material-issue", "causal-explanation", "source-challenge", "counterfactual"].includes(currentReveal(presentation))) renderCue(true);
+    if (currentCue(presentation).id === 'systemic' || ["event-flood", "escalate", "human-judgement", "failed-trade", "material-issue", "causal-explanation", "source-challenge", "counterfactual"].includes(currentReveal(presentation))) renderCue(true);
     else move("reset-beat");
   } else if (event.key.toLowerCase() === "e") {
     const detail = detailAction(currentCue(presentation).id, presentation.step);
