@@ -143,15 +143,6 @@ test("Beat 7 signal, market feedback, second wave and institutional transmission
   assert.match(css, /data-phase="2"\] \.agent-flow--second[^}]*--second-flow-delay/);
   assert.match(css, /data-phase="2"\] \.agent-flow--second[^}]*color:\s*var\(--cyan\)/);
   assert.match(css, /data-phase="2"\] \.systemic-agents, \.systemic-stage\[data-phase="2"\] \.systemic-market[^}]*state-recede/);
-  const spine = markup.slice(markup.indexOf('class="systemic-transmission"'));
-  assert.ok(spine.indexOf('<strong>MARKET</strong>') < spine.indexOf('BROKER / PRIME'));
-  assert.ok(markup.indexOf('BROKER / PRIME') < markup.indexOf('CLEARING / COLLATERAL'));
-  assert.ok(markup.indexOf('CLEARING / COLLATERAL') < markup.indexOf('CUSTODY / POST-TRADE'));
-  assert.match(css, /systemic-transmission > div:nth-child\(2\)[^}]*1\.2s/);
-  assert.match(css, /systemic-transmission > div:nth-child\(3\)[^}]*2\.5s/);
-  assert.match(css, /systemic-transmission > div:nth-child\(4\)[^}]*3\.8s/);
-  assert.match(css, /data-phase="3"\] \.systemic-agent[^}]*opacity:\s*\.12/);
-  assert.match(css, /data-phase="3"\] \.systemic-agent > :not\(\.agent-silhouette\)[^}]*visibility:\s*hidden/);
   assert.ok(markup.indexOf('NO AGENT FAILED.') < markup.indexOf('THE SYSTEM CHANGED.'));
   assert.match(css, /systemic-punch strong:first-child[^}]*\.3s/);
   assert.match(css, /systemic-punch strong:last-child[^}]*1\.55s/);
@@ -159,7 +150,44 @@ test("Beat 7 signal, market feedback, second wave and institutional transmission
   assert.match(css, /\.cue\s*\{[^}]*overflow:\s*hidden;/);
   assert.match(css, /\.cue--systemic \.cue-content\s*\{[^}]*max-height:\s*800px/);
   assert.ok(800 <= 1080 - 110 - 116); // The 1920×1080 stage leaves 854px for the cue.
-  assert.ok(4 * 120 + 3 * 12 <= 800 - 70 - 2 * 16 - 150); // Transmission path within the nominal network.
+  assert.ok(26 + 77 + 113 + 61 + 202 + 58 + 128 <= 800 - 16 - 60); // Three-lane transmission fits the 1920×1080 network.
+});
+
+test("Beat 7 Act 3 branches from one market state, converges on a separate click, then clears for the punch", () => {
+  const css = readFileSync(new URL("../styles.css", import.meta.url), "utf8");
+  const markup = renderSystemic(3);
+  const transmission = markup.slice(markup.indexOf('<div class="systemic-transmission">'), markup.indexOf('<div class="systemic-punch">'));
+  assert.match(transmission, /6 AGENTS <span>→<\/span> DE-RISK \/ SELL/);
+  assert.match(transmission, /THE EFFECT MOVES THROUGH THE SYSTEM/);
+  assert.ok(transmission.indexOf('MARKET CONDITIONS CHANGE') < transmission.indexOf('class="transmission-split"'));
+  assert.ok(transmission.indexOf('class="transmission-split"') < transmission.indexOf('class="transmission-channels"'));
+  assert.ok(transmission.indexOf('class="transmission-channels"') < transmission.indexOf('class="transmission-join"'));
+  assert.ok(transmission.indexOf('class="transmission-join"') < transmission.indexOf('SYSTEM LIQUIDITY'));
+  const channels = [...transmission.matchAll(/<section class="transmission-channel">([\s\S]*?)<\/section>/g)].map((match) => match[1]);
+  assert.equal(channels.length, 3);
+  assert.match(channels[0], /FUNDING \/ LEVERAGE.*BROKER \/ PRIME.*MARGIN \/ HAIRCUTS ↑.*FUNDING DEMAND ↑/);
+  assert.match(channels[1], /COLLATERAL.*CLEARING \/ COLLATERAL.*MARGIN CALLS ↑.*ELIGIBLE COLLATERAL DEMAND ↑/);
+  assert.match(channels[2], /SETTLEMENT \/ CASH.*CUSTODY \/ POST-TRADE.*SETTLEMENT ACTIVITY ↑.*CASH \/ FX REQUIREMENTS ↑/);
+  for (let index = 0; index < channels.length; index++) {
+    for (let other = 0; other < channels.length; other++) if (index !== other) {
+      assert.doesNotMatch(channels[index], new RegExp(['BROKER \/ PRIME', 'CLEARING \/ COLLATERAL', 'CUSTODY \/ POST-TRADE'][other]));
+    }
+  }
+  assert.doesNotMatch(transmission, /<div><strong>MARKET<\/strong>|border-left: 3px solid var\(--cyan\)/);
+  assert.match(css, /\.transmission-split::after[^}]*border-top: 3px solid currentColor/);
+  assert.match(css, /\.transmission-join::before[^}]*border-top: 3px solid currentColor/);
+  assert.match(css, /data-phase="3"\] \.transmission-channel:nth-child\(1\)[^}]*1\.1s/);
+  assert.match(css, /data-phase="3"\] \.transmission-channel:nth-child\(2\)[^}]*1\.8s/);
+  assert.match(css, /data-phase="3"\] \.transmission-channel:nth-child\(3\)[^}]*2\.5s/);
+  assert.match(css, /data-phase="4"\] \.transmission-join[^}]*visibility:\s*visible/);
+  assert.match(css, /data-phase="4"\] \.transmission-outcome[^}]*visibility:\s*visible/);
+  assert.match(css, /data-phase="3"\] \.systemic-agents[^}]*display:\s*none/);
+  assert.match(css, /data-phase="3"\] \.systemic-head[^}]*display:\s*none/);
+  assert.match(css, /\.systemic-inference, \.systemic-cycle, \.systemic-feedback-punch[^}]*visibility:\s*hidden/);
+  assert.doesNotMatch(css, /data-phase="3"\] \.systemic-inference[^}]*visibility:\s*visible/);
+  assert.match(css, /data-phase="3"\] \.systemic-primary[^}]*font-size:\s*20px/);
+  assert.match(css, /data-phase="5"\] \.systemic-punch[^}]*visibility:\s*visible/);
+  assert.doesNotMatch(css, /data-phase="3"\] \.systemic-transmission > div/);
 });
 
 test('stage furniture and detail language follow the eight-beat hierarchy', () => {

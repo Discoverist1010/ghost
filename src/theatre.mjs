@@ -108,7 +108,6 @@ function renderSystemicAgent(agent, index) {
   const secondFlow = 4700 + index * 160;
   return '<article class="systemic-agent" data-agent-id="' + agent.id + '" style="--first-delay:' + first + 'ms;--feedback-delay:' + feedback + 'ms;--second-delay:' + second + 'ms;--second-flow-delay:' + secondFlow + 'ms">' +
     '<strong class="agent-name">PORTFOLIO ' + agent.id + '</strong>' +
-    '<span class="agent-silhouette" aria-hidden="true">' + agent.id + '</span>' +
     '<div class="agent-intent"><span>' + escapeHTML(agent.objective) + '</span><small>' + escapeHTML(agent.constraint) + '</small></div>' +
     '<strong class="agent-response">' + escapeHTML(agent.response) + '</strong>' +
     '<div class="agent-reoptimise"><small>' + escapeHTML(agent.feedback) + '</small><strong>' + escapeHTML(agent.secondResponse) + '</strong></div>' +
@@ -133,10 +132,17 @@ export function renderSystemic(step) {
       '</div>' +
       '<div class="systemic-agents systemic-agents--right">' + agents.slice(3).join('') + '</div>' +
       '<div class="systemic-transmission">' +
-        '<div><strong>MARKET</strong><span>Liquidity ↓</span><span>Volatility ↑</span></div>' +
-        '<div><strong>BROKER / PRIME</strong><span>Margin requirements ↑</span><span>Funding demand ↑</span></div>' +
-        '<div><strong>CLEARING / COLLATERAL</strong><span>Collateral calls ↑</span><span>Eligible collateral demand ↑</span></div>' +
-        '<div><strong>CUSTODY / POST-TRADE</strong><span>Settlement activity ↑</span><span>Cash / FX requirements ↑</span></div>' +
+        '<p class="transmission-origin">6 AGENTS <span>→</span> DE-RISK / SELL</p>' +
+        '<h2>THE EFFECT MOVES THROUGH THE SYSTEM</h2>' +
+        '<div class="transmission-market"><strong>MARKET CONDITIONS CHANGE</strong><p>LIQUIDITY ↓ <span>·</span> VOLATILITY ↑</p></div>' +
+        '<div class="transmission-split" aria-hidden="true"><span></span><span></span><span></span></div>' +
+        '<div class="transmission-channels">' +
+          '<section class="transmission-channel"><h3>FUNDING / LEVERAGE</h3><strong>BROKER / PRIME</strong><p>MARGIN / HAIRCUTS ↑</p><span aria-hidden="true">↓</span><p class="transmission-consequence">FUNDING DEMAND ↑</p></section>' +
+          '<section class="transmission-channel"><h3>COLLATERAL</h3><strong>CLEARING / COLLATERAL</strong><p>MARGIN CALLS ↑</p><span aria-hidden="true">↓</span><p class="transmission-consequence">ELIGIBLE COLLATERAL DEMAND ↑</p></section>' +
+          '<section class="transmission-channel"><h3>SETTLEMENT / CASH</h3><strong>CUSTODY / POST-TRADE</strong><p>SETTLEMENT ACTIVITY ↑</p><span aria-hidden="true">↓</span><p class="transmission-consequence">CASH / FX REQUIREMENTS ↑</p></section>' +
+        '</div>' +
+        '<div class="transmission-join" aria-hidden="true"><span></span><span></span><span></span></div>' +
+        '<div class="transmission-outcome">SYSTEM LIQUIDITY<br>PRESSURE ↑</div>' +
       '</div>' +
       '<div class="systemic-punch"><strong>NO AGENT FAILED.</strong><strong>THE SYSTEM CHANGED.</strong></div>' +
       '<div class="systemic-bridge"><p>WE SPENT THIS SESSION ASKING<br>HOW TO GOVERN AUTONOMOUS AGENTS.</p>' +
@@ -517,7 +523,7 @@ function drawerContent(kind) {
         detailBlock("Evidence status", "Regulatory research / synthetic illustration") +
         detailBlock("Public grounding", "BIS Project Logos; FSB AI financial-stability work; IOSCO AI in securities markets. See PUBLIC_SOURCES.md for primary links and qualifications.") +
         detailBlock("Scenario boundary", "The six-agent visual is separate from the deterministic 486-trace-event failed-trade run.") +
-        detailBlock("Mandate", "Each illustrated portfolio agent remains within its own constraint; collective transmission is a possibility, not a forecast."),
+        detailBlock("Mandate", "Each illustrated portfolio agent remains within its own constraint. Funding, collateral and settlement/cash are parallel possible channels, not a serial dependency or forecast."),
     };
   }
   return {

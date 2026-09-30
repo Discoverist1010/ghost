@@ -7,7 +7,7 @@ const reveals = CUES.flatMap((cue) => cue.steps);
 test("eight escalating beats keep the systemic argument inside Beat 7", () => {
   assert.equal(BEATS.length, 8);
   assert.equal(CUES.length, 8);
-  assert.equal(reveals.length - 1, 26);
+  assert.equal(reveals.length - 1, 27);
   assert.deepEqual(CUES.map((cue) => cue.id), [
     "opening", "operations", "supervision", "prediction", "material-case", "authority", "systemic", "ghost",
   ]);
@@ -31,7 +31,8 @@ test("problems land before their solutions and the story never backtracks", () =
   before("optimise-base", "market-signal");
   before("market-signal", "execute-feedback");
   before("execute-feedback", "transmit");
-  before("transmit", "system-changed");
+  before("transmit", "system-pressure");
+  before("system-pressure", "system-changed");
   before("system-changed", "system-supervision-bridge");
   before("system-supervision-bridge", "who-supervises");
   before("supervisory-ai", "final-propositions");
@@ -45,10 +46,10 @@ test("six independent portfolio objectives remain within mandate", () => {
   assert.equal(new Set(SYSTEMIC_AGENTS.map((agent) => agent.objective)).size, 6);
   assert.equal(new Set(SYSTEMIC_AGENTS.map((agent) => agent.constraint)).size, 6);
   assert.deepEqual(SYSTEMIC_ACTIONS, [
-    'MARKET SIGNAL', 'EXECUTE', 'FOLLOW THE CONSEQUENCES', 'CONTINUE', 'CONTINUE', 'CONTINUE',
+    'MARKET SIGNAL', 'EXECUTE', 'FOLLOW THE CONSEQUENCES', 'CONTINUE', 'CONTINUE', 'CONTINUE', 'CONTINUE',
   ]);
   assert.deepEqual(CUES[6].steps, [
-    'optimise-base', 'market-signal', 'execute-feedback', 'transmit', 'system-changed', 'system-supervision-bridge',
+    'optimise-base', 'market-signal', 'execute-feedback', 'transmit', 'system-pressure', 'system-changed', 'system-supervision-bridge',
   ]);
   let state = { ...createPresentationState(), cueIndex: 6, step: 0 };
   for (let step = 1; step < CUES[6].steps.length; step++) {

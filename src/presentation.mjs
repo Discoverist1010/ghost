@@ -28,7 +28,7 @@ export const CUES = Object.freeze([
   { id: 'prediction', steps: ['predictive-case', 'no-breach'] },
   { id: 'material-case', steps: ['causal-explanation', 'source-challenge', 'counterfactual'] },
   { id: 'authority', steps: ['human-decision', 'gate-run', 'escalate'] },
-  { id: 'systemic', steps: ['optimise-base', 'market-signal', 'execute-feedback', 'transmit', 'system-changed', 'system-supervision-bridge'] },
+  { id: 'systemic', steps: ['optimise-base', 'market-signal', 'execute-feedback', 'transmit', 'system-pressure', 'system-changed', 'system-supervision-bridge'] },
   { id: 'ghost', steps: ['who-supervises', 'right-loop', 'supervisory-ai', 'final-propositions', 'final-question'] },
 ]);
 
@@ -49,14 +49,15 @@ export const SYSTEMIC_AGENTS = Object.freeze([
 ]);
 
 export const SYSTEMIC_ACTIONS = Object.freeze([
-  'MARKET SIGNAL', 'EXECUTE', 'FOLLOW THE CONSEQUENCES', 'CONTINUE', 'CONTINUE', 'CONTINUE',
+  'MARKET SIGNAL', 'EXECUTE', 'FOLLOW THE CONSEQUENCES', 'CONTINUE', 'CONTINUE', 'CONTINUE', 'CONTINUE',
 ]);
 
 export const SYSTEMIC_ANNOUNCEMENTS = Object.freeze([
   'Six portfolios have different objectives. Each is within mandate.',
   'A common market signal produces staggered independent de-risking. No coordination is required.',
   'Aggregate actions change the market. Those conditions feed back to the agents before a second wave.',
-  'The illustrated pressure transmits from market to broker, clearing and custody functions.',
+  'Changed market conditions may transmit through funding, collateral, and settlement channels in parallel.',
+  'Those three channels can converge into system liquidity pressure.',
   'No agent failed. The system changed.',
   'Who is supervising the system?',
 ]);
