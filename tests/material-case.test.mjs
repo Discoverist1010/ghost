@@ -46,8 +46,10 @@ test("three presenter states reveal causal explanation, challenge, then counterf
   assert.match(states[0], /ENHANCED LIQUIDITY RESTRICTION/);
   assert.match(states[1], /SOURCE RECORD/);
   assert.match(states[1], /BANK COMPLIANCE AGENT/);
-  assert.match(states[1], /COUNTER-EVIDENCE APPENDED/);
+  assert.match(states[1], /Counter-evidence submitted/);
   assert.match(states[1], /FACT CONTESTED/);
+  assert.match(states[1], /CONTESTABILITY CREATES A DECISION\.<br>IT DOES NOT CREATE THE TRUTH\./);
+  assert.doesNotMatch(states[1], /AI MAY CHALLENGE AI|NEITHER REWRITES THE EVIDENCE|ORIGINAL INFERENCE RETAINED/);
   assert.doesNotMatch(states[1], /cf-new|ONE FACT CHANGED|>39</);
   assert.match(states[2], /cf-old">76/);
   assert.match(states[2], /cf-new">39/);
@@ -62,7 +64,9 @@ test("three presenter states reveal causal explanation, challenge, then counterf
   }
   assert.match(renderView("authority", 2), /ESCALATE/);
   assert.equal((renderView("authority", 1).match(/class="gate-step"/g) ?? []).length, 4);
-  assert.match(renderView("prediction", 0), /AGENTIC PAYMENTS/);
+  assert.match(renderView("prediction", 0), /AI INVESTIGATOR ASSESSMENT/);
+  assert.match(renderView("prediction", 0), /<span>AI RECOMMENDS<\/span><strong>ENHANCED LIQUIDITY RESTRICTION<\/strong>/);
+  assert.doesNotMatch(renderView("prediction", 0), /AGENTIC PAYMENTS|DIGITAL ASSETS|TREASURY/);
   assert.match(renderView("prediction", 0), /74%/);
   assert.match(renderView("prediction", 1), /NO RULE HAS BEEN BREACHED/);
 });
@@ -75,6 +79,21 @@ test("counterfactual view leaves deterministic evidence and rules untouched", ()
   assert.equal(after.counterfactual.before, 76);
   assert.equal(after.counterfactual.after, 39);
   assert.ok(after.counterfactual.evidenceIds.includes(EVIDENCE.bankResponse.id));
+});
+
+test("prediction and contestability keep their claims legible without making challenge equal truth", () => {
+  const css = readFileSync(new URL("../styles.css", import.meta.url), "utf8");
+  const prediction = renderView("prediction", 0);
+  const challenge = renderMaterialCase(1);
+  assert.ok(prediction.indexOf("AI INVESTIGATOR ASSESSMENT") < prediction.indexOf("RISK COEFFICIENT"));
+  assert.ok(prediction.indexOf("PREDICTED MATERIAL EVENT") < prediction.indexOf("AI RECOMMENDS"));
+  assert.match(css, /\.prediction-recommendation strong\s*\{[^}]*text-decoration:\s*underline;[^}]*text-decoration-color:\s*var\(--cyan\)/);
+  assert.ok(challenge.indexOf("SYSTEM DERIVED") < challenge.indexOf("SOURCE RECORD"));
+  assert.ok(challenge.indexOf("SOURCE RECORD") < challenge.indexOf("BANK COMPLIANCE AGENT"));
+  assert.ok(challenge.indexOf("BANK COMPLIANCE AGENT") < challenge.indexOf("FACT CONTESTED"));
+  assert.match(challenge, /<div class="case-institution"><strong>BANK COMPLIANCE AGENT<\/strong><span>Counter-evidence submitted<\/span><\/div>/);
+  assert.match(css, /\.case-institution strong\s*\{[^}]*font-size:\s*clamp\(31px, 2\.4vw, 41px\)/);
+  assert.match(css, /\.case-subtle\s*\{[^}]*font-size:\s*clamp\(29px, 2\.2vw, 37px\)/);
 });
 
 test("projection stage cannot scroll and counterfactual motion has a causal sequence", () => {

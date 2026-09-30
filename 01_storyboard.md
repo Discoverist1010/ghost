@@ -21,7 +21,7 @@ The failed trade is `EVT-0001` in the 486-trace-event synthetic run. `EntityGrap
 
 Opening ladder language: **ASSIST** retrieves, summarises and organises; **INVESTIGATE** chooses tools, evidence and queries; **ASSESS** forms risk views, prioritises and recommends; **ACT** executes, restricts, transfers or intervenes. **SUPERVISE** arrives later as a meta-control layer, not an extra rung. These meanings are presenter notes, not four more stage cards.
 
-The machine activity loop may contain hundreds of queries, retrievals and tool actions. A separate simulated supervisory control reduces those to a material issue. A human then judges the source fact and intervention. This makes the supervisory control an **attention allocator**; the main stage asks about provenance, uncertainty and contestability, and the drawer exposes the full eight-control framework. The control may flag and escalate, never silently intervene.
+The machine activity loop may contain hundreds of queries, retrievals and tool actions. A separate simulated supervisory control reduces those to a material issue. The AI investigator then recommends intervention from its 76 / 74% assessment, before the no-breach boundary is revealed. A Bank Compliance Agent later submits counter-evidence; that challenge creates a contested fact, not a replacement truth. A human judges the source fact and intervention. This makes the supervisory control an **attention allocator**; the main stage asks about provenance, uncertainty and contestability, and the drawer exposes the full eight-control framework. The control may flag and escalate, never silently intervene.
 
 ## Beat 7 presenter rhythm
 

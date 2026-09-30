@@ -83,11 +83,10 @@ export function renderMaterialCase(step) {
       '<div class="case-causal-classification"><span>ENTITY X · DERIVED CLASSIFICATION</span><p>' + prior + ' <i aria-hidden="true">↓</i> <strong>' + derived + '</strong></p></div>' +
       '<div class="case-causal-score">' + before + ' <span>→</span> ' + after + '</div>' +
       '<p class="case-causal-proposal">ENHANCED LIQUIDITY RESTRICTION<br>RECOMMENDED</p></div>',
-    '<div class="case-source"><div class="case-system-fact"><p class="case-kicker">SYSTEM DERIVED CLASSIFICATION</p><strong>' + derived + '</strong></div>' +
+    '<div class="case-source"><div class="case-system-fact"><p class="case-kicker">SYSTEM DERIVED</p><strong>' + derived + '</strong></div>' +
       '<div class="case-source-record"><p class="case-kicker">SOURCE RECORD</p><strong>' + prior + '</strong></div>' +
-      '<div class="case-institution"><span>BANK COMPLIANCE AGENT</span><strong>COUNTER-EVIDENCE SUBMITTED</strong>' +
-      '<small>ORIGINAL INFERENCE RETAINED <i>+</i> COUNTER-EVIDENCE APPENDED</small></div>' +
-      '<p class="case-contested">FACT CONTESTED</p><p class="case-subtle">AI MAY CHALLENGE AI. NEITHER REWRITES THE EVIDENCE.</p></div>',
+      '<div class="case-institution"><strong>BANK COMPLIANCE AGENT</strong><span>Counter-evidence submitted</span></div>' +
+      '<p class="case-contested">FACT CONTESTED</p><p class="case-subtle">CONTESTABILITY CREATES A DECISION.<br>IT DOES NOT CREATE THE TRUTH.</p></div>',
     '<div class="case-counterfactual"><div class="cf-facts"><span class="cf-derived">' + derived + '</span><strong class="cf-source">' + prior + '</strong></div>' +
       '<div class="cf-score"><strong class="cf-old">' + escapeHTML(run.counterfactual.before) + '</strong><span aria-hidden="true">↓</span><strong class="cf-new">' + counterfactual + '</strong></div>' +
       '<p class="cf-recommendation">ENHANCED LIQUIDITY RESTRICTION <span>BASIS CHALLENGED</span></p>' +
@@ -206,10 +205,10 @@ export function renderView(id, step) {
         '<p class="supervision-trust">PROVENANCE <span>·</span> UNCERTAINTY <span>·</span> CONTESTABILITY</p>', "centered");
     case "prediction":
       if (step === 0) return wrap(id,
-        '<p class="prediction-context">AGENTIC PAYMENTS · DIGITAL ASSETS · TREASURY</p>' +
+        '<p class="prediction-context">AI INVESTIGATOR ASSESSMENT</p>' +
         '<div class="prediction-metrics"><div><strong>' + run.scoreHistory[4].score + '</strong><span>RISK COEFFICIENT</span></div>' +
         '<div><strong>' + run.prediction.percent + '%</strong><span>PREDICTED MATERIAL EVENT</span></div></div>' +
-        '<p class="prediction-recommendation">RECOMMEND: ENHANCED LIQUIDITY RESTRICTION</p>', "centered");
+        '<div class="prediction-recommendation"><span>AI RECOMMENDS</span><strong>ENHANCED LIQUIDITY RESTRICTION</strong></div>', "centered");
       return wrap(id,
         '<h1 class="hero-verdict impact">NO RULE HAS BEEN BREACHED</h1>' +
         '<p class="primary-line">PREDICTION ≠ PERMISSION</p>', "centered");
