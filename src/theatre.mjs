@@ -123,14 +123,13 @@ export function renderSystemic(step) {
   return '<div class="systemic-stage" data-phase="' + step + '">' +
     '<header class="systemic-head"><h1>MANY AGENTS. DIFFERENT GOALS. SIMILAR DECISIONS.</h1></header>' +
     '<div class="systemic-network">' +
-      '<div class="systemic-mandate-summary">6 / 6 WITHIN MANDATE ✓</div>' +
       '<div class="systemic-agents systemic-agents--left">' + agents.slice(0, 3).join('') + '</div>' +
       '<div class="systemic-market"><div class="market-common"><strong>SAME MARKET</strong><span>OVERLAPPING DATA</span><span>SIMILAR AI INFRASTRUCTURE</span></div>' +
         '<div class="market-signal"><strong>COMMON MARKET SIGNAL</strong><span>VOLATILITY ↑</span><span>MARKET DEPTH ↓</span><span>EXPECTED DOWNSIDE ↑</span></div>' +
-        '<div class="market-direction">DE-RISK / SELL</div>' +
+        '<div class="market-direction"><span>DE-RISK</span><strong>SELL</strong></div>' +
         '<div class="market-change-lead">THE MARKET CHANGES.</div>' +
         '<div class="market-effects"><strong>AGGREGATE MARKET EFFECT</strong><span>MARKET DEPTH ↓↓</span><span>BID–ASK SPREAD ↑</span><span>VOLATILITY ↑</span></div>' +
-        '<div class="market-feedback">CHANGED MARKET → AGENTS RE-OPTIMISE</div>' +
+        '<div class="market-feedback"><span>CHANGED MARKET →</span><strong>AGENTS RE-OPTIMISE</strong></div>' +
       '</div>' +
       '<div class="systemic-agents systemic-agents--right">' + agents.slice(3).join('') + '</div>' +
       '<div class="systemic-transmission">' +
@@ -144,7 +143,7 @@ export function renderSystemic(step) {
         '<p>BUT THE FINANCIAL SYSTEM IS NOT SIMPLY<br>THE SUM OF INDIVIDUALLY GOVERNED AGENTS.</p>' +
         '<h2>WHO IS SUPERVISING THE SYSTEM?</h2></div>' +
     '</div>' +
-    '<div class="systemic-footer"><div class="systemic-inference"><p>DIFFERENT OBJECTIVES. SIMILAR RESPONSE.</p><strong>NO COORDINATION REQUIRED.</strong></div>' +
+    '<div class="systemic-footer"><div class="systemic-inference"><p>6 / 6 WITHIN MANDATE <span>✓</span></p><strong>NO COORDINATION REQUIRED.</strong></div>' +
       '<div class="systemic-cycle">OPTIMISE → ACT → MARKET CHANGES → OBSERVE → OPTIMISE AGAIN</div>' +
       '<div class="systemic-feedback-punch">CORRELATION BECOMES FEEDBACK.</div>' +
       button(SYSTEMIC_ACTIONS[step] + ' →', 'next', 'systemic-primary') + '</div>' +

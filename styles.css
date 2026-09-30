@@ -82,7 +82,6 @@ button:disabled { cursor: default; opacity: .35; }
 .systemic-head { flex: none; display: flex; align-items: center; justify-content: center; min-height: 70px; }
 .systemic-head h1 { margin: 0; font-size: clamp(40px, 3.05vw, 58px); line-height: 1.08; letter-spacing: -.045em; text-align: center; }
 .systemic-network { position: relative; flex: 1; min-height: 0; display: grid; grid-template-columns: minmax(0, 1fr) minmax(340px, 420px) minmax(0, 1fr); gap: clamp(45px, 4.5vw, 86px); }
-.systemic-mandate-summary { position: absolute; z-index: 5; left: 50%; bottom: 28px; width: max-content; color: var(--cyan); font-size: clamp(23px, 1.55vw, 29px); font-weight: 800; letter-spacing: .05em; transform: translateX(-50%); visibility: hidden; opacity: 0; }
 .systemic-agents { min-width: 0; display: grid; grid-template-rows: repeat(3, minmax(0, 1fr)); gap: 12px; }
 .systemic-agents--left { grid-column: 1; }
 .systemic-agents--right { grid-column: 3; }
@@ -91,12 +90,12 @@ button:disabled { cursor: default; opacity: .35; }
 .agent-silhouette { display: none; color: var(--quiet); font-size: 32px; font-weight: 750; }
 .agent-intent, .agent-response, .agent-reoptimise { position: absolute; inset: 43px 18px 36px; display: flex; flex-direction: column; justify-content: center; align-items: flex-start; gap: 6px; }
 .agent-intent span { font-size: clamp(22px, 1.35vw, 26px); line-height: 1.13; font-weight: 700; }
-.agent-intent small, .agent-reoptimise small { color: var(--secondary); font-size: clamp(18px, 1.15vw, 22px); line-height: 1.1; }
+.agent-intent small, .agent-reoptimise small { color: var(--quiet); font-size: clamp(18px, 1.15vw, 22px); line-height: 1.1; }
 .agent-mandate { position: absolute; bottom: 12px; left: 22px; color: var(--cyan); font-size: 18px; font-weight: 760; opacity: .3; }
 .systemic-agents--right .agent-mandate { right: 22px; left: auto; }
-.agent-response, .agent-reoptimise { visibility: hidden; opacity: 0; color: var(--text); font-size: clamp(25px, 1.75vw, 32px); line-height: 1.07; }
+.agent-response, .agent-reoptimise { visibility: hidden; opacity: 0; color: var(--cyan); font-size: clamp(25px, 1.75vw, 32px); line-height: 1.07; }
 .agent-reoptimise { background: var(--field-raised); }
-.agent-reoptimise strong { color: var(--text); font-size: clamp(24px, 1.65vw, 30px); line-height: 1.05; }
+.agent-reoptimise strong { color: var(--cyan); font-size: clamp(24px, 1.65vw, 30px); line-height: 1.05; }
 .agent-flow { position: absolute; top: 50%; width: clamp(45px, 4.5vw, 86px); height: 44px; margin-top: -22px; color: var(--cyan); font-size: 42px; line-height: 1; text-align: center; visibility: hidden; opacity: 0; pointer-events: none; }
 .systemic-agents--left .agent-flow { right: calc(-1 * clamp(45px, 4.5vw, 86px)); }
 .systemic-agents--right .agent-flow { left: calc(-1 * clamp(45px, 4.5vw, 86px)); }
@@ -108,14 +107,19 @@ button:disabled { cursor: default; opacity: .35; }
 .market-change-lead { color: var(--text); font-size: clamp(40px, 2.55vw, 50px); line-height: 1.05; font-weight: 820; letter-spacing: -.045em; }
 .market-effects strong { color: var(--cyan); font-size: clamp(23px, 1.45vw, 29px); letter-spacing: .05em; }
 .market-signal span, .market-effects span { color: var(--text); font-size: clamp(28px, 2.05vw, 39px); line-height: 1.05; font-weight: 770; }
-.market-direction { color: var(--text); font-size: clamp(43px, 3.05vw, 57px); line-height: 1; font-weight: 840; letter-spacing: -.04em; }
-.market-feedback { top: auto !important; bottom: 16px; height: 46px; color: var(--cyan); font-size: clamp(20px, 1.3vw, 26px); font-weight: 740; }
+.market-direction { z-index: 2; gap: 0 !important; color: var(--cyan); line-height: .95; font-weight: 850; letter-spacing: -.06em; background: radial-gradient(ellipse 60% 36% at center, rgba(4, 13, 24, .96), rgba(4, 13, 24, .72) 62%, transparent 100%); }
+.market-direction span { font-size: clamp(65px, 4.1vw, 78px); }
+.market-direction strong { font-size: clamp(75px, 4.7vw, 90px); }
+.market-feedback { top: auto !important; bottom: 14px; height: 80px; gap: 3px !important; color: var(--cyan); font-size: clamp(22px, 1.4vw, 27px); line-height: 1.1; font-weight: 790; }
+.market-feedback strong { color: var(--cyan); font-size: 1.05em; }
 .systemic-footer { position: relative; flex: none; height: 150px; display: flex; flex-direction: column; align-items: center; justify-content: flex-end; }
 .systemic-primary { min-height: 66px; min-width: 290px; padding: 11px 28px; border: 2px solid var(--cyan); color: var(--field); background: var(--cyan); font-size: clamp(23px, 1.55vw, 29px); font-weight: 820; }
 .systemic-primary:hover { background: #a6e7f4; }
 .systemic-inference, .systemic-cycle, .systemic-feedback-punch { position: absolute; top: 0; left: 0; width: 100%; visibility: hidden; opacity: 0; }
-.systemic-inference p, .systemic-inference strong { display: block; margin: 0; font-size: clamp(27px, 1.85vw, 35px); line-height: 1.1; }
-.systemic-inference strong { color: var(--text); }
+.systemic-inference p, .systemic-inference strong { display: block; margin: 0; line-height: 1.1; }
+.systemic-inference p { color: var(--text); font-size: clamp(30px, 2vw, 38px); font-weight: 800; }
+.systemic-inference p span { color: var(--cyan); }
+.systemic-inference strong { color: var(--secondary); font-size: clamp(27px, 1.7vw, 32px); }
 .systemic-cycle { color: var(--secondary); font-size: clamp(22px, 1.5vw, 28px); font-weight: 760; }
 .systemic-feedback-punch { color: var(--text); font-size: clamp(46px, 3.4vw, 66px); line-height: 1; font-weight: 830; letter-spacing: -.045em; }
 .systemic-transmission, .systemic-punch, .systemic-bridge { position: absolute; inset: 0; visibility: hidden; opacity: 0; pointer-events: none; }
@@ -138,16 +142,18 @@ button:disabled { cursor: default; opacity: .35; }
 .systemic-stage[data-phase="1"] .systemic-head, .systemic-stage[data-phase="2"] .systemic-head, .systemic-stage[data-phase="3"] .systemic-head { opacity: .22; }
 .systemic-stage[data-phase="4"] .systemic-head, .systemic-stage[data-phase="5"] .systemic-head { opacity: 0; }
 .systemic-stage[data-phase="1"] .systemic-agent { opacity: .32; animation: agent-spotlight .9s var(--first-delay) both; }
-.systemic-stage[data-phase="1"] .agent-mandate { opacity: .16; }
-.systemic-stage[data-phase="1"] .agent-intent, .systemic-stage[data-phase="2"] .agent-intent { opacity: 0; }
-.systemic-stage[data-phase="1"] .agent-response { visibility: visible; animation: case-rise .45s var(--first-delay) both; }
+.systemic-stage[data-phase="1"] .agent-mandate { animation: mandate-recede .35s 2.25s both; }
+.systemic-stage[data-phase="1"] .agent-intent span, .systemic-stage[data-phase="2"] .agent-intent { opacity: 0; }
+.systemic-stage[data-phase="1"] .agent-intent small { position: absolute; top: 8px; color: var(--quiet); }
+.systemic-stage[data-phase="1"] .agent-response { inset: 75px 18px 25px; visibility: visible; animation: case-rise .45s var(--first-delay) both; }
+.systemic-stage[data-phase="1"] .agent-flow--first { visibility: visible; animation: decision-link .8s var(--first-delay) both; }
+.systemic-stage[data-phase="1"] .systemic-agents--right .agent-flow--first { animation-name: decision-link-reverse; }
 .systemic-stage[data-phase="1"] .market-direction { visibility: visible; animation: case-rise .55s 2.3s both; }
-.systemic-stage[data-phase="1"] .market-signal { visibility: visible; animation: signal-recede 2.5s both; }
-.systemic-stage[data-phase="1"] .systemic-mandate-summary { visibility: visible; animation: case-fade .5s 2.45s both; }
+.systemic-stage[data-phase="1"] .market-signal { visibility: visible; animation: signal-recede 2.25s both; }
 .systemic-stage[data-phase="1"] .systemic-inference { visibility: visible; animation: case-rise .5s 2.7s both; }
 .systemic-stage[data-phase="1"] .systemic-inference strong { animation: case-fade .45s 3.1s both; }
 .systemic-stage[data-phase="2"] .systemic-agent { opacity: .38; animation: agent-spotlight .9s var(--second-delay) both; }
-.systemic-stage[data-phase="2"] .systemic-mandate-summary { visibility: visible; opacity: .55; color: var(--quiet); font-size: 20px; }
+.systemic-stage[data-phase="2"] .agent-mandate { visibility: hidden; }
 .systemic-stage[data-phase="2"] .agent-response { visibility: visible; opacity: 1; }
 .systemic-stage[data-phase="2"] .agent-flow--first { visibility: visible; animation: flow-wave .8s var(--first-delay) both; }
 .systemic-stage[data-phase="2"] .systemic-agents--right .agent-flow--first { animation-name: flow-wave-reverse; }
@@ -157,16 +163,15 @@ button:disabled { cursor: default; opacity: .35; }
 .systemic-stage[data-phase="2"] .agent-flow--feedback { visibility: visible; animation: feedback-wave .75s var(--feedback-delay) both; }
 .systemic-stage[data-phase="2"] .systemic-agents--right .agent-flow--feedback { animation-name: feedback-wave-reverse; }
 .systemic-stage[data-phase="2"] .agent-reoptimise { visibility: visible; animation: case-rise .45s var(--second-delay) both; }
-.systemic-stage[data-phase="2"] .agent-flow--second { visibility: visible; color: var(--amber); font-size: 54px; font-weight: 820; animation: flow-wave .9s var(--second-flow-delay) both; }
+.systemic-stage[data-phase="2"] .agent-flow--second { visibility: visible; color: var(--cyan); font-size: 54px; font-weight: 820; animation: flow-wave .9s var(--second-flow-delay) both; }
 .systemic-stage[data-phase="2"] .systemic-agents--right .agent-flow--second { animation-name: flow-wave-reverse; }
 .systemic-stage[data-phase="2"] .systemic-cycle { visibility: visible; animation: cycle-brief 1.3s 5.6s both; }
 .systemic-stage[data-phase="2"] .systemic-feedback-punch { visibility: visible; animation: case-rise .6s 6.75s both; }
+.systemic-stage[data-phase="2"] .systemic-agents, .systemic-stage[data-phase="2"] .systemic-market { animation: state-recede .55s 6.75s both; }
 .systemic-stage[data-phase="3"] .systemic-agent, .systemic-stage[data-phase="4"] .systemic-agent, .systemic-stage[data-phase="5"] .systemic-agent { background: transparent; border-color: transparent; opacity: .12; }
 .systemic-stage[data-phase="3"] .systemic-agent > :not(.agent-silhouette), .systemic-stage[data-phase="4"] .systemic-agent > :not(.agent-silhouette), .systemic-stage[data-phase="5"] .systemic-agent > :not(.agent-silhouette) { visibility: hidden; }
 .systemic-stage[data-phase="3"] .agent-silhouette, .systemic-stage[data-phase="4"] .agent-silhouette, .systemic-stage[data-phase="5"] .agent-silhouette { display: block; }
 .systemic-stage[data-phase="3"] .systemic-market { opacity: 0; }
-.systemic-stage[data-phase="3"] .systemic-mandate-summary, .systemic-stage[data-phase="4"] .systemic-mandate-summary { visibility: visible; opacity: 1; }
-.systemic-stage[data-phase="3"] .systemic-mandate-summary { left: auto; right: 0; top: 6px; bottom: auto; color: var(--quiet); font-size: 20px; transform: none; }
 .systemic-stage[data-phase="3"] .systemic-transmission { visibility: visible; opacity: 1; }
 .systemic-stage[data-phase="3"] .systemic-transmission > div { animation: spine-focus 1.25s both; }
 .systemic-stage[data-phase="3"] .systemic-transmission > div:nth-child(1) { animation-delay: 0s; }
@@ -182,7 +187,6 @@ button:disabled { cursor: default; opacity: .35; }
 .systemic-stage[data-phase="3"] .systemic-transmission > div:nth-child(3)::before { animation: case-fade .3s 2.2s both; }
 .systemic-stage[data-phase="3"] .systemic-transmission > div:nth-child(4)::before { animation: case-fade .3s 3.5s both; }
 .systemic-stage[data-phase="4"] .systemic-market, .systemic-stage[data-phase="5"] .systemic-market { opacity: .12; }
-.systemic-stage[data-phase="4"] .systemic-mandate-summary { bottom: auto; top: 15%; }
 .systemic-stage[data-phase="4"] .systemic-transmission { visibility: visible; opacity: .12; }
 .systemic-stage[data-phase="4"] .systemic-transmission > div { opacity: 1; }
 .systemic-stage[data-phase="4"] .systemic-punch { visibility: visible; opacity: 1; }
@@ -347,8 +351,12 @@ button:disabled { cursor: default; opacity: .35; }
 @keyframes case-collapse-new { from { opacity: 0; transform: translateY(-70px) scale(1.35); } to { opacity: 1; transform: translateY(0) scale(1); } }
 @keyframes cf-demote { from { opacity: 1; } to { opacity: .35; } }
 @keyframes cf-retract { from { opacity: 1; transform: translateX(0); } to { opacity: .55; transform: translateX(-18px); } }
-@keyframes signal-recede { 0% { opacity: 0; } 10%, 70% { opacity: 1; } 100% { opacity: .14; } }
-@keyframes agent-spotlight { 0% { opacity: .32; border-color: var(--line); } 20%, 65% { opacity: 1; border-color: var(--cyan); } 100% { opacity: .68; border-color: var(--line); } }
+@keyframes signal-recede { 0% { opacity: 0; } 10%, 45% { opacity: 1; } 75%, 100% { opacity: .09; } }
+@keyframes agent-spotlight { 0% { opacity: .32; border-color: var(--line); } 20%, 65% { opacity: 1; border-color: var(--cyan); } 100% { opacity: .52; border-color: var(--line); } }
+@keyframes mandate-recede { from { opacity: .16; } to { opacity: .02; } }
+@keyframes decision-link { from { opacity: 0; transform: translateX(-10px); } 45% { opacity: 1; } to { opacity: .7; transform: translateX(0); } }
+@keyframes decision-link-reverse { from { opacity: 0; transform: translateX(10px); } 45% { opacity: 1; } to { opacity: .7; transform: translateX(0); } }
+@keyframes state-recede { from { opacity: 1; } to { opacity: .12; } }
 @keyframes market-lead { 0% { opacity: 0; } 15%, 70% { opacity: 1; } 100% { opacity: 0; } }
 @keyframes spine-focus { 0% { opacity: 0; transform: translateY(18px); } 20%, 65% { opacity: 1; transform: translateY(0); } 100% { opacity: .62; transform: translateY(0); } }
 @keyframes spine-last { from { opacity: 0; transform: translateY(18px); } to { opacity: 1; transform: translateY(0); } }
@@ -494,7 +502,6 @@ button:disabled { cursor: default; opacity: .35; }
   .systemic-stage[data-phase="3"] .systemic-agents { display: none; }
   .systemic-stage[data-phase="3"] .systemic-market { display: none; }
   .systemic-stage[data-phase="3"] .systemic-transmission { position: relative; top: auto; bottom: auto; left: auto; width: 100%; min-height: 600px; transform: none; }
-  .systemic-stage[data-phase="3"] .systemic-mandate-summary { display: none; }
   .systemic-transmission > div { min-height: 115px; flex-wrap: wrap; gap: 8px 18px; padding: 8px 12px; }
   .systemic-transmission strong { min-width: 100%; text-align: center; }
   .systemic-transmission span { font-size: 22px; }

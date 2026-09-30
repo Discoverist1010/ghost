@@ -92,9 +92,11 @@ test("Beat 7 has one dominant framing and six independently mandated agents", ()
   const markup = renderSystemic(0);
   assert.match(markup, /MANY AGENTS\. DIFFERENT GOALS\. SIMILAR DECISIONS\./);
   assert.equal((markup.match(/data-agent-id="[A-F]"/g) ?? []).length, 6);
-  assert.equal((markup.match(/class="systemic-mandate-summary"/g) ?? []).length, 1);
-  assert.equal((markup.match(/6 \/ 6 WITHIN MANDATE ✓/g) ?? []).length, 1);
+  assert.equal((markup.match(/6 \/ 6 WITHIN MANDATE/g) ?? []).length, 1);
+  assert.match(markup, /<div class="systemic-inference"><p>6 \/ 6 WITHIN MANDATE <span>✓<\/span><\/p><strong>NO COORDINATION REQUIRED\./);
   assert.equal((markup.match(/class="agent-mandate"/g) ?? []).length, 6);
+  assert.doesNotMatch(markup, /DIFFERENT OBJECTIVES\. SIMILAR RESPONSE\./);
+  assert.match(markup, /<div class="market-direction"><span>DE-RISK<\/span><strong>SELL<\/strong><\/div>/);
   for (const objective of [
     'MAXIMISE RISK-ADJUSTED RETURN', 'MAINTAIN TARGET VOLATILITY', 'LIMIT DRAWDOWN',
     'PRESERVE LIQUIDITY', 'TRACK BENCHMARK EFFICIENTLY', 'PROTECT FUNDING / COLLATERAL BUFFER',
@@ -116,18 +118,31 @@ test("Beat 7 signal, market feedback, second wave and institutional transmission
   const markup = renderSystemic(2);
   assert.match(markup, /COMMON MARKET SIGNAL.*VOLATILITY ↑.*MARKET DEPTH ↓.*EXPECTED DOWNSIDE ↑/);
   assert.match(markup, /MARKET DEPTH ↓↓.*BID–ASK SPREAD ↑.*VOLATILITY ↑/);
-  assert.match(markup, /CHANGED MARKET → AGENTS RE-OPTIMISE/);
+  assert.match(markup, /<span>CHANGED MARKET →<\/span><strong>AGENTS RE-OPTIMISE<\/strong>/);
   assert.match(markup, /THE MARKET CHANGES\./);
+  assert.match(css, /\.agent-response, \.agent-reoptimise\s*\{[^}]*color:\s*var\(--cyan\)/);
+  assert.match(css, /\.agent-reoptimise strong\s*\{[^}]*color:\s*var\(--cyan\)/);
+  assert.match(css, /\.market-direction\s*\{[^}]*color:\s*var\(--cyan\)[^}]*radial-gradient/);
+  assert.match(css, /\.market-direction strong\s*\{[^}]*90px/);
+  assert.match(css, /@keyframes signal-recede[\s\S]*?opacity:\s*\.09/);
   assert.match(css, /data-phase="1"\] \.market-signal[^}]*visibility:\s*visible/);
   assert.match(css, /data-phase="1"\] \.systemic-agent[^}]*agent-spotlight[^}]*--first-delay/);
   assert.match(css, /data-phase="1"\] \.agent-response[^}]*--first-delay/);
+  assert.match(css, /data-phase="1"\] \.agent-flow--first[^}]*decision-link[^}]*--first-delay/);
+  assert.match(css, /data-phase="1"\] \.agent-mandate[^}]*mandate-recede/);
+  assert.match(css, /data-phase="1"\] \.systemic-inference[^}]*visibility:\s*visible/);
+  assert.match(css, /data-phase="2"\] \.agent-mandate[^}]*visibility:\s*hidden/);
+  assert.doesNotMatch(css, /data-phase="2"\] \.systemic-inference\s*\{[^}]*visibility:\s*visible/);
   assert.match(css, /data-phase="2"\] \.market-change-lead[^}]*visibility:\s*visible/);
   assert.match(css, /data-phase="2"\] \.agent-flow--first[^}]*--first-delay/);
   assert.match(css, /data-phase="2"\] \.market-effects[^}]*1\.85s/);
   assert.match(css, /data-phase="2"\] \.agent-flow--feedback[^}]*--feedback-delay/);
+  assert.match(css, /\.market-feedback\s*\{[^}]*color:\s*var\(--cyan\)/);
   assert.match(css, /data-phase="2"\] \.systemic-agent[^}]*agent-spotlight[^}]*--second-delay/);
   assert.match(css, /data-phase="2"\] \.agent-reoptimise[^}]*--second-delay/);
   assert.match(css, /data-phase="2"\] \.agent-flow--second[^}]*--second-flow-delay/);
+  assert.match(css, /data-phase="2"\] \.agent-flow--second[^}]*color:\s*var\(--cyan\)/);
+  assert.match(css, /data-phase="2"\] \.systemic-agents, \.systemic-stage\[data-phase="2"\] \.systemic-market[^}]*state-recede/);
   const spine = markup.slice(markup.indexOf('class="systemic-transmission"'));
   assert.ok(spine.indexOf('<strong>MARKET</strong>') < spine.indexOf('BROKER / PRIME'));
   assert.ok(markup.indexOf('BROKER / PRIME') < markup.indexOf('CLEARING / COLLATERAL'));
