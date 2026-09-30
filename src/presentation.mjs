@@ -9,6 +9,17 @@ export const BEATS = Object.freeze([
   'The ghost',
 ]);
 
+export const NARRATIVE_INDICATORS = Object.freeze([
+  { role: 'ASSIST', label: 'HUMAN BENEFIT', value: 'PRODUCTIVITY' },
+  { role: 'INVESTIGATE', label: 'HUMAN BENEFIT', value: 'SPEED' },
+  { role: 'SUPERVISE', label: 'HUMAN BENEFIT', value: 'FOCUS' },
+  { role: 'ASSESS', label: 'HUMAN BENEFIT', value: 'EARLY WARNING' },
+  { role: 'EVALUATE', label: 'GOVERNANCE QUESTION', value: 'EVIDENCE' },
+  { role: 'ACT', label: 'GOVERNANCE QUESTION', value: 'AUTHORITY' },
+  { role: 'OPTIMISE', label: 'GOVERNANCE QUESTION', value: 'SYSTEM EFFECTS' },
+  { role: 'SUPERVISE', label: 'GOVERNANCE QUESTION', value: 'ACCOUNTABILITY' },
+]);
+
 // Each cue owns one stage. Its steps are reveals within that stage, not slides.
 export const CUES = Object.freeze([
   { id: 'opening', steps: ['answers-to-actions', 'authority-ladder'] },

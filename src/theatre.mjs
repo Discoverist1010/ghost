@@ -1,5 +1,5 @@
-import { buildRun, EVIDENCE, evaluateGate, supervise, validateRun } from "./scenario.mjs";
-import { BEATS, CASE_ACTIONS, CUES, SYSTEMIC_ACTIONS, SYSTEMIC_AGENTS, SYSTEMIC_ANNOUNCEMENTS, createPresentationState, currentCue, currentReveal, transition } from "./presentation.mjs";
+import { AGENT_IDENTITIES, buildRun, EVIDENCE, evaluateGate, supervise, validateRun } from "./scenario.mjs";
+import { BEATS, CASE_ACTIONS, CUES, NARRATIVE_INDICATORS, SYSTEMIC_ACTIONS, SYSTEMIC_AGENTS, SYSTEMIC_ANNOUNCEMENTS, createPresentationState, currentCue, currentReveal, transition } from "./presentation.mjs";
 
 const run = buildRun();
 if (!validateRun(run)) throw new Error("The synthetic run failed its trace contract.");
@@ -56,11 +56,6 @@ function button(label, action, className = "quiet-button") {
   return '<button type="button" class="' + className + '" data-action="' + action + '">' + label + "</button>";
 }
 
-function maturity(label, note = "") {
-  return '<p class="maturity"><span>' + escapeHTML(label) + '</span>' +
-    (note ? '<small>' + escapeHTML(note) + '</small>' : '') + '</p>';
-}
-
 function renderTree() {
   const workstreams = [
     ['TRADE DATA', 'T-09'], ['SETTLEMENT', 'T-11'], ['ENTITY GRAPH', 'T-17'],
@@ -101,22 +96,23 @@ export function renderMaterialCase(step) {
   ];
   return '<div class="case-stage" data-case-step="' + step + '"><div class="case-visual" aria-live="polite">' + scenes[step] + '</div>' +
     '<div class="case-controls">' + button(CASE_ACTIONS[step] + ' →', 'next', 'case-primary') +
-    (step === 2 ? button('REPLAY', 'replay', 'case-secondary') : button('EVIDENCE', 'open-source', 'case-secondary')) +
+    (step === 2 ? button('REPLAY', 'replay', 'case-secondary') : button('SHOW MORE', 'open-source', 'case-secondary')) +
     button('RESET', 'reset-beat', 'case-secondary') + '</div></div>';
 }
 
 function renderSystemicAgent(agent, index) {
   const side = index < 3 ? 'left' : 'right';
-  const first = 250 + index * 200;
-  const feedback = 2400 + index * 100;
-  const second = 3150 + index * 120;
-  const secondFlow = 4400 + index * 120;
+  const first = 550 + index * 240;
+  const feedback = 2850 + index * 140;
+  const second = 3600 + index * 160;
+  const secondFlow = 4700 + index * 160;
   return '<article class="systemic-agent" data-agent-id="' + agent.id + '" style="--first-delay:' + first + 'ms;--feedback-delay:' + feedback + 'ms;--second-delay:' + second + 'ms;--second-flow-delay:' + secondFlow + 'ms">' +
     '<strong class="agent-name">PORTFOLIO ' + agent.id + '</strong>' +
+    '<span class="agent-silhouette" aria-hidden="true">' + agent.id + '</span>' +
     '<div class="agent-intent"><span>' + escapeHTML(agent.objective) + '</span><small>' + escapeHTML(agent.constraint) + '</small></div>' +
     '<strong class="agent-response">' + escapeHTML(agent.response) + '</strong>' +
     '<div class="agent-reoptimise"><small>' + escapeHTML(agent.feedback) + '</small><strong>' + escapeHTML(agent.secondResponse) + '</strong></div>' +
-    '<span class="agent-mandate">✓ WITHIN MANDATE</span>' +
+    '<span class="agent-mandate" aria-label="Within mandate">✓</span>' +
     '<span class="agent-flow agent-flow--first" aria-hidden="true">' + (side === 'left' ? '→' : '←') + '</span>' +
     '<span class="agent-flow agent-flow--feedback" aria-hidden="true">' + (side === 'left' ? '←' : '→') + '</span>' +
     '<span class="agent-flow agent-flow--second" aria-hidden="true">' + (side === 'left' ? '⇢' : '⇠') + '</span></article>';
@@ -125,18 +121,20 @@ function renderSystemicAgent(agent, index) {
 export function renderSystemic(step) {
   const agents = SYSTEMIC_AGENTS.map(renderSystemicAgent);
   return '<div class="systemic-stage" data-phase="' + step + '">' +
-    '<header class="systemic-head"><p>REGULATORY RESEARCH / SYNTHETIC ILLUSTRATION</p><h1>CORRELATED AGENT DECISIONS</h1></header>' +
+    '<header class="systemic-head"><h1>MANY AGENTS. DIFFERENT GOALS. SIMILAR DECISIONS.</h1></header>' +
     '<div class="systemic-network">' +
+      '<div class="systemic-mandate-summary">6 / 6 WITHIN MANDATE ✓</div>' +
       '<div class="systemic-agents systemic-agents--left">' + agents.slice(0, 3).join('') + '</div>' +
       '<div class="systemic-market"><div class="market-common"><strong>SAME MARKET</strong><span>OVERLAPPING DATA</span><span>SIMILAR AI INFRASTRUCTURE</span></div>' +
         '<div class="market-signal"><strong>COMMON MARKET SIGNAL</strong><span>VOLATILITY ↑</span><span>MARKET DEPTH ↓</span><span>EXPECTED DOWNSIDE ↑</span></div>' +
         '<div class="market-direction">DE-RISK / SELL</div>' +
-        '<div class="market-effects"><strong>AGGREGATE MARKET EFFECT</strong><span>MARKET DEPTH ↓↓</span><span>BID–ASK SPREAD ↑</span><span>VOLATILITY ↑</span><small>SECOND WAVE INTENSIFIES PRESSURE</small></div>' +
+        '<div class="market-change-lead">THE MARKET CHANGES.</div>' +
+        '<div class="market-effects"><strong>AGGREGATE MARKET EFFECT</strong><span>MARKET DEPTH ↓↓</span><span>BID–ASK SPREAD ↑</span><span>VOLATILITY ↑</span></div>' +
         '<div class="market-feedback">CHANGED MARKET → AGENTS RE-OPTIMISE</div>' +
-        '<div class="market-transmit"><strong>MARKET</strong><span>LIQUIDITY ↓</span><span>VOLATILITY ↑</span></div>' +
       '</div>' +
       '<div class="systemic-agents systemic-agents--right">' + agents.slice(3).join('') + '</div>' +
       '<div class="systemic-transmission">' +
+        '<div><strong>MARKET</strong><span>Liquidity ↓</span><span>Volatility ↑</span></div>' +
         '<div><strong>BROKER / PRIME</strong><span>Margin requirements ↑</span><span>Funding demand ↑</span></div>' +
         '<div><strong>CLEARING / COLLATERAL</strong><span>Collateral calls ↑</span><span>Eligible collateral demand ↑</span></div>' +
         '<div><strong>CUSTODY / POST-TRADE</strong><span>Settlement activity ↑</span><span>Cash / FX requirements ↑</span></div>' +
@@ -166,14 +164,14 @@ export function renderView(id, step) {
       return wrap(id, step === 0 ?
         '<h1 class="hero-verdict wide">AUTONOMOUS FINANCE IS MOVING<br>FROM ANSWERS <span class="cyan">→</span> TO ACTIONS</h1>' +
         '<div class="opening-signposts"><span>OPERATIONS</span><span>TRANSACTIONS</span><span>PORTFOLIOS</span></div>' :
-        '<div class="opening-ladder"><span>OBSERVE</span><i>↓</i><span>INVESTIGATE</span><i>↓</i><span>JUDGE</span><i>↓</i><span>ACT</span></div>' +
+        '<div class="opening-ladder"><span>ASSIST</span><i>↓</i><span>INVESTIGATE</span><i>↓</i><span>ASSESS</span><i>↓</i><span>ACT</span></div>' +
         '<h1 class="opening-question">AUTONOMOUS TO DO WHAT?</h1>' +
         '<p class="opening-answer">NOT HOW INTELLIGENT THE AI IS.<br>HOW MUCH AUTHORITY ACCOMPANIES IT.</p>', "centered");
     case "operations":
       if (step === 0) return wrap(id,
-        '<div class="ops-case">' + maturity('LIVE PRODUCTION / PUBLIC WORKFLOW EXAMPLES') + renderTree() +
+        '<div class="ops-case">' + renderTree() +
         '<div class="ops-scale"><strong>' + run.agents.length + ' AGENTS</strong><strong>' + run.tasks.length + ' SUB-TASKS</strong></div>' +
-        '<p class="ops-help">AGENTS CAN HELP.</p>' + maturity('SYNTHETIC TEACHING SIMULATION') + '</div>', "centered");
+        '<p class="ops-help">AGENTS CAN HELP.</p></div>', "centered");
       if (step === 1) return wrap(id,
         '<div class="assurance-lines"><p><span>✓</span> HUMAN OVERSIGHT ENABLED</p>' +
         '<p><span>✓</span> EVERY ACTION LOGGED</p>' +
@@ -185,11 +183,11 @@ export function renderView(id, step) {
           '<span id="floodUnit" class="hero-unit">AGENTS</span>' +
           '<div class="stage-actions">' + button("Replay", "replay", "quiet-button") +
             button("Pause", "pause", "quiet-button") + "</div></div>" +
-          '<div class="flood-log" aria-hidden="true"><div class="flood-log-head">INTERLEAVED ACTION TRACE <span id="floodCount">000 / ' + run.events.length + '</span></div>' +
+          '<div class="flood-log" aria-hidden="true"><div class="flood-log-head">INTERLEAVED AGENT TRACE <span id="floodCount">000 / ' + run.events.length + '</span></div>' +
           '<div id="floodLines" class="flood-log-lines"></div></div></div>', "flood");
       if (step === 3) return wrap(id,
         '<h1 class="hero-verdict">HUMAN REVIEW REQUIRED</h1>' +
-        '<div class="naive-count">' + number(run.events.length) + '<span>EVENTS</span></div>' +
+        '<div class="naive-count">' + number(run.events.length) + '<span>TRACE EVENTS</span></div>' +
         '<div class="naive-actions">' + button("AUTHORISE", "naive-authorise", "stage-button") +
           button("REJECT", "naive-reject", "stage-button") + "</div>", "centered");
       return wrap(id,
@@ -198,16 +196,15 @@ export function renderView(id, step) {
         '<p class="support-line">BUT COGNITIVELY OUT OF REACH.</p>', "centered");
     case "supervision":
       return wrap(id,
-        '<div class="case-compression"><div><strong>' + run.events.length + '</strong><span>EVENTS</span></div><i aria-hidden="true">↓</i><div class="case-compression-result"><strong>1</strong><span>MATERIAL ISSUE</span></div></div>' +
+        '<div class="case-compression"><div><strong>' + run.events.length + '</strong><span>TRACE EVENTS</span></div><i aria-hidden="true">↓</i><div class="case-compression-result"><strong>1</strong><span>MATERIAL ISSUE</span></div></div>' +
         '<h1 class="supervision-question">WHO DECIDED WHAT THE HUMAN SAW?</h1>' +
         '<p class="supervision-trust">PROVENANCE <span>·</span> UNCERTAINTY <span>·</span> CONTESTABILITY</p>', "centered");
     case "prediction":
       if (step === 0) return wrap(id,
-        '<p class="prediction-context">AGENTIC PAYMENTS · DIGITAL ASSETS · TREASURY <small>PUBLIC CONTEXT: LIVE / PILOT / OFFICIAL PROTOTYPE</small></p>' +
+        '<p class="prediction-context">AGENTIC PAYMENTS · DIGITAL ASSETS · TREASURY</p>' +
         '<div class="prediction-metrics"><div><strong>' + run.scoreHistory[4].score + '</strong><span>RISK COEFFICIENT</span></div>' +
         '<div><strong>' + run.prediction.percent + '%</strong><span>PREDICTED MATERIAL EVENT</span></div></div>' +
-        '<p class="prediction-recommendation">RECOMMEND: ENHANCED LIQUIDITY RESTRICTION</p>' +
-        maturity('SYNTHETIC TEACHING SIMULATION', 'Illustrative, not calibrated'), "centered");
+        '<p class="prediction-recommendation">RECOMMEND: ENHANCED LIQUIDITY RESTRICTION</p>', "centered");
       return wrap(id,
         '<h1 class="hero-verdict impact">NO RULE HAS BEEN BREACHED</h1>' +
         '<p class="primary-line">PREDICTION ≠ PERMISSION</p>', "centered");
@@ -246,11 +243,12 @@ export function renderView(id, step) {
 }
 
 function detailAction(id, step) {
-  if (id === "operations") return ["Inspect synthetic case", "open-evidence"];
-  if (id === "supervision") return ["Inspect trust controls", "open-trust"];
-  if (id === "prediction") return ["Inspect synthetic evidence", "open-evidence"];
-  if (id === "material-case") return ["Inspect original event", "open-source"];
-  if (id === "authority") return step === 0 ? ["Inspect human decision", "open-review"] : ["Inspect gate rule", "open-gate"];
+  if (id === "operations") return ["SHOW MORE", "open-evidence"];
+  if (id === "supervision") return ["SHOW MORE", "open-trust"];
+  if (id === "prediction") return ["SHOW MORE", "open-evidence"];
+  if (id === "material-case") return ["SHOW MORE", "open-source"];
+  if (id === "authority") return step === 0 ? ["SHOW MORE", "open-review"] : ["SHOW MORE", "open-gate"];
+  if (id === "systemic") return ["SHOW MORE", "open-systemic"];
   return null;
 }
 
@@ -275,9 +273,10 @@ function renderCue(forceReplay = false) {
   } else {
     stage.innerHTML = renderView(cue.id, presentation.step);
   }
-  stageStatus.textContent = cue.id === 'ghost' ? '' : cue.id === 'opening' ? 'PUBLIC ACTIVITY' :
-    cue.id === 'systemic' ? 'REGULATORY RESEARCH / SYNTHETIC ILLUSTRATION' :
-    cue.id === 'prediction' ? 'PUBLIC CONTEXT / SYNTHETIC CASE' : 'SYNTHETIC TEACHING SIMULATION';
+  const indicator = NARRATIVE_INDICATORS[presentation.cueIndex];
+  stageStatus.innerHTML = '<span>AI ROLE: <strong>' + indicator.role + '</strong></span>' +
+    '<span>' + indicator.label + ': <strong>' + indicator.value + '</strong></span>';
+  stageStatus.classList.toggle('is-question', presentation.cueIndex >= 4);
   document.querySelector('.app-shell').classList.toggle('is-closing', cue.id === 'ghost');
   beatCounter.textContent = "BEAT " + (presentation.cueIndex + 1) + "/" + BEATS.length;
   announcer.textContent = "Beat " + (presentation.cueIndex + 1) + ": " + BEATS[presentation.cueIndex] + ". " +
@@ -304,6 +303,11 @@ function move(action) {
   renderCue();
 }
 
+export function formatTraceLine(event) {
+  return String(event.atMs).padStart(4, "0") + "ms  " + event.id + "  " +
+    event.agentId + "  " + event.taskId + "  " + event.kind;
+}
+
 function appendFloodEvents(count) {
   if (!floodState || count <= floodState.shown) return;
   const lines = document.getElementById("floodLines");
@@ -313,8 +317,7 @@ function appendFloodEvents(count) {
     const event = run.events[index];
     const line = document.createElement("div");
     line.className = "log-line";
-    line.textContent = String(event.atMs).padStart(4, "0") + "ms  " + event.id + "  " +
-      event.actor + "/" + event.taskId + "  " + event.kind + "  " + event.summary;
+    line.textContent = formatTraceLine(event);
     fragment.appendChild(line);
   }
   lines.appendChild(fragment);
@@ -328,7 +331,7 @@ function updateFlood(elapsed) {
   const duration = run.events.at(-1).atMs;
   const phase = elapsed < 750 ? [run.agents.length, "AGENTS"] :
     elapsed < 1500 ? [run.tasks.length, "SUB-TASKS"] :
-    elapsed < 2400 ? [run.events.length, "EVENTS"] :
+    elapsed < 2400 ? [run.events.length, "TRACE EVENTS"] :
     [(duration / 1000).toFixed(1), "SECONDS"];
   document.getElementById("floodNumber").textContent = phase[0];
   document.getElementById("floodUnit").textContent = phase[1];
@@ -417,6 +420,19 @@ function detailBlock(label, value) {
     '</div><div class="detail-value">' + escapeHTML(value) + "</div></div>";
 }
 
+function agentDetail(event) {
+  const task = run.tasks.find((item) => item.id === event.taskId);
+  return detailBlock('Agent ID', event.agentId) +
+    detailBlock('Agent role', event.actor) +
+    detailBlock('Agent version', task?.agentVersion ?? 'unknown') +
+    detailBlock('Principal', task?.principal ?? 'unknown') +
+    detailBlock('Mandate', task?.mandate ?? 'unknown') +
+    detailBlock('Task ID', event.taskId) +
+    detailBlock('Event ID', event.id) +
+    detailBlock('Parent event', event.parentIds.join(', ') || 'none') +
+    detailBlock('Evidence source', event.evidenceIds.join(', ') || 'none');
+}
+
 function reviewLabel() {
   if (review.challenged) return "Supervisory finding challenged";
   if (review.classification === "pending") return "Pending: classification not yet judged";
@@ -441,8 +457,7 @@ function drawerContent(kind) {
       body: "<p>This event was genuinely present in the 486-event stream. The later challenge appends evidence; it does not erase this record.</p>" +
         detailBlock("Raw event", classification.summary) +
         detailBlock("Trace position", classification.id + " · " + classification.atMs + " ms · sequence " + classification.sequence + " / " + run.events.length) +
-        detailBlock("Actor / task", classification.actor + "/" + classification.taskId) +
-        detailBlock("Parent event", classification.parentIds.join(", ")) +
+        agentDetail(classification) +
         detailBlock("Original source", EVIDENCE.entityFiling.id + ": " + EVIDENCE.entityFiling.finding) +
         detailBlock("Derived interpretation", EVIDENCE.graphInference.id + ": " + EVIDENCE.graphInference.finding) +
         detailBlock("Uncertainty", EVIDENCE.graphInference.uncertainty) +
@@ -496,12 +511,23 @@ function drawerContent(kind) {
         button("Challenge the finding", "challenge-finding", "drawer-button warning"),
     };
   }
+  if (kind === "systemic") {
+    return {
+      title: "Systemic illustration · source status",
+      body: "<p>Beat 7 is a synthetic mechanism-of-concern, not an observed market incident or a second executable scenario. The six portfolio agents illustrate distinct objectives responding to shared conditions; they do not communicate.</p>" +
+        detailBlock("Evidence status", "Regulatory research / synthetic illustration") +
+        detailBlock("Public grounding", "BIS Project Logos; FSB AI financial-stability work; IOSCO AI in securities markets. See PUBLIC_SOURCES.md for primary links and qualifications.") +
+        detailBlock("Scenario boundary", "The six-agent visual is separate from the deterministic 486-trace-event failed-trade run.") +
+        detailBlock("Mandate", "Each illustrated portfolio agent remains within its own constraint; collective transmission is a possibility, not a forecast."),
+    };
+  }
   return {
     title: "Replay evidence",
     body: "<p>This is one deterministic synthetic run. The stage counters, original log, supervisory finding and gate all refer to the same data.</p>" +
       detailBlock("Run", run.id + " · version " + run.version) +
       detailBlock("Opening exception", run.caseContext.count + " " + run.caseContext.exception + " · " + run.caseContext.openingEventId + " · " + run.caseContext.context) +
-      detailBlock("Scale", run.agents.length + " agents · " + run.tasks.length + " sub-tasks · " + run.events.length + " events · " + (run.events.at(-1).atMs / 1000).toFixed(1) + " simulated seconds") +
+      detailBlock("Scale", run.agents.length + " agents · " + run.tasks.length + " sub-tasks · " + run.events.length + " trace events · " + (run.events.at(-1).atMs / 1000).toFixed(1) + " simulated seconds") +
+      detailBlock("Agent identity format", AGENT_IDENTITIES.EntityGraph + " · demo-local stable identity, SAFR-inspired but not SAFR-prescribed") +
       detailBlock("Material event", finding.sourceEventIds[0] + ": " + classification.summary) +
       detailBlock("Causal event IDs", finding.sourceEventIds.join(" → ")) +
       detailBlock("Gate", gate.disposition + ": " + gate.reason) +
@@ -569,6 +595,7 @@ document.addEventListener("click", (event) => {
   else if (action === "open-trust") openDrawer("trust");
   else if (action === "open-gate") openDrawer("gate");
   else if (action === "open-review") openDrawer("review");
+  else if (action === "open-systemic") openDrawer("systemic");
   else if (action === "close-drawer") closeDrawer();
   else if (action === "download-run") downloadRun();
   else if (action === "reset") {

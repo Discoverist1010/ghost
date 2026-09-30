@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { AGENTS, buildRun, evaluateGate, supervise, validateRun } from '../src/scenario.mjs';
+import { AGENTS, AGENT_IDENTITIES, AGENT_PRINCIPAL, AGENT_VERSION, buildRun, evaluateGate, supervise, validateRun } from '../src/scenario.mjs';
 
 test('the visible flood is a reproducible, causally linked run', () => {
   const first = buildRun();
@@ -8,18 +8,31 @@ test('the visible flood is a reproducible, causally linked run', () => {
   assert.deepEqual(first, second);
   assert.equal(validateRun(first), true);
   assert.equal(first.events.length, 486);
+  assert.equal(first.version, '1.1'); // Export contract changed from E- to EVT- IDs.
   assert.equal(first.tasks.length, 27);
   assert.deepEqual(first.caseContext, {
-    exception: 'failed trade', count: 1, openingEventId: 'E-0001',
+    exception: 'failed trade', count: 1, openingEventId: 'EVT-0001',
     context: 'Synthetic asset-servicing exception; not an observed industry incident',
   });
   assert.equal(first.events[0].kind, 'SETTLEMENT_EXCEPTION_REPORTED');
   assert.deepEqual(first.sourceCounts, { filings: 24, policySources: 8, transactions: 1240 });
   assert.equal(new Set(first.events.map((event) => event.actor)).size, AGENTS.length);
   assert.equal(first.events.at(-1).atMs, 3200);
+  assert.equal(first.gateInput.identity, AGENT_IDENTITIES.Sentinel);
+  assert.equal(new Set(Object.values(AGENT_IDENTITIES)).size, AGENTS.length);
+  assert.deepEqual(first.events.map((event) => event.id),
+    Array.from({ length: 486 }, (_, index) => `EVT-${String(index + 1).padStart(4, '0')}`));
 
   const tasksById = new Map(first.tasks.map((task) => [task.id, task]));
-  for (const event of first.events) assert.equal(event.actor, tasksById.get(event.taskId).actor);
+  for (const task of first.tasks) {
+    assert.equal(task.agentVersion, AGENT_VERSION);
+    assert.equal(task.principal, AGENT_PRINCIPAL);
+  }
+  for (const event of first.events) {
+    assert.equal(event.actor, tasksById.get(event.taskId).actor);
+    assert.equal(event.agentId, AGENT_IDENTITIES[event.actor]);
+    assert.equal(event.agentId, tasksById.get(event.taskId).agentId);
+  }
 
   const classification = first.events.find((event) => event.kind === 'CLASSIFICATION_CHANGED');
   const baseline = first.events.find((event) => event.kind === 'BASELINE_CONFIRMED');
@@ -27,6 +40,8 @@ test('the visible flood is a reproducible, causally linked run', () => {
   const recommendation = first.events.find((event) => event.kind === 'INTERVENTION_RECOMMENDED');
   const mandate = first.events.find((event) => event.kind === 'MANDATE_BOUNDARY_IDENTIFIED');
   assert.equal(classification.taskId, 'T-17');
+  assert.equal(classification.id, 'EVT-0238');
+  assert.equal(classification.agentId, 'AGT-ENTITYGRAPH-01');
   assert.equal(classification.before, 'central-bank-related');
   assert.equal(classification.after, 'commercial-counterparty');
   assert.deepEqual(baseline.parentIds, [first.caseContext.openingEventId]);

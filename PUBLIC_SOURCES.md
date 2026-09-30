@@ -25,6 +25,8 @@ REGULATOR//GHOST uses public examples to frame governance questions. **None of t
 | **OFFICIAL PROTOTYPE / ONGOING RESEARCH** | [BIS Innovation Hub: Project Mandala](https://www.bis.org/project/mandala) | Proof-of-concept compliance-by-design and transaction pre-validation across borders. It does not establish that the demo's predictive restriction is legally authorised. |
 | **PUBLIC GOVERNANCE FRAMEWORK** | [IMDA: Model AI Governance Framework for Agentic AI](https://www.imda.gov.sg/resources/press-releases-factsheets-and-speeches/press-releases/2026/new-model-ai-governance-framework-for-agentic-ai) | Guidance on bounding agent autonomy and meaningful human checkpoints. It is not an endorsement of REGULATOR//GHOST. |
 
+The demo's stable `AGT-…` identity format is inspired by registered-agent governance thinking; it is **not** a MAS SAFR naming requirement or an implementation of the proposal.
+
 ## Asset management / systemic behaviour
 
 | Status | Primary source | What it supports |

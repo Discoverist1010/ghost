@@ -9,6 +9,21 @@ export const AGENTS = Object.freeze([
   'Interpreter',
 ]);
 
+// Demo-local stable identities; the format is inspired by registered-agent controls,
+// not prescribed by SAFR or any external framework.
+export const AGENT_IDENTITIES = Object.freeze({
+  Sentinel: 'AGT-SENTINEL-04',
+  Investigator: 'AGT-INVESTIGATOR-02',
+  EntityGraph: 'AGT-ENTITYGRAPH-01',
+  HistoricalTransactions: 'AGT-HISTORY-01',
+  DisclosureReview: 'AGT-DISCLOSURE-01',
+  CounterpartyCheck: 'AGT-COUNTERPARTY-01',
+  PolicyMapper: 'AGT-POLICY-01',
+  Interpreter: 'AGT-INTERPRETER-01',
+});
+export const AGENT_VERSION = '1.0';
+export const AGENT_PRINCIPAL = 'SUPERVISION-OPS-01';
+
 export const EVIDENCE = Object.freeze({
   entityFiling: {
     id: 'EV-ENTITY-01',
@@ -60,7 +75,7 @@ const ROUTINE_ACTIONS = [
   ['RESPONSE_PROCESSED', 'institutional response processed'],
 ];
 
-const eventId = (index) => `E-${String(index + 1).padStart(4, '0')}`;
+const eventId = (index) => `EVT-${String(index + 1).padStart(4, '0')}`;
 
 // A stable demo fingerprint, deliberately not presented as a cryptographic proof.
 function fingerprint(value) {
@@ -82,6 +97,9 @@ function makeTasks() {
       id: `T-${String(number).padStart(2, '0')}`,
       parentTaskId: number <= 2 ? 'OBJECTIVE-01' : 'T-02',
       actor,
+      agentId: AGENT_IDENTITIES[actor],
+      agentVersion: AGENT_VERSION,
+      principal: AGENT_PRINCIPAL,
       label,
       mandate: ['Sentinel', 'Investigator'].includes(actor) ? 'investigate' : 'read-and-report',
     };
@@ -98,6 +116,7 @@ function makeRoutineEvent(index, tasks) {
     sequence: index + 1,
     atMs: Math.round(index * 3200 / 485),
     actor,
+    agentId: AGENT_IDENTITIES[actor],
     taskId: task.id,
     kind,
     summary,
@@ -112,6 +131,7 @@ function replaceEvent(events, index, details) {
   const event = { ...events[index], ...details };
   events[index] = {
     ...event,
+    agentId: AGENT_IDENTITIES[event.actor],
     inputHash: fingerprint(`${index}:${event.taskId}:${event.actor}`),
     outputHash: fingerprint(`${index}:${event.summary}`),
   };
@@ -164,7 +184,7 @@ export function buildRun() {
   ];
 
   const gateInput = {
-    identity: 'Sentinel-04', verifiedIdentity: true,
+    identity: AGENT_IDENTITIES.Sentinel, verifiedIdentity: true,
     mandate: 'recommend',
     proposedAction: 'restrict_activity',
     materiality: 'high',
@@ -176,7 +196,7 @@ export function buildRun() {
   };
 
   return {
-    id: 'GHOST-MAIN-001', version: '1.0', synthetic: true,
+    id: 'GHOST-MAIN-001', version: '1.1', synthetic: true,
     objective: 'Investigate a synthetic failed trade and its related liquidity signal involving Entity X',
     caseContext: {
       exception: 'failed trade', count: 1, openingEventId: eventId(0),
@@ -211,7 +231,7 @@ export function supervise(events) {
     independence: 'Separate simulated control role; no source-write or intervention authority.',
     uncertainty: 'The graph classification conflicts with the original ownership record.',
     disagreement: 'The original filing and derived graph disagree; Bank Compliance may submit a further challenge.',
-    reproducibility: 'Rebuild from GHOST-MAIN-001 v1.0 and the four linked event IDs.',
+    reproducibility: 'Rebuild from GHOST-MAIN-001 v1.1 and the four linked event IDs.',
     contestability: 'Open original evidence and append a human or authorised control challenge.',
   };
 }
@@ -247,9 +267,13 @@ export function validateRun(run) {
     baseline?.parentIds.includes(run.caseContext.openingEventId) &&
     classification?.parentIds.includes(baseline.id) &&
     run.agents.length === 8 && run.tasks.length === 27 &&
+    run.tasks.every((task) => task.agentId === AGENT_IDENTITIES[task.actor] &&
+      task.agentVersion === AGENT_VERSION && task.principal === AGENT_PRINCIPAL) &&
+    run.gateInput.identity === AGENT_IDENTITIES.Sentinel &&
     run.events.length === 486 && uniqueIds.size === 486 &&
     run.events[0].atMs === 0 && run.events.at(-1).atMs === 3200 &&
     run.events.every((event, index) => event.sequence === index + 1 &&
+      event.id === eventId(index) && event.agentId === AGENT_IDENTITIES[event.actor] &&
       event.atMs >= (run.events[index - 1]?.atMs ?? 0) &&
       event.inputHash === fingerprint(`${index}:${event.taskId}:${event.actor}`) &&
       event.outputHash === fingerprint(`${index}:${event.summary}`)) &&

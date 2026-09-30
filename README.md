@@ -6,12 +6,12 @@ REGULATOR//GHOST is a presenter-led decision theatre for financial-services audi
 
 ## The idea in 30 seconds
 
-One synthetic failed trade opens an investigation. Eight agents create 27 sub-tasks and 486 audit events in 3.2 simulated seconds. A material entity reclassification is logged but buried. Asking a person to approve the whole trace produces **ON WHAT BASIS?** A separate simulated Supervisory AI links the one event that matters to a proposed restriction. The human can then judge the disputed fact and consequence. Even with a risk coefficient of 76 and illustrative 74% prediction, the runtime gate says **ESCALATE**: intelligence has not created authority.
+One synthetic failed trade opens an investigation. Eight agents create 27 sub-tasks and 486 trace events in 3.2 simulated seconds. A material entity reclassification is logged but buried. Asking a person to approve the whole trace produces **ON WHAT BASIS?** A separate simulated Supervisory AI links the one event that matters to a proposed restriction. The human can then judge the disputed fact and consequence. Even with a risk coefficient of 76 and illustrative 74% prediction, the runtime gate says **ESCALATE**: intelligence has not created authority.
 
 ```mermaid
 flowchart LR
   A[Public financial activity] --> B[Agent autonomy]
-  B --> C[486-event synthetic case]
+  B --> C[486-trace-event synthetic case]
   C --> D[1 material issue]
   D --> E[Human judgement]
   E --> F[Runtime authority gate]
@@ -32,9 +32,11 @@ Source maturity and important qualifications are in [PUBLIC_SOURCES.md](PUBLIC_S
 
 Eight escalating audience beats, 26 presenter advances: answers → actions; agents help but humans lose the thread; AI supervises AI but allocates human attention; prediction is not permission; one disputed fact changes the case; human judgement and the runtime authority gate; individually correct agents create systemic effects; the ghost. The causal case is **one stage with three reveals** after the no-breach moment: a coherent explanation (classification → 39→76 → recommendation), a separate source and Bank Compliance challenge, then an animated 76→39 counterfactual. Only then does the show ask for a human decision and run the single **ESCALATE** verdict.
 
-Beat 7 then asks what happens when individual controls work. Six hypothetical portfolio agents, each within mandate but optimising for a different constraint, respond independently to a shared market signal. Their first actions may change the market conditions they observe; feedback can prompt a stronger second wave and transmit pressure through broker, collateral and custody functions. This persistent-stage sequence is **OPTIMISE → FEEDBACK → TRANSMIT → SYSTEM CHANGED → WHO SUPERVISES THE SYSTEM?** It is labelled **REGULATORY RESEARCH / SYNTHETIC ILLUSTRATION**, not a reported incident or a second executable scenario. Ghost ends on **WHERE DOES INTELLIGENCE END AND AUTHORITY BEGIN?**
+The on-stage authority ladder is **ASSIST → INVESTIGATE → ASSESS → ACT**; supervision is a later meta-control, not another rung. A restrained corner indicator tracks the AI role and either its human benefit or its governance question. Main-stage detail controls say **SHOW MORE**; the drawers retain precise evidence and source language.
 
-The important event, `EntityGraph/T-17`, is truly in the 486-event stream. It changes a *derived* classification from central-bank-related to commercial-counterparty. A linked score update moves **39 → 76**; an institutional challenge supports a **76 → 39** counterfactual. The original source is never overwritten. The Supervisory AI finding cites the exact classification, score, recommendation and mandate-boundary events. Evidence, trust controls and the complete run remain available in contextual drawers and export.
+Beat 7 then asks what happens when individual controls work. Six hypothetical portfolio agents, each within mandate but optimising for a different constraint, respond independently to a shared market signal. Their first actions may change the market conditions they observe; feedback can prompt a stronger second wave and transmit pressure through broker, collateral and custody functions. This persistent-stage sequence is **OPTIMISE → FEEDBACK → TRANSMIT → SYSTEM CHANGED → WHO SUPERVISES THE SYSTEM?** It is a **regulatory-research / synthetic illustration**, not a reported incident or a second executable scenario. That qualification is kept here, in source notes and evidence detail, rather than on the audience-facing stage. Ghost ends on **WHERE DOES INTELLIGENCE END AND AUTHORITY BEGIN?**
+
+The important event, `EntityGraph/T-17` (`EVT-0238`), is truly in the 486-trace-event stream. It changes a *derived* classification from central-bank-related to commercial-counterparty. A linked score update moves **39 → 76**; an institutional challenge supports a **76 → 39** counterfactual. The original source is never overwritten. The Supervisory AI finding cites the exact classification, score, recommendation and mandate-boundary events. Evidence, trust controls and the complete run remain available in contextual drawers and export.
 
 The human-in-the-right-loop distinction is concrete: a person should not be asked to approve 486 undifferentiated machine actions. They should judge whether the material classification is valid and, if so, whether intervention is justified. The Supervisory AI is itself an **attention allocator**: its provenance, uncertainty, contestability, independence, disagreement, causal trace, reproducibility and limited authority are inspectable.
 
@@ -73,7 +75,9 @@ The runtime gate distinguishes a deterministic prohibited transaction from a pro
 
 ## Evidence maturity and limitations
 
-The evidence vocabulary distinguishes **LIVE PRODUCTION**, **LIVE PILOT**, **OFFICIAL PROTOTYPE**, **REGULATORY RESEARCH** and **SYNTHETIC TEACHING SIMULATION** across the stage and source notes. Commercial labels describe the linked public examples, not this software. The six-agent optimise/feedback/transmit sequence is a synthetic mechanism-of-concern, **not an observed production incident**. Metric gaming remains an optional future **SYNTHETIC RED-TEAM TEST**, not part of the main show.
+The source notes and evidence detail distinguish **LIVE PRODUCTION**, **LIVE PILOT**, **OFFICIAL PROTOTYPE**, **REGULATORY RESEARCH** and **SYNTHETIC TEACHING SIMULATION**; these labels are deliberately absent from the main stage. Commercial labels describe the linked public examples, not this software. The six-agent optimise/feedback/transmit sequence is a synthetic mechanism-of-concern, **not an observed production incident**. Metric gaming remains an optional future **SYNTHETIC RED-TEAM TEST**, not part of the main show.
+
+Trace records use `EVT-XXXX` sequence IDs and stable demo-local `AGT-…` identities. The identity format is inspired by registered-agent governance ideas; it is **not** a MAS SAFR naming convention. A trace event is telemetry/audit instrumentation, not necessarily a model deliberation or external API call. SHOW MORE exposes the actor, mandate, task, parent event and evidence source.
 
 All entities, transactions, scores, percentages, timings and case events in the core run are invented. The 74% prediction is illustrative, not calibrated analytics or a regulatory threshold. The Supervisory AI is deterministic simulated logic, not a live independent AI model. Event fingerprints are stable demo identifiers, not cryptographic proof. This repository contains no real transaction or client data, employer-confidential material or internal policy text. It is **not a production supervisory platform, legal or regulatory advice, or an endorsement by Broadridge, Standard Chartered, Sygnum, BIS, MAS, FSB, IOSCO, IMDA or any employer**.
 

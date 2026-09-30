@@ -55,7 +55,7 @@ The score path is `27 → 42 → provisional 61 → 39 baseline → 76 after T-1
 
 - task_id, parent_task_id, objective_id, actor_id, mandate, start/end simulated timestamps, input_event_ids, output_event_ids, status
 
-One objective expands to exactly 27 sub-tasks across eight active machine-activity agent instances during the log-flood burst. Parent references make the branching graph reconstructable. Parallel tasks may interleave their events.
+One objective expands to exactly 27 sub-tasks across eight active machine-activity agent instances during the log-flood burst. Parent references make the branching graph reconstructable. Parallel tasks may interleave their events. Implemented tasks and events retain actor names and include stable demo-local agent IDs such as `AGT-ENTITYGRAPH-01`; tasks also record a synthetic agent version and principal for the detail drawer. These IDs are SAFR-inspired presentation identities, not a prescribed MAS naming format.
 
 ## Audit Events
 - event_id
@@ -70,7 +70,7 @@ One objective expands to exactly 27 sub-tasks across eight active machine-activi
 - disposition
 - wall_clock_timestamp (optional; distinct from simulated time)
 
-The main burst contains exactly 486 ordered, replayable events spanning 3.2 simulated seconds. Its opening event `E-0001` reports one synthetic failed trade. A linked baseline event leads to `EntityGraph/T-17 CLASSIFICATION_CHANGED Entity X: central-bank-related → commercial-counterparty`, then `RISK_UPDATED 39 → 76`, surrounded by hundreds of ordinary events. The audience may not read the fast log, but the material event is a real trace record with a stable ID.
+The main burst contains exactly 486 ordered, replayable **trace events** spanning 3.2 simulated seconds. Sequence IDs use `EVT-XXXX`; `EVT-0001` reports one synthetic failed trade. A linked baseline event leads to `EntityGraph/T-17 CLASSIFICATION_CHANGED Entity X: central-bank-related → commercial-counterparty` (`EVT-0238`), then `RISK_UPDATED 39 → 76`, surrounded by hundreds of ordinary events. These are telemetry/audit records, not 486 model deliberations or external API calls. The audience may not read the fast log, but the material event is a real trace record with a stable ID.
 
 ## Supervisory Finding
 
