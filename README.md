@@ -81,6 +81,16 @@ Trace records use `EVT-XXXX` sequence IDs and stable demo-local `AGT-…` identi
 
 All entities, transactions, scores, percentages, timings and case events in the core run are invented. The 74% prediction is illustrative, not calibrated analytics or a regulatory threshold. The Supervisory AI is deterministic simulated logic, not a live independent AI model. Event fingerprints are stable demo identifiers, not cryptographic proof. This repository contains no real transaction or client data, employer-confidential material or internal policy text. It is **not a production supervisory platform, legal or regulatory advice, or an endorsement by Broadridge, Standard Chartered, Sygnum, BIS, MAS, FSB, IOSCO, IMDA or any employer**.
 
+
+## Ghost in the Harness: paper, evidence and agent constitution
+
+The paper is the source argument; this demo is a selected synthetic adaptation of it, like an anime based on a manga. The demo's themes must remain traceable to paper propositions, with their evidence limits intact. The wider paper also covers institutionalising expertise, functional cognition, evaluator integrity, governed learning and constitutional design.
+
+- [Consolidated spine and revised report outline](papers/ghost-in-the-harness/GHOST_IN_THE_HARNESS_CONSOLIDATED_SPINE_2026-10-06.md): original paper history, current demo mapping, practical outputs and a proposed constitutional foundation for the digital agent family.
+- [Research ledger and evidence-to-action matrix](papers/ghost-in-the-harness/GHOST_IN_THE_HARNESS_RESEARCH_LEDGER_2026-10-06.md): regulatory interests, source qualifications and bounded Maju, AlphaLab and ZiLiOS pilot proposals.
+
+The constitutional articles and product work are proposals. They do not add live AI, execution authority or self-modification to this teaching demo. Product adoption requires explicit versions, domain mandates, enforcing controls and journey/recovery evidence.
+
 ## Licence and contributions
 
 No open-source licence has been selected. Public availability does not imply unrestricted reuse; see [GitHub's licensing guidance](https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/licensing-a-repository). Licence selection remains an explicit project decision. Suggestions are welcome through issues; do not submit confidential information.
