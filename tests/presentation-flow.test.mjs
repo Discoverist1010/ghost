@@ -7,7 +7,7 @@ const reveals = CUES.flatMap((cue) => cue.steps);
 test("eight escalating beats keep the systemic argument inside Beat 7", () => {
   assert.equal(BEATS.length, 8);
   assert.equal(CUES.length, 8);
-  assert.equal(reveals.length - 1, 26);
+  assert.equal(reveals.length - 1, 39);
   assert.deepEqual(CUES.map((cue) => cue.id), [
     "opening", "operations", "supervision", "prediction", "material-case", "authority", "systemic", "ghost",
   ]);
@@ -76,28 +76,34 @@ test("naive authorise and reject reveal the inadequate basis without approving",
 
 test("causal case is one beat with source and counterfactual before human authority", () => {
   let state = { ...createPresentationState(), cueIndex: 4 };
-  assert.equal(CASE_ACTIONS.length, 3);
-  for (let step = 1; step < 3; step++) {
-    state = transition(state, "next");
+  assert.equal(CASE_ACTIONS.length, 11);
+  assert.equal(transition(state, 'next'), state, 'Next cannot invoke a second AI');
+  assert.equal(state.sourceCheck, null);
+  state = transition(state, 'check-source');
+  assert.equal(currentReveal(state), 'source-challenge');
+  assert.equal(state.sourceCheck.initiatedBy, 'human');
+  for (let step = 2; step < CUES[4].steps.length; step++) {
+    state = transition(state, 'next');
     assert.equal(state.cueIndex, 4);
     assert.equal(state.step, step);
   }
-  assert.equal(currentReveal(state), "counterfactual");
-  state = transition(state, "next");
-  assert.equal(currentCue(state).id, "authority");
-  assert.equal(currentReveal(state), "escalate");
-  state = transition(state, "previous");
-  assert.equal(currentReveal(state), "counterfactual");
-  state = transition(state, "reset-beat");
-  assert.equal(currentReveal(state), "causal-explanation");
+  assert.equal(currentReveal(state), 'human-confidence');
+  state = transition(state, 'next');
+  assert.equal(currentReveal(state), 'package-boundary');
+  assert.equal(transition(state, 'next'), state);
+  state = transition(state, 'previous');
+  assert.equal(currentReveal(state), 'human-confidence');
+  state = transition(state, 'reset-beat');
+  assert.equal(currentReveal(state), 'causal-explanation');
+  assert.equal(state.sourceCheck, null);
 });
 
 test("back and reset keep the eight-beat presenter path stable", () => {
   let state = createPresentationState();
   state = transition(state, "next");
-  assert.equal(currentReveal(state), "authority-ladder");
-  state = transition(state, "previous");
   assert.equal(currentReveal(state), "answers-to-actions");
+  state = transition(state, "previous");
+  assert.equal(currentReveal(state), "opening-question");
   state = transition({ cueIndex: 7, step: 2, naiveAttempt: "reject" }, "reset");
   assert.deepEqual(state, createPresentationState());
 });

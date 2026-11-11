@@ -24,6 +24,12 @@ globalThis.document = {
   addEventListener: (name, listener) => listeners.set(name, listener),
 };
 globalThis.Element = class {};
+function clickAction(action) {
+  const target = new globalThis.Element();
+  target.dataset = { action };
+  target.closest = () => target;
+  listeners.get('click')({ target });
+}
 globalThis.window = { matchMedia: () => ({ matches: true }) };
 
 const { formatTraceLine, renderGateDetails, renderMaterialCase, renderSystemic, renderView } = await import("../src/theatre.mjs");
@@ -33,7 +39,12 @@ test("early supervisory compression withholds later risk and authority facts", (
   const early = renderView("supervision", 0);
   assert.match(early, /486<\/strong><span>TRACE EVENTS/);
   assert.match(early, /MATERIAL ISSUE/);
-  assert.match(early, /WHO DECIDED WHAT THE HUMAN SAW/);
+  assert.doesNotMatch(early, /WHO DECIDED/);
+  const dependency = renderView('supervision', 1);
+  assert.match(dependency, /WHO DECIDED WHAT THE HUMAN SAW/);
+  assert.match(dependency, /THE SOLUTION CREATED A NEW DEPENDENCY/);
+  assert.match(dependency, /FSB:.*MAS AIRM:/);
+  assert.doesNotMatch(dependency, /ENTITY X|39|76|RESTRICTION|COUNTERPARTY|ESCALATE/);
   assert.doesNotMatch(early, /ENTITY X|39|76|RESTRICTION|COUNTERPARTY|ESCALATE/);
 });
 
@@ -62,7 +73,7 @@ test("three presenter states reveal causal explanation, challenge, then counterf
   for (const markup of states) {
     assert.doesNotMatch(markup, /ESCALATE|E-0238|E-0252|E-0270|E-0301|EntityGraph|Interpreter|PolicyMapper/);
   }
-  assert.match(renderView("authority", 0), /ESCALATE/);
+  assert.match(renderView("runtime", 0), /ESCALATE/);
   assert.match(renderView("prediction", 0), /AI INVESTIGATOR ASSESSMENT/);
   assert.match(renderView("prediction", 0), /<span>AI RECOMMENDS<\/span><strong>ENHANCED LIQUIDITY RESTRICTION<\/strong>/);
   assert.doesNotMatch(renderView("prediction", 0), /AGENTIC PAYMENTS|DIGITAL ASSETS|TREASURY/);
@@ -91,14 +102,14 @@ test("prediction and contestability keep their claims legible without making cha
   assert.ok(challenge.indexOf("SOURCE RECORD") < challenge.indexOf("BANK COMPLIANCE AGENT"));
   assert.ok(challenge.indexOf("BANK COMPLIANCE AGENT") < challenge.indexOf("FACT CONTESTED"));
   assert.match(challenge, /<div class="case-institution"><strong>BANK COMPLIANCE AGENT<\/strong><span>COUNTER-EVIDENCE SUBMITTED<\/span><\/div>/);
-  assert.match(css, /\.case-institution strong\s*\{[^}]*font-size:\s*clamp\(31px, 2\.4vw, 41px\)/);
-  assert.match(css, /\.case-subtle\s*\{[^}]*font-size:\s*clamp\(29px, 2\.2vw, 37px\)/);
+  assert.match(css, /\.case-institution strong\s*\{[^}]*font-size:\s*clamp\(31px, 2\.4cqw, 41px\)/);
+  assert.match(css, /\.case-subtle\s*\{[^}]*font-size:\s*clamp\(29px, 2\.2cqw, 37px\)/);
 });
 
 test("human judgement stays uncertain while the runtime gate owns execution authority", () => {
   const css = readFileSync(new URL("../styles.css", import.meta.url), "utf8");
-  const judgement = renderView("authority", 1);
-  const verdict = renderView("authority", 0);
+  const judgement = renderView("runtime", 1);
+  const verdict = renderView("runtime", 0);
   const details = renderGateDetails();
   assert.match(judgement, /HUMAN JUDGEMENT REQUIRED/);
   assert.ok(judgement.indexOf("MANUAL VERIFICATION?") < judgement.indexOf("AI-ASSISTED VALIDATION?"));
@@ -250,7 +261,7 @@ test('stage furniture and detail language follow the eight-beat hierarchy', () =
     { role: 'OPTIMISE', label: 'GOVERNANCE QUESTION', value: 'SYSTEM EFFECTS' },
     { role: 'SUPERVISE', label: 'GOVERNANCE QUESTION', value: 'ACCOUNTABILITY' },
   ]);
-  assert.match(renderView('opening', 1), /ASSIST<\/span><i>↓<\/i><span>INVESTIGATE<\/span><i>↓<\/i><span>ASSESS<\/span><i>↓<\/i><span>ACT/);
+  assert.match(renderView('opening', 6), /ASSIST<\/span><i>↓<\/i><span>INVESTIGATE<\/span><i>↓<\/i><span>ASSESS<\/span><i>↓<\/i><span>ACT/);
   for (const cue of CUES) for (let step = 0; step < cue.steps.length; step++) {
     const markup = renderView(cue.id, step);
     assert.doesNotMatch(markup, /SYNTHETIC TEACHING SIMULATION|REGULATORY RESEARCH|SYNTHETIC ILLUSTRATION|ILLUSTRATIVE, NOT CALIBRATED|PUBLIC CONTEXT|LIVE \/ PILOT \/ OFFICIAL PROTOTYPE|INSPECT SYNTHETIC|INSPECT ORIGINAL|INSPECT TRUST|INSPECT GATE/i);
@@ -299,7 +310,8 @@ test("keyboard advances through every stage without changing the eight-beat cont
       if (reveal === "escalate") assert.equal(element("contextButton").dataset.action, "open-gate");
       if (reveal === "human-judgement") assert.equal(element("contextButton").dataset.action, "open-review");
       if (cueIndex !== CUES.length - 1 || reveal !== CUES[cueIndex].steps.at(-1)) {
-        keydown({ key: "ArrowRight", target: null, preventDefault() {} });
+        if (reveal === 'package-boundary') clickAction('continue-legacy');
+        else keydown({ key: reveal === 'causal-explanation' ? 'c' : 'ArrowRight', target: null, preventDefault() {} });
       }
     }
   }
@@ -322,7 +334,10 @@ test("Beat 7 keeps one DOM stage across acts and replays only on request", () =>
   stage.querySelector = (selector) => selector === '.systemic-stage' && markup?.includes('class="systemic-stage"') ? persistent : null;
   const key = (name) => keydown({ key: name, target: null, preventDefault() {} });
   key('Home');
-  for (const cue of CUES.slice(0, 6)) for (const _ of cue.steps) key('ArrowRight');
+  for (const cue of CUES.slice(0, 6)) for (const reveal of cue.steps) {
+    if (reveal === 'package-boundary') clickAction('continue-legacy');
+    else key(reveal === 'causal-explanation' ? 'c' : 'ArrowRight');
+  }
   assert.equal(stage.dataset.reveal, 'optimise-base');
   const beforeAdvance = writes;
   key('ArrowRight');
@@ -338,4 +353,31 @@ test("Beat 7 keeps one DOM stage across acts and replays only on request", () =>
   assert.equal(stage.dataset.reveal, 'optimise-base');
   assert.equal(persistent.dataset.phase, '0');
   assert.equal(primary.textContent, 'MARKET SIGNAL →');
+});
+
+test('Package 1 external research is qualified and distinct from the synthetic failure', () => {
+  const aisi = renderMaterialCase(6);
+  assert.match(aisi, /UK AI SECURITY INSTITUTE/);
+  assert.match(aisi, /85%/);
+  assert.match(aisi, /specific controlled Mythos 5.2 evaluation after repeated monitor feedback/);
+  assert.doesNotMatch(renderMaterialCase(3), /85%|EVASION/);
+  assert.match(renderMaterialCase(3), /UNDERLYING EVIDENCE.*STILL AVAILABLE/);
+  assert.match(renderMaterialCase(5), /REQUIREMENT.*IMPLEMENTATION.*TEST.*DOMAIN REVIEW/);
+  assert.match(renderMaterialCase(5), /THE CODE PASSED.*THE BUSINESS RULE WAS INCOMPLETE/);
+  assert.match(renderMaterialCase(7), /OWASP Securing Agentic Applications V2 · Technical guidance/);
+  assert.match(renderMaterialCase(10), /CAN THE HUMAN DISAGREE/);
+});
+
+test('opening question precedes the retained message and uses the single presenter bar', () => {
+  const opening = renderView('opening', 0);
+  assert.match(opening, /<span>WHEN AI STARTS ACTING,<\/span><strong>WHO IS THE SUPERVISOR\?<\/strong>/);
+  assert.match(opening, /OPERATIONS · TRANSACTIONS · PORTFOLIOS/);
+  assert.doesNotMatch(opening, /START →|WHERE DOES INTELLIGENCE END|Human, AI or Both/);
+  assert.match(renderView('opening', 1), /AUTONOMOUS FINANCE IS MOVING<br>FROM ANSWERS <span class="cyan">→<\/span> TO ACTIONS/);
+  const html = readFileSync(new URL('../index.html', import.meta.url), 'utf8');
+  const ids = ['previousButton', 'pauseButton', 'playButton', 'replayButton', 'beatCounter', 'nextButton'];
+  const positions = ids.map(id => html.indexOf('id="' + id + '"'));
+  assert.ok(positions.every((value, index) => value >= 0 && (index === 0 || value > positions[index - 1])));
+  assert.equal((html.match(/class="presenter-control"/g) ?? []).length, 1);
+  assert.doesNotMatch(html, /motion-controls|START/);
 });

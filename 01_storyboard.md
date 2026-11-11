@@ -1,3 +1,20 @@
+# V3 Package 1 — current presenter path
+
+This section supersedes the V2 path recorded below. Baseline: `7459a5c6f20fa3648e81ecbccf993a902eaef9b1`. Package 1 has 27 controlled states including its review pause; no timer advances the story.
+
+| Beat | Current reveals |
+| --- | --- |
+| 1 | Original answers/actions opening; RULES → ML PATTERN DETECTION → LLM INVESTIGATION → AGENTIC SUPERVISION, each on its own click; authority ladder and AUTONOMOUS TO DO WHAT? |
+| 2 | Original failed trade, branching 8 agents / 27 subtasks, oversight promise, 486-event flood / 3.2 seconds, naive AUTHORISE / REJECT and ON WHAT BASIS? |
+| 3 | Useful 486→1 compression first. Next: WHO DECIDED WHAT THE HUMAN SAW? / THE SOLUTION CREATED A NEW DEPENDENCY, with FSB and MAS anchors visible together. |
+| 4 | Risk 76 and separate illustrative 74% prediction; recommendation; then no breach / prediction is not permission. |
+| 5 | WHY 76? → explicit CHECK SOURCE → contested evidence → conditional 76→39 → CONFLICT OMITTED → who designed the rule? → SDLC/domain exception → separate UK AISI external evaluation → independent assurance → runtime ESCALATE → human judgement → CAN THE HUMAN DISAGREE? |
+| 6, interim | Package 1 review pause. Next cannot continue. A separate labelled button permits inspection of preserved V2 Beats 7–8. This slot remains available for Package 2 NAV; no NAV is built. |
+
+CHECK SOURCE requires its named button or the `C` key. Arrow/Space cannot invoke it. Source inspection in Show More does not invoke the Bank Compliance Agent. The second AI submits counter-evidence, not final truth. The original event and source remain reconstructable. Runtime restraint occurs once, inside Beat 5. The old systemic and Ghost finale remain unchanged and explicitly outside this package.
+
+## V2 retained design record
+
 # Main storyboard and presenter cues
 
 For a 30-minute panel, this is a presenter-paced segment, not an auto-advancing slide deck. The audience sees eight **beats** and 26 meaningful advances. Beat 7's acts and the final Ghost reveals add depth without adding a ninth beat. Each answer creates the next question; the story never backtracks.

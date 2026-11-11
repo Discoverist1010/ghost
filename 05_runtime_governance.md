@@ -1,3 +1,13 @@
+# V3 Package 1 — authority continuity
+
+The original recommendation-only gate remains a synthetic teaching abstraction. It returns `ESCALATE` for the original material predictive restriction, with disputed evidence and no verified deterministic breach. Neither risk 76, prediction 74%, model confidence nor the source challenge authorises execution. Missing evidence cannot enable an automatic hold: a bounded deterministic hold additionally requires adequate evidence, low materiality, high reversibility, explicit hold policy and `auto_act` mandate.
+
+The gate distinguishes verified identity, mandate, action, materiality, reversibility, evidence quality, deterministic breach, probabilistic prediction and disposition. Stage: EVIDENCE: DISPUTED / MANDATE: RECOMMEND ONLY / ESCALATE / RESTRICTION NOT EXECUTED. Detail drawers retain the checks and reasons. The gate need not adjudicate the contested source to withhold action.
+
+SAFR V1.1 (9 October 2026 version history) is an industry-developed reference under MAS BuildFin.ai, not regulatory guidance or supervisory expectations. Ghost does not implement or certify SAFR. OWASP Securing Agentic Applications V2 is technical guidance, not binding financial regulation. See PUBLIC_SOURCES.md for checked primary references.
+
+## V2 retained governance record
+
 # Runtime Governance Logic
 
 Authority is checked at execution time. The user interface, agent instructions and the Supervisory AI's summary cannot grant authority. The gate consumes attributable proposals and evidence; it cannot rewrite the trace or decide the legal meaning of a fact.

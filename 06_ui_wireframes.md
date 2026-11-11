@@ -1,3 +1,17 @@
+# V3 Package 1 — stage contract
+
+Preserve V2's navy field, white hierarchy, restrained cyan for observation and amber for contested evidence/authority restraint. Main-stage content is presenter controlled. The FSB/MAS dependency screen contains both legible paraphrases under its dominant question; detailed provenance belongs in Show More. No Entity X, conflict, score or runtime verdict appears in the early supervisory stage or its drawer.
+
+Opening technology states accumulate quietly behind the current capability; the authority ladder lands separately. CHECK SOURCE is a named cyan decision button; Next is disabled at this decision and `C` explicitly requests it. The challenge stage names the human request. Omission, organisational rule failure, external monitor evaluation and runtime restraint each have separate reveals. The 85% screen always carries the controlled-evaluation and repeated-feedback qualification.
+
+The opening has an explicit START → button leading to the first RULES reveal. Persistent Pause/Play, Replay and Reset complement Back/Next. `P` pauses/resumes; `R` deterministically replays the current animation without advancing or invoking an agent. `F` fullscreen, `Home` reset, `E` detail, Escape closes detail. At the Package 1 pause, only the explicitly labelled legacy button continues to preserved V2 content. No new finale is introduced.
+
+After the live-window review, the opening headline/signposts are reduced and centered inside a bounded safe area; the status label wraps within a bounded width. Compact source typography protects the browser-window view below 900px height. The visible review browser is matched to its actual window rather than left in oversized QA emulation.
+
+Projection target: actual CSS viewport 1920×1080 at device scale 1, checked in Chrome. Review screenshots are actual local renders in `artifacts/package1/`.
+
+## V2 retained visual record
+
 # Presentation UI and Wireframes
 
 Design for 1920×1080 projection in a large conference room. The screen should feel like a high-end institutional command centre and decision theatre. At each major moment the audience should identify the one change in under two seconds: **What changed? Why does it matter? Who has authority now?** The earlier learn/want/authorised questions remain a design test, never a permanent footer.

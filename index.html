@@ -10,16 +10,22 @@
   </head>
   <body>
     <div class="app-shell">
+      <div class="opening-brand" aria-hidden="true">REGULATOR<span>//GHOST</span></div>
+      <div class="opening-session" aria-hidden="true">AUTONOMOUS AI &nbsp;//&nbsp; FUTURE SUPERVISORS</div>
       <div class="stage-identity" aria-hidden="true">AUTONOMOUS AI <span>//</span> FUTURE SUPERVISORS</div>
       <div id="stageStatus" class="narrative-indicator" aria-hidden="true"></div>
       <main id="stage" class="stage" aria-label="Presentation stage"></main>
       <div id="cueAnnouncement" class="sr-only" aria-live="polite"></div>
       <button id="contextButton" class="context-button" type="button" data-action="open-evidence" hidden>SHOW MORE</button>
       <nav class="presenter-control" aria-label="Presenter controls">
-        <button id="previousButton" type="button" data-action="previous" aria-label="Previous reveal">←</button>
+        <button id="previousButton" type="button" data-action="previous" aria-label="Previous reveal"><span aria-hidden="true">‹</span> Back</button>
+        <button id="pauseButton" type="button" data-action="pause" disabled><span aria-hidden="true">Ⅱ</span> Pause</button>
+        <button id="playButton" class="control-primary" type="button" data-action="play"><span aria-hidden="true">▷</span> Play</button>
+        <button id="replayButton" type="button" data-action="replay"><span aria-hidden="true">⟳</span> Replay</button>
         <span id="beatCounter" aria-live="polite">BEAT 1/8</span>
-        <button id="nextButton" type="button" data-action="next" aria-label="Next reveal">→</button>
+        <button id="nextButton" class="control-primary" type="button" data-action="next" aria-label="Next reveal">Next <span aria-hidden="true">›</span></button>
       </nav>
+      <p class="presenter-hint">PRESENTER-LED · PRESS PLAY OR NEXT TO BEGIN</p>
     </div>
 
     <div id="drawer" class="drawer-backdrop" hidden>

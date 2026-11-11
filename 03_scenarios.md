@@ -1,3 +1,17 @@
+# V3 Package 1 — scenario additions
+
+The original `GHOST-MAIN-001` v1.1 trace is preserved: 8 roles, 27 tasks, 486 events, 3200ms; `EntityGraph/T-17` remains `EVT-0238`. The original evidence and risk history remain intact.
+
+`REQ-ENTITY-17` / `RULE-ENTITY-17` / `AT-ENTITY-17` are explicitly synthetic teaching artefacts in `DOMAIN_RULE`. Domain experts supplied the indirect central-bank relationship exception, but the requirement and acceptance fixture did not capture it. `classifyUnderIncompleteRule` reproduces the original commercial classification. The existing commercial-only acceptance fixture passes; independent domain testing exposes the missing exception. This organisational requirements failure is not evidence of hallucination, reward hacking or deliberate evasion.
+
+The supervisor's `initialSummary` contains classification, risk and recommendation while omitting the source conflict. `omittedConflictEvidenceIds` points to the retained original evidence. Independent inspection reconstructs the contradiction.
+
+`sourceCheck` begins null. Only explicit human CHECK SOURCE creates a request. `submitSourceChallenge` then creates separate `CHALLENGE-001`, attributed to Bank Compliance Agent and linked to `EVT-0238`, `EV-ENTITY-01` and `EV-BANK-01`. It never mutates the run. The pre-existing bank-response object is a scenario fixture, not proof that the second AI has run. Exports distinguish that fixture from the actual requested challenge. Replay does not call the agent again. Reset clears the request and challenge. The 76→39 result is conditional on restoring the classification, not an adjudicated final score.
+
+UK AISI monitor evasion is a separate external research example after the domain failure, not another event in the trace.
+
+## V2 retained scenario record
+
 # Demo Scenarios
 
 The main presentation opens with a synthetic failed trade (`EVT-0001`) and uses Scenarios B and C inside its related liquidity investigation. Scenario A provides the deterministic contrast. The closing correlated-agent visual is a separately documented **regulatory-research hypothesis**, not a second run or a production incident. Scenario D remains an optional **synthetic red-team test**. All figures are scripted teaching values, not calibrated predictions.

@@ -1,3 +1,13 @@
+# V3 Package 1 — current acceptance checks
+
+Baseline `npm test`: 24/24 before edits. The current suite preserves trace/authority/systemic tests and updates only obsolete presentation assertions (new controlled reveals, explicit source action, runtime now inside Beat 5). Focused Package 1 tests cover human initiation, separately attributable challenge evidence, conditional counterfactual, retained omitted evidence, the synthetic requirement/acceptance gap, research qualification and authority with missing evidence or changed scores.
+
+The current full path has 39 states (38 advances including explicitly gated actions); Package 1 stops at state 27. Early drawers withhold later case facts and the full-run export. CHECK SOURCE cannot be bypassed with Next/Space. Replay does not re-invoke the challenge. Reset returns to a clean request state.
+
+Browser acceptance at 1920×1080 includes: every Package 1 reveal, source before/after, no scroll/clipping, flood and CSS animation pause/resume, deterministic replay, navigation/reset/fullscreen, source and research drawers, and preserved V2 systemic/finale. Actual screenshots and interaction evidence are in `artifacts/package1/`; final results are recorded in `PACKAGE1_REVIEW.md`.
+
+## V2 retained harness record
+
 # Evaluation Harness and Red-Team Tests
 
 The acceptance check is both causal and visual: the story must be reconstructable from synthetic data, and a distant viewer must understand each major state without reading a dense panel. The main run is deterministic and repeatable.

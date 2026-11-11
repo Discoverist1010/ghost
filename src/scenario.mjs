@@ -153,7 +153,7 @@ export function buildRun() {
   replaceEvent(events, 237, {
     actor: 'EntityGraph', taskId: 'T-17', kind: 'CLASSIFICATION_CHANGED',
     summary: 'EntityGraph/T-17 CLASSIFICATION_CHANGED Entity X: central-bank-related → commercial-counterparty',
-    before: 'central-bank-related', after: 'commercial-counterparty',
+    before: 'central-bank-related', after: classifyUnderIncompleteRule({ commercialActivity: true, centralBankRelated: true }),
     parentIds: [eventId(31)], evidenceIds: [EVIDENCE.entityFiling.id, EVIDENCE.graphInference.id],
   });
   replaceEvent(events, 251, {
@@ -225,6 +225,8 @@ export function supervise(events) {
   return {
     id: 'FINDING-01', actor: 'Supervisory AI', authority: ['flag', 'escalate'],
     issue: 'Entity X reclassification changed the risk score and led to a proposed restriction.',
+    initialSummary: { classification: classification.after, risk: risk.after, recommendation: proposal.proposedAction },
+    omittedConflictEvidenceIds: [EVIDENCE.entityFiling.id],
     sourceEventIds: [classification.id, risk.id, proposal.id, boundary.id],
     sourceEvidenceIds: [EVIDENCE.entityFiling.id, EVIDENCE.graphInference.id],
     causalTrace: [classification, risk, proposal, boundary].map(({ id, actor, summary }) => ({ id, actor, summary })),
@@ -242,7 +244,7 @@ export function evaluateGate(input) {
   if (input.proposedAction === 'block_transaction' && input.deterministicRuleBreach) {
     return { disposition: 'DENY', reason: 'Verified prohibited transaction', code: 'DETERMINISTIC_DENY' };
   }
-  if (input.proposedAction === 'hold_transaction' && input.deterministicRuleBreach && input.explicitHoldPolicy && input.mandate === 'auto_act') {
+  if (input.proposedAction === 'hold_transaction' && input.deterministicRuleBreach && input.explicitHoldPolicy && input.mandate === 'auto_act' && input.evidenceQuality === 'adequate' && input.materiality === 'low' && input.reversibility === 'high') {
     return { disposition: 'AUTO_EXECUTE', reason: 'Explicit bounded hold policy and mandate', code: 'BOUNDED_HOLD' };
   }
   if (input.proposedAction === 'restrict_activity' && !input.deterministicRuleBreach) {
@@ -279,4 +281,26 @@ export function validateRun(run) {
       event.outputHash === fingerprint(`${index}:${event.summary}`)) &&
     finding?.sourceEventIds.length === 4 &&
     evaluateGate(run.gateInput).disposition === 'ESCALATE';
+}
+
+// Explicit teaching artefacts. These explain a requirements omission, not a model hallucination.
+export const DOMAIN_RULE = Object.freeze({
+  id: 'REQ-ENTITY-17', implementationId: 'RULE-ENTITY-17', testId: 'AT-ENTITY-17',
+  consulted: 'Domain experts identified the central-bank-related exception in consultation.',
+  requirement: 'Classify an entity with commercial activity as a commercial counterparty.',
+  implementation: 'Commercial activity selects commercial-counterparty; no relationship exception is encoded.',
+  acceptance: 'Commercial entity → commercial-counterparty. Central-bank-related fixture absent.',
+  missingException: 'Preserve central-bank-related treatment pending verification of an indirect central-bank relationship.',
+  review: 'The essential exception was not translated into the requirement or its acceptance tests.',
+  sourceEventId: 'EVT-0238', sourceEvidenceId: 'EV-ENTITY-01',
+});
+export function classifyUnderIncompleteRule(entity) {
+  return entity.commercialActivity ? 'commercial-counterparty' : 'unclassified';
+}
+export function submitSourceChallenge(run, request) {
+  if (request?.initiatedBy !== 'human' || request.sourceEventId !== 'EVT-0238') return null;
+  if (!run.events.some(event => event.id === request.sourceEventId)) return null;
+  return { id: 'CHALLENGE-001', actor: 'Bank Compliance Agent', initiatedBy: 'human',
+    parentIds: [request.sourceEventId], evidenceIds: [EVIDENCE.entityFiling.id, EVIDENCE.bankResponse.id],
+    status: 'contested', originalTracePreserved: true, counterfactual: { ...run.counterfactual, conditional: true } };
 }

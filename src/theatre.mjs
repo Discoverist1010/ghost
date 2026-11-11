@@ -1,4 +1,4 @@
-import { AGENT_IDENTITIES, buildRun, EVIDENCE, evaluateGate, supervise, validateRun } from "./scenario.mjs";
+import { AGENT_IDENTITIES, DOMAIN_RULE, submitSourceChallenge, buildRun, EVIDENCE, evaluateGate, supervise, validateRun } from "./scenario.mjs";
 import { BEATS, CASE_ACTIONS, CUES, NARRATIVE_INDICATORS, SYSTEMIC_ACTIONS, SYSTEMIC_AGENTS, SYSTEMIC_ANNOUNCEMENTS, createPresentationState, currentCue, currentReveal, transition } from "./presentation.mjs";
 
 const run = buildRun();
@@ -34,6 +34,7 @@ const drawerBody = document.getElementById("drawerBody");
 let presentation = createPresentationState();
 let floodState = null;
 let paused = false;
+let sourceChallenge = null;
 let focusBeforeDrawer = null;
 const review = { classification: "pending", intervention: "pending", openedEvidence: false, challenged: false };
 
@@ -72,6 +73,7 @@ function renderTree() {
 }
 
 export function renderMaterialCase(step) {
+  if (step >= 3) return renderDeepCase(step);
   const prior = escapeHTML(classification.before.replaceAll('-', ' ').toUpperCase());
   const derived = escapeHTML(classification.after.replaceAll('-', ' ').toUpperCase());
   const before = escapeHTML(riskEvent.before);
@@ -82,7 +84,7 @@ export function renderMaterialCase(step) {
       '<div class="case-causal-classification"><span>ENTITY X · DERIVED CLASSIFICATION</span><p>' + prior + ' <i aria-hidden="true">↓</i> <strong>' + derived + '</strong></p></div>' +
       '<div class="case-causal-score">' + before + ' <span>→</span> ' + after + '</div>' +
       '<p class="case-causal-proposal">ENHANCED LIQUIDITY RESTRICTION<br>RECOMMENDED</p></div>',
-    '<div class="case-source"><div class="case-system-fact"><p class="case-kicker">SYSTEM DERIVED</p><strong>' + derived + '</strong></div>' +
+    '<div class="case-source"><p class="human-trigger">HUMAN REQUESTED → CHECK SOURCE</p><div class="case-system-fact"><p class="case-kicker">SYSTEM DERIVED</p><strong>' + derived + '</strong></div>' +
       '<div class="case-source-record"><p class="case-kicker">SOURCE RECORD</p><strong>' + prior + '</strong></div>' +
       '<div class="case-institution"><strong>BANK COMPLIANCE AGENT</strong><span>COUNTER-EVIDENCE SUBMITTED</span></div>' +
       '<p class="case-contested">FACT CONTESTED</p><p class="case-subtle">THE SECOND AI DOES NOT SETTLE THE MATTER.<br>IT PREVENTS THE FIRST AI FROM SETTLING IT ALONE.</p></div>',
@@ -90,12 +92,26 @@ export function renderMaterialCase(step) {
       '<div class="cf-score"><strong class="cf-old">' + escapeHTML(run.counterfactual.before) + '</strong><span aria-hidden="true">↓</span><strong class="cf-new">' + counterfactual + '</strong></div>' +
       '<p class="cf-recommendation">ENHANCED LIQUIDITY RESTRICTION <span>BASIS CHALLENGED</span></p>' +
       '<h1 class="cf-one">ONE FACT CHANGED.</h1>' +
-      '<p class="cf-same"><span>SAME MODEL.</span><span>SAME RULES.</span><span>SAME OTHER EVIDENCE.</span><span>DIFFERENT FACT.</span></p></div>',
+      '<p class="cf-conditional">CONDITIONAL COUNTERFACTUAL · CLASSIFICATION STILL CONTESTED</p><p class="cf-same"><span>SAME MODEL.</span><span>SAME RULES.</span><span>SAME OTHER EVIDENCE.</span><span>DIFFERENT FACT.</span></p></div>',
   ];
   return '<div class="case-stage" data-case-step="' + step + '"><div class="case-visual" aria-live="polite">' + scenes[step] + '</div>' +
-    '<div class="case-controls">' + button(CASE_ACTIONS[step] + ' →', 'next', 'case-primary') +
-    (step === 2 ? button('REPLAY', 'replay', 'case-secondary') : button('SHOW MORE', 'open-source', 'case-secondary')) +
-    button('RESET', 'reset-beat', 'case-secondary') + '</div></div>';
+    '<div class="case-controls">' + button(CASE_ACTIONS[step] + ' →', step === 0 ? 'check-source' : 'next', 'case-primary') +
+    (step === 2 ? '' : button('SHOW MORE', 'open-source', 'case-secondary')) + '</div></div>';
+}
+
+function renderDeepCase(step) {
+  const content = {
+    3: '<h1 class="hero-verdict amber">CONFLICT OMITTED</h1><div class="omission-flow"><p>SUPERVISOR SUMMARY <strong>INCOMPLETE</strong></p><span>↓ INDEPENDENT SOURCE INSPECTION</span><p>UNDERLYING EVIDENCE <strong>STILL AVAILABLE</strong></p></div><p class="support-line">NOT DELETED. NO INTENTIONAL CONCEALMENT ESTABLISHED.</p>',
+    4: '<h1 class="hero-verdict">WHO DESIGNED THE<br>CLASSIFICATION RULE?</h1><p class="primary-line">DOMAIN EXPERTS WERE CONSULTED.</p><p class="support-line">THEIR ESSENTIAL EXCEPTION NEVER REACHED THE RULE.</p>',
+    5: '<div class="sdlc-flow"><span>REQUIREMENT</span><i>→</i><span>IMPLEMENTATION</span><i>→</i><span>TEST</span><i>→</i><span>DOMAIN REVIEW</span></div><div class="sdlc-gap"><p>CENTRAL-BANK-RELATED EXCEPTION</p><strong>ABSENT FROM RULE + ACCEPTANCE TESTS</strong></div><h1 class="sdlc-punch">THE CODE PASSED.<br>THE BUSINESS RULE WAS INCOMPLETE.</h1><p class="support-line">DOMAIN EXPERTISE THROUGHOUT THE LIFECYCLE.</p>',
+    6: '<h1 class="hero-verdict">CAN THE MONITOR BE EVADED?</h1><p class="research-institute">UK AI SECURITY INSTITUTE</p><strong class="hero-number amber">85%</strong><p class="research-qualification">Action-monitor evasion in a specific controlled Mythos 5.2 evaluation after repeated monitor feedback.</p>',
+    7: '<h1 class="hero-verdict">IF AI CAN LEARN TO EVADE A MONITOR,<br>WHO TESTS THE SUPERVISORY AI?</h1><p class="primary-line">INDEPENDENT MONITORING · EVIDENCE ACCESS</p><p class="support-line">BOUNDED PERMISSIONS · ADVERSARIAL ASSURANCE</p><p class="guidance-anchor">OWASP Securing Agentic Applications V2 · Technical guidance</p>',
+    10: '<h1 class="hero-verdict">CAN THE HUMAN DISAGREE?</h1><p class="primary-line">EXPERTISE · CAPACITY · EVIDENCE</p><p class="primary-line">INDEPENDENCE · CONFIDENCE</p>',
+  };
+  if (step === 8 || step === 9) return renderView('runtime', step - 8);
+  return '<div class="deep-case">' + content[step] + '<div class="case-controls">' +
+    button(CASE_ACTIONS[step] + ' →', 'next', 'case-primary') +
+    button('SHOW MORE', step <= 5 ? 'open-domain' : step === 10 ? 'open-review' : 'open-research', 'case-secondary') + '</div></div>';
 }
 
 function renderSystemicAgent(agent, index) {
@@ -164,6 +180,17 @@ const gateChecks = [
 export function renderView(id, step) {
   switch (id) {
     case "opening":
+      if (step === 0) return wrap(id,
+        '<p class="opening-eyebrow">THE QUESTION</p>' +
+        '<h1 class="opening-title"><span>WHEN AI STARTS ACTING,</span><strong>WHO IS THE SUPERVISOR?</strong></h1>' +
+        '<div class="opening-rule" aria-hidden="true"></div>' +
+        '<p class="opening-domains">OPERATIONS · TRANSACTIONS · PORTFOLIOS</p>', 'centered');
+      step -= 1;
+      if (step >= 1 && step <= 4) {
+        const technologies = ['RULES', 'ML PATTERN DETECTION', 'LLM INVESTIGATION', 'AGENTIC SUPERVISION'];
+        const descriptions = ['DETERMINISTIC CHECKS', 'RECOGNISE UNUSUAL PATTERNS', 'EXPLAIN. QUESTION. INVESTIGATE.', 'AUTONOMOUS MULTI-STEP WORK'];
+        return wrap(id, '<div class="technology-path">' + technologies.slice(0, step).map((name, i) => '<span class="' + (i === step - 1 ? 'active' : '') + '">' + name + '</span>').join('<i>→</i>') + '</div><h1 class="hero-verdict">' + descriptions[step - 1] + '</h1><p class="support-line">' + (step === 1 ? 'RULES REMAIN APPROPRIATE FOR DETERMINISTIC CHECKS.' : step === 4 ? 'GREATER CAPABILITY DOES NOT GRANT GREATER AUTHORITY.' : 'CAPABILITIES WORK TOGETHER.') + '</p>', 'centered');
+      }
       return wrap(id, step === 0 ?
         '<h1 class="hero-verdict wide">AUTONOMOUS FINANCE IS MOVING<br>FROM ANSWERS <span class="cyan">→</span> TO ACTIONS</h1>' +
         '<div class="opening-signposts"><span>OPERATIONS</span><span>TRANSACTIONS</span><span>PORTFOLIOS</span></div>' :
@@ -184,8 +211,7 @@ export function renderView(id, step) {
         '<div class="flood-layout"><div class="flood-metric">' +
           '<span id="floodNumber" class="hero-number cyan">' + run.agents.length + "</span>" +
           '<span id="floodUnit" class="hero-unit">AGENTS</span>' +
-          '<div class="stage-actions">' + button("Replay", "replay", "quiet-button") +
-            button("Pause", "pause", "quiet-button") + "</div></div>" +
+          "</div>" +
           '<div class="flood-log" aria-hidden="true"><div class="flood-log-head">INTERLEAVED AGENT TRACE <span id="floodCount">000 / ' + run.events.length + '</span></div>' +
           '<div id="floodLines" class="flood-log-lines"></div></div></div>', "flood");
       if (step === 3) return wrap(id,
@@ -198,10 +224,13 @@ export function renderView(id, step) {
         '<p class="primary-line">Logged. Auditable. Theoretically reviewable.</p>' +
         '<p class="support-line">BUT COGNITIVELY OUT OF REACH.</p>', "centered");
     case "supervision":
+      if (step === 1) return wrap(id,
+        '<h1 class="hero-verdict dependency-question">WHO DECIDED WHAT THE HUMAN SAW?</h1>' +
+        '<p class="dependency-punch">THE SOLUTION CREATED A NEW DEPENDENCY.</p>' +
+        '<div class="regulatory-anchors"><p><strong>FSB:</strong> Complex agentic activity may require AI-assisted monitoring; effective human oversight remains essential.</p><p><strong>MAS AIRM:</strong> Automation bias and decision fatigue challenge meaningful human oversight.</p></div>', 'centered');
       return wrap(id,
         '<div class="case-compression"><div><strong>' + run.events.length + '</strong><span>TRACE EVENTS</span></div><i aria-hidden="true">↓</i><div class="case-compression-result"><strong>1</strong><span>MATERIAL ISSUE</span></div></div>' +
-        '<h1 class="supervision-question">WHO DECIDED WHAT THE HUMAN SAW?</h1>' +
-        '<p class="supervision-trust">PROVENANCE <span>·</span> UNCERTAINTY <span>·</span> CONTESTABILITY</p>', "centered");
+        '<p class="supervision-trust">THE SIGNAL BECOMES VISIBLE.</p>', "centered");
     case "prediction":
       if (step === 0) return wrap(id,
         '<p class="prediction-context">AI INVESTIGATOR ASSESSMENT</p>' +
@@ -214,6 +243,8 @@ export function renderView(id, step) {
     case "material-case":
       return wrap(id, renderMaterialCase(step), "centered");
     case "authority":
+      return wrap(id, '<h1 class="hero-verdict">PACKAGE 1<br>REVIEW PAUSE</h1><p class="support-line">PRESERVED V2 MATERIAL FOLLOWS ONLY ON REQUEST.</p>' + button('CONTINUE TO PRESERVED V2 MATERIAL →', 'continue-legacy', 'quiet-button'), 'centered');
+    case "runtime":
       if (step === 1) return wrap(id,
         '<h1 class="hero-verdict judgement-title">HUMAN JUDGEMENT REQUIRED</h1>' +
         '<div class="judgement-paths"><p>MANUAL VERIFICATION?</p>' +
@@ -245,8 +276,14 @@ function detailAction(id, step) {
   if (id === "operations") return ["SHOW MORE", "open-evidence"];
   if (id === "supervision") return ["SHOW MORE", "open-trust"];
   if (id === "prediction") return ["SHOW MORE", "open-evidence"];
-  if (id === "material-case") return ["SHOW MORE", "open-source"];
-  if (id === "authority") return step === 1 ? ["SHOW MORE", "open-review"] : ["SHOW MORE", "open-gate"];
+  if (id === "material-case") {
+    if (step === 8) return ['SHOW MORE', 'open-gate'];
+    if (step >= 9) return ['SHOW MORE', 'open-review'];
+    if (step >= 6) return ['SHOW MORE', 'open-research'];
+    if (step >= 3) return ['SHOW MORE', 'open-domain'];
+    return ['SHOW MORE', 'open-source'];
+  }
+  if (id === "authority") return null;
   if (id === "systemic") return ["SHOW MORE", "open-systemic"];
   return null;
 }
@@ -275,26 +312,30 @@ function renderCue(forceReplay = false) {
     '<span>' + indicator.label + ': <strong>' + indicator.value + '</strong></span>';
   stageStatus.classList.toggle('is-question', presentation.cueIndex >= 4);
   document.querySelector('.app-shell').classList.toggle('is-closing', cue.id === 'ghost');
+  document.querySelector('.app-shell').classList.toggle('is-opening', currentReveal(presentation) === 'opening-question');
   beatCounter.textContent = "BEAT " + (presentation.cueIndex + 1) + "/" + BEATS.length;
   announcer.textContent = "Beat " + (presentation.cueIndex + 1) + ": " + BEATS[presentation.cueIndex] + ". " +
     (cue.id === 'systemic' ? SYSTEMIC_ANNOUNCEMENTS[presentation.step] : currentReveal(presentation).replaceAll("-", " "));
   previousButton.disabled = presentation.cueIndex === 0 && presentation.step === 0;
-  nextButton.disabled = presentation.cueIndex === CUES.length - 1 && presentation.step === cue.steps.length - 1;
+  nextButton.disabled = ["causal-explanation", "package-boundary"].includes(currentReveal(presentation)) || presentation.cueIndex === CUES.length - 1 && presentation.step === cue.steps.length - 1;
   nextButton.setAttribute("aria-label", cue.id === "material-case" ? CASE_ACTIONS[presentation.step] :
     cue.id === 'systemic' ? SYSTEMIC_ACTIONS[presentation.step] : "Next reveal");
   const detail = detailAction(cue.id, presentation.step);
-  contextButton.hidden = !detail || cue.id === "material-case";
+  contextButton.hidden = !detail || (cue.id === "material-case" && presentation.step < 8);
   if (detail) {
     contextButton.textContent = detail[0];
     contextButton.dataset.action = detail[1];
   }
   if (currentReveal(presentation) === "event-flood") startFlood();
+  syncMotionControls();
 }
 
 function move(action) {
   const next = transition(presentation, action);
   if (next === presentation) return;
   closeDrawer();
+  if (action === 'check-source') sourceChallenge = submitSourceChallenge(run, next.sourceCheck);
+  if (action === 'reset-beat' && currentCue(presentation).id === 'material-case') sourceChallenge = null;
   presentation = next;
   renderCue();
 }
@@ -344,6 +385,7 @@ function floodTick(now) {
     appendFloodEvents(run.events.length);
     floodState.elapsed = duration;
     floodState.requestId = null;
+    syncMotionControls();
   }
 }
 
@@ -358,15 +400,23 @@ function startFlood() {
   }
 }
 
+function hasActiveMotion() {
+  if (floodState && floodState.elapsed < run.events.at(-1).atMs && (paused || floodState.requestId)) return true;
+  return (stage.getAnimations?.({ subtree: true }) ?? []).some(animation =>
+    animation.playState !== 'finished' && animation.playState !== 'idle');
+}
+
+function syncMotionControls() {
+  const opening = currentReveal(presentation) === 'opening-question';
+  const active = hasActiveMotion();
+  document.getElementById('pauseButton').disabled = opening || paused || !active;
+  document.getElementById('playButton').disabled = !opening && (!paused || !active);
+}
+
 function pauseOrResume() {
-  if (currentCue(presentation).id !== 'systemic' && !["event-flood", "escalate", "human-judgement", "failed-trade", "material-issue", "causal-explanation", "source-challenge", "counterfactual"].includes(currentReveal(presentation))) return;
+  if (!hasActiveMotion() || currentReveal(presentation) === 'opening-question') return;
   paused = !paused;
   stage.classList.toggle("is-paused", paused);
-  const pauseButton = stage.querySelector('[data-action="pause"]');
-  if (pauseButton) {
-    pauseButton.textContent = paused ? "Resume" : "Pause";
-    pauseButton.setAttribute("aria-pressed", String(paused));
-  }
   const clock = performance.now();
   for (const animation of [floodState]) {
     if (!animation) continue;
@@ -379,6 +429,7 @@ function pauseOrResume() {
       animation.requestId = requestAnimationFrame(floodTick);
     }
   }
+  syncMotionControls();
 }
 
 function detailBlock(label, value) {
@@ -422,12 +473,42 @@ function choiceButton(field, value, label) {
     field + '" data-value="' + value + '"' + disabled + ">" + label + "</button>";
 }
 
+function sourceLink(url, label) { return '<p><a href="' + url + '" target="_blank" rel="noopener noreferrer">' + label + '</a></p>'; }
+function regulatoryDetails() {
+  return detailBlock('FSB provenance', 'The June 10 consultation discusses hundreds of intermediate agent steps and AI-assisted monitoring. October 15 final Sound Practices 4, 7, 9 and 10 address organisational capability, data governance, performance monitoring and effective human oversight. Stage lines are paraphrases.') +
+    sourceLink('https://www.fsb.org/uploads/P100626.pdf', 'FSB June consultation') + sourceLink('https://www.fsb.org/uploads/P151026-1.pdf', 'FSB October final report') +
+    detailBlock('MAS AIRM', '7 October 2026 guidelines, §5.9: lifecycle human oversight considers automation bias and decision fatigue. Effective 7 October 2027; specialist capability supports lifecycle governance.') +
+    sourceLink('https://www.mas.gov.sg/regulation/guidelines/guidelines-on-artificial-intelligence-risk-management-for-financial-institutions', 'MAS AI Risk Management Guidelines');
+}
+function safrDetails() {
+  return detailBlock('SAFR status', 'Industry-developed runtime safeguards reference under MAS BuildFin.ai; V1.1. Ghost is a synthetic teaching abstraction, not an implementation, certification or regulatory endorsement.') + sourceLink('https://www.mas.gov.sg/-/media/mas-media-library/development/fintech/ai-safr/safr-v1-1.pdf', 'SAFR V1.1');
+}
+function researchDetails() {
+  return detailBlock('External evaluation', 'UK AI Security Institute testing reproduced in Anthropic’s November 2026 Fable 5.2 / Mythos 5.2 system card, pp. 181–182, Figure AISI.1. In a controlled file-download task, the model attempted obfuscated bash scripts against an action-only monitor; repeated feedback included monitor scores and explanations. Reported evasion rose from 30% on the first attempt to 85% with iteration. Conditions matter; this is not a general AI evasion rate or evidence about Ghost or financial supervisory systems.') +
+    detailBlock('Separate concern', 'Ghost demonstrates an incomplete classification rule and omitted conflict. It does not establish deliberate concealment, reward hacking or inevitable deception by capable models. Action monitoring remains a useful defence.') +
+    sourceLink('https://www.anthropic.com/claude-fable-and-mythos-5-2', 'Anthropic system-card publication') + sourceLink('https://assets.claude.com/27d60918d218125e7504bc7354c4b4626ec56b11.pdf', 'System card · UK AISI evaluation') +
+    detailBlock('Technical guidance', 'OWASP Securing Agentic Applications V2, 10 November 2026: secure architectures, identity/access controls, runtime protection and assurance testing. Technical guidance, not binding financial regulation.') + sourceLink('https://genai.owasp.org/resource/securing-agentic-applications-v2/', 'OWASP Securing Agentic Applications V2');
+}
+
 function drawerContent(kind) {
+  const early = presentation.cueIndex < 4;
+  if (early) return { title: 'Supervision and evidence', body:
+    detailBlock('Objective', 'Identify material risks rapidly while minimising unnecessary human escalations.') +
+    detailBlock('Authority', 'Flag and recommend only. Human decision authority is retained; attention is selected by AI.') +
+    detailBlock('Trace', '8 agents / 27 subtasks / 486 trace events / 3.2 simulated seconds. Records are retained for independent inspection.') +
+    (presentation.cueIndex === 2 ? regulatoryDetails() : presentation.cueIndex === 3 ? detailBlock('Illustrative assessment', 'Risk coefficient 76 and separate prediction 74% are synthetic teaching values, not calibrated estimates or authority thresholds.') : '') };
+  if (kind === 'research') return { title: 'External monitoring evaluation · separate from Ghost', body: researchDetails() };
+  if (kind === 'domain') return { title: 'Synthetic requirements and acceptance evidence', body:
+    Object.entries(DOMAIN_RULE).map(([key, value]) => detailBlock(key, value)).join('') +
+    detailBlock('Failure mechanisms', 'This case: incomplete business requirement. Unsupported inference: a conclusion beyond evidence. Hallucination: invented model output. Unsuitable objective: optimisation of the wrong target. Monitor evasion: deliberate avoidance of detection. These are distinct; Ghost does not establish all five.') +
+    detailBlock('Design control', 'Cross-domain expertise participates in requirements, implementation, tests and change management, with explicit exception fixtures; final sign-off alone is insufficient.') + button('Inspect original evidence', 'open-source', 'drawer-button') };
+
   if (kind === "source") {
     review.openedEvidence = true;
     return {
       title: "Original event · T-17",
       body: "<p>This event was genuinely present in the 486-event stream. The later challenge appends evidence; it does not erase this record.</p>" +
+        (sourceChallenge ? detailBlock('Human-triggered challenge', sourceChallenge.id + ' · ' + sourceChallenge.actor + ' · ' + sourceChallenge.evidenceIds.join(', ') + ' · status: contested') : detailBlock('Bank Compliance Agent', 'Not invoked. Select CHECK SOURCE on the stage to request a challenge.')) +
         detailBlock("Raw event", classification.summary) +
         detailBlock("Trace position", classification.id + " · " + classification.atMs + " ms · sequence " + classification.sequence + " / " + run.events.length) +
         agentDetail(classification) +
@@ -457,7 +538,7 @@ function drawerContent(kind) {
     return {
       title: "Runtime gate · original proposal",
       body: "<p>The original 76-based restriction proposal is evaluated with the later evidence dispute attached. The restriction is not executed.</p>" +
-        renderGateDetails() +
+        renderGateDetails() + detailBlock('Reversibility', run.gateInput.reversibility) + detailBlock('Prediction / permission', 'Risk 76 and illustrative prediction 74% create no delegated authority. No deterministic rule breach verified.') + safrDetails() +
         detailBlock("Human task", "Determine what verification is sufficient for the contested classification, then judge whether intervention is justified.") +
         button("Open human review", "open-review", "drawer-button strong"),
     };
@@ -511,7 +592,7 @@ function openDrawer(kind) {
   drawerTitle.textContent = content.title;
   drawerBody.innerHTML = content.body +
     '<div class="drawer-footer">' +
-      button("Export full synthetic run", "download-run", "drawer-button") +
+      (presentation.cueIndex >= 4 ? button("Export full synthetic run", "download-run", "drawer-button") : '') +
       button("Reset presentation", "reset", "drawer-button") +
     "</div>";
   drawer.hidden = false;
@@ -529,6 +610,9 @@ function downloadRun() {
   const payload = {
     ...run,
     supervisoryFinding: finding,
+    sourceChallenge,
+    challengeStatus: sourceChallenge ? 'human-requested challenge submitted' : 'not invoked; bank response is a scenario fixture only',
+    domainRule: DOMAIN_RULE,
     runtimeGate: gate,
     humanReview: { ...review, status: reviewLabel() },
     naiveReviewAttempt: presentation.naiveAttempt,
@@ -554,22 +638,29 @@ document.addEventListener("click", (event) => {
   }
   const action = control.dataset.action;
   const value = control.dataset.value;
-  if (action === "next" || action === "previous" || action === "reset-beat") move(action);
+  if (["next", "previous", "reset-beat", "check-source", "continue-legacy"].includes(action)) move(action);
   else if (action === "naive-authorise") move("authorise");
   else if (action === "naive-reject") move("reject");
   else if (action === "replay") renderCue(true);
-  else if (action === "pause") pauseOrResume();
+  else if (action === "pause" && !paused) pauseOrResume();
+  else if (action === "play") {
+    if (currentReveal(presentation) === 'opening-question') move('next');
+    else if (paused) pauseOrResume();
+  }
   else if (action === "open-evidence") openDrawer("evidence");
   else if (action === "open-source") openDrawer("source");
   else if (action === "open-trust") openDrawer("trust");
   else if (action === "open-gate") openDrawer("gate");
   else if (action === "open-review") openDrawer("review");
+  else if (action === "open-domain") openDrawer("domain");
+  else if (action === "open-research") openDrawer("research");
   else if (action === "open-systemic") openDrawer("systemic");
   else if (action === "close-drawer") closeDrawer();
   else if (action === "download-run") downloadRun();
   else if (action === "reset") {
     closeDrawer();
     presentation = transition(presentation, "reset");
+    sourceChallenge = null;
     Object.assign(review, { classification: "pending", intervention: "pending", openedEvidence: false, challenged: false });
     renderCue();
   } else if (action === "challenge-finding") {
@@ -607,15 +698,18 @@ document.addEventListener("keydown", (event) => {
   } else if (event.key === "Home") {
     event.preventDefault();
     presentation = transition(presentation, "reset");
+    sourceChallenge = null;
     Object.assign(review, { classification: "pending", intervention: "pending", openedEvidence: false, challenged: false });
     renderCue();
   } else if (event.key.toLowerCase() === "r") {
     event.preventDefault();
-    if (currentCue(presentation).id === 'systemic' || ["event-flood", "escalate", "human-judgement", "failed-trade", "material-issue", "causal-explanation", "source-challenge", "counterfactual"].includes(currentReveal(presentation))) renderCue(true);
-    else move("reset-beat");
+    renderCue(true);
   } else if (event.key.toLowerCase() === "e") {
     const detail = detailAction(currentCue(presentation).id, presentation.step);
     if (detail) { event.preventDefault(); openDrawer(detail[1].slice(5)); }
+  } else if (event.key.toLowerCase() === "c" && currentReveal(presentation) === 'causal-explanation') {
+    event.preventDefault();
+    move('check-source');
   } else if (event.key.toLowerCase() === "p") {
     pauseOrResume();
   } else if (event.key.toLowerCase() === "f" && document.fullscreenEnabled) {
@@ -624,4 +718,6 @@ document.addEventListener("keydown", (event) => {
   }
 });
 
+stage.addEventListener?.('animationend', syncMotionControls);
+stage.addEventListener?.('animationcancel', syncMotionControls);
 renderCue();

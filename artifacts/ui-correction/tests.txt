@@ -1,0 +1,200 @@
+
+> regulator-ghost@0.1.0 test
+> node --test
+
+TAP version 13
+# Subtest: early supervisory compression withholds later risk and authority facts
+ok 1 - early supervisory compression withholds later risk and authority facts
+  ---
+  duration_ms: 1.886446
+  type: 'test'
+  ...
+# Subtest: three presenter states reveal causal explanation, challenge, then counterfactual
+ok 2 - three presenter states reveal causal explanation, challenge, then counterfactual
+  ---
+  duration_ms: 0.812915
+  type: 'test'
+  ...
+# Subtest: counterfactual view leaves deterministic evidence and rules untouched
+ok 3 - counterfactual view leaves deterministic evidence and rules untouched
+  ---
+  duration_ms: 6.199458
+  type: 'test'
+  ...
+# Subtest: prediction and contestability keep their claims legible without making challenge equal truth
+ok 4 - prediction and contestability keep their claims legible without making challenge equal truth
+  ---
+  duration_ms: 0.786679
+  type: 'test'
+  ...
+# Subtest: human judgement stays uncertain while the runtime gate owns execution authority
+ok 5 - human judgement stays uncertain while the runtime gate owns execution authority
+  ---
+  duration_ms: 0.83006
+  type: 'test'
+  ...
+# Subtest: projection stage cannot scroll and counterfactual motion has a causal sequence
+ok 6 - projection stage cannot scroll and counterfactual motion has a causal sequence
+  ---
+  duration_ms: 0.558047
+  type: 'test'
+  ...
+# Subtest: Beat 7 has one dominant framing and six independently mandated agents
+ok 7 - Beat 7 has one dominant framing and six independently mandated agents
+  ---
+  duration_ms: 0.752909
+  type: 'test'
+  ...
+# Subtest: Beat 7 signal, market feedback, second wave and institutional transmission are sequenced
+ok 8 - Beat 7 signal, market feedback, second wave and institutional transmission are sequenced
+  ---
+  duration_ms: 1.391291
+  type: 'test'
+  ...
+# Subtest: Beat 7 Act 3 branches from one market state, converges on a separate click, then clears for the punch
+ok 9 - Beat 7 Act 3 branches from one market state, converges on a separate click, then clears for the punch
+  ---
+  duration_ms: 1.940026
+  type: 'test'
+  ...
+# Subtest: stage furniture and detail language follow the eight-beat hierarchy
+ok 10 - stage furniture and detail language follow the eight-beat hierarchy
+  ---
+  duration_ms: 3.609052
+  type: 'test'
+  ...
+# Subtest: trace lines expose telemetry identity without implying model deliberations
+ok 11 - trace lines expose telemetry identity without implying model deliberations
+  ---
+  duration_ms: 1.480555
+  type: 'test'
+  ...
+# Subtest: Ghost closes the systemic argument on the session question without extra stage content
+ok 12 - Ghost closes the systemic argument on the session question without extra stage content
+  ---
+  duration_ms: 0.204358
+  type: 'test'
+  ...
+# Subtest: keyboard advances through every stage without changing the eight-beat contract
+ok 13 - keyboard advances through every stage without changing the eight-beat contract
+  ---
+  duration_ms: 3.415679
+  type: 'test'
+  ...
+# Subtest: Beat 7 keeps one DOM stage across acts and replays only on request
+ok 14 - Beat 7 keeps one DOM stage across acts and replays only on request
+  ---
+  duration_ms: 0.882708
+  type: 'test'
+  ...
+# Subtest: Package 1 external research is qualified and distinct from the synthetic failure
+ok 15 - Package 1 external research is qualified and distinct from the synthetic failure
+  ---
+  duration_ms: 0.338055
+  type: 'test'
+  ...
+# Subtest: opening question precedes the retained message and uses the single presenter bar
+ok 16 - opening question precedes the retained message and uses the single presenter bar
+  ---
+  duration_ms: 0.397682
+  type: 'test'
+  ...
+# Subtest: source challenge requires human initiation and appends separately attributable evidence
+ok 17 - source challenge requires human initiation and appends separately attributable evidence
+  ---
+  duration_ms: 14.286645
+  type: 'test'
+  ...
+# Subtest: independent source inspection reconstructs the conflict omitted from the initial summary
+ok 18 - independent source inspection reconstructs the conflict omitted from the initial summary
+  ---
+  duration_ms: 1.962707
+  type: 'test'
+  ...
+# Subtest: synthetic acceptance passes while a missing domain exception explains T-17
+ok 19 - synthetic acceptance passes while a missing domain exception explains T-17
+  ---
+  duration_ms: 1.796324
+  type: 'test'
+  ...
+# Subtest: missing evidence and probabilistic confidence cannot expand execution authority
+ok 20 - missing evidence and probabilistic confidence cannot expand execution authority
+  ---
+  duration_ms: 2.007211
+  type: 'test'
+  ...
+# Subtest: deeper failure, external research and runtime restraint all remain in Beat 5
+ok 21 - deeper failure, external research and runtime restraint all remain in Beat 5
+  ---
+  duration_ms: 0.189109
+  type: 'test'
+  ...
+# Subtest: eight escalating beats keep the systemic argument inside Beat 7
+ok 22 - eight escalating beats keep the systemic argument inside Beat 7
+  ---
+  duration_ms: 1.984899
+  type: 'test'
+  ...
+# Subtest: problems land before their solutions and the story never backtracks
+ok 23 - problems land before their solutions and the story never backtracks
+  ---
+  duration_ms: 0.332839
+  type: 'test'
+  ...
+# Subtest: six independent portfolio objectives remain within mandate
+ok 24 - six independent portfolio objectives remain within mandate
+  ---
+  duration_ms: 0.526232
+  type: 'test'
+  ...
+# Subtest: naive authorise and reject reveal the inadequate basis without approving
+ok 25 - naive authorise and reject reveal the inadequate basis without approving
+  ---
+  duration_ms: 0.205696
+  type: 'test'
+  ...
+# Subtest: causal case is one beat with source and counterfactual before human authority
+ok 26 - causal case is one beat with source and counterfactual before human authority
+  ---
+  duration_ms: 0.441782
+  type: 'test'
+  ...
+# Subtest: back and reset keep the eight-beat presenter path stable
+ok 27 - back and reset keep the eight-beat presenter path stable
+  ---
+  duration_ms: 0.181547
+  type: 'test'
+  ...
+# Subtest: the visible flood is a reproducible, causally linked run
+ok 28 - the visible flood is a reproducible, causally linked run
+  ---
+  duration_ms: 17.338085
+  type: 'test'
+  ...
+# Subtest: the supervisory finding fails closed when a causal event is missing
+ok 29 - the supervisory finding fails closed when a causal event is missing
+  ---
+  duration_ms: 2.853943
+  type: 'test'
+  ...
+# Subtest: prediction cannot silently authorise a material restriction
+ok 30 - prediction cannot silently authorise a material restriction
+  ---
+  duration_ms: 2.0029
+  type: 'test'
+  ...
+# Subtest: deterministic denial and bounded hold have separate authority
+ok 31 - deterministic denial and bounded hold have separate authority
+  ---
+  duration_ms: 0.287187
+  type: 'test'
+  ...
+1..31
+# tests 31
+# suites 0
+# pass 31
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 179.505042
