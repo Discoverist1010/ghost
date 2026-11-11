@@ -1,0 +1,24 @@
+{
+  "opening-question": {
+    "stageAboveControlsIdentical": true,
+    "fullImageDifferenceBounds": null
+  },
+  "source-challenge": {
+    "stageAboveControlsIdentical": true,
+    "fullImageDifferenceBounds": [
+      561,
+      974,
+      571,
+      993
+    ]
+  },
+  "nav-warning": {
+    "stageAboveControlsIdentical": true,
+    "fullImageDifferenceBounds": [
+      561,
+      974,
+      639,
+      993
+    ]
+  }
+}

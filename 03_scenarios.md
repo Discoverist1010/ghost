@@ -1,3 +1,15 @@
+# V3 Package 3 — conditional USD funding mechanism
+
+`src/systemic-scenario.mjs` defines six independent institutional principals: portfolio risk, FX conversion, treasury liquidity, collateral/margin, dealer liquidity, settlement/prefunding. Each has a distinct identity, objective, mandate and constraint. Two waves remain inside fixed cumulative synthetic action limits; no messages, coordination, shared controlling objective or policy rewriting occur.
+
+USD capacity is already constrained before the external equity shock. Each first-wave action contributes a specified vector to fictional relative indicators for equity depth, USD funding demand, dealer capacity, funding spread, collateral pressure and settlement pressure. Contributions are summed and bounded to 0–100. Role-specific second-wave predicates read the resulting first-wave state. These are teaching indices, not measured prices, calibrated basis points, amounts or crisis probabilities. The aggregate pressure indicator is a simple explanatory average, not a financial risk model.
+
+Selected fictional contracts: equity execution T0, local-currency securities settlement T+2; FX arranged T0 with matched local-currency/USD delivery T+2. A separate USD cash margin is due T0 and an existing confirmed USD payment T+1. Approved interim treasury funding bridges earlier needs. These conventions are not universal Asian market or FX rules. Other collateral contracts may accept non-USD assets. FX/funding spread pressure does not assert a particular spot FX move.
+
+The settlement agent reserves existing USD and raises only a shortfall externally. The model applies market-demand effects to the externally raised component; reserving internal cash is not treated as dollar-for-dollar destruction of market liquidity. The dealer independently manages its own balance sheet and quotes.
+
+Netting, opposing flows, dealer capacity, existing buffers and central-bank facilities can dampen pressure. A deterministic sensitivity variant contains the same shock and eliminates additional second-wave actions. Default stress is possible, not inevitable. “No agent failed” means no defined local mandate or operating constraint was breached, not that no harm occurred or every risk objective was fulfilled.
+
 # V3 Package 2 — deterministic five-day NAV scenario
 
 `src/nav-scenario.mjs` is a separate pure-function teaching model, not a fund accounting engine and not a change to `GHOST-MAIN-001`. Fictional daily-dealing fund: Asset A USD 100m, initial Asset B USD 100m, 2m units, initial NAV/unit USD 100. There are no flows, distributions, fees, liabilities, FX movements or other NAV changes. The synthetic dates are Monday 2 through Friday 6 November 2026; no market feed is used.

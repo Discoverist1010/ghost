@@ -7,7 +7,7 @@ const reveals = CUES.flatMap((cue) => cue.steps);
 test("eight escalating beats keep the systemic argument inside Beat 7", () => {
   assert.equal(BEATS.length, 8);
   assert.equal(CUES.length, 8);
-  assert.equal(reveals.length - 1, 52);
+  assert.equal(reveals.length - 1, 70);
   assert.deepEqual(CUES.map((cue) => cue.id), [
     "opening", "operations", "supervision", "prediction", "material-case", "nav", "systemic", "ghost",
   ]);
@@ -27,31 +27,27 @@ test("problems land before their solutions and the story never backtracks", () =
   before("source-challenge", "escalate");
   before("counterfactual", "escalate");
   before("escalate", "human-judgement");
-  before("human-judgement", "optimise-base");
+  before("human-judgement", "independent-agents");
   assert.equal(reveals.includes("gate-run"), false);
-  before("optimise-base", "market-signal");
-  before("market-signal", "execute-feedback");
-  before("execute-feedback", "transmit");
-  before("transmit", "system-pressure");
+  before("independent-agents", "common-shock");
+  before("common-shock", "first-wave");
+  before("first-wave", "parallel-transmission");
+  before("parallel-transmission", "system-pressure");
   before("system-pressure", "system-changed");
-  before("system-changed", "system-supervision-bridge");
-  before("system-supervision-bridge", "who-supervises");
-  before("supervisory-ai", "final-propositions");
-  before("final-propositions", "final-question");
+  before("system-changed", "system-supervision");
+  before("system-supervision", "supervision-informs");
+  before("supervision-powers", "accountability");
+  before("accountability", "final-question");
   assert.equal(reveals.filter((id) => id === "escalate").length, 1);
 });
 
-test("six independent portfolio objectives remain within mandate", () => {
+test("six independent agent objectives remain within mandate", () => {
   assert.equal(SYSTEMIC_AGENTS.length, 6);
   assert.equal(new Set(SYSTEMIC_AGENTS.map((agent) => agent.id)).size, 6);
   assert.equal(new Set(SYSTEMIC_AGENTS.map((agent) => agent.objective)).size, 6);
   assert.equal(new Set(SYSTEMIC_AGENTS.map((agent) => agent.constraint)).size, 6);
-  assert.deepEqual(SYSTEMIC_ACTIONS, [
-    'MARKET SIGNAL', 'EXECUTE', 'FOLLOW THE CONSEQUENCES', 'CONTINUE', 'CONTINUE', 'CONTINUE', 'CONTINUE',
-  ]);
-  assert.deepEqual(CUES[6].steps, [
-    'optimise-base', 'market-signal', 'execute-feedback', 'transmit', 'system-pressure', 'system-changed', 'system-supervision-bridge',
-  ]);
+  assert.equal(SYSTEMIC_ACTIONS.length,CUES[6].steps.length);
+  assert.deepEqual(CUES[6].steps,['independent-agents','common-shock','first-wave','funding-timing','changed-market','second-wave','correlation-feedback','parallel-transmission','system-pressure','system-changed','system-supervision']);
   let state = { ...createPresentationState(), cueIndex: 6, step: 0 };
   for (let step = 1; step < CUES[6].steps.length; step++) {
     state = transition(state, 'next');
@@ -60,7 +56,7 @@ test("six independent portfolio objectives remain within mandate", () => {
   }
   state = transition(state, 'next');
   assert.equal(currentCue(state).id, 'ghost');
-  assert.equal(currentReveal(state), 'who-supervises');
+  assert.equal(currentReveal(state), 'supervision-informs');
 });
 
 test("naive authorise and reject reveal the inadequate basis without approving", () => {

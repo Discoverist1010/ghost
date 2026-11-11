@@ -64,6 +64,6 @@ test('deeper failure, external research and runtime restraint all remain in Beat
   assert.equal(currentReveal(boundary), 'nav-introduction');
   boundary = { ...boundary, step: CUES[5].steps.length - 1 };
   assert.equal(currentReveal(boundary), 'nav-override');
-  assert.equal(transition(boundary, 'next'), boundary);
-  assert.equal(currentReveal(transition(boundary, 'continue-legacy')), 'optimise-base');
+  assert.equal(currentReveal(transition(boundary,'next')),'independent-agents');
+  assert.equal(currentReveal(transition(transition(boundary,'next'),'previous')),'nav-override');
 });

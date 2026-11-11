@@ -1,3 +1,11 @@
+# V3 Package 3 — authority and accountability synthesis
+
+The settlement runtime gate and NAV release policy remain unchanged. Beat 7 never expands agent mandates in response to stress. Cumulative action budgets bound both waves; fixed role-specific rules consume changed market inputs. Routing/timing choices inside approved policies are not self-authorised policy changes. Meta-optimisation of governing strategies, permissions or objectives is a separate governance concern.
+
+Beat 8 separates supervisory capability, influence and authority. Sophisticated investigations may remain recommend-only, while simple deterministic controls may legitimately block execution. Formal authority is delegated, bounded and revocable. Not every AI warning should block a human; release boundaries and authorised override depend on the institution’s approved mandate and evidence requirements.
+
+Meaningful human challenge requires expertise, evidence, capacity, independence and confidence, rather than merely an override button. Supervisory functions can be shared. Human decision-makers and institutions retain accountability as assigned by applicable law, regulation and governance arrangements; a model is not an independently accountable legal person. Software can enforce bounded controls without a person approving every machine-speed action.
+
 # V3 Package 2 — NAV permissions and controls
 
 The NAV workflow is separate from the accepted settlement authority gate. Its valuation agent prepares figures, the method monitor can read/report, a named human reviewer can approve, and a configured release workflow publishes when its conditions pass. An unresolved advisory warning is not configured as a mandatory hold. This is the defect being demonstrated, not a security bypass or a new authority rule for Package 1.

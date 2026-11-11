@@ -1,0 +1,337 @@
+{
+  "motion": [
+    {
+      "reveal": "event-flood",
+      "stable": true,
+      "states": [
+        "paused"
+      ],
+      "timesBefore": [
+        166.65600000214764
+      ],
+      "timesAfter": [
+        166.65600000214764
+      ],
+      "resumed": true,
+      "replayRestarts": true
+    },
+    {
+      "reveal": "nav-week",
+      "stable": true,
+      "states": [
+        "paused",
+        "paused",
+        "paused",
+        "paused",
+        "paused"
+      ],
+      "timesBefore": [
+        183.34000000862872,
+        183.34000000862872,
+        183.34000000862872,
+        183.34000000862872,
+        183.34000000862872
+      ],
+      "timesAfter": [
+        183.34000000862872,
+        183.34000000862872,
+        183.34000000862872,
+        183.34000000862872,
+        183.34000000862872
+      ],
+      "resumed": true,
+      "replayRestarts": true
+    },
+    {
+      "reveal": "first-wave",
+      "stable": true,
+      "states": [
+        "paused",
+        "paused",
+        "paused",
+        "paused",
+        "paused",
+        "paused",
+        "paused",
+        "paused",
+        "paused",
+        "paused",
+        "paused",
+        "paused",
+        "paused"
+      ],
+      "timesBefore": [
+        183.382000009491,
+        183.382000009491,
+        183.382000009491,
+        183.382000009491,
+        183.382000009491,
+        183.382000009491,
+        183.382000009491,
+        183.382000009491,
+        183.382000009491,
+        183.382000009491,
+        183.382000009491,
+        183.382000009491,
+        183.382000009491
+      ],
+      "timesAfter": [
+        183.382000009491,
+        183.382000009491,
+        183.382000009491,
+        183.382000009491,
+        183.382000009491,
+        183.382000009491,
+        183.382000009491,
+        183.382000009491,
+        183.382000009491,
+        183.382000009491,
+        183.382000009491,
+        183.382000009491,
+        183.382000009491
+      ],
+      "resumed": true,
+      "replayRestarts": true
+    },
+    {
+      "reveal": "second-wave",
+      "stable": true,
+      "states": [
+        "paused",
+        "paused",
+        "paused",
+        "paused",
+        "paused",
+        "paused",
+        "paused",
+        "paused",
+        "paused",
+        "paused",
+        "paused",
+        "paused"
+      ],
+      "timesBefore": [
+        166.60200000000015,
+        166.60200000000015,
+        166.60200000000015,
+        166.60200000000015,
+        166.60200000000015,
+        166.60200000000015,
+        166.60200000000015,
+        166.60200000000015,
+        166.60200000000015,
+        166.60200000000015,
+        166.60200000000015,
+        166.60200000000015
+      ],
+      "timesAfter": [
+        166.60200000000015,
+        166.60200000000015,
+        166.60200000000015,
+        166.60200000000015,
+        166.60200000000015,
+        166.60200000000015,
+        166.60200000000015,
+        166.60200000000015,
+        166.60200000000015,
+        166.60200000000015,
+        166.60200000000015,
+        166.60200000000015
+      ],
+      "resumed": true,
+      "replayRestarts": true
+    },
+    {
+      "reveal": "system-changed",
+      "stable": true,
+      "states": [
+        "paused",
+        "paused",
+        "paused"
+      ],
+      "timesBefore": [
+        166.70399999695374,
+        166.70399999695374,
+        166.70399999695374
+      ],
+      "timesAfter": [
+        166.70399999695374,
+        166.70399999695374,
+        166.70399999695374
+      ],
+      "resumed": true,
+      "replayRestarts": true
+    }
+  ],
+  "path": [
+    "opening-question",
+    "answers-to-actions",
+    "rules",
+    "patterns",
+    "investigation",
+    "agentic",
+    "authority-ladder",
+    "failed-trade",
+    "oversight-promise",
+    "event-flood",
+    "naive-review",
+    "naive-basis",
+    "material-issue",
+    "attention-dependency",
+    "predictive-case",
+    "no-breach",
+    "causal-explanation",
+    "source-challenge",
+    "counterfactual",
+    "conflict-omitted",
+    "domain-rule",
+    "sdlc",
+    "monitor-evasion",
+    "monitor-assurance",
+    "escalate",
+    "human-judgement",
+    "human-confidence",
+    "nav-introduction",
+    "nav-monday",
+    "nav-week",
+    "nav-success",
+    "nav-warning",
+    "nav-control-accounting",
+    "nav-control-movement",
+    "nav-control-valuation",
+    "nav-reconstruction",
+    "nav-baseline",
+    "nav-cumulative",
+    "nav-governance",
+    "nav-grounding",
+    "nav-override",
+    "independent-agents",
+    "common-shock",
+    "first-wave",
+    "funding-timing",
+    "changed-market",
+    "second-wave",
+    "correlation-feedback",
+    "parallel-transmission",
+    "system-pressure",
+    "system-changed",
+    "system-supervision",
+    "supervision-informs",
+    "supervision-structures",
+    "human-authority-machine-attention",
+    "supervision-enforces",
+    "supervision-progression",
+    "supervision-methods",
+    "supervision-powers",
+    "capability-authority",
+    "confidence-question",
+    "confidence-expertise",
+    "confidence-evidence",
+    "confidence-capacity",
+    "confidence-independence",
+    "confidence-challenge",
+    "human",
+    "ai",
+    "both",
+    "accountability",
+    "final-question"
+  ],
+  "errors": [],
+  "playStarts": true,
+  "sourceRequiresHuman": true,
+  "navHolds": true,
+  "backToNav": true,
+  "finalStable": true,
+  "nextDisabled": true,
+  "finalIgnoresNext": true,
+  "homeResets": true,
+  "fullscreenExit": true,
+  "measurementNote": "Pause snapshots taken after 50ms for CSS style commit, then compared across a 250ms hold.",
+  "windowed": [
+    {
+      "reveal": "first-wave",
+      "viewport": [
+        1440,
+        1000
+      ],
+      "stage": [
+        0,
+        95,
+        1440,
+        810
+      ],
+      "letterbox": [
+        95,
+        95
+      ],
+      "fullscreen": false,
+      "bad": []
+    },
+    {
+      "reveal": "funding-timing",
+      "viewport": [
+        1440,
+        1000
+      ],
+      "stage": [
+        0,
+        95,
+        1440,
+        810
+      ],
+      "letterbox": [
+        95,
+        95
+      ],
+      "fullscreen": false,
+      "bad": []
+    },
+    {
+      "reveal": "capability-authority",
+      "viewport": [
+        1440,
+        1000
+      ],
+      "stage": [
+        0,
+        95,
+        1440,
+        810
+      ],
+      "letterbox": [
+        95,
+        95
+      ],
+      "fullscreen": false,
+      "bad": []
+    },
+    {
+      "reveal": "final-question",
+      "viewport": [
+        1440,
+        1000
+      ],
+      "stage": [
+        0,
+        95,
+        1440,
+        810
+      ],
+      "letterbox": [
+        95,
+        95
+      ],
+      "fullscreen": false,
+      "bad": []
+    }
+  ],
+  "drawers": {
+    "earlyDrawerWithholdsFuture": true,
+    "auditIncludesBothWaves": true,
+    "bisQualified": true,
+    "sourceLinks": 5,
+    "kickerHolds": true,
+    "accountabilityInstitutional": true,
+    "finalShowMoreHidden": true
+  }
+}

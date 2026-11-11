@@ -146,105 +146,33 @@ test("projection stage cannot scroll and counterfactual motion has a causal sequ
 });
 
 test("Beat 7 has one dominant framing and six independently mandated agents", () => {
-  const markup = renderSystemic(0);
-  assert.match(markup, /MANY AGENTS\. DIFFERENT GOALS\. SIMILAR DECISIONS\./);
-  assert.equal((markup.match(/data-agent-id="[A-F]"/g) ?? []).length, 6);
-  assert.equal((markup.match(/6 \/ 6 WITHIN MANDATE/g) ?? []).length, 1);
-  assert.match(markup, /<div class="systemic-inference"><p>6 \/ 6 WITHIN MANDATE <span>✓<\/span><\/p><strong>NO COORDINATION REQUIRED\./);
-  assert.equal((markup.match(/class="agent-mandate"/g) ?? []).length, 6);
-  assert.doesNotMatch(markup, /DIFFERENT OBJECTIVES\. SIMILAR RESPONSE\./);
-  assert.match(markup, /<div class="market-direction"><span>DE-RISK<\/span><strong>SELL<\/strong><\/div>/);
-  for (const objective of [
-    'MAXIMISE RISK-ADJUSTED RETURN', 'MAINTAIN TARGET VOLATILITY', 'LIMIT DRAWDOWN',
-    'PRESERVE LIQUIDITY', 'TRACK BENCHMARK EFFICIENTLY', 'PROTECT FUNDING / COLLATERAL BUFFER',
-  ]) assert.ok(markup.includes(objective));
-  assert.match(markup, /SAME MARKET.*OVERLAPPING DATA.*SIMILAR AI INFRASTRUCTURE/);
-  assert.match(markup, /NO COORDINATION REQUIRED/);
-  assert.doesNotMatch(markup, /AGENT SWARM|LIVE PRODUCTION|OBSERVED MARKET INCIDENT|agent-to-agent|data-peer|REGULATORY RESEARCH/);
-  const delays = [...markup.matchAll(/--first-delay:(\d+)ms;--feedback-delay:(\d+)ms;--second-delay:(\d+)ms;--second-flow-delay:(\d+)ms/g)]
-    .map((match) => match.slice(1).map(Number));
-  assert.equal(delays.length, 6);
-  for (let index = 1; index < delays.length; index++) {
-    for (let column = 0; column < 4; column++) assert.ok(delays[index][column] > delays[index - 1][column]);
-  }
-  assert.ok(delays[0][0] < delays[0][1] && delays[0][1] < delays[0][2] && delays[0][2] < delays[0][3]);
+ const m=renderSystemic(0);assert.match(m,/SIX AGENTS. SIX MANDATES/);
+ assert.equal((m.match(/data-agent-id="[A-F]"/g)||[]).length,6);
+ for(const role of ['PORTFOLIO RISK','FX CONVERSION','TREASURY LIQUIDITY','COLLATERAL &amp; MARGIN','DEALER LIQUIDITY','SETTLEMENT &amp; PREFUNDING'])assert.ok(m.includes(role));
+ assert.doesNotMatch(m,/NO AGENT FAILED|SYSTEM LIQUIDITY PRESSURE|RE-OPTIMISE/);
 });
 
-test("Beat 7 signal, market feedback, second wave and institutional transmission are sequenced", () => {
-  const css = readFileSync(new URL("../styles.css", import.meta.url), "utf8");
-  const markup = renderSystemic(2);
-  assert.match(markup, /COMMON MARKET SIGNAL.*VOLATILITY ↑.*MARKET DEPTH ↓.*EXPECTED DOWNSIDE ↑/);
-  assert.match(markup, /MARKET DEPTH ↓↓.*BID–ASK SPREAD ↑.*VOLATILITY ↑/);
-  assert.match(markup, /<span>CHANGED MARKET →<\/span><strong>AGENTS RE-OPTIMISE<\/strong>/);
-  assert.match(markup, /THE MARKET CHANGES\./);
-  assert.match(css, /\.agent-response, \.agent-reoptimise\s*\{[^}]*color:\s*var\(--cyan\)/);
-  assert.match(css, /\.agent-reoptimise strong\s*\{[^}]*color:\s*var\(--cyan\)/);
-  assert.match(css, /\.market-direction\s*\{[^}]*color:\s*var\(--cyan\)[^}]*radial-gradient/);
-  assert.match(css, /\.market-direction strong\s*\{[^}]*90px/);
-  assert.match(css, /@keyframes signal-recede[\s\S]*?opacity:\s*\.09/);
-  assert.match(css, /data-phase="1"\] \.market-signal[^}]*visibility:\s*visible/);
-  assert.match(css, /data-phase="1"\] \.systemic-agent[^}]*agent-spotlight[^}]*--first-delay/);
-  assert.match(css, /data-phase="1"\] \.agent-response[^}]*--first-delay/);
-  assert.match(css, /data-phase="1"\] \.agent-flow--first[^}]*decision-link[^}]*--first-delay/);
-  assert.match(css, /data-phase="1"\] \.agent-mandate[^}]*mandate-recede/);
-  assert.match(css, /data-phase="1"\] \.systemic-inference[^}]*visibility:\s*visible/);
-  assert.match(css, /data-phase="2"\] \.agent-mandate[^}]*visibility:\s*hidden/);
-  assert.doesNotMatch(css, /data-phase="2"\] \.systemic-inference\s*\{[^}]*visibility:\s*visible/);
-  assert.match(css, /data-phase="2"\] \.market-change-lead[^}]*visibility:\s*visible/);
-  assert.match(css, /data-phase="2"\] \.agent-flow--first[^}]*--first-delay/);
-  assert.match(css, /data-phase="2"\] \.market-effects[^}]*1\.85s/);
-  assert.match(css, /data-phase="2"\] \.agent-flow--feedback[^}]*--feedback-delay/);
-  assert.match(css, /\.market-feedback\s*\{[^}]*color:\s*var\(--cyan\)/);
-  assert.match(css, /data-phase="2"\] \.systemic-agent[^}]*agent-spotlight[^}]*--second-delay/);
-  assert.match(css, /data-phase="2"\] \.agent-reoptimise[^}]*--second-delay/);
-  assert.match(css, /data-phase="2"\] \.agent-flow--second[^}]*--second-flow-delay/);
-  assert.match(css, /data-phase="2"\] \.agent-flow--second[^}]*color:\s*var\(--cyan\)/);
-  assert.match(css, /data-phase="2"\] \.systemic-agents, \.systemic-stage\[data-phase="2"\] \.systemic-market[^}]*state-recede/);
-  assert.ok(markup.indexOf('NO AGENT FAILED.') < markup.indexOf('THE SYSTEM CHANGED.'));
-  assert.match(css, /systemic-punch strong:first-child[^}]*\.3s/);
-  assert.match(css, /systemic-punch strong:last-child[^}]*1\.55s/);
-  assert.match(css, /\.stage\s*\{[^}]*overflow:\s*hidden;/);
-  assert.match(css, /\.cue\s*\{[^}]*overflow:\s*hidden;/);
-  assert.match(css, /\.cue--systemic \.cue-content\s*\{[^}]*max-height:\s*800px/);
-  assert.ok(800 <= 1080 - 110 - 116); // The 1920×1080 stage leaves 854px for the cue.
-  assert.ok(26 + 77 + 113 + 61 + 202 + 58 + 128 <= 800 - 16 - 60); // Three-lane transmission fits the 1920×1080 network.
+test("Beat 7 shock, decisions, timing and feedback stay separately controlled", () => {
+ assert.match(renderSystemic(1),/ASIAN EQUITIES FALL.*USD FUNDING TIGHTENS/s);
+ assert.doesNotMatch(renderSystemic(1),/SELL EQUITIES|6 \/ 6 WITHIN/);
+ assert.match(renderSystemic(2),/6 \/ 6 WITHIN MANDATE.*NO COORDINATION REQUIRED/);
+ assert.doesNotMatch(renderSystemic(2),/FUNDING DEMAND ↑|NO AGENT FAILED|NEW INPUT/);
+ assert.match(renderSystemic(3),/FX agreed · delivery T\+2/);
+ assert.match(renderSystemic(4),/USD FUNDING DEMAND.*↑.*MARKET DEPTH.*↓.*FX \/ FUNDING SPREADS.*↑/s);
+ assert.match(renderSystemic(5),/THE AGENTS RE-OPTIMISE/);
+ assert.match(renderSystemic(5),/CHANGED MARKET<br>↓<br>NEW INPUT/);
+ assert.match(renderSystemic(5),/--delay:1300ms/);
+ assert.match(readFileSync(new URL('../styles.css',import.meta.url),'utf8'),/animation:p3-link 1s both/);
 });
 
-test("Beat 7 Act 3 branches from one market state, converges on a separate click, then clears for the punch", () => {
-  const css = readFileSync(new URL("../styles.css", import.meta.url), "utf8");
-  const markup = renderSystemic(3);
-  const transmission = markup.slice(markup.indexOf('<div class="systemic-transmission">'), markup.indexOf('<div class="systemic-punch">'));
-  assert.match(transmission, /6 AGENTS <span>→<\/span> DE-RISK \/ SELL/);
-  assert.match(transmission, /THE EFFECT MOVES THROUGH THE SYSTEM/);
-  assert.ok(transmission.indexOf('MARKET CONDITIONS CHANGE') < transmission.indexOf('class="transmission-split"'));
-  assert.ok(transmission.indexOf('class="transmission-split"') < transmission.indexOf('class="transmission-channels"'));
-  assert.ok(transmission.indexOf('class="transmission-channels"') < transmission.indexOf('class="transmission-join"'));
-  assert.ok(transmission.indexOf('class="transmission-join"') < transmission.indexOf('SYSTEM LIQUIDITY'));
-  const channels = [...transmission.matchAll(/<section class="transmission-channel">([\s\S]*?)<\/section>/g)].map((match) => match[1]);
-  assert.equal(channels.length, 3);
-  assert.match(channels[0], /FUNDING \/ LEVERAGE.*BROKER \/ PRIME.*MARGIN \/ HAIRCUTS ↑.*FUNDING DEMAND ↑/);
-  assert.match(channels[1], /COLLATERAL.*CLEARING \/ COLLATERAL.*MARGIN CALLS ↑.*ELIGIBLE COLLATERAL DEMAND ↑/);
-  assert.match(channels[2], /SETTLEMENT \/ CASH.*CUSTODY \/ POST-TRADE.*SETTLEMENT ACTIVITY ↑.*CASH \/ FX REQUIREMENTS ↑/);
-  for (let index = 0; index < channels.length; index++) {
-    for (let other = 0; other < channels.length; other++) if (index !== other) {
-      assert.doesNotMatch(channels[index], new RegExp(['BROKER \/ PRIME', 'CLEARING \/ COLLATERAL', 'CUSTODY \/ POST-TRADE'][other]));
-    }
-  }
-  assert.doesNotMatch(transmission, /<div><strong>MARKET<\/strong>|border-left: 3px solid var\(--cyan\)/);
-  assert.match(css, /\.transmission-split::after[^}]*border-top: 3px solid currentColor/);
-  assert.match(css, /\.transmission-join::before[^}]*border-top: 3px solid currentColor/);
-  assert.match(css, /data-phase="3"\] \.transmission-channel:nth-child\(1\)[^}]*1\.1s/);
-  assert.match(css, /data-phase="3"\] \.transmission-channel:nth-child\(2\)[^}]*1\.8s/);
-  assert.match(css, /data-phase="3"\] \.transmission-channel:nth-child\(3\)[^}]*2\.5s/);
-  assert.match(css, /data-phase="4"\] \.transmission-join[^}]*visibility:\s*visible/);
-  assert.match(css, /data-phase="4"\] \.transmission-outcome[^}]*visibility:\s*visible/);
-  assert.match(css, /data-phase="3"\] \.systemic-agents[^}]*display:\s*none/);
-  assert.match(css, /data-phase="3"\] \.systemic-head[^}]*display:\s*none/);
-  assert.match(css, /\.systemic-inference, \.systemic-cycle, \.systemic-feedback-punch[^}]*visibility:\s*hidden/);
-  assert.doesNotMatch(css, /data-phase="3"\] \.systemic-inference[^}]*visibility:\s*visible/);
-  assert.match(css, /data-phase="3"\] \.systemic-primary[^}]*font-size:\s*20px/);
-  assert.match(css, /data-phase="5"\] \.systemic-punch[^}]*visibility:\s*visible/);
-  assert.doesNotMatch(css, /data-phase="3"\] \.systemic-transmission > div/);
+test("Beat 7 parallel transmission precedes pressure and a separate BIS kicker", () => {
+ const m=renderSystemic(7);assert.equal((m.match(/<section style=/g)||[]).length,3);
+ for(const c of ['FX & USD FUNDING','COLLATERAL & MARGIN','SETTLEMENT & PREFUNDING'])assert.ok(m.includes(c));
+ assert.doesNotMatch(m,/SYSTEM LIQUIDITY PRESSURE|NO AGENT FAILED|BIS PROJECT LOGOS/);
+ assert.match(renderSystemic(8),/SYSTEM LIQUIDITY PRESSURE/);assert.match(renderSystemic(8),/NOT INEVITABLE/);
+ const k=renderSystemic(9);assert.ok(k.indexOf('NO AGENT FAILED')<k.indexOf('THE SYSTEM CHANGED'));
+ assert.match(k,/BIS PROJECT LOGOS.*Research into correlated LLM portfolio-agent decisions/s);
+ assert.doesNotMatch(k,/p3-network|p3-channels/);assert.match(renderSystemic(10),/WHO IS SUPERVISING/);
 });
 
 test('stage furniture and detail language follow the eight-beat hierarchy', () => {
@@ -282,17 +210,14 @@ test('trace lines expose telemetry identity without implying model deliberations
   assert.doesNotMatch(formatTraceLine(run.events[237]), /LLM|MODEL CALL|EXTERNAL API/);
 });
 
-test("Ghost closes the systemic argument on the session question without extra stage content", () => {
-  assert.match(renderView('ghost', 0), /WHO IS THE SUPERVISOR/);
-  assert.match(renderView('ghost', 1), /WHERE IS THE RIGHT LOOP/);
-  assert.match(renderView('ghost', 2), /WHO SUPERVISES<br>THE SUPERVISORY AI/);
-  assert.match(renderView('ghost', 2), /WHO SUPERVISES THE SYSTEM/);
-  const propositions = renderView('ghost', 3);
-  assert.ok(propositions.indexOf('INTELLIGENCE CAN BE DISTRIBUTED') < propositions.indexOf('AUTHORITY MUST BE DELIBERATE'));
-  assert.ok(propositions.indexOf('AUTHORITY MUST BE DELIBERATE') < propositions.indexOf('ACCOUNTABILITY CANNOT DISAPPEAR'));
-  const final = renderView('ghost', 4);
-  assert.match(final, /WHERE DOES INTELLIGENCE END<br>AND AUTHORITY BEGIN/);
-  assert.doesNotMatch(final, /THANK YOU|CHECKLIST|REGULATORY RESEARCH|maturity/);
+test("Ghost progressively synthesises supervision and preserves the exact final question", async () => {
+ const {FINAL_QUESTION}=await import('../src/finale.mjs');
+ assert.match(renderView('ghost',0),/AI INFORMS/);assert.doesNotMatch(renderView('ghost',0),/STRUCTURES|ENFORCED/);
+ assert.match(renderView('ghost',1),/AI STRUCTURES/);assert.match(renderView('ghost',3),/AI-ENFORCED CONTROLS GOVERN/);
+ assert.match(renderView('ghost',4),/INFORMS.*STRUCTURES.*GOVERN/s);assert.match(renderView('ghost',7),/MORE CAPABLE.*≠ MORE AUTHORISED/s);
+ const final=renderView('ghost',CUES[7].steps.length-1);
+ assert.equal(final.replace(/<[^>]*>/g,'').replace(/\s+/g,' ').trim(),FINAL_QUESTION);
+ assert.doesNotMatch(final,/THANK YOU|CHECKLIST|BIS|p3-network/);
 });
 
 test("keyboard advances through every stage without changing the eight-beat contract", () => {
@@ -310,8 +235,7 @@ test("keyboard advances through every stage without changing the eight-beat cont
       if (reveal === "escalate") assert.equal(element("contextButton").dataset.action, "open-gate");
       if (reveal === "human-judgement") assert.equal(element("contextButton").dataset.action, "open-review");
       if (cueIndex !== CUES.length - 1 || reveal !== CUES[cueIndex].steps.at(-1)) {
-        if (reveal === 'nav-override') clickAction('continue-legacy');
-        else keydown({ key: reveal === 'causal-explanation' ? 'c' : 'ArrowRight', target: null, preventDefault() {} });
+        keydown({ key: reveal === 'causal-explanation' ? 'c' : 'ArrowRight', target: null, preventDefault() {} });
       }
     }
   }
@@ -319,40 +243,17 @@ test("keyboard advances through every stage without changing the eight-beat cont
   assert.equal(element("nextButton").disabled, true);
 });
 
-test("Beat 7 keeps one DOM stage across acts and replays only on request", () => {
-  const keydown = listeners.get('keydown');
-  const stage = element('stage');
-  let writes = 0;
-  let markup = stage.innerHTML;
-  Object.defineProperty(stage, 'innerHTML', {
-    configurable: true,
-    get() { return markup; },
-    set(value) { writes++; markup = value; },
-  });
-  const primary = { textContent: '' };
-  const persistent = { dataset: { phase: '0' }, querySelector: () => primary };
-  stage.querySelector = (selector) => selector === '.systemic-stage' && markup?.includes('class="systemic-stage"') ? persistent : null;
-  const key = (name) => keydown({ key: name, target: null, preventDefault() {} });
-  key('Home');
-  for (const cue of CUES.slice(0, 6)) for (const reveal of cue.steps) {
-    if (reveal === 'nav-override') clickAction('continue-legacy');
-    else key(reveal === 'causal-explanation' ? 'c' : 'ArrowRight');
-  }
-  assert.equal(stage.dataset.reveal, 'optimise-base');
-  const beforeAdvance = writes;
-  key('ArrowRight');
-  assert.equal(stage.dataset.reveal, 'market-signal');
-  assert.equal(persistent.dataset.phase, '1');
-  assert.equal(primary.textContent, 'EXECUTE →');
-  assert.match(element('cueAnnouncement').textContent, /staggered independent de-risking/);
-  assert.equal(writes, beforeAdvance);
-  key('r');
-  assert.equal(stage.dataset.reveal, 'market-signal');
-  assert.equal(writes, beforeAdvance + 1);
-  key('ArrowLeft');
-  assert.equal(stage.dataset.reveal, 'optimise-base');
-  assert.equal(persistent.dataset.phase, '0');
-  assert.equal(primary.textContent, 'MARKET SIGNAL →');
+test("Beat 7 keeps one outer stage and explicit deterministic replay", () => {
+ const keydown=listeners.get('keydown'),stage=element('stage');let writes=0,markup=stage.innerHTML;
+ Object.defineProperty(stage,'innerHTML',{configurable:true,get(){return markup},set(v){writes++;markup=v}});
+ const persistent={dataset:{},innerHTML:''};stage.querySelector=q=>q==='.systemic-stage'&&markup?.includes('p3-systemic')?persistent:null;
+ const key=k=>keydown({key:k,target:null,preventDefault(){}});key('Home');
+ for(const c of CUES.slice(0,6))for(const r of c.steps)key(r==='causal-explanation'?'c':'ArrowRight');
+ assert.equal(stage.dataset.reveal,'independent-agents');const before=writes;key('ArrowRight');
+ assert.equal(stage.dataset.reveal,'common-shock');assert.equal(persistent.dataset.phase,'common-shock');
+ assert.match(persistent.innerHTML,/ASIAN EQUITIES FALL/);assert.equal(writes,before);
+ key('r');assert.equal(writes,before+1);key('ArrowLeft');assert.equal(stage.dataset.reveal,'independent-agents');
+ assert.equal(persistent.dataset.phase,'independent-agents');
 });
 
 test('Package 1 external research is qualified and distinct from the synthetic failure', () => {
@@ -371,7 +272,7 @@ test('Package 1 external research is qualified and distinct from the synthetic f
 test('opening question precedes the retained message and uses the single presenter bar', () => {
   const opening = renderView('opening', 0);
   assert.match(opening, /<span>WHEN AI STARTS ACTING,<\/span><strong>WHO IS THE SUPERVISOR\?<\/strong>/);
-  assert.match(opening, /OPERATIONS · TRANSACTIONS · PORTFOLIOS/);
+  assert.match(opening, /OPERATIONS · FUND ACCOUNTING · LIQUIDITY MANAGEMENT/);
   assert.doesNotMatch(opening, /START →|WHERE DOES INTELLIGENCE END|Human, AI or Both/);
   assert.match(renderView('opening', 1), /AUTONOMOUS FINANCE IS MOVING<br>FROM ANSWERS <span class="cyan">→<\/span> TO ACTIONS/);
   const html = readFileSync(new URL('../index.html', import.meta.url), 'utf8');
@@ -382,12 +283,14 @@ test('opening question precedes the retained message and uses the single present
   assert.doesNotMatch(html, /motion-controls|START/);
 });
 
-test('accepted Package 1 and preserved V2 rendering contracts remain byte-identical', async () => {
+test('accepted Beats 1–6 remain unchanged apart from the approved opening domain copy', async () => {
   const {createHash}=await import('node:crypto');
-  const contract=JSON.parse(readFileSync(new URL('../artifacts/package2/baseline/contracts.json',import.meta.url),'utf8'));
+  const contract=JSON.parse(readFileSync(new URL('../artifacts/package3/baseline/contracts.json',import.meta.url),'utf8'));
   const hash=value=>createHash('sha256').update(value).digest('hex');
-  const markup=CUES.filter((_,i)=>i<5||i>=6).flatMap(c=>c.steps.map((_,s)=>renderView(c.id,s))).concat([renderView('runtime',0),renderView('runtime',1)]).join('\n');
-  assert.equal(hash(markup),contract.lockedMarkupHash);
+  const markup=CUES.slice(0,6).flatMap(c=>c.steps.map((_,s)=>renderView(c.id,s))).join('\n');
+  // Canonicalise only the explicitly approved opening-line replacement.
+  const canonicalMarkup=markup.replace('<p class="opening-domains">OPERATIONS · FUND ACCOUNTING · LIQUIDITY MANAGEMENT</p>', '<p class="opening-domains">OPERATIONS · TRANSACTIONS · PORTFOLIOS</p>');
+  assert.equal(hash(canonicalMarkup),contract.lockedMarkupHash);
   assert.equal(hash(readFileSync(new URL('../styles.css',import.meta.url),'utf8').slice(0,contract.lockedCssLength)),contract.lockedCssHash);
-  assert.equal(hash(readFileSync(new URL('../src/scenario.mjs',import.meta.url),'utf8')),contract.scenarioSourceHash);
+  for(const [file,expected] of Object.entries(contract.sourceHashes))assert.equal(hash(readFileSync(new URL('../src/'+file,import.meta.url))),expected);
 });

@@ -71,3 +71,18 @@ The NAV arc is a fictional teaching case; no source supplies its prices, endorse
 | [OWASP Securing Agentic Applications V2](https://genai.owasp.org/resource/securing-agentic-applications-v2/) | Technical guidance on secure architecture, identity/access controls, permissions, runtime protection/monitoring and assurance. It supports distinguishing observation from enforcement authority, and is neither an accounting standard nor a financial regulator. Available in the evidence drawer, not added to the regulatory main screen. |
 
 In this deterministic case an inadequately specified policy/implementation permits reuse of a proxy without adequate revalidation. The monitor warns before release, the human receives an advisory concern without specialist determination, and the workflow permits publication. This does not establish deliberate deception, hallucination or reward hacking. The specialist comparison is established after the week's publications, not known to every reviewer in advance.
+
+
+## V3 Package 3 — verified 11 November 2026
+
+All five supplied primary pages were retrieved successfully. The following are concise paraphrases, not regulatory quotations or endorsement. Detailed synthetic assumptions and audit data are separate from these sources.
+
+| Status | Primary source | Supported use and limitation |
+| --- | --- | --- |
+| **ONGOING RESEARCH PROGRAMME** | [BIS Project Logos](https://www.bis.org/project/logos) | Simulated heuristic and LLM portfolio managers; conditions amplifying or dampening correlated allocation. Ongoing research objectives are not established experimental findings. **Ghost’s USD funding, FX, collateral and settlement sequence is a separate original synthetic extension**, not a result demonstrated by Logos. |
+| **OFFICIAL SPEECH** | [MAS Chia Der Jiun, 9 October 2026](https://www.mas.gov.sg/news/speeches/2026/building-trusted-foundations-for-digital-finance) | Agents moving money faster for smaller incentives may have liquidity and collateral implications; authority, identity, permissions and accountability matter. Not a claim that this simulation occurred. |
+| **INDIVIDUAL OFFICIAL SPEECH** | [Governor Waller, Payments in the Age of AI Agents, 28 September 2026](https://www.federalreserve.gov/newsevents/speech/waller20260928a.htm) | Cross-border payment routing, FX conversion, liquidity optimisation and netting; delegated authentication, liability and fraud. Attributed to Governor Waller, not a binding Federal Reserve policy. |
+| **FINANCIAL MECHANISM RESEARCH** | [BIS CGFS Papers 71, 12 March 2026](https://www.bis.org/publications/cgfs-paper-71-foreign-currency-funding-risk-and-cross-border-liquidity) | Foreign-currency liquidity shortages, hedging/rollover risk, cross-border funding and last-resort central-bank facilities. Provides mechanism context, not proof or calibration of Ghost’s outcome. |
+| **INTERNATIONAL SOUND PRACTICES** | [FSB final report, 15 October 2026](https://www.fsb.org/2026/10/sound-practices-for-responsible-adoption-of-artificial-intelligence-ai-final-report/) | Organisational adaptability, data governance, performance monitoring, effective human oversight and third-party/concentration risk. Neither regulatory certification nor endorsement of Ghost. |
+
+The visible BIS anchor belongs only to the systemic kicker. Other primary references and qualifications stay in SHOW MORE. Beat 8 is Ghost’s original conceptual synthesis; it does not assign autonomous legal accountability to an AI model or present a new binding regulatory framework.

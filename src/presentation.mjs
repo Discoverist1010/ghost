@@ -1,3 +1,6 @@
+import { SYSTEMIC_REVEALS, SYSTEMIC_AGENTS } from './systemic-scenario.mjs';
+import { FINALE_REVEALS } from './finale.mjs';
+export { SYSTEMIC_AGENTS };
 import { NAV_REVEALS } from './nav-scenario.mjs';
 
 export const BEATS = Object.freeze([
@@ -30,8 +33,8 @@ export const CUES = Object.freeze([
   { id: 'prediction', steps: ['predictive-case', 'no-breach'] },
   { id: 'material-case', steps: ['causal-explanation', 'source-challenge', 'counterfactual', 'conflict-omitted', 'domain-rule', 'sdlc', 'monitor-evasion', 'monitor-assurance', 'escalate', 'human-judgement', 'human-confidence'] },
   { id: 'nav', steps: NAV_REVEALS },
-  { id: 'systemic', steps: ['optimise-base', 'market-signal', 'execute-feedback', 'transmit', 'system-pressure', 'system-changed', 'system-supervision-bridge'] },
-  { id: 'ghost', steps: ['who-supervises', 'right-loop', 'supervisory-ai', 'final-propositions', 'final-question'] },
+  { id: 'systemic', steps: SYSTEMIC_REVEALS },
+  { id: 'ghost', steps: FINALE_REVEALS },
 ]);
 
 export const CASE_ACTIONS = Object.freeze([
@@ -41,29 +44,8 @@ export const CASE_ACTIONS = Object.freeze([
   'WHO TESTS THE SUPERVISOR?', 'CHECK AUTHORITY', 'HUMAN JUDGEMENT', 'CAN THE HUMAN DISAGREE?', 'PACKAGE 1 REVIEW',
 ]);
 
-// Beat 7 is a labelled synthetic mechanism-of-concern, not a second scenario run.
-export const SYSTEMIC_AGENTS = Object.freeze([
-  { id: 'A', objective: 'MAXIMISE RISK-ADJUSTED RETURN', constraint: 'Risk budget', response: 'REDUCE RISK', feedback: 'Risk budget tighter', secondResponse: 'DE-RISK MORE' },
-  { id: 'B', objective: 'MAINTAIN TARGET VOLATILITY', constraint: 'Volatility ceiling', response: 'REDUCE RISK', feedback: 'Volatility target breached', secondResponse: 'DE-RISK MORE' },
-  { id: 'C', objective: 'LIMIT DRAWDOWN', constraint: 'Loss threshold', response: 'CUT EXPOSURE', feedback: 'Drawdown worsens', secondResponse: 'DE-RISK MORE' },
-  { id: 'D', objective: 'PRESERVE LIQUIDITY', constraint: 'Cash floor', response: 'RAISE CASH', feedback: 'Liquidity deteriorates', secondResponse: 'RAISE MORE CASH' },
-  { id: 'E', objective: 'TRACK BENCHMARK EFFICIENTLY', constraint: 'Tracking-risk constraint', response: 'REDUCE ACTIVE RISK', feedback: 'Risk constraint tightens', secondResponse: 'REDUCE MORE' },
-  { id: 'F', objective: 'PROTECT FUNDING / COLLATERAL BUFFER', constraint: 'Liquidity constraint', response: 'INCREASE LIQUIDITY', feedback: 'Buffer pressure rises', secondResponse: 'RAISE MORE LIQUIDITY' },
-]);
-
-export const SYSTEMIC_ACTIONS = Object.freeze([
-  'MARKET SIGNAL', 'EXECUTE', 'FOLLOW THE CONSEQUENCES', 'CONTINUE', 'CONTINUE', 'CONTINUE', 'CONTINUE',
-]);
-
-export const SYSTEMIC_ANNOUNCEMENTS = Object.freeze([
-  'Six portfolios have different objectives. Each is within mandate.',
-  'A common market signal produces staggered independent de-risking. No coordination is required.',
-  'Aggregate actions change the market. Those conditions feed back to the agents before a second wave.',
-  'Changed market conditions may transmit through funding, collateral, and settlement channels in parallel.',
-  'Those three channels can converge into system liquidity pressure.',
-  'No agent failed. The system changed.',
-  'Who is supervising the system?',
-]);
+export const SYSTEMIC_ACTIONS = Object.freeze(['SEE THE SHOCK','FOLLOW THE DECISIONS','CHECK THE TIMING','FOLLOW THE MARKET','FOLLOW THE FEEDBACK','FOLLOW THE INPUT','FOLLOW TRANSMISSION','FOLLOW THE PRESSURE','CONTINUE','ASK THE QUESTION','CONTINUE']);
+export const SYSTEMIC_ANNOUNCEMENTS = Object.freeze(['Six independent agents. Six bounded mandates. One financial system.','The external equity and USD funding shock precedes agent decisions.','Six independently governed first-wave actions remain within mandate. No coordination required.','Pending local equity proceeds and dated FX cannot meet earlier USD obligations without bridging funding.','First-wave actions change market conditions.','Changed market information feeds back before second-wave re-optimisation.','Correlation becomes feedback; objectives and policies remain unchanged.','FX and USD funding, collateral and margin, settlement and prefunding are parallel interacting channels.','System liquidity pressure may rise under constrained conditions; it is not inevitable.','No agent breached its mandate. The system changed. Project Logos is ongoing research.','Who is supervising the system?']);
 
 export function createPresentationState() {
   return { cueIndex: 0, step: 0, naiveAttempt: null, sourceCheck: null };
@@ -83,12 +65,11 @@ export function transition(state, action) {
   if (action === 'check-source' && currentReveal(state) === 'causal-explanation') {
     return { ...state, step: 1, sourceCheck: { initiatedBy: 'human', actor: 'Bank Compliance Agent', evidenceId: 'EV-BANK-01', sourceEventId: 'EVT-0238' } };
   }
-  if (action === 'continue-legacy' && currentReveal(state) === 'nav-override') return { ...state, cueIndex: 6, step: 0 };
   if ((action === 'authorise' || action === 'reject') && currentReveal(state) === 'naive-review') {
     return { ...state, step: state.step + 1, naiveAttempt: action };
   }
   if (action === 'next') {
-    if (['causal-explanation', 'nav-override'].includes(currentReveal(state))) return state;
+    if (['causal-explanation'].includes(currentReveal(state))) return state;
     if (state.step < currentCue(state).steps.length - 1) return { ...state, step: state.step + 1 };
     if (state.cueIndex < CUES.length - 1) return { ...state, cueIndex: state.cueIndex + 1, step: 0 };
     return state;

@@ -1,3 +1,13 @@
+# V3 Package 3 — complete eight-beat presenter path
+
+This current section supersedes the historical V2 Beat 7/8 and Package 2 legacy-continuation notes below. Accepted baseline: `c2316088e2093f0e7ac8dfda3db15ca73ae4db96`. Beats 1–6 retain their accepted stage markup, financial data and ordering. The NAV override question holds until ordinary Next; Back returns to it.
+
+Beat 7 has eleven controlled states: independent agents → common shock → six compliant first-wave decisions → funding timing → calculated changed market → second-wave response → correlation/feedback → parallel transmission → possible system pressure → BIS-qualified kicker → system supervision question. The extra pressure click preserves the useful V2 parallel-channel/convergence distinction. No later kicker is preloaded into earlier stage markup.
+
+Beat 8 has nineteen controlled states: informs → structures → human authority/machine attention → authorised enforcement → three arrangements together → methods → permitted powers → independent dimensions → human challenge question → five progressively accumulated challenge conditions → HUMAN? → AI? → BOTH? → shared functions/institutional accountability → exact final question. These are conceptual arrangements, not a required institutional migration. There are 71 states across eight beats. No timer advances them.
+
+The final question is the last audience-facing state; Next is disabled and the stage holds indefinitely. Back, Replay and deliberate Home reset remain available.
+
 # V3 Package 2 — current Beat 6
 
 Package 1 baseline `26ae2a9a873ee22674edae7897eaf923aa0339e7` is locked. The old Beat 6 review placeholder below is superseded by **The NAV That Became Its Own Truth**. Beats 1–5 and the preserved V2 Beats 7–8 retain their accepted rendering and sequence.

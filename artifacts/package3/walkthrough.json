@@ -1,0 +1,1121 @@
+{
+  "path": [
+    "opening-question",
+    "answers-to-actions",
+    "rules",
+    "patterns",
+    "investigation",
+    "agentic",
+    "authority-ladder",
+    "failed-trade",
+    "oversight-promise",
+    "event-flood",
+    "naive-review",
+    "naive-basis",
+    "material-issue",
+    "attention-dependency",
+    "predictive-case",
+    "no-breach",
+    "causal-explanation",
+    "source-challenge",
+    "counterfactual",
+    "conflict-omitted",
+    "domain-rule",
+    "sdlc",
+    "monitor-evasion",
+    "monitor-assurance",
+    "escalate",
+    "human-judgement",
+    "human-confidence",
+    "nav-introduction",
+    "nav-monday",
+    "nav-week",
+    "nav-success",
+    "nav-warning",
+    "nav-control-accounting",
+    "nav-control-movement",
+    "nav-control-valuation",
+    "nav-reconstruction",
+    "nav-baseline",
+    "nav-cumulative",
+    "nav-governance",
+    "nav-grounding",
+    "nav-override",
+    "independent-agents",
+    "common-shock",
+    "first-wave",
+    "funding-timing",
+    "changed-market",
+    "second-wave",
+    "correlation-feedback",
+    "parallel-transmission",
+    "system-pressure",
+    "system-changed",
+    "system-supervision",
+    "supervision-informs",
+    "supervision-structures",
+    "human-authority-machine-attention",
+    "supervision-enforces",
+    "supervision-progression",
+    "supervision-methods",
+    "supervision-powers",
+    "capability-authority",
+    "confidence-question",
+    "confidence-expertise",
+    "confidence-evidence",
+    "confidence-capacity",
+    "confidence-independence",
+    "confidence-challenge",
+    "human",
+    "ai",
+    "both",
+    "accountability",
+    "final-question"
+  ],
+  "files": [
+    "artifacts/package3/baseline/after-opening-question.png",
+    "artifacts/package3/baseline/after-source-challenge.png",
+    "artifacts/package3/baseline/after-nav-warning.png",
+    "artifacts/package3/7-independent-agents.png",
+    "artifacts/package3/7-common-shock.png",
+    "artifacts/package3/7-first-wave.png",
+    "artifacts/package3/7-funding-timing.png",
+    "artifacts/package3/7-changed-market.png",
+    "artifacts/package3/7-second-wave.png",
+    "artifacts/package3/7-correlation-feedback.png",
+    "artifacts/package3/7-parallel-transmission.png",
+    "artifacts/package3/7-system-pressure.png",
+    "artifacts/package3/7-system-changed.png",
+    "artifacts/package3/7-system-supervision.png",
+    "artifacts/package3/8-supervision-informs.png",
+    "artifacts/package3/8-supervision-structures.png",
+    "artifacts/package3/8-human-authority-machine-attention.png",
+    "artifacts/package3/8-supervision-enforces.png",
+    "artifacts/package3/8-supervision-progression.png",
+    "artifacts/package3/8-supervision-methods.png",
+    "artifacts/package3/8-supervision-powers.png",
+    "artifacts/package3/8-capability-authority.png",
+    "artifacts/package3/8-confidence-question.png",
+    "artifacts/package3/8-confidence-challenge.png",
+    "artifacts/package3/8-human.png",
+    "artifacts/package3/8-ai.png",
+    "artifacts/package3/8-both.png",
+    "artifacts/package3/8-accountability.png",
+    "artifacts/package3/8-final-question.png"
+  ],
+  "metrics": [
+    {
+      "reveal": "opening-question",
+      "scroll": [
+        1920,
+        1080
+      ],
+      "stage": [
+        0,
+        0,
+        1920,
+        1080
+      ],
+      "clipped": []
+    },
+    {
+      "reveal": "answers-to-actions",
+      "scroll": [
+        1920,
+        1080
+      ],
+      "stage": [
+        0,
+        0,
+        1920,
+        1080
+      ],
+      "clipped": []
+    },
+    {
+      "reveal": "rules",
+      "scroll": [
+        1920,
+        1080
+      ],
+      "stage": [
+        0,
+        0,
+        1920,
+        1080
+      ],
+      "clipped": []
+    },
+    {
+      "reveal": "patterns",
+      "scroll": [
+        1920,
+        1080
+      ],
+      "stage": [
+        0,
+        0,
+        1920,
+        1080
+      ],
+      "clipped": []
+    },
+    {
+      "reveal": "investigation",
+      "scroll": [
+        1920,
+        1080
+      ],
+      "stage": [
+        0,
+        0,
+        1920,
+        1080
+      ],
+      "clipped": []
+    },
+    {
+      "reveal": "agentic",
+      "scroll": [
+        1920,
+        1080
+      ],
+      "stage": [
+        0,
+        0,
+        1920,
+        1080
+      ],
+      "clipped": []
+    },
+    {
+      "reveal": "authority-ladder",
+      "scroll": [
+        1920,
+        1080
+      ],
+      "stage": [
+        0,
+        0,
+        1920,
+        1080
+      ],
+      "clipped": []
+    },
+    {
+      "reveal": "failed-trade",
+      "scroll": [
+        1920,
+        1080
+      ],
+      "stage": [
+        0,
+        0,
+        1920,
+        1080
+      ],
+      "clipped": []
+    },
+    {
+      "reveal": "oversight-promise",
+      "scroll": [
+        1920,
+        1080
+      ],
+      "stage": [
+        0,
+        0,
+        1920,
+        1080
+      ],
+      "clipped": []
+    },
+    {
+      "reveal": "event-flood",
+      "scroll": [
+        1920,
+        1080
+      ],
+      "stage": [
+        0,
+        0,
+        1920,
+        1080
+      ],
+      "clipped": []
+    },
+    {
+      "reveal": "naive-review",
+      "scroll": [
+        1920,
+        1080
+      ],
+      "stage": [
+        0,
+        0,
+        1920,
+        1080
+      ],
+      "clipped": []
+    },
+    {
+      "reveal": "naive-basis",
+      "scroll": [
+        1920,
+        1080
+      ],
+      "stage": [
+        0,
+        0,
+        1920,
+        1080
+      ],
+      "clipped": []
+    },
+    {
+      "reveal": "material-issue",
+      "scroll": [
+        1920,
+        1080
+      ],
+      "stage": [
+        0,
+        0,
+        1920,
+        1080
+      ],
+      "clipped": []
+    },
+    {
+      "reveal": "attention-dependency",
+      "scroll": [
+        1920,
+        1080
+      ],
+      "stage": [
+        0,
+        0,
+        1920,
+        1080
+      ],
+      "clipped": []
+    },
+    {
+      "reveal": "predictive-case",
+      "scroll": [
+        1920,
+        1080
+      ],
+      "stage": [
+        0,
+        0,
+        1920,
+        1080
+      ],
+      "clipped": []
+    },
+    {
+      "reveal": "no-breach",
+      "scroll": [
+        1920,
+        1080
+      ],
+      "stage": [
+        0,
+        0,
+        1920,
+        1080
+      ],
+      "clipped": []
+    },
+    {
+      "reveal": "causal-explanation",
+      "scroll": [
+        1920,
+        1080
+      ],
+      "stage": [
+        0,
+        0,
+        1920,
+        1080
+      ],
+      "clipped": []
+    },
+    {
+      "reveal": "source-challenge",
+      "scroll": [
+        1920,
+        1080
+      ],
+      "stage": [
+        0,
+        0,
+        1920,
+        1080
+      ],
+      "clipped": []
+    },
+    {
+      "reveal": "counterfactual",
+      "scroll": [
+        1920,
+        1080
+      ],
+      "stage": [
+        0,
+        0,
+        1920,
+        1080
+      ],
+      "clipped": []
+    },
+    {
+      "reveal": "conflict-omitted",
+      "scroll": [
+        1920,
+        1080
+      ],
+      "stage": [
+        0,
+        0,
+        1920,
+        1080
+      ],
+      "clipped": []
+    },
+    {
+      "reveal": "domain-rule",
+      "scroll": [
+        1920,
+        1080
+      ],
+      "stage": [
+        0,
+        0,
+        1920,
+        1080
+      ],
+      "clipped": []
+    },
+    {
+      "reveal": "sdlc",
+      "scroll": [
+        1920,
+        1080
+      ],
+      "stage": [
+        0,
+        0,
+        1920,
+        1080
+      ],
+      "clipped": []
+    },
+    {
+      "reveal": "monitor-evasion",
+      "scroll": [
+        1920,
+        1080
+      ],
+      "stage": [
+        0,
+        0,
+        1920,
+        1080
+      ],
+      "clipped": []
+    },
+    {
+      "reveal": "monitor-assurance",
+      "scroll": [
+        1920,
+        1080
+      ],
+      "stage": [
+        0,
+        0,
+        1920,
+        1080
+      ],
+      "clipped": []
+    },
+    {
+      "reveal": "escalate",
+      "scroll": [
+        1920,
+        1080
+      ],
+      "stage": [
+        0,
+        0,
+        1920,
+        1080
+      ],
+      "clipped": []
+    },
+    {
+      "reveal": "human-judgement",
+      "scroll": [
+        1920,
+        1080
+      ],
+      "stage": [
+        0,
+        0,
+        1920,
+        1080
+      ],
+      "clipped": []
+    },
+    {
+      "reveal": "human-confidence",
+      "scroll": [
+        1920,
+        1080
+      ],
+      "stage": [
+        0,
+        0,
+        1920,
+        1080
+      ],
+      "clipped": []
+    },
+    {
+      "reveal": "nav-introduction",
+      "scroll": [
+        1920,
+        1080
+      ],
+      "stage": [
+        0,
+        0,
+        1920,
+        1080
+      ],
+      "clipped": []
+    },
+    {
+      "reveal": "nav-monday",
+      "scroll": [
+        1920,
+        1080
+      ],
+      "stage": [
+        0,
+        0,
+        1920,
+        1080
+      ],
+      "clipped": []
+    },
+    {
+      "reveal": "nav-week",
+      "scroll": [
+        1920,
+        1080
+      ],
+      "stage": [
+        0,
+        0,
+        1920,
+        1080
+      ],
+      "clipped": []
+    },
+    {
+      "reveal": "nav-success",
+      "scroll": [
+        1920,
+        1080
+      ],
+      "stage": [
+        0,
+        0,
+        1920,
+        1080
+      ],
+      "clipped": []
+    },
+    {
+      "reveal": "nav-warning",
+      "scroll": [
+        1920,
+        1080
+      ],
+      "stage": [
+        0,
+        0,
+        1920,
+        1080
+      ],
+      "clipped": []
+    },
+    {
+      "reveal": "nav-control-accounting",
+      "scroll": [
+        1920,
+        1080
+      ],
+      "stage": [
+        0,
+        0,
+        1920,
+        1080
+      ],
+      "clipped": []
+    },
+    {
+      "reveal": "nav-control-movement",
+      "scroll": [
+        1920,
+        1080
+      ],
+      "stage": [
+        0,
+        0,
+        1920,
+        1080
+      ],
+      "clipped": []
+    },
+    {
+      "reveal": "nav-control-valuation",
+      "scroll": [
+        1920,
+        1080
+      ],
+      "stage": [
+        0,
+        0,
+        1920,
+        1080
+      ],
+      "clipped": []
+    },
+    {
+      "reveal": "nav-reconstruction",
+      "scroll": [
+        1920,
+        1080
+      ],
+      "stage": [
+        0,
+        0,
+        1920,
+        1080
+      ],
+      "clipped": []
+    },
+    {
+      "reveal": "nav-baseline",
+      "scroll": [
+        1920,
+        1080
+      ],
+      "stage": [
+        0,
+        0,
+        1920,
+        1080
+      ],
+      "clipped": []
+    },
+    {
+      "reveal": "nav-cumulative",
+      "scroll": [
+        1920,
+        1080
+      ],
+      "stage": [
+        0,
+        0,
+        1920,
+        1080
+      ],
+      "clipped": []
+    },
+    {
+      "reveal": "nav-governance",
+      "scroll": [
+        1920,
+        1080
+      ],
+      "stage": [
+        0,
+        0,
+        1920,
+        1080
+      ],
+      "clipped": []
+    },
+    {
+      "reveal": "nav-grounding",
+      "scroll": [
+        1920,
+        1080
+      ],
+      "stage": [
+        0,
+        0,
+        1920,
+        1080
+      ],
+      "clipped": []
+    },
+    {
+      "reveal": "nav-override",
+      "scroll": [
+        1920,
+        1080
+      ],
+      "stage": [
+        0,
+        0,
+        1920,
+        1080
+      ],
+      "clipped": []
+    },
+    {
+      "reveal": "independent-agents",
+      "scroll": [
+        1920,
+        1080
+      ],
+      "stage": [
+        0,
+        0,
+        1920,
+        1080
+      ],
+      "clipped": []
+    },
+    {
+      "reveal": "common-shock",
+      "scroll": [
+        1920,
+        1080
+      ],
+      "stage": [
+        0,
+        0,
+        1920,
+        1080
+      ],
+      "clipped": []
+    },
+    {
+      "reveal": "first-wave",
+      "scroll": [
+        1920,
+        1080
+      ],
+      "stage": [
+        0,
+        0,
+        1920,
+        1080
+      ],
+      "clipped": []
+    },
+    {
+      "reveal": "funding-timing",
+      "scroll": [
+        1920,
+        1080
+      ],
+      "stage": [
+        0,
+        0,
+        1920,
+        1080
+      ],
+      "clipped": []
+    },
+    {
+      "reveal": "changed-market",
+      "scroll": [
+        1920,
+        1080
+      ],
+      "stage": [
+        0,
+        0,
+        1920,
+        1080
+      ],
+      "clipped": []
+    },
+    {
+      "reveal": "second-wave",
+      "scroll": [
+        1920,
+        1080
+      ],
+      "stage": [
+        0,
+        0,
+        1920,
+        1080
+      ],
+      "clipped": []
+    },
+    {
+      "reveal": "correlation-feedback",
+      "scroll": [
+        1920,
+        1080
+      ],
+      "stage": [
+        0,
+        0,
+        1920,
+        1080
+      ],
+      "clipped": []
+    },
+    {
+      "reveal": "parallel-transmission",
+      "scroll": [
+        1920,
+        1080
+      ],
+      "stage": [
+        0,
+        0,
+        1920,
+        1080
+      ],
+      "clipped": []
+    },
+    {
+      "reveal": "system-pressure",
+      "scroll": [
+        1920,
+        1080
+      ],
+      "stage": [
+        0,
+        0,
+        1920,
+        1080
+      ],
+      "clipped": []
+    },
+    {
+      "reveal": "system-changed",
+      "scroll": [
+        1920,
+        1080
+      ],
+      "stage": [
+        0,
+        0,
+        1920,
+        1080
+      ],
+      "clipped": []
+    },
+    {
+      "reveal": "system-supervision",
+      "scroll": [
+        1920,
+        1080
+      ],
+      "stage": [
+        0,
+        0,
+        1920,
+        1080
+      ],
+      "clipped": []
+    },
+    {
+      "reveal": "supervision-informs",
+      "scroll": [
+        1920,
+        1080
+      ],
+      "stage": [
+        0,
+        0,
+        1920,
+        1080
+      ],
+      "clipped": []
+    },
+    {
+      "reveal": "supervision-structures",
+      "scroll": [
+        1920,
+        1080
+      ],
+      "stage": [
+        0,
+        0,
+        1920,
+        1080
+      ],
+      "clipped": []
+    },
+    {
+      "reveal": "human-authority-machine-attention",
+      "scroll": [
+        1920,
+        1080
+      ],
+      "stage": [
+        0,
+        0,
+        1920,
+        1080
+      ],
+      "clipped": []
+    },
+    {
+      "reveal": "supervision-enforces",
+      "scroll": [
+        1920,
+        1080
+      ],
+      "stage": [
+        0,
+        0,
+        1920,
+        1080
+      ],
+      "clipped": []
+    },
+    {
+      "reveal": "supervision-progression",
+      "scroll": [
+        1920,
+        1080
+      ],
+      "stage": [
+        0,
+        0,
+        1920,
+        1080
+      ],
+      "clipped": []
+    },
+    {
+      "reveal": "supervision-methods",
+      "scroll": [
+        1920,
+        1080
+      ],
+      "stage": [
+        0,
+        0,
+        1920,
+        1080
+      ],
+      "clipped": []
+    },
+    {
+      "reveal": "supervision-powers",
+      "scroll": [
+        1920,
+        1080
+      ],
+      "stage": [
+        0,
+        0,
+        1920,
+        1080
+      ],
+      "clipped": []
+    },
+    {
+      "reveal": "capability-authority",
+      "scroll": [
+        1920,
+        1080
+      ],
+      "stage": [
+        0,
+        0,
+        1920,
+        1080
+      ],
+      "clipped": []
+    },
+    {
+      "reveal": "confidence-question",
+      "scroll": [
+        1920,
+        1080
+      ],
+      "stage": [
+        0,
+        0,
+        1920,
+        1080
+      ],
+      "clipped": []
+    },
+    {
+      "reveal": "confidence-expertise",
+      "scroll": [
+        1920,
+        1080
+      ],
+      "stage": [
+        0,
+        0,
+        1920,
+        1080
+      ],
+      "clipped": []
+    },
+    {
+      "reveal": "confidence-evidence",
+      "scroll": [
+        1920,
+        1080
+      ],
+      "stage": [
+        0,
+        0,
+        1920,
+        1080
+      ],
+      "clipped": []
+    },
+    {
+      "reveal": "confidence-capacity",
+      "scroll": [
+        1920,
+        1080
+      ],
+      "stage": [
+        0,
+        0,
+        1920,
+        1080
+      ],
+      "clipped": []
+    },
+    {
+      "reveal": "confidence-independence",
+      "scroll": [
+        1920,
+        1080
+      ],
+      "stage": [
+        0,
+        0,
+        1920,
+        1080
+      ],
+      "clipped": []
+    },
+    {
+      "reveal": "confidence-challenge",
+      "scroll": [
+        1920,
+        1080
+      ],
+      "stage": [
+        0,
+        0,
+        1920,
+        1080
+      ],
+      "clipped": []
+    },
+    {
+      "reveal": "human",
+      "scroll": [
+        1920,
+        1080
+      ],
+      "stage": [
+        0,
+        0,
+        1920,
+        1080
+      ],
+      "clipped": []
+    },
+    {
+      "reveal": "ai",
+      "scroll": [
+        1920,
+        1080
+      ],
+      "stage": [
+        0,
+        0,
+        1920,
+        1080
+      ],
+      "clipped": []
+    },
+    {
+      "reveal": "both",
+      "scroll": [
+        1920,
+        1080
+      ],
+      "stage": [
+        0,
+        0,
+        1920,
+        1080
+      ],
+      "clipped": []
+    },
+    {
+      "reveal": "accountability",
+      "scroll": [
+        1920,
+        1080
+      ],
+      "stage": [
+        0,
+        0,
+        1920,
+        1080
+      ],
+      "clipped": []
+    },
+    {
+      "reveal": "final-question",
+      "scroll": [
+        1920,
+        1080
+      ],
+      "stage": [
+        0,
+        0,
+        1920,
+        1080
+      ],
+      "clipped": []
+    }
+  ],
+  "errors": [],
+  "externalRequests": [],
+  "finalStable": true,
+  "nextDisabled": true,
+  "native": {
+    "inner": [
+      1920,
+      1080
+    ],
+    "outer": [
+      1920,
+      1080
+    ],
+    "screen": [
+      1920,
+      1080
+    ],
+    "fullscreen": true
+  }
+}

@@ -1,3 +1,13 @@
+# V3 Package 3 — current acceptance
+
+Baseline: 41/41 tests before edits on `c2316088e2093f0e7ac8dfda3db15ca73ae4db96`. Current: 53/53. Presentation assertions for replaced V2 Beats 7/8 and ordinary NAV continuation are updated; substantive settlement/NAV financial tests remain. The new pre-edit hash contract protects all accepted Beats 1–6 markup, the entire accepted CSS prefix and both financial scenario modules.
+
+Twelve focused new tests cover independent identities/mandates, shock chronology, calculated first-wave contributions, role-specific second-wave input dependence, settlement/FX/margin timing, independent dealer and prefunding effects, conditional damping, research qualifications, NAV boundary navigation, progressive supervision dimensions/confidence and the exact stable final question.
+
+Browser evidence covers one uninterrupted 71-state path, all eight beats, human-only source initiation, Play-to-start, Back/Next, Home reset, fullscreen, deterministic Replay and Pause/Play on the event flood, NAV timeline and new first/second waves and kicker. CSS pause snapshots are compared after a 50ms style-commit allowance and remain identical across a further 250ms; Play resumes. Fullscreen scenes and representative 1440×1000 windows have no clipping, overlap or document scrolling. No external network request is needed by the presentation.
+
+The accepted opening is pixel-identical. The source challenge and NAV warning stages above the controls are pixel-identical; their full-image differences are confined to transient Pause/Play enabled-state sampling. See `artifacts/package3/baseline/pixel-comparison.json`. No visual or financial redesign of Beats 1–6 was made.
+
 # V3 Package 2 — acceptance additions
 
 Baseline before edits: 31 passing tests on `26ae2a9a873ee22674edae7897eaf923aa0339e7`. Only presentation assertions made obsolete by replacing the Beat 6 placeholder are updated; the settlement, authority, source-challenge, systemic and finale contracts remain.

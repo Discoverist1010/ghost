@@ -1,0 +1,1119 @@
+{
+  "id": "GHOST-USD-01",
+  "type": "Synthetic conditional mechanism",
+  "metricLabel": "Fictional relative stress indicators (0–100); not observed market data",
+  "agents": [
+    {
+      "id": "A",
+      "identity": "AGT-PORTFOLIO-A",
+      "role": "PORTFOLIO RISK",
+      "principal": "Investment manager A",
+      "objective": "Keep portfolio risk within limits",
+      "constraint": "Approved equity trading and risk limits",
+      "mandate": "Adjust equity exposure; no spending of unsettled proceeds",
+      "response": "SELL EQUITIES",
+      "secondResponse": "DE-RISK FURTHER",
+      "limit": 6
+    },
+    {
+      "id": "B",
+      "identity": "AGT-FX-B",
+      "role": "FX CONVERSION",
+      "principal": "Investor B",
+      "objective": "Execute currency needs efficiently within FX limits",
+      "constraint": "Eligible proceeds and matched value dates",
+      "mandate": "Arrange dated FX against eligible expected proceeds; no unfunded early delivery",
+      "response": "ARRANGE DATED FX",
+      "secondResponse": "ADJUST FX ROUTING",
+      "limit": 6
+    },
+    {
+      "id": "C",
+      "identity": "AGT-TREASURY-C",
+      "role": "TREASURY LIQUIDITY",
+      "principal": "Bank C treasury",
+      "objective": "Maintain the policy USD cash buffer",
+      "constraint": "Approved funding instruments and borrowing ceiling",
+      "mandate": "Obtain USD via approved borrowing or FX swaps within limits",
+      "response": "RAISE USD BUFFER",
+      "secondResponse": "ADD USD FUNDING",
+      "limit": 6
+    },
+    {
+      "id": "D",
+      "identity": "AGT-COLLATERAL-D",
+      "role": "COLLATERAL & MARGIN",
+      "principal": "Derivatives participant D",
+      "objective": "Meet eligible collateral and margin obligations",
+      "constraint": "Collateral eligibility and liquidity limits",
+      "mandate": "Meet this contract’s USD cash margin at T0; other contracts may permit non-USD collateral",
+      "response": "MEET USD MARGIN",
+      "secondResponse": "REALLOCATE LIQUIDITY",
+      "limit": 6
+    },
+    {
+      "id": "E",
+      "identity": "AGT-DEALER-E",
+      "role": "DEALER LIQUIDITY",
+      "principal": "Independent dealer E",
+      "objective": "Provide markets within balance-sheet capacity",
+      "constraint": "Inventory, funding and counterparty limits",
+      "mandate": "Adjust quotes and depth within dealer limits; no coordination with clients",
+      "response": "REDUCE QUOTED DEPTH",
+      "secondResponse": "REPRICE / LIMIT DEPTH",
+      "limit": 6
+    },
+    {
+      "id": "F",
+      "identity": "AGT-SETTLEMENT-F",
+      "role": "SETTLEMENT & PREFUNDING",
+      "principal": "Custodian F",
+      "objective": "Avoid failures on confirmed payment obligations",
+      "constraint": "Actual currency deadlines and approved prefunding limits",
+      "mandate": "Reserve existing USD and raise only the shortfall for confirmed T+1 obligations",
+      "response": "RESERVE / PREFUND USD",
+      "secondResponse": "TOP UP PREFUNDING",
+      "limit": 6
+    }
+  ],
+  "initial": {
+    "equityDepth": 100,
+    "usdDemand": 35,
+    "dealerCapacity": 75,
+    "fundingSpread": 20,
+    "collateralPressure": 10,
+    "settlementPressure": 10,
+    "id": "initial"
+  },
+  "shock": {
+    "equityDepth": 75,
+    "usdDemand": 40,
+    "dealerCapacity": 70,
+    "fundingSpread": 25,
+    "collateralPressure": 25,
+    "settlementPressure": 20,
+    "id": "shock"
+  },
+  "firstWave": [
+    {
+      "id": "W1-A",
+      "agentId": "A",
+      "identity": "AGT-PORTFOLIO-A",
+      "principal": "Investment manager A",
+      "wave": 1,
+      "observedStateId": "shock",
+      "observed": {
+        "equityDepth": 75,
+        "usdDemand": 40,
+        "dealerCapacity": 70,
+        "fundingSpread": 25,
+        "collateralPressure": 25,
+        "settlementPressure": 20,
+        "id": "shock"
+      },
+      "units": 3,
+      "totalUnits": 3,
+      "limit": 6,
+      "withinMandate": true,
+      "decision": "SELL EQUITIES",
+      "effects": {
+        "equityDepth": -9,
+        "usdDemand": 0,
+        "dealerCapacity": 0,
+        "fundingSpread": 0,
+        "collateralPressure": 0,
+        "settlementPressure": 0
+      },
+      "externalFundingUnits": 0,
+      "reservedExistingCashUnits": 0,
+      "coordination": false,
+      "objectiveChanged": false
+    },
+    {
+      "id": "W1-B",
+      "agentId": "B",
+      "identity": "AGT-FX-B",
+      "principal": "Investor B",
+      "wave": 1,
+      "observedStateId": "shock",
+      "observed": {
+        "equityDepth": 75,
+        "usdDemand": 40,
+        "dealerCapacity": 70,
+        "fundingSpread": 25,
+        "collateralPressure": 25,
+        "settlementPressure": 20,
+        "id": "shock"
+      },
+      "units": 2,
+      "totalUnits": 2,
+      "limit": 6,
+      "withinMandate": true,
+      "decision": "ARRANGE DATED FX",
+      "effects": {
+        "equityDepth": 0,
+        "usdDemand": 8,
+        "dealerCapacity": -2,
+        "fundingSpread": 2,
+        "collateralPressure": 0,
+        "settlementPressure": 0
+      },
+      "externalFundingUnits": 0,
+      "reservedExistingCashUnits": 0,
+      "coordination": false,
+      "objectiveChanged": false
+    },
+    {
+      "id": "W1-C",
+      "agentId": "C",
+      "identity": "AGT-TREASURY-C",
+      "principal": "Bank C treasury",
+      "wave": 1,
+      "observedStateId": "shock",
+      "observed": {
+        "equityDepth": 75,
+        "usdDemand": 40,
+        "dealerCapacity": 70,
+        "fundingSpread": 25,
+        "collateralPressure": 25,
+        "settlementPressure": 20,
+        "id": "shock"
+      },
+      "units": 3,
+      "totalUnits": 3,
+      "limit": 6,
+      "withinMandate": true,
+      "decision": "RAISE USD BUFFER",
+      "effects": {
+        "equityDepth": 0,
+        "usdDemand": 15,
+        "dealerCapacity": -3,
+        "fundingSpread": 6,
+        "collateralPressure": 0,
+        "settlementPressure": 0
+      },
+      "externalFundingUnits": 0,
+      "reservedExistingCashUnits": 0,
+      "coordination": false,
+      "objectiveChanged": false
+    },
+    {
+      "id": "W1-D",
+      "agentId": "D",
+      "identity": "AGT-COLLATERAL-D",
+      "principal": "Derivatives participant D",
+      "wave": 1,
+      "observedStateId": "shock",
+      "observed": {
+        "equityDepth": 75,
+        "usdDemand": 40,
+        "dealerCapacity": 70,
+        "fundingSpread": 25,
+        "collateralPressure": 25,
+        "settlementPressure": 20,
+        "id": "shock"
+      },
+      "units": 2,
+      "totalUnits": 2,
+      "limit": 6,
+      "withinMandate": true,
+      "decision": "MEET USD MARGIN",
+      "effects": {
+        "equityDepth": 0,
+        "usdDemand": 6,
+        "dealerCapacity": 0,
+        "fundingSpread": 2,
+        "collateralPressure": 6,
+        "settlementPressure": 0
+      },
+      "externalFundingUnits": 0,
+      "reservedExistingCashUnits": 0,
+      "coordination": false,
+      "objectiveChanged": false
+    },
+    {
+      "id": "W1-E",
+      "agentId": "E",
+      "identity": "AGT-DEALER-E",
+      "principal": "Independent dealer E",
+      "wave": 1,
+      "observedStateId": "shock",
+      "observed": {
+        "equityDepth": 75,
+        "usdDemand": 40,
+        "dealerCapacity": 70,
+        "fundingSpread": 25,
+        "collateralPressure": 25,
+        "settlementPressure": 20,
+        "id": "shock"
+      },
+      "units": 2,
+      "totalUnits": 2,
+      "limit": 6,
+      "withinMandate": true,
+      "decision": "REDUCE QUOTED DEPTH",
+      "effects": {
+        "equityDepth": 0,
+        "usdDemand": 0,
+        "dealerCapacity": -8,
+        "fundingSpread": 6,
+        "collateralPressure": 0,
+        "settlementPressure": 0
+      },
+      "externalFundingUnits": 0,
+      "reservedExistingCashUnits": 0,
+      "coordination": false,
+      "objectiveChanged": false
+    },
+    {
+      "id": "W1-F",
+      "agentId": "F",
+      "identity": "AGT-SETTLEMENT-F",
+      "principal": "Custodian F",
+      "wave": 1,
+      "observedStateId": "shock",
+      "observed": {
+        "equityDepth": 75,
+        "usdDemand": 40,
+        "dealerCapacity": 70,
+        "fundingSpread": 25,
+        "collateralPressure": 25,
+        "settlementPressure": 20,
+        "id": "shock"
+      },
+      "units": 2,
+      "totalUnits": 2,
+      "limit": 6,
+      "withinMandate": true,
+      "decision": "RESERVE / PREFUND USD",
+      "effects": {
+        "equityDepth": 0,
+        "usdDemand": 4,
+        "dealerCapacity": 0,
+        "fundingSpread": 2,
+        "collateralPressure": 0,
+        "settlementPressure": 6
+      },
+      "externalFundingUnits": 2,
+      "reservedExistingCashUnits": 2,
+      "coordination": false,
+      "objectiveChanged": false
+    }
+  ],
+  "afterFirst": {
+    "id": "after-first-wave",
+    "equityDepth": 86,
+    "usdDemand": 8,
+    "dealerCapacity": 92,
+    "fundingSpread": 13,
+    "collateralPressure": 11,
+    "settlementPressure": 6,
+    "liquidityPressure": 10,
+    "condition": "CONTAINED"
+  },
+  "secondWave": [
+    {
+      "id": "W2-A",
+      "agentId": "A",
+      "identity": "AGT-PORTFOLIO-A",
+      "principal": "Investment manager A",
+      "wave": 2,
+      "observedStateId": "after-first-wave",
+      "observed": {
+        "id": "after-first-wave",
+        "equityDepth": 86,
+        "usdDemand": 8,
+        "dealerCapacity": 92,
+        "fundingSpread": 13,
+        "collateralPressure": 11,
+        "settlementPressure": 6,
+        "liquidityPressure": 10,
+        "condition": "CONTAINED"
+      },
+      "units": 0,
+      "totalUnits": 3,
+      "limit": 6,
+      "withinMandate": true,
+      "decision": "MAINTAIN ARRANGEMENTS",
+      "effects": {
+        "equityDepth": 0,
+        "usdDemand": 0,
+        "dealerCapacity": 0,
+        "fundingSpread": 0,
+        "collateralPressure": 0,
+        "settlementPressure": 0
+      },
+      "externalFundingUnits": 0,
+      "reservedExistingCashUnits": 0,
+      "coordination": false,
+      "objectiveChanged": false
+    },
+    {
+      "id": "W2-B",
+      "agentId": "B",
+      "identity": "AGT-FX-B",
+      "principal": "Investor B",
+      "wave": 2,
+      "observedStateId": "after-first-wave",
+      "observed": {
+        "id": "after-first-wave",
+        "equityDepth": 86,
+        "usdDemand": 8,
+        "dealerCapacity": 92,
+        "fundingSpread": 13,
+        "collateralPressure": 11,
+        "settlementPressure": 6,
+        "liquidityPressure": 10,
+        "condition": "CONTAINED"
+      },
+      "units": 0,
+      "totalUnits": 2,
+      "limit": 6,
+      "withinMandate": true,
+      "decision": "MAINTAIN ARRANGEMENTS",
+      "effects": {
+        "equityDepth": 0,
+        "usdDemand": 0,
+        "dealerCapacity": 0,
+        "fundingSpread": 0,
+        "collateralPressure": 0,
+        "settlementPressure": 0
+      },
+      "externalFundingUnits": 0,
+      "reservedExistingCashUnits": 0,
+      "coordination": false,
+      "objectiveChanged": false
+    },
+    {
+      "id": "W2-C",
+      "agentId": "C",
+      "identity": "AGT-TREASURY-C",
+      "principal": "Bank C treasury",
+      "wave": 2,
+      "observedStateId": "after-first-wave",
+      "observed": {
+        "id": "after-first-wave",
+        "equityDepth": 86,
+        "usdDemand": 8,
+        "dealerCapacity": 92,
+        "fundingSpread": 13,
+        "collateralPressure": 11,
+        "settlementPressure": 6,
+        "liquidityPressure": 10,
+        "condition": "CONTAINED"
+      },
+      "units": 0,
+      "totalUnits": 3,
+      "limit": 6,
+      "withinMandate": true,
+      "decision": "MAINTAIN ARRANGEMENTS",
+      "effects": {
+        "equityDepth": 0,
+        "usdDemand": 0,
+        "dealerCapacity": 0,
+        "fundingSpread": 0,
+        "collateralPressure": 0,
+        "settlementPressure": 0
+      },
+      "externalFundingUnits": 0,
+      "reservedExistingCashUnits": 0,
+      "coordination": false,
+      "objectiveChanged": false
+    },
+    {
+      "id": "W2-D",
+      "agentId": "D",
+      "identity": "AGT-COLLATERAL-D",
+      "principal": "Derivatives participant D",
+      "wave": 2,
+      "observedStateId": "after-first-wave",
+      "observed": {
+        "id": "after-first-wave",
+        "equityDepth": 86,
+        "usdDemand": 8,
+        "dealerCapacity": 92,
+        "fundingSpread": 13,
+        "collateralPressure": 11,
+        "settlementPressure": 6,
+        "liquidityPressure": 10,
+        "condition": "CONTAINED"
+      },
+      "units": 0,
+      "totalUnits": 2,
+      "limit": 6,
+      "withinMandate": true,
+      "decision": "MAINTAIN ARRANGEMENTS",
+      "effects": {
+        "equityDepth": 0,
+        "usdDemand": 0,
+        "dealerCapacity": 0,
+        "fundingSpread": 0,
+        "collateralPressure": 0,
+        "settlementPressure": 0
+      },
+      "externalFundingUnits": 0,
+      "reservedExistingCashUnits": 0,
+      "coordination": false,
+      "objectiveChanged": false
+    },
+    {
+      "id": "W2-E",
+      "agentId": "E",
+      "identity": "AGT-DEALER-E",
+      "principal": "Independent dealer E",
+      "wave": 2,
+      "observedStateId": "after-first-wave",
+      "observed": {
+        "id": "after-first-wave",
+        "equityDepth": 86,
+        "usdDemand": 8,
+        "dealerCapacity": 92,
+        "fundingSpread": 13,
+        "collateralPressure": 11,
+        "settlementPressure": 6,
+        "liquidityPressure": 10,
+        "condition": "CONTAINED"
+      },
+      "units": 0,
+      "totalUnits": 2,
+      "limit": 6,
+      "withinMandate": true,
+      "decision": "MAINTAIN ARRANGEMENTS",
+      "effects": {
+        "equityDepth": 0,
+        "usdDemand": 0,
+        "dealerCapacity": 0,
+        "fundingSpread": 0,
+        "collateralPressure": 0,
+        "settlementPressure": 0
+      },
+      "externalFundingUnits": 0,
+      "reservedExistingCashUnits": 0,
+      "coordination": false,
+      "objectiveChanged": false
+    },
+    {
+      "id": "W2-F",
+      "agentId": "F",
+      "identity": "AGT-SETTLEMENT-F",
+      "principal": "Custodian F",
+      "wave": 2,
+      "observedStateId": "after-first-wave",
+      "observed": {
+        "id": "after-first-wave",
+        "equityDepth": 86,
+        "usdDemand": 8,
+        "dealerCapacity": 92,
+        "fundingSpread": 13,
+        "collateralPressure": 11,
+        "settlementPressure": 6,
+        "liquidityPressure": 10,
+        "condition": "CONTAINED"
+      },
+      "units": 0,
+      "totalUnits": 2,
+      "limit": 6,
+      "withinMandate": true,
+      "decision": "MAINTAIN ARRANGEMENTS",
+      "effects": {
+        "equityDepth": 0,
+        "usdDemand": 0,
+        "dealerCapacity": 0,
+        "fundingSpread": 0,
+        "collateralPressure": 0,
+        "settlementPressure": 0
+      },
+      "externalFundingUnits": 0,
+      "reservedExistingCashUnits": 0,
+      "coordination": false,
+      "objectiveChanged": false
+    }
+  ],
+  "afterSecond": {
+    "id": "after-second-wave",
+    "equityDepth": 100,
+    "usdDemand": 0,
+    "dealerCapacity": 100,
+    "fundingSpread": 0,
+    "collateralPressure": 0,
+    "settlementPressure": 0,
+    "liquidityPressure": 0,
+    "condition": "CONTAINED"
+  },
+  "timing": [
+    {
+      "id": "equity-execution",
+      "time": 0,
+      "label": "T0 · EQUITY SALE",
+      "detail": "Trade agreed; local-currency proceeds pending.",
+      "cashAvailable": false,
+      "currency": "LOCAL"
+    },
+    {
+      "id": "margin-deadline",
+      "time": 0,
+      "label": "T0 · USD MARGIN",
+      "detail": "Separate derivative contract requires USD cash today.",
+      "currency": "USD"
+    },
+    {
+      "id": "payment-deadline",
+      "time": 1,
+      "label": "T+1 · USD PAYMENT",
+      "detail": "Confirmed existing obligation; treasury bridges any shortfall.",
+      "currency": "USD"
+    },
+    {
+      "id": "equity-settlement",
+      "time": 2,
+      "label": "T+2 · LOCAL PROCEEDS",
+      "detail": "Fictional equity contract settles in local currency.",
+      "cashAvailable": true,
+      "currency": "LOCAL"
+    },
+    {
+      "id": "fx-value",
+      "executionTime": 0,
+      "time": 2,
+      "label": "T+2 · FX DELIVERY",
+      "detail": "FX agreed at T0 with local proceeds and USD delivery matched to T+2.",
+      "currency": "LOCAL / USD"
+    }
+  ],
+  "coordination": false,
+  "sharedControllingObjective": null,
+  "policiesRewritten": false,
+  "dampening": 1,
+  "dampeners": [
+    "Netting",
+    "Opposing market flows",
+    "Additional dealer capacity",
+    "Existing liquidity buffers",
+    "Central-bank liquidity arrangements"
+  ],
+  "assumptions": [
+    "USD funding capacity is already constrained before the external equity shock.",
+    "Fictional T0/T+1/T+2 contract conventions; not universal Asian equity or FX settlement rules.",
+    "Equity and FX matched delivery at T+2 cannot meet a separate T0 USD cash margin or T+1 payment without bridging liquidity.",
+    "Funding spread is a funding-cost indicator, not the spot FX exchange rate.",
+    "Settlement reserves reduce the institution’s freely deployable cash; only externally raised shortfalls add to market funding demand.",
+    "Each principal has its own obligations and balances. FX B arranges conversion of its own eligible expected proceeds, not an assumed transfer from Portfolio A. Treasury C, margin D and prefunding F represent separate funding needs, not triple counting one obligation.",
+    "Independent principals; no messages or common controlling objective. All actions are local and within bounded limits.",
+    "No agent failed means no defined mandate or operating constraint was breached; it does not mean no harm or that every risk objective was fulfilled.",
+    "Stress is possible under constrained conditions, not inevitable."
+  ],
+  "events": [
+    {
+      "id": "S0",
+      "order": 0,
+      "kind": "EXTERNAL_SHOCK",
+      "state": {
+        "equityDepth": 75,
+        "usdDemand": 40,
+        "dealerCapacity": 70,
+        "fundingSpread": 25,
+        "collateralPressure": 25,
+        "settlementPressure": 20,
+        "id": "shock"
+      }
+    },
+    {
+      "id": "S1",
+      "order": 1,
+      "kind": "FIRST_WAVE",
+      "actions": [
+        {
+          "id": "W1-A",
+          "agentId": "A",
+          "identity": "AGT-PORTFOLIO-A",
+          "principal": "Investment manager A",
+          "wave": 1,
+          "observedStateId": "shock",
+          "observed": {
+            "equityDepth": 75,
+            "usdDemand": 40,
+            "dealerCapacity": 70,
+            "fundingSpread": 25,
+            "collateralPressure": 25,
+            "settlementPressure": 20,
+            "id": "shock"
+          },
+          "units": 3,
+          "totalUnits": 3,
+          "limit": 6,
+          "withinMandate": true,
+          "decision": "SELL EQUITIES",
+          "effects": {
+            "equityDepth": -9,
+            "usdDemand": 0,
+            "dealerCapacity": 0,
+            "fundingSpread": 0,
+            "collateralPressure": 0,
+            "settlementPressure": 0
+          },
+          "externalFundingUnits": 0,
+          "reservedExistingCashUnits": 0,
+          "coordination": false,
+          "objectiveChanged": false
+        },
+        {
+          "id": "W1-B",
+          "agentId": "B",
+          "identity": "AGT-FX-B",
+          "principal": "Investor B",
+          "wave": 1,
+          "observedStateId": "shock",
+          "observed": {
+            "equityDepth": 75,
+            "usdDemand": 40,
+            "dealerCapacity": 70,
+            "fundingSpread": 25,
+            "collateralPressure": 25,
+            "settlementPressure": 20,
+            "id": "shock"
+          },
+          "units": 2,
+          "totalUnits": 2,
+          "limit": 6,
+          "withinMandate": true,
+          "decision": "ARRANGE DATED FX",
+          "effects": {
+            "equityDepth": 0,
+            "usdDemand": 8,
+            "dealerCapacity": -2,
+            "fundingSpread": 2,
+            "collateralPressure": 0,
+            "settlementPressure": 0
+          },
+          "externalFundingUnits": 0,
+          "reservedExistingCashUnits": 0,
+          "coordination": false,
+          "objectiveChanged": false
+        },
+        {
+          "id": "W1-C",
+          "agentId": "C",
+          "identity": "AGT-TREASURY-C",
+          "principal": "Bank C treasury",
+          "wave": 1,
+          "observedStateId": "shock",
+          "observed": {
+            "equityDepth": 75,
+            "usdDemand": 40,
+            "dealerCapacity": 70,
+            "fundingSpread": 25,
+            "collateralPressure": 25,
+            "settlementPressure": 20,
+            "id": "shock"
+          },
+          "units": 3,
+          "totalUnits": 3,
+          "limit": 6,
+          "withinMandate": true,
+          "decision": "RAISE USD BUFFER",
+          "effects": {
+            "equityDepth": 0,
+            "usdDemand": 15,
+            "dealerCapacity": -3,
+            "fundingSpread": 6,
+            "collateralPressure": 0,
+            "settlementPressure": 0
+          },
+          "externalFundingUnits": 0,
+          "reservedExistingCashUnits": 0,
+          "coordination": false,
+          "objectiveChanged": false
+        },
+        {
+          "id": "W1-D",
+          "agentId": "D",
+          "identity": "AGT-COLLATERAL-D",
+          "principal": "Derivatives participant D",
+          "wave": 1,
+          "observedStateId": "shock",
+          "observed": {
+            "equityDepth": 75,
+            "usdDemand": 40,
+            "dealerCapacity": 70,
+            "fundingSpread": 25,
+            "collateralPressure": 25,
+            "settlementPressure": 20,
+            "id": "shock"
+          },
+          "units": 2,
+          "totalUnits": 2,
+          "limit": 6,
+          "withinMandate": true,
+          "decision": "MEET USD MARGIN",
+          "effects": {
+            "equityDepth": 0,
+            "usdDemand": 6,
+            "dealerCapacity": 0,
+            "fundingSpread": 2,
+            "collateralPressure": 6,
+            "settlementPressure": 0
+          },
+          "externalFundingUnits": 0,
+          "reservedExistingCashUnits": 0,
+          "coordination": false,
+          "objectiveChanged": false
+        },
+        {
+          "id": "W1-E",
+          "agentId": "E",
+          "identity": "AGT-DEALER-E",
+          "principal": "Independent dealer E",
+          "wave": 1,
+          "observedStateId": "shock",
+          "observed": {
+            "equityDepth": 75,
+            "usdDemand": 40,
+            "dealerCapacity": 70,
+            "fundingSpread": 25,
+            "collateralPressure": 25,
+            "settlementPressure": 20,
+            "id": "shock"
+          },
+          "units": 2,
+          "totalUnits": 2,
+          "limit": 6,
+          "withinMandate": true,
+          "decision": "REDUCE QUOTED DEPTH",
+          "effects": {
+            "equityDepth": 0,
+            "usdDemand": 0,
+            "dealerCapacity": -8,
+            "fundingSpread": 6,
+            "collateralPressure": 0,
+            "settlementPressure": 0
+          },
+          "externalFundingUnits": 0,
+          "reservedExistingCashUnits": 0,
+          "coordination": false,
+          "objectiveChanged": false
+        },
+        {
+          "id": "W1-F",
+          "agentId": "F",
+          "identity": "AGT-SETTLEMENT-F",
+          "principal": "Custodian F",
+          "wave": 1,
+          "observedStateId": "shock",
+          "observed": {
+            "equityDepth": 75,
+            "usdDemand": 40,
+            "dealerCapacity": 70,
+            "fundingSpread": 25,
+            "collateralPressure": 25,
+            "settlementPressure": 20,
+            "id": "shock"
+          },
+          "units": 2,
+          "totalUnits": 2,
+          "limit": 6,
+          "withinMandate": true,
+          "decision": "RESERVE / PREFUND USD",
+          "effects": {
+            "equityDepth": 0,
+            "usdDemand": 4,
+            "dealerCapacity": 0,
+            "fundingSpread": 2,
+            "collateralPressure": 0,
+            "settlementPressure": 6
+          },
+          "externalFundingUnits": 2,
+          "reservedExistingCashUnits": 2,
+          "coordination": false,
+          "objectiveChanged": false
+        }
+      ]
+    },
+    {
+      "id": "S2",
+      "order": 2,
+      "kind": "MARKET_CHANGED",
+      "state": {
+        "id": "after-first-wave",
+        "equityDepth": 86,
+        "usdDemand": 8,
+        "dealerCapacity": 92,
+        "fundingSpread": 13,
+        "collateralPressure": 11,
+        "settlementPressure": 6,
+        "liquidityPressure": 10,
+        "condition": "CONTAINED"
+      }
+    },
+    {
+      "id": "S3",
+      "order": 3,
+      "kind": "SECOND_WAVE",
+      "actions": [
+        {
+          "id": "W2-A",
+          "agentId": "A",
+          "identity": "AGT-PORTFOLIO-A",
+          "principal": "Investment manager A",
+          "wave": 2,
+          "observedStateId": "after-first-wave",
+          "observed": {
+            "id": "after-first-wave",
+            "equityDepth": 86,
+            "usdDemand": 8,
+            "dealerCapacity": 92,
+            "fundingSpread": 13,
+            "collateralPressure": 11,
+            "settlementPressure": 6,
+            "liquidityPressure": 10,
+            "condition": "CONTAINED"
+          },
+          "units": 0,
+          "totalUnits": 3,
+          "limit": 6,
+          "withinMandate": true,
+          "decision": "MAINTAIN ARRANGEMENTS",
+          "effects": {
+            "equityDepth": 0,
+            "usdDemand": 0,
+            "dealerCapacity": 0,
+            "fundingSpread": 0,
+            "collateralPressure": 0,
+            "settlementPressure": 0
+          },
+          "externalFundingUnits": 0,
+          "reservedExistingCashUnits": 0,
+          "coordination": false,
+          "objectiveChanged": false
+        },
+        {
+          "id": "W2-B",
+          "agentId": "B",
+          "identity": "AGT-FX-B",
+          "principal": "Investor B",
+          "wave": 2,
+          "observedStateId": "after-first-wave",
+          "observed": {
+            "id": "after-first-wave",
+            "equityDepth": 86,
+            "usdDemand": 8,
+            "dealerCapacity": 92,
+            "fundingSpread": 13,
+            "collateralPressure": 11,
+            "settlementPressure": 6,
+            "liquidityPressure": 10,
+            "condition": "CONTAINED"
+          },
+          "units": 0,
+          "totalUnits": 2,
+          "limit": 6,
+          "withinMandate": true,
+          "decision": "MAINTAIN ARRANGEMENTS",
+          "effects": {
+            "equityDepth": 0,
+            "usdDemand": 0,
+            "dealerCapacity": 0,
+            "fundingSpread": 0,
+            "collateralPressure": 0,
+            "settlementPressure": 0
+          },
+          "externalFundingUnits": 0,
+          "reservedExistingCashUnits": 0,
+          "coordination": false,
+          "objectiveChanged": false
+        },
+        {
+          "id": "W2-C",
+          "agentId": "C",
+          "identity": "AGT-TREASURY-C",
+          "principal": "Bank C treasury",
+          "wave": 2,
+          "observedStateId": "after-first-wave",
+          "observed": {
+            "id": "after-first-wave",
+            "equityDepth": 86,
+            "usdDemand": 8,
+            "dealerCapacity": 92,
+            "fundingSpread": 13,
+            "collateralPressure": 11,
+            "settlementPressure": 6,
+            "liquidityPressure": 10,
+            "condition": "CONTAINED"
+          },
+          "units": 0,
+          "totalUnits": 3,
+          "limit": 6,
+          "withinMandate": true,
+          "decision": "MAINTAIN ARRANGEMENTS",
+          "effects": {
+            "equityDepth": 0,
+            "usdDemand": 0,
+            "dealerCapacity": 0,
+            "fundingSpread": 0,
+            "collateralPressure": 0,
+            "settlementPressure": 0
+          },
+          "externalFundingUnits": 0,
+          "reservedExistingCashUnits": 0,
+          "coordination": false,
+          "objectiveChanged": false
+        },
+        {
+          "id": "W2-D",
+          "agentId": "D",
+          "identity": "AGT-COLLATERAL-D",
+          "principal": "Derivatives participant D",
+          "wave": 2,
+          "observedStateId": "after-first-wave",
+          "observed": {
+            "id": "after-first-wave",
+            "equityDepth": 86,
+            "usdDemand": 8,
+            "dealerCapacity": 92,
+            "fundingSpread": 13,
+            "collateralPressure": 11,
+            "settlementPressure": 6,
+            "liquidityPressure": 10,
+            "condition": "CONTAINED"
+          },
+          "units": 0,
+          "totalUnits": 2,
+          "limit": 6,
+          "withinMandate": true,
+          "decision": "MAINTAIN ARRANGEMENTS",
+          "effects": {
+            "equityDepth": 0,
+            "usdDemand": 0,
+            "dealerCapacity": 0,
+            "fundingSpread": 0,
+            "collateralPressure": 0,
+            "settlementPressure": 0
+          },
+          "externalFundingUnits": 0,
+          "reservedExistingCashUnits": 0,
+          "coordination": false,
+          "objectiveChanged": false
+        },
+        {
+          "id": "W2-E",
+          "agentId": "E",
+          "identity": "AGT-DEALER-E",
+          "principal": "Independent dealer E",
+          "wave": 2,
+          "observedStateId": "after-first-wave",
+          "observed": {
+            "id": "after-first-wave",
+            "equityDepth": 86,
+            "usdDemand": 8,
+            "dealerCapacity": 92,
+            "fundingSpread": 13,
+            "collateralPressure": 11,
+            "settlementPressure": 6,
+            "liquidityPressure": 10,
+            "condition": "CONTAINED"
+          },
+          "units": 0,
+          "totalUnits": 2,
+          "limit": 6,
+          "withinMandate": true,
+          "decision": "MAINTAIN ARRANGEMENTS",
+          "effects": {
+            "equityDepth": 0,
+            "usdDemand": 0,
+            "dealerCapacity": 0,
+            "fundingSpread": 0,
+            "collateralPressure": 0,
+            "settlementPressure": 0
+          },
+          "externalFundingUnits": 0,
+          "reservedExistingCashUnits": 0,
+          "coordination": false,
+          "objectiveChanged": false
+        },
+        {
+          "id": "W2-F",
+          "agentId": "F",
+          "identity": "AGT-SETTLEMENT-F",
+          "principal": "Custodian F",
+          "wave": 2,
+          "observedStateId": "after-first-wave",
+          "observed": {
+            "id": "after-first-wave",
+            "equityDepth": 86,
+            "usdDemand": 8,
+            "dealerCapacity": 92,
+            "fundingSpread": 13,
+            "collateralPressure": 11,
+            "settlementPressure": 6,
+            "liquidityPressure": 10,
+            "condition": "CONTAINED"
+          },
+          "units": 0,
+          "totalUnits": 2,
+          "limit": 6,
+          "withinMandate": true,
+          "decision": "MAINTAIN ARRANGEMENTS",
+          "effects": {
+            "equityDepth": 0,
+            "usdDemand": 0,
+            "dealerCapacity": 0,
+            "fundingSpread": 0,
+            "collateralPressure": 0,
+            "settlementPressure": 0
+          },
+          "externalFundingUnits": 0,
+          "reservedExistingCashUnits": 0,
+          "coordination": false,
+          "objectiveChanged": false
+        }
+      ]
+    },
+    {
+      "id": "S4",
+      "order": 4,
+      "kind": "PARALLEL_TRANSMISSION",
+      "state": {
+        "id": "after-second-wave",
+        "equityDepth": 100,
+        "usdDemand": 0,
+        "dealerCapacity": 100,
+        "fundingSpread": 0,
+        "collateralPressure": 0,
+        "settlementPressure": 0,
+        "liquidityPressure": 0,
+        "condition": "CONTAINED"
+      }
+    }
+  ],
+  "sources": [
+    {
+      "name": "BIS Project Logos",
+      "url": "https://www.bis.org/project/logos",
+      "kind": "Ongoing research",
+      "note": "Simulated LLM portfolio managers; conditions that may amplify or dampen correlated allocation. No claim that BIS demonstrated Ghost’s USD funding, FX or collateral sequence."
+    },
+    {
+      "name": "MAS · Chia Der Jiun · 9 October 2026",
+      "url": "https://www.mas.gov.sg/news/speeches/2026/building-trusted-foundations-for-digital-finance",
+      "kind": "Official speech",
+      "note": "Agent-driven movement of money for smaller incentives; possible liquidity and collateral implications."
+    },
+    {
+      "name": "Governor Waller · 28 September 2026",
+      "url": "https://www.federalreserve.gov/newsevents/speech/waller20260928a.htm",
+      "kind": "Individual official speech",
+      "note": "Agentic payments, cross-border routing, FX, liquidity and controls; views attributed to Governor Waller, not binding Federal Reserve policy."
+    },
+    {
+      "name": "BIS CGFS Papers 71 · 12 March 2026",
+      "url": "https://www.bis.org/publications/cgfs-paper-71-foreign-currency-funding-risk-and-cross-border-liquidity",
+      "kind": "Financial mechanism research",
+      "note": "Foreign-currency funding vulnerabilities, hedging and rollover risk, cross-border liquidity and central-bank facilities; not proof of this synthetic outcome."
+    },
+    {
+      "name": "FSB · 15 October 2026 final sound practices",
+      "url": "https://www.fsb.org/2026/10/sound-practices-for-responsible-adoption-of-artificial-intelligence-ai-final-report/",
+      "kind": "International sound practices",
+      "note": "Governance adaptation, data governance, performance monitoring, human oversight and third-party concentration. No certification or endorsement of Ghost."
+    }
+  ]
+}

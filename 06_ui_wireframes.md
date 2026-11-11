@@ -1,3 +1,11 @@
+# V3 Package 3 — scoped final two beats
+
+Accepted Beats 1–6, stage sizing and the unified presenter bar are retained. Beat 7 reuses the six-node/common-market network identity, staggered decisions, outward feedback and parallel transmission concepts. Sparse role nodes replace the old six portfolio objectives. OPTIMISE → FEEDBACK → TRANSMIT remains visible at the relevant moments. First-wave compliance precedes aggregate market effects; the timing mismatch has its own clear three-column composition.
+
+Beat 8 progressively removes diagrams in favour of typography. Method and permission rows appear separately before a two-row synthesis, never a dense matrix. Confidence conditions accumulate on deliberate clicks. HUMAN / AI / BOTH each gets a separate screen. The exact final question removes stage branding, narrative status, SHOW MORE and diagrams; the accepted control bar remains unobtrusive, with Next disabled.
+
+Actual screenshots are under `artifacts/package3/`. Fullscreen uses a native 1920×1080 headless Chrome window plus document fullscreen, with viewport emulation disabled. Normal window content is 1440×1000; the 1440×810 stage is centred with equal 95px dark letterboxes. These are real HTML browser captures, not mockups or a physical conference-projector acceptance test.
+
 # V3 Package 2 — isolated NAV stage
 
 The accepted Package 1 stylesheet remains an unchanged prefix. All new stage styling is scoped to NAV classes and the `is-nav` shell state. The existing 16:9 fitting, dark letterboxing and Back / Pause / Play / Replay / Beat Counter / Next bar are preserved.

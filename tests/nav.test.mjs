@@ -140,7 +140,7 @@ test('three controls are separately revealed and jurisdictional limits are expli
   assert.match(evidence, /OWASP is neither an accounting standard nor a financial regulator/);
 });
 
-test('Beat 6 holds its final question and legacy Beats 7 and 8 remain reachable explicitly', () => {
+test('Beat 6 question holds until ordinary Next enters Beat 7', () => {
   assert.equal(CUES.length, 8);
   assert.equal(CUES[5].id, 'nav');
   assert.deepEqual(CUES[5].steps, NAV_REVEALS);
@@ -150,12 +150,12 @@ test('Beat 6 holds its final question and legacy Beats 7 and 8 remain reachable 
     assert.equal(state.cueIndex,5);
     assert.equal(currentReveal(state),NAV_REVEALS[i]);
   }
-  assert.equal(transition(state,'next'),state);
+  assert.equal(currentReveal(state),'nav-override');
   assert.match(renderNav(state.step), /IF THE HUMAN CAN BE WRONG/);
   assert.match(renderNav(state.step), /WHO SHOULD HAVE THE FINAL POWER/);
   assert.doesNotMatch(renderNav(state.step), /USD|LIQUIDITY|WHERE DOES INTELLIGENCE END/);
-  state=transition(state,'continue-legacy');
-  assert.equal(currentReveal(state),'optimise-base');
+  state=transition(state,'next');
+  assert.equal(currentReveal(state),'independent-agents');
   for(const _ of CUES[6].steps) state=transition(state,'next');
-  assert.equal(currentReveal(state),'who-supervises');
+  assert.equal(currentReveal(state),'supervision-informs');
 });
