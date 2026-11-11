@@ -1,0 +1,2054 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#080f1c">
+    <link rel="icon" href="data:,">
+    <title>GHOST v2 — Expertise, Judgment & Future Supervisors</title>
+    <style>:root {
+  color-scheme: dark;
+  --field: #081321;
+  --field-deep: #050d18;
+  --field-raised: #102034;
+  --text: #f4f7fc;
+  --secondary: #c0cede;
+  --quiet: #8fa4ba;
+  --line: #3c526b;
+  --cyan: #82d8ed;
+  --amber: #f3bb70;
+  --red: #f4837c;
+  font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue", Arial, sans-serif;
+}
+
+* { box-sizing: border-box; }
+html, body { width: 100%; height: 100%; margin: 0; }
+body { background: var(--field); color: var(--text); overflow: hidden; }
+button { font: inherit; cursor: pointer; }
+button:focus-visible { outline: 3px solid var(--cyan); outline-offset: 5px; }
+button:disabled { cursor: default; opacity: .35; }
+[hidden] { display: none !important; }
+.sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0; }
+
+.app-shell { position: relative; width: 100%; height: 100svh; background: var(--field); overflow: hidden; }
+.stage { position: absolute; inset: 0; overflow: hidden; }
+.stage-identity, .narrative-indicator { position: absolute; z-index: 5; top: 34px; white-space: nowrap; }
+.stage-identity { left: 5.2vw; color: var(--secondary); font-size: clamp(17px, 1.15vw, 21px); font-weight: 690; letter-spacing: .07em; }
+.stage-identity span { color: var(--cyan); padding: 0 .1em; }
+.narrative-indicator { right: 5.2vw; display: grid; gap: 6px; color: var(--quiet); font-size: clamp(15px, 1vw, 19px); font-weight: 650; letter-spacing: .045em; text-align: right; }
+.narrative-indicator strong { color: var(--cyan); font-weight: 810; }
+.narrative-indicator.is-question { font-weight: 710; }
+.narrative-indicator.is-question strong { color: var(--amber); }
+
+.cue { position: absolute; inset: 0; display: flex; justify-content: center; align-items: center; padding: 110px 6vw 116px; overflow: hidden; }
+.stage[data-reveal="no-breach"] .cue, .stage[data-reveal="naive-basis"] .cue, .cue--ghost { background: var(--field-deep); }
+.stage[data-reveal="escalate"] .cue { background: #040a12; }
+.cue-content { width: min(100%, 1640px); max-height: 100%; display: flex; flex-direction: column; justify-content: center; align-items: flex-start; gap: clamp(30px, 4vh, 56px); animation: enter .45s ease-out both; }
+.cue.centered .cue-content { align-items: center; text-align: center; }
+.cue.flood .cue-content { width: min(100%, 1710px); }
+.is-paused *, .is-paused *::before, .is-paused *::after { animation-play-state: paused !important; }
+
+.hero-verdict { max-width: 22ch; margin: 0; color: var(--text); font-size: clamp(64px, 5.1vw, 90px); line-height: 1.15; font-weight: 840; letter-spacing: -.052em; text-wrap: balance; }
+.hero-verdict.wide { max-width: 24ch; }
+.hero-verdict.impact { max-width: 24ch; font-size: clamp(70px, 5.5vw, 96px); }
+.hero-verdict.mega { font-size: clamp(116px, 10vw, 170px); letter-spacing: -.07em; }
+.hero-verdict.amber { color: var(--amber); }
+.cyan { color: var(--cyan); }
+.hero-number { display: inline-block; color: var(--text); font-size: clamp(110px, 10.3vw, 170px); line-height: .9; font-weight: 840; letter-spacing: -.075em; font-variant-numeric: tabular-nums; white-space: nowrap; }
+.hero-number.cyan { color: var(--cyan); }
+.hero-number.amber { color: var(--amber); }
+.hero-unit { display: block; margin: 0; color: var(--text); font-size: clamp(58px, 5.4vw, 80px); line-height: 1; font-weight: 820; letter-spacing: -.045em; }
+.primary-line { max-width: 38ch; margin: 0; color: var(--text); font-size: clamp(34px, 3vw, 48px); line-height: 1.38; font-weight: 690; text-wrap: balance; }
+.support-line { max-width: 64ch; margin: 0; color: var(--secondary); font-size: clamp(27px, 2.05vw, 34px); line-height: 1.4; font-weight: 500; text-wrap: balance; }
+.closing-line { max-width: 44ch; margin: 0; color: var(--secondary); font-size: clamp(27px, 2.1vw, 34px); line-height: 1.22; }
+.stage-heading { margin: 0; color: var(--text); font-size: clamp(54px, 4vw, 76px); line-height: 1.03; font-weight: 820; letter-spacing: -.045em; }
+
+.opening-signposts { width: min(100%, 1390px); display: flex; align-items: center; justify-content: space-between; gap: 36px; color: var(--secondary); font-size: clamp(30px, 2.7vw, 44px); font-weight: 780; letter-spacing: .055em; }
+.opening-ladder { display: flex; flex-direction: column; align-items: center; gap: 1px; font-size: clamp(47px, 3.8vw, 64px); font-weight: 830; line-height: 1.01; letter-spacing: -.045em; }
+.opening-ladder i { color: var(--cyan); font-size: .43em; line-height: .75; font-style: normal; font-weight: 500; }
+.opening-question { margin: 0; font-size: clamp(54px, 4.5vw, 76px); line-height: 1.08; letter-spacing: -.05em; }
+.opening-answer { margin: 0; color: var(--secondary); font-size: clamp(28px, 2.4vw, 38px); line-height: 1.4; font-weight: 730; }
+.stage[data-reveal="failed-trade"] .cue-content { gap: 0; }
+.ops-case { width: 100%; display: flex; flex-direction: column; align-items: center; gap: clamp(12px, 1.7vh, 20px); }
+.ops-case .exception-tree { gap: 4px; }
+.ops-case .tree-origin { color: var(--cyan); }
+.ops-case .tree-stem { font-size: 38px; }
+.ops-case .tree-orchestrator { padding: 4px 20px; font-size: clamp(34px, 2.8vw, 48px); }
+.ops-case .workstreams { margin-top: 12px; }
+.ops-case .workstreams span { min-height: 70px; }
+.ops-scale { display: flex; justify-content: center; gap: clamp(50px, 7vw, 130px); color: var(--cyan); font-size: clamp(45px, 4vw, 68px); line-height: 1; letter-spacing: -.045em; }
+.ops-scale { animation: case-rise .6s 1.35s both; }
+.ops-help { margin: 0; font-size: clamp(32px, 2.7vw, 44px); font-weight: 780; animation: case-fade .55s 1.85s both; }
+.exception-tree { width: min(100%, 1470px); display: flex; flex-direction: column; align-items: center; gap: 12px; }
+.tree-origin { margin: 0; font-size: clamp(52px, 4.7vw, 76px); font-weight: 820; }
+.tree-stem { color: var(--cyan); font-size: 45px; line-height: 1; }
+.tree-orchestrator { margin: 0; padding: 12px 30px; color: var(--cyan); font-size: clamp(39px, 3.2vw, 54px); font-weight: 780; }
+.workstreams { width: 100%; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 16px; margin-top: 24px; }
+.workstreams span { min-height: 100px; display: flex; align-items: center; justify-content: center; padding: 14px; border-top: 3px solid var(--line); color: var(--text); font-size: clamp(27px, 2vw, 34px); font-weight: 740; opacity: 0; animation: reveal-node .55s ease-out forwards; animation-delay: var(--delay); }
+.cue--systemic .cue-content { width: min(100%, 1680px); height: 100%; max-height: 800px; display: block; animation: none; }
+.systemic-stage { width: 100%; height: 100%; display: flex; flex-direction: column; gap: 16px; }
+.systemic-head { flex: none; display: flex; align-items: center; justify-content: center; min-height: 70px; }
+.systemic-head h1 { margin: 0; font-size: clamp(40px, 3.05vw, 58px); line-height: 1.08; letter-spacing: -.045em; text-align: center; }
+.systemic-network { position: relative; flex: 1; min-height: 0; display: grid; grid-template-columns: minmax(0, 1fr) minmax(340px, 420px) minmax(0, 1fr); gap: clamp(45px, 4.5vw, 86px); }
+.systemic-agents { min-width: 0; display: grid; grid-template-rows: repeat(3, minmax(0, 1fr)); gap: 12px; }
+.systemic-agents--left { grid-column: 1; }
+.systemic-agents--right { grid-column: 3; }
+.systemic-agent { position: relative; min-width: 0; padding: 17px 22px 13px; border-top: 2px solid var(--line); background: rgba(16, 32, 52, .43); text-align: left; transition: background .45s ease, border-color .45s ease, opacity .45s ease; }
+.agent-name { display: block; color: var(--text); font-size: clamp(23px, 1.55vw, 29px); line-height: 1.05; letter-spacing: .015em; }
+.agent-intent, .agent-response, .agent-reoptimise { position: absolute; inset: 43px 18px 36px; display: flex; flex-direction: column; justify-content: center; align-items: flex-start; gap: 6px; }
+.agent-intent span { font-size: clamp(22px, 1.35vw, 26px); line-height: 1.13; font-weight: 700; }
+.agent-intent small, .agent-reoptimise small { color: var(--quiet); font-size: clamp(18px, 1.15vw, 22px); line-height: 1.1; }
+.agent-mandate { position: absolute; bottom: 12px; left: 22px; color: var(--cyan); font-size: 18px; font-weight: 760; opacity: .3; }
+.systemic-agents--right .agent-mandate { right: 22px; left: auto; }
+.agent-response, .agent-reoptimise { visibility: hidden; opacity: 0; color: var(--cyan); font-size: clamp(25px, 1.75vw, 32px); line-height: 1.07; }
+.agent-reoptimise { background: var(--field-raised); }
+.agent-reoptimise strong { color: var(--cyan); font-size: clamp(24px, 1.65vw, 30px); line-height: 1.05; }
+.agent-flow { position: absolute; top: 50%; width: clamp(45px, 4.5vw, 86px); height: 44px; margin-top: -22px; color: var(--cyan); font-size: 42px; line-height: 1; text-align: center; visibility: hidden; opacity: 0; pointer-events: none; }
+.systemic-agents--left .agent-flow { right: calc(-1 * clamp(45px, 4.5vw, 86px)); }
+.systemic-agents--right .agent-flow { left: calc(-1 * clamp(45px, 4.5vw, 86px)); }
+.systemic-market { position: relative; grid-column: 2; min-width: 0; display: flex; align-items: center; justify-content: center; border-top: 2px solid var(--line); border-bottom: 2px solid var(--line); background: rgba(16, 32, 52, .42); transition: background .5s ease, border-color .5s ease, opacity .5s ease; }
+.systemic-market > div { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 17px; visibility: hidden; opacity: 0; text-align: center; }
+.market-common strong { color: var(--text); font-size: clamp(43px, 3.05vw, 57px); line-height: 1; }
+.market-common span { color: var(--secondary); font-size: clamp(25px, 1.8vw, 32px); font-weight: 710; }
+.market-signal strong { color: var(--cyan); font-size: clamp(28px, 1.75vw, 34px); letter-spacing: .07em; }
+.market-change-lead { color: var(--text); font-size: clamp(40px, 2.55vw, 50px); line-height: 1.05; font-weight: 820; letter-spacing: -.045em; }
+.market-effects strong { color: var(--cyan); font-size: clamp(23px, 1.45vw, 29px); letter-spacing: .05em; }
+.market-signal span, .market-effects span { color: var(--text); font-size: clamp(28px, 2.05vw, 39px); line-height: 1.05; font-weight: 770; }
+.market-direction { z-index: 2; gap: 0 !important; color: var(--cyan); line-height: .95; font-weight: 850; letter-spacing: -.06em; background: radial-gradient(ellipse 60% 36% at center, rgba(4, 13, 24, .96), rgba(4, 13, 24, .72) 62%, transparent 100%); }
+.market-direction span { font-size: clamp(65px, 4.1vw, 78px); }
+.market-direction strong { font-size: clamp(75px, 4.7vw, 90px); }
+.market-feedback { top: auto !important; bottom: 14px; height: 80px; gap: 3px !important; color: var(--cyan); font-size: clamp(22px, 1.4vw, 27px); line-height: 1.1; font-weight: 790; }
+.market-feedback strong { color: var(--cyan); font-size: 1.05em; }
+.systemic-footer { position: relative; flex: none; height: 150px; display: flex; flex-direction: column; align-items: center; justify-content: flex-end; }
+.systemic-primary { min-height: 66px; min-width: 290px; padding: 11px 28px; border: 2px solid var(--cyan); color: var(--field); background: var(--cyan); font-size: clamp(23px, 1.55vw, 29px); font-weight: 820; }
+.systemic-primary:hover { background: #a6e7f4; }
+.systemic-inference, .systemic-cycle, .systemic-feedback-punch { position: absolute; top: 0; left: 0; width: 100%; visibility: hidden; opacity: 0; }
+.systemic-inference p, .systemic-inference strong { display: block; margin: 0; line-height: 1.1; }
+.systemic-inference p { color: var(--text); font-size: clamp(30px, 2vw, 38px); font-weight: 800; }
+.systemic-inference p span { color: var(--cyan); }
+.systemic-inference strong { color: var(--secondary); font-size: clamp(27px, 1.7vw, 32px); }
+.systemic-cycle { color: var(--secondary); font-size: clamp(22px, 1.5vw, 28px); font-weight: 760; }
+.systemic-feedback-punch { color: var(--text); font-size: clamp(46px, 3.4vw, 66px); line-height: 1; font-weight: 830; letter-spacing: -.045em; }
+.systemic-transmission, .systemic-punch, .systemic-bridge { position: absolute; inset: 0; visibility: hidden; opacity: 0; pointer-events: none; }
+.systemic-transmission { display: flex; flex-direction: column; align-items: center; width: 100%; text-align: center; }
+.transmission-origin { margin: 0; color: var(--secondary); font-size: clamp(21px, 1.35vw, 26px); font-weight: 750; letter-spacing: .06em; }
+.transmission-origin span { color: var(--cyan); margin: 0 .4em; }
+.systemic-transmission h2 { margin: 9px 0 15px; color: var(--text); font-size: clamp(37px, 2.55vw, 49px); line-height: 1.08; letter-spacing: -.045em; }
+.transmission-market { display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 113px; width: min(100%, 700px); border-top: 2px solid var(--line); border-bottom: 2px solid var(--line); }
+.transmission-market strong { color: var(--text); font-size: clamp(34px, 2.5vw, 48px); line-height: 1.1; }
+.transmission-market p { margin: 11px 0 0; color: var(--secondary); font-size: clamp(27px, 1.8vw, 35px); font-weight: 730; }
+.transmission-market p span { color: var(--cyan); padding: 0 .3em; }
+.transmission-split, .transmission-join { position: relative; flex: none; width: min(100%, 1380px); height: 61px; color: var(--cyan); }
+.transmission-split::before, .transmission-join::after { content: ''; position: absolute; left: 50%; height: 25px; border-left: 3px solid currentColor; }
+.transmission-split::before { top: 0; }
+.transmission-split::after, .transmission-join::before { content: ''; position: absolute; left: 16.666%; width: 66.668%; border-top: 3px solid currentColor; }
+.transmission-split::after { top: 25px; }
+.transmission-split span, .transmission-join span { position: absolute; width: 0; border-left: 3px solid currentColor; }
+.transmission-split span { top: 25px; height: 36px; }
+.transmission-split span:nth-child(1), .transmission-join span:nth-child(1) { left: 16.666%; }
+.transmission-split span:nth-child(2), .transmission-join span:nth-child(2) { left: 50%; }
+.transmission-split span:nth-child(3), .transmission-join span:nth-child(3) { left: 83.334%; }
+.transmission-channels { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); width: min(100%, 1380px); }
+.transmission-channel { display: flex; flex-direction: column; align-items: center; min-width: 0; margin: 0 12px; padding: 12px 10px 0; }
+.transmission-channel h3 { margin: 0 0 10px; color: var(--text); font-size: clamp(27px, 1.75vw, 34px); line-height: 1.08; }
+.transmission-channel strong { color: var(--text); font-size: clamp(23px, 1.5vw, 29px); line-height: 1.1; }
+.transmission-channel p { margin: 15px 0 0; color: var(--secondary); font-size: clamp(24px, 1.55vw, 30px); line-height: 1.12; font-weight: 700; }
+.transmission-channel > span { color: var(--cyan); font-size: 27px; line-height: 1; }
+.transmission-channel .transmission-consequence { margin: 0; color: var(--amber); font-size: clamp(25px, 1.65vw, 32px); font-weight: 790; }
+.transmission-join { height: 58px; margin-top: auto; visibility: hidden; opacity: 0; }
+.transmission-join span { top: 0; height: 27px; }
+.transmission-join::before { top: 27px; }
+.transmission-join::after { top: 27px; height: 31px; }
+.transmission-outcome { color: var(--amber); font-size: clamp(45px, 3.3vw, 64px); line-height: 1.01; font-weight: 840; letter-spacing: -.045em; visibility: hidden; opacity: 0; }
+.systemic-punch, .systemic-bridge { display: flex; flex-direction: column; align-items: center; justify-content: center; }
+.systemic-punch { gap: 25px; }
+.systemic-punch strong { display: block; font-size: clamp(68px, 5.35vw, 103px); line-height: 1.05; letter-spacing: -.055em; }
+.systemic-punch strong:last-child { color: var(--amber); }
+.systemic-bridge { gap: 30px; }
+.systemic-bridge p, .systemic-bridge h2 { margin: 0; max-width: 33ch; font-size: clamp(33px, 2.4vw, 46px); line-height: 1.16; letter-spacing: -.025em; }
+.systemic-bridge p:first-child { color: var(--secondary); }
+.systemic-bridge h2 { color: var(--text); font-size: clamp(59px, 4.2vw, 80px); letter-spacing: -.05em; }
+.systemic-stage[data-phase="0"] .market-common { visibility: visible; opacity: 1; }
+.systemic-stage[data-phase="0"] .systemic-agent { opacity: .72; }
+.systemic-stage[data-phase="1"] .systemic-head, .systemic-stage[data-phase="2"] .systemic-head { opacity: .22; }
+.systemic-stage[data-phase="3"] .systemic-head, .systemic-stage[data-phase="4"] .systemic-head, .systemic-stage[data-phase="5"] .systemic-head, .systemic-stage[data-phase="6"] .systemic-head { display: none; }
+.systemic-stage[data-phase="1"] .systemic-agent { opacity: .32; animation: agent-spotlight .9s var(--first-delay) both; }
+.systemic-stage[data-phase="1"] .agent-mandate { animation: mandate-recede .35s 2.25s both; }
+.systemic-stage[data-phase="1"] .agent-intent span, .systemic-stage[data-phase="2"] .agent-intent { opacity: 0; }
+.systemic-stage[data-phase="1"] .agent-intent small { position: absolute; top: 8px; color: var(--quiet); }
+.systemic-stage[data-phase="1"] .agent-response { inset: 75px 18px 25px; visibility: visible; animation: case-rise .45s var(--first-delay) both; }
+.systemic-stage[data-phase="1"] .agent-flow--first { visibility: visible; animation: decision-link .8s var(--first-delay) both; }
+.systemic-stage[data-phase="1"] .systemic-agents--right .agent-flow--first { animation-name: decision-link-reverse; }
+.systemic-stage[data-phase="1"] .market-direction { visibility: visible; animation: case-rise .55s 2.3s both; }
+.systemic-stage[data-phase="1"] .market-signal { visibility: visible; animation: signal-recede 2.25s both; }
+.systemic-stage[data-phase="1"] .systemic-inference { visibility: visible; animation: case-rise .5s 2.7s both; }
+.systemic-stage[data-phase="1"] .systemic-inference strong { animation: case-fade .45s 3.1s both; }
+.systemic-stage[data-phase="2"] .systemic-agent { opacity: .38; animation: agent-spotlight .9s var(--second-delay) both; }
+.systemic-stage[data-phase="2"] .agent-mandate { visibility: hidden; }
+.systemic-stage[data-phase="2"] .agent-response { visibility: visible; opacity: 1; }
+.systemic-stage[data-phase="2"] .agent-flow--first { visibility: visible; animation: flow-wave .8s var(--first-delay) both; }
+.systemic-stage[data-phase="2"] .systemic-agents--right .agent-flow--first { animation-name: flow-wave-reverse; }
+.systemic-stage[data-phase="2"] .market-change-lead { visibility: visible; animation: market-lead 1.9s both; }
+.systemic-stage[data-phase="2"] .market-effects { visibility: visible; animation: case-rise .65s 1.85s both; }
+.systemic-stage[data-phase="2"] .market-feedback { visibility: visible; animation: case-fade .5s 2.55s both; }
+.systemic-stage[data-phase="2"] .agent-flow--feedback { visibility: visible; animation: feedback-wave .75s var(--feedback-delay) both; }
+.systemic-stage[data-phase="2"] .systemic-agents--right .agent-flow--feedback { animation-name: feedback-wave-reverse; }
+.systemic-stage[data-phase="2"] .agent-reoptimise { visibility: visible; animation: case-rise .45s var(--second-delay) both; }
+.systemic-stage[data-phase="2"] .agent-flow--second { visibility: visible; color: var(--cyan); font-size: 54px; font-weight: 820; animation: flow-wave .9s var(--second-flow-delay) both; }
+.systemic-stage[data-phase="2"] .systemic-agents--right .agent-flow--second { animation-name: flow-wave-reverse; }
+.systemic-stage[data-phase="2"] .systemic-cycle { visibility: visible; animation: cycle-brief 1.3s 5.6s both; }
+.systemic-stage[data-phase="2"] .systemic-feedback-punch { visibility: visible; animation: case-rise .6s 6.75s both; }
+.systemic-stage[data-phase="2"] .systemic-agents, .systemic-stage[data-phase="2"] .systemic-market { animation: state-recede .55s 6.75s both; }
+.systemic-stage[data-phase="3"] .systemic-network, .systemic-stage[data-phase="4"] .systemic-network { display: block; }
+.systemic-stage[data-phase="3"] .systemic-agents, .systemic-stage[data-phase="4"] .systemic-agents,
+.systemic-stage[data-phase="3"] .systemic-market, .systemic-stage[data-phase="4"] .systemic-market { display: none; }
+.systemic-stage[data-phase="3"] .systemic-footer, .systemic-stage[data-phase="4"] .systemic-footer { height: 60px; align-items: flex-end; }
+.systemic-stage[data-phase="3"] .systemic-primary, .systemic-stage[data-phase="4"] .systemic-primary { min-width: 0; min-height: 48px; padding: 8px 19px; border-width: 1px; color: var(--cyan); background: transparent; font-size: 20px; }
+.systemic-stage[data-phase="3"] .systemic-transmission, .systemic-stage[data-phase="4"] .systemic-transmission { visibility: visible; opacity: 1; }
+.systemic-stage[data-phase="3"] .transmission-market { animation: case-rise .5s both; }
+.systemic-stage[data-phase="3"] .transmission-market p { animation: case-fade .4s .4s both; }
+.systemic-stage[data-phase="3"] .transmission-split { animation: case-fade .45s .85s both; }
+.systemic-stage[data-phase="3"] .transmission-channel { opacity: 0; animation: case-rise .5s both; }
+.systemic-stage[data-phase="3"] .transmission-channel:nth-child(1) { animation-delay: 1.1s; }
+.systemic-stage[data-phase="3"] .transmission-channel:nth-child(2) { animation-delay: 1.8s; }
+.systemic-stage[data-phase="3"] .transmission-channel:nth-child(3) { animation-delay: 2.5s; }
+.systemic-stage[data-phase="3"] .transmission-consequence { opacity: 0; animation: case-fade .4s both; }
+.systemic-stage[data-phase="3"] .transmission-channel:nth-child(1) .transmission-consequence { animation-delay: 1.5s; }
+.systemic-stage[data-phase="3"] .transmission-channel:nth-child(2) .transmission-consequence { animation-delay: 2.2s; }
+.systemic-stage[data-phase="3"] .transmission-channel:nth-child(3) .transmission-consequence { animation-delay: 2.9s; }
+.systemic-stage[data-phase="4"] .transmission-join { visibility: visible; animation: case-fade .55s .1s both; }
+.systemic-stage[data-phase="4"] .transmission-outcome { visibility: visible; animation: case-rise .7s .65s both; }
+.systemic-stage[data-phase="5"] .systemic-agents, .systemic-stage[data-phase="6"] .systemic-agents,
+.systemic-stage[data-phase="5"] .systemic-market, .systemic-stage[data-phase="6"] .systemic-market { visibility: hidden; }
+.systemic-stage[data-phase="5"] .systemic-punch { visibility: visible; opacity: 1; }
+.systemic-stage[data-phase="5"] .systemic-punch strong:first-child { animation: case-rise .55s .3s both; }
+.systemic-stage[data-phase="5"] .systemic-punch strong:last-child { animation: case-rise .7s 1.55s both; }
+.systemic-stage[data-phase="6"] .systemic-bridge { visibility: visible; opacity: 1; }
+.systemic-stage[data-phase="6"] .systemic-bridge p:first-child { animation: case-rise .55s .25s both; }
+.systemic-stage[data-phase="6"] .systemic-bridge p:nth-child(2) { animation: case-rise .55s 1.05s both; }
+.systemic-stage[data-phase="6"] .systemic-bridge h2 { animation: case-rise .7s 1.85s both; }
+
+.assurance-lines { display: grid; gap: 24px; }
+.assurance-lines p { margin: 0; color: var(--text); font-size: clamp(42px, 3.6vw, 60px); line-height: 1.05; font-weight: 780; letter-spacing: -.025em; }
+.assurance-lines span { color: var(--cyan); margin-right: 22px; }
+
+.stage-button { min-height: 86px; min-width: 260px; padding: 16px 32px; border: 2px solid var(--secondary); border-radius: 2px; color: var(--text); background: transparent; font-size: clamp(26px, 2.2vw, 34px); font-weight: 800; letter-spacing: .025em; }
+.stage-button:hover { border-color: var(--cyan); color: var(--cyan); }
+.stage-button-primary { padding: 26px 48px; min-height: 112px; border-color: var(--cyan); color: var(--field); background: var(--cyan); font-size: clamp(36px, 3.4vw, 52px); }
+.stage-button-primary:hover { color: var(--field); background: #a6e7f4; }
+.quiet-button { min-height: 52px; padding: 10px 20px; border: 1px solid var(--line); color: var(--secondary); background: transparent; font-size: 23px; font-weight: 680; }
+.quiet-button:hover { border-color: var(--cyan); color: var(--text); }
+
+.flood-layout { width: 100%; display: grid; grid-template-columns: minmax(0, .9fr) minmax(0, 1.1fr); align-items: center; gap: 48px; }
+.flood-metric { display: flex; flex-direction: column; justify-content: center; align-items: flex-start; gap: 18px; min-width: 0; padding-left: clamp(40px, 5vw, 90px); }
+.flood-log { height: min(55vh, 590px); border-top: 2px solid var(--line); border-bottom: 2px solid var(--line); background: #0d1b2c; overflow: hidden; }
+.flood-log-head { display: flex; justify-content: space-between; gap: 16px; padding: 16px 18px; border-bottom: 1px solid var(--line); color: var(--quiet); font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 15px; font-weight: 700; letter-spacing: .08em; white-space: nowrap; }
+.flood-log-lines { height: calc(100% - 51px); overflow: hidden; padding: 10px 16px; color: #8fa0b3; font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 13px; line-height: 1.28; }
+.log-line { white-space: nowrap; }
+.stage-actions { display: flex; gap: 14px; margin-top: 48px; }
+.naive-count { display: flex; align-items: baseline; gap: 28px; }
+.naive-count span:last-child { color: var(--secondary); font-size: clamp(48px, 4.2vw, 68px); font-weight: 760; }
+.naive-actions { display: flex; gap: 20px; }
+.naive-actions .stage-button { min-width: 310px; }
+.stage[data-reveal="naive-basis"] .hero-verdict { color: var(--text); }
+.cue--supervision .cue-content { gap: clamp(36px, 5vh, 62px); }
+.supervision-question { max-width: 21ch; margin: 0; font-size: clamp(58px, 5vw, 82px); line-height: 1.12; letter-spacing: -.05em; animation: case-rise .65s 1s both; }
+.supervision-trust { margin: 0; color: var(--secondary); font-size: clamp(25px, 2vw, 32px); font-weight: 720; letter-spacing: .04em; animation: case-fade .5s 1.55s both; }
+.supervision-trust span { padding: 0 .6em; color: var(--quiet); }
+.prediction-context { margin: 0; color: var(--secondary); font-size: clamp(28px, 2.1vw, 35px); font-weight: 760; letter-spacing: .055em; }
+.prediction-metrics { width: min(100%, 1300px); display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 80px; }
+.prediction-metrics > div { display: flex; flex-direction: column; align-items: center; gap: 20px; }
+.prediction-metrics strong { color: var(--cyan); font-size: clamp(120px, 10vw, 170px); line-height: .9; letter-spacing: -.07em; }
+.prediction-metrics span { color: var(--secondary); font-size: clamp(27px, 2.2vw, 36px); font-weight: 750; }
+.prediction-metrics > div:first-child { animation: case-rise .55s .1s both; }
+.prediction-metrics > div:last-child { animation: case-rise .55s .55s both; }
+.prediction-recommendation { display: grid; justify-items: center; gap: 14px; max-width: min(100%, 1400px); animation: case-rise .55s 1.15s both; }
+.prediction-recommendation span { color: var(--secondary); font-size: clamp(29px, 2.2vw, 38px); font-weight: 780; letter-spacing: .07em; }
+.prediction-recommendation strong { color: var(--text); font-size: clamp(44px, 4vw, 68px); line-height: 1.17; font-weight: 810; letter-spacing: -.035em; text-decoration: underline; text-decoration-color: var(--cyan); text-decoration-thickness: .055em; text-underline-offset: .17em; }
+.cue--material-case .cue-content { width: min(100%, 1600px); height: 100%; max-height: 760px; display: block; animation: none; }
+.case-stage { width: 100%; height: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: clamp(24px, 4vh, 48px); }
+.case-visual { width: 100%; min-height: 0; flex: 1; display: flex; align-items: center; justify-content: center; text-align: center; }
+.case-visual > div { width: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center; }
+.case-kicker { margin: 0; color: var(--cyan); font-size: clamp(27px, 2.2vw, 36px); line-height: 1.3; font-weight: 780; letter-spacing: .095em; }
+.case-controls { display: flex; align-items: center; justify-content: center; gap: 18px; flex: none; }
+.case-primary { min-height: 74px; min-width: 340px; padding: 14px 26px; border: 2px solid var(--cyan); color: var(--field); background: var(--cyan); font-size: clamp(24px, 1.8vw, 30px); font-weight: 820; letter-spacing: .025em; }
+.case-primary:hover { background: #a6e7f4; }
+.case-secondary { min-height: 70px; padding: 13px 20px; border: 1px solid var(--line); color: var(--secondary); background: transparent; font-size: clamp(21px, 1.5vw, 25px); font-weight: 720; }
+.case-secondary:hover { border-color: var(--cyan); color: var(--text); }
+.case-compression { gap: clamp(12px, 2vh, 24px); }
+.case-compression div { display: flex; align-items: baseline; justify-content: center; gap: 28px; }
+.case-compression strong { font-size: clamp(120px, 10vw, 170px); line-height: .86; letter-spacing: -.08em; font-variant-numeric: tabular-nums; }
+.case-compression span { font-size: clamp(48px, 4.4vw, 74px); line-height: 1; font-weight: 810; letter-spacing: -.045em; }
+.case-compression i { color: var(--cyan); font-size: clamp(55px, 4.8vw, 78px); line-height: .7; font-style: normal; }
+.case-compression-result { color: var(--cyan); animation: case-land .8s .2s cubic-bezier(.16, 1, .3, 1) both; }
+.case-causal { gap: clamp(16px, 2.4vh, 26px); }
+.case-causal h1 { margin: 0; font-size: clamp(66px, 5.5vw, 96px); line-height: 1; letter-spacing: -.06em; }
+.case-causal-classification { animation: case-rise .55s .25s both; }
+.case-causal-classification > span { color: var(--secondary); font-size: clamp(23px, 1.7vw, 29px); font-weight: 760; letter-spacing: .08em; }
+.case-causal-classification p { display: flex; align-items: center; justify-content: center; gap: 24px; margin: 12px 0 0; font-size: clamp(34px, 3.2vw, 53px); line-height: 1.1; font-weight: 760; }
+.case-causal-classification i { color: var(--cyan); font-size: .9em; font-style: normal; }
+.case-causal-classification strong { color: var(--cyan); }
+.case-causal-score { color: var(--cyan); font-size: clamp(104px, 8.7vw, 154px); line-height: .86; font-weight: 840; letter-spacing: -.08em; font-variant-numeric: tabular-nums; animation: case-score-after .75s .8s both; }
+.case-causal-score span { color: var(--secondary); font-size: .55em; font-weight: 400; }
+.case-causal-proposal { margin: 0; font-size: clamp(32px, 2.9vw, 46px); line-height: 1.12; font-weight: 790; animation: case-rise .6s 1.45s both; }
+.case-source { gap: clamp(12px, 2.2vh, 23px); }
+.case-source > div { display: grid; gap: 7px; }
+.case-source .case-kicker { color: var(--secondary); font-size: clamp(23px, 1.7vw, 29px); font-weight: 700; }
+.case-source strong { font-size: clamp(43px, 4vw, 67px); line-height: 1.05; letter-spacing: -.045em; }
+.case-system-fact { animation: case-system-arrive .55s both; }
+.case-system-fact strong { color: var(--cyan); }
+.case-source-record { animation: case-source-arrive .75s .45s both; }
+.case-source-record strong { color: var(--text); }
+.case-institution { margin-top: 4px; animation: case-fade .45s 1.1s both; }
+.case-institution strong { color: var(--cyan); font-size: clamp(31px, 2.4vw, 41px); line-height: 1.1; letter-spacing: .015em; }
+.case-institution span { color: var(--secondary); font-size: clamp(25px, 1.8vw, 31px); font-weight: 680; }
+.case-contested { margin: 0; color: var(--text); font-size: clamp(47px, 4.1vw, 70px); font-weight: 830; letter-spacing: -.04em; text-decoration: underline; text-decoration-color: var(--amber); text-decoration-thickness: .05em; text-underline-offset: .14em; animation: case-rise .55s 1.45s both; }
+.case-subtle { margin: 0; color: var(--secondary); font-size: clamp(29px, 2.2vw, 37px); line-height: 1.22; font-weight: 710; animation: case-fade .45s 1.9s both; }
+.case-counterfactual { gap: clamp(12px, 1.7vh, 20px); }
+.cf-facts { display: flex; align-items: baseline; justify-content: center; gap: 30px; font-size: clamp(28px, 2.2vw, 37px); font-weight: 790; }
+.cf-derived { color: var(--quiet); animation: cf-demote .7s both; }
+.cf-source { color: var(--text); animation: case-rise .55s .22s both; }
+.cf-score { display: flex; flex-direction: column; align-items: center; }
+.cf-score strong { font-size: clamp(102px, 8.8vw, 150px); line-height: .73; letter-spacing: -.08em; font-variant-numeric: tabular-nums; }
+.cf-old { color: var(--secondary); animation: case-collapse-old .85s .4s ease-in both; }
+.cf-score > span { color: var(--cyan); font-size: clamp(39px, 3vw, 52px); line-height: .85; }
+.cf-new { color: var(--cyan); animation: case-collapse-new .75s .7s cubic-bezier(.16, 1, .3, 1) both; }
+.cf-recommendation { margin: 0; color: var(--quiet); font-size: clamp(22px, 1.55vw, 27px); animation: cf-retract .6s 1s both; }
+.cf-recommendation span { margin-left: .7em; color: var(--secondary); text-decoration: none; animation: case-fade .4s 1.25s both; }
+.cf-one { margin: 0; font-size: clamp(50px, 4.6vw, 78px); line-height: 1.07; letter-spacing: -.045em; animation: case-rise .6s 1.35s both; }
+.cf-same { display: flex; flex-wrap: wrap; justify-content: center; gap: 12px 34px; max-width: 1400px; margin: 0; color: var(--secondary); font-size: clamp(24px, 1.9vw, 31px); font-weight: 760; }
+.cf-same span { animation: case-fade .4s both; }
+.cf-same span:nth-child(1) { animation-delay: 1.8s; }
+.cf-same span:nth-child(2) { animation-delay: 2.05s; }
+.cf-same span:nth-child(3) { animation-delay: 2.3s; }
+.cf-same span:nth-child(4) { color: var(--text); animation-delay: 2.55s; }
+.judgement-title { max-width: none; }
+.judgement-paths { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: clamp(40px, 5vw, 95px); width: min(100%, 1480px); }
+.judgement-paths p { justify-self: center; max-width: 14ch; margin: 0; padding: 12px 0; border-bottom: 2px solid var(--line); color: var(--text); font-size: clamp(38px, 3vw, 52px); line-height: 1.12; font-weight: 730; text-wrap: balance; }
+.judgement-paths p:first-child { animation: case-rise .55s .35s both; }
+.judgement-paths p:last-child { animation: case-rise .55s .95s both; }
+.judgement-question { margin: 0; color: var(--amber); font-size: clamp(57px, 4.5vw, 82px); line-height: 1.08; font-weight: 830; letter-spacing: -.045em; animation: case-rise .6s 1.55s both; }
+.judgement-principle { max-width: 54ch; margin: 0; color: var(--secondary); font-size: clamp(27px, 2vw, 34px); line-height: 1.25; font-weight: 700; animation: case-fade .5s 2.15s both; }
+.stage[data-reveal="no-breach"] .hero-verdict { max-width: 21ch; }
+
+.authority-facts { display: grid; gap: 12px; color: var(--text); font-size: clamp(28px, 2.15vw, 37px); line-height: 1.2; }
+.authority-facts p { margin: 0; }
+.authority-facts strong { font-weight: 790; }
+.authority-verdict { animation: case-rise .6s .35s both; }
+.authority-restraint { animation: case-fade .5s .85s both; }
+.authority-punch { margin: 0; max-width: 54ch; color: var(--secondary); font-size: clamp(29px, 2.3vw, 39px); line-height: 1.3; font-weight: 710; animation: case-fade .55s 1.35s both; }
+.stage[data-reveal="escalate"] .hero-verdict { color: var(--amber); }
+.cue--ghost .primary-line { max-width: 42ch; }
+.ghost-support { max-width: 34ch; margin: 0; color: var(--secondary); font-size: clamp(32px, 2.7vw, 46px); line-height: 1.23; font-weight: 700; }
+.ghost-propositions { display: grid; gap: clamp(32px, 5vh, 60px); }
+.ghost-propositions p { margin: 0; font-size: clamp(46px, 3.7vw, 70px); line-height: 1.12; font-weight: 790; letter-spacing: -.04em; animation: case-rise .65s both; }
+.ghost-propositions p:nth-child(1) { animation-delay: .2s; }
+.ghost-propositions p:nth-child(2) { animation-delay: 1s; }
+.ghost-propositions p:nth-child(3) { animation-delay: 1.8s; }
+.ghost-final { max-width: 24ch; margin: 0; font-size: clamp(76px, 6.3vw, 120px); line-height: 1.1; letter-spacing: -.055em; }
+
+.presenter-control { position: absolute; z-index: 8; right: 4vw; bottom: 31px; display: flex; align-items: center; gap: 8px; color: var(--secondary); background: rgba(8, 19, 33, .9); border: 1px solid var(--line); }
+.presenter-control button { width: 62px; height: 62px; border: 0; color: var(--text); background: transparent; font-size: 32px; font-weight: 700; }
+.presenter-control button:hover { background: var(--field-raised); }
+.presenter-control span { min-width: 145px; text-align: center; font-size: 22px; font-weight: 760; letter-spacing: .06em; }
+.context-button { position: absolute; z-index: 8; left: 5.2vw; bottom: 37px; min-height: 50px; padding: 10px 18px; border: 1px solid var(--line); color: var(--secondary); background: rgba(8, 19, 33, .9); font-size: 22px; font-weight: 700; }
+.context-button:hover { border-color: var(--cyan); color: var(--text); }
+.app-shell.is-closing .presenter-control { opacity: 0; transition: opacity .2s ease; }
+.app-shell.is-closing .presenter-control:hover, .app-shell.is-closing .presenter-control:focus-within { opacity: 1; }
+
+.drawer-backdrop { position: fixed; inset: 0; z-index: 30; display: flex; justify-content: flex-end; background: rgba(0, 0, 0, .55); }
+.drawer { width: min(820px, 100vw); height: 100%; overflow-y: auto; border-left: 2px solid var(--line); background: #112034; color: var(--text); }
+.drawer-header { position: sticky; top: 0; z-index: 2; display: flex; align-items: center; justify-content: space-between; gap: 20px; padding: 24px 30px; border-bottom: 1px solid var(--line); background: #112034; }
+.drawer-header h2 { margin: 0; font-size: 40px; line-height: 1.07; }
+.drawer-close { width: 60px; height: 60px; border: 1px solid var(--line); color: var(--text); background: transparent; font-size: 42px; line-height: 1; }
+.drawer-body { padding: 26px 30px 56px; }
+.drawer-body p { color: var(--secondary); font-size: 25px; line-height: 1.35; }
+.detail-block { margin: 14px 0; padding: 18px 20px; border-left: 3px solid var(--cyan); background: #182b40; }
+.detail-key { color: var(--cyan); font-size: 19px; font-weight: 810; letter-spacing: .1em; text-transform: uppercase; }
+.detail-value { margin-top: 8px; color: var(--text); font-size: 25px; line-height: 1.27; overflow-wrap: anywhere; }
+.drawer-button { min-height: 54px; margin: 10px 8px 0 0; padding: 10px 18px; border: 1px solid var(--line); color: var(--text); background: transparent; font-size: 23px; font-weight: 720; }
+.drawer-button.strong, .drawer-button.selected { border-color: var(--cyan); color: var(--field); background: var(--cyan); }
+.drawer-button.warning { border-color: var(--amber); color: var(--amber); }
+.choice-group { margin-top: 26px; }
+.choice-group strong { display: block; font-size: 28px; line-height: 1.2; }
+.drawer-footer { margin-top: 30px; padding-top: 20px; border-top: 1px solid var(--line); }
+
+@keyframes enter { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes reveal-node { from { opacity: 0; transform: translateY(18px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes case-fade { from { opacity: 0; } to { opacity: 1; } }
+@keyframes case-rise { from { opacity: 0; transform: translateY(28px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes case-land { from { opacity: 0; transform: scale(1.2); } to { opacity: 1; transform: scale(1); } }
+@keyframes case-score-after { from { opacity: 0; transform: translateX(-75px) scale(.82); } to { opacity: 1; transform: translateX(0) scale(1); } }
+@keyframes case-system-arrive { from { opacity: 0; transform: translateX(-55px); } to { opacity: 1; transform: translateX(0); } }
+@keyframes case-source-arrive { from { opacity: 0; transform: translateX(65px); } to { opacity: 1; transform: translateX(0); } }
+@keyframes case-collapse-old { from { opacity: 1; transform: translateY(0) scale(1); } to { opacity: .28; transform: translateY(-16px) scale(.7); } }
+@keyframes case-collapse-new { from { opacity: 0; transform: translateY(-70px) scale(1.35); } to { opacity: 1; transform: translateY(0) scale(1); } }
+@keyframes cf-demote { from { opacity: 1; } to { opacity: .35; } }
+@keyframes cf-retract { from { opacity: 1; transform: translateX(0); } to { opacity: .55; transform: translateX(-18px); } }
+@keyframes signal-recede { 0% { opacity: 0; } 10%, 45% { opacity: 1; } 75%, 100% { opacity: .09; } }
+@keyframes agent-spotlight { 0% { opacity: .32; border-color: var(--line); } 20%, 65% { opacity: 1; border-color: var(--cyan); } 100% { opacity: .52; border-color: var(--line); } }
+@keyframes mandate-recede { from { opacity: .16; } to { opacity: .02; } }
+@keyframes decision-link { from { opacity: 0; transform: translateX(-10px); } 45% { opacity: 1; } to { opacity: .7; transform: translateX(0); } }
+@keyframes decision-link-reverse { from { opacity: 0; transform: translateX(10px); } 45% { opacity: 1; } to { opacity: .7; transform: translateX(0); } }
+@keyframes state-recede { from { opacity: 1; } to { opacity: .12; } }
+@keyframes market-lead { 0% { opacity: 0; } 15%, 70% { opacity: 1; } 100% { opacity: 0; } }
+@keyframes flow-wave { 0% { opacity: 0; transform: translateX(-10px); } 45% { opacity: 1; } 100% { opacity: 0; transform: translateX(10px); } }
+@keyframes flow-wave-reverse { 0% { opacity: 0; transform: translateX(10px); } 45% { opacity: 1; } 100% { opacity: 0; transform: translateX(-10px); } }
+@keyframes feedback-wave { 0% { opacity: 0; transform: translateX(10px); } 45% { opacity: 1; } 100% { opacity: 0; transform: translateX(-10px); } }
+@keyframes feedback-wave-reverse { 0% { opacity: 0; transform: translateX(-10px); } 45% { opacity: 1; } 100% { opacity: 0; transform: translateX(10px); } }
+@keyframes cycle-brief { 0% { opacity: 0; } 25%, 65% { opacity: 1; } 100% { opacity: 0; } }
+
+@media (max-width: 1100px) {
+  .cue { padding: 95px 5vw 110px; }
+  .hero-verdict { font-size: clamp(56px, 6vw, 80px); }
+  .hero-number { font-size: clamp(98px, 11vw, 145px); }
+  .flood-layout { gap: 24px; }
+  .opening-signposts { gap: 16px; }
+  .prediction-metrics { gap: 30px; }
+  .workstreams { gap: 8px; }
+  .workstreams span { min-height: 78px; font-size: 23px; }
+  .systemic-network { grid-template-columns: minmax(0, 1fr) minmax(265px, 320px) minmax(0, 1fr); gap: 36px; }
+  .systemic-head h1 { font-size: 42px; }
+  .agent-intent span { font-size: 21px; }
+  .transmission-channel h3 { font-size: 26px; }
+  .transmission-channel strong { font-size: 22px; }
+  .transmission-channel p, .transmission-channel .transmission-consequence { font-size: 23px; }
+}
+
+@media (max-height: 850px) and (min-width: 761px) {
+  .cue { padding-top: 76px; padding-bottom: 78px; }
+  .cue-content { gap: 20px; }
+  .case-compression { gap: 8px; }
+  .case-compression strong { font-size: 105px; }
+  .case-compression span { font-size: 43px; }
+  .case-compression i { font-size: 44px; }
+  .supervision-question { font-size: 61px; }
+  .supervision-trust { font-size: 24px; }
+  .cue--supervision .cue-content { gap: 25px; }
+  .hero-verdict { font-size: clamp(58px, 5vw, 78px); }
+  .hero-number { font-size: clamp(100px, 9vw, 140px); }
+  .hero-unit { font-size: clamp(52px, 5vw, 70px); }
+  .primary-line { font-size: clamp(32px, 2.8vw, 42px); }
+  .support-line { font-size: clamp(26px, 1.9vw, 30px); }
+  .flood-log { height: min(51vh, 420px); }
+  .case-stage { gap: 18px; }
+  .case-causal { gap: 12px; }
+  .case-causal h1 { font-size: 63px; }
+  .case-causal-score { font-size: 104px; }
+  .case-source { gap: 9px; }
+  .case-source strong { font-size: 44px; }
+  .case-institution strong { font-size: 30px; }
+  .case-subtle { font-size: 27px; }
+  .case-contested { font-size: 47px; }
+  .judgement-paths { gap: 32px; }
+  .judgement-paths p { font-size: 36px; }
+  .judgement-question { font-size: 57px; }
+  .judgement-principle { font-size: 25px; }
+  .case-counterfactual { gap: 7px; }
+  .cf-score strong { font-size: 96px; }
+  .cf-one, .cf-trap { font-size: 51px; }
+  .authority-facts { font-size: 28px; }
+  .authority-punch { font-size: 29px; }
+  .exception-tree { gap: 6px; }
+  .workstreams { margin-top: 10px; }
+  .workstreams span { min-height: 58px; }
+  .ops-case .workstreams span { min-height: 58px; }
+  .ops-case { gap: 7px; }
+  .ops-case .tree-origin { font-size: 58px; }
+  .ops-scale { font-size: 50px; }
+  .systemic-stage { gap: 12px; }
+  .systemic-head { min-height: 45px; }
+  .systemic-head h1 { font-size: 40px; }
+  .systemic-footer { height: 110px; }
+  .systemic-primary { min-height: 52px; font-size: 22px; }
+  .systemic-agent { padding: 10px 14px; }
+  .agent-name { font-size: 21px; }
+  .agent-intent, .agent-response, .agent-reoptimise { inset: 33px 12px 27px; }
+  .agent-intent span { font-size: 19px; }
+  .agent-intent small, .agent-reoptimise small { font-size: 16px; }
+  .agent-mandate { bottom: 7px; left: 14px; font-size: 17px; }
+  .systemic-agents--right .agent-mandate { right: 14px; left: auto; }
+  .agent-response, .agent-reoptimise strong { font-size: 22px; }
+  .market-signal span, .market-effects span { font-size: 28px; }
+  .market-common span { font-size: 23px; }
+  .systemic-inference p, .systemic-inference strong { font-size: 25px; }
+  .systemic-feedback-punch { font-size: 37px; }
+  .systemic-transmission h2 { margin: 4px 0 8px; font-size: 34px; }
+  .transmission-origin { font-size: 18px; }
+  .transmission-market { min-height: 80px; }
+  .transmission-market strong { font-size: 32px; }
+  .transmission-market p { margin-top: 5px; font-size: 24px; }
+  .transmission-split { height: 42px; }
+  .transmission-split::before { height: 17px; }
+  .transmission-split::after { top: 17px; }
+  .transmission-split span { top: 17px; height: 25px; }
+  .transmission-channel { padding-top: 5px; }
+  .transmission-channel h3 { margin-bottom: 6px; font-size: 22px; }
+  .transmission-channel strong { font-size: 20px; }
+  .transmission-channel p, .transmission-channel .transmission-consequence { margin-top: 8px; font-size: 20px; }
+  .transmission-channel .transmission-consequence { margin-top: 0; }
+  .transmission-join { height: 38px; }
+  .transmission-join span { height: 18px; }
+  .transmission-join::before { top: 18px; }
+  .transmission-join::after { top: 18px; height: 20px; }
+  .transmission-outcome { font-size: 42px; }
+  .systemic-punch strong { font-size: 62px; }
+  .systemic-bridge p { font-size: 30px; }
+  .systemic-bridge h2 { font-size: 55px; }
+}
+
+@media (max-width: 760px) {
+  body, .app-shell { min-height: 100svh; height: auto; }
+  .app-shell { overflow: visible; }
+  .stage { position: relative; min-height: 100svh; overflow-y: auto; }
+  .cue { position: relative; min-height: 100svh; padding: 110px 6vw 110px; overflow: visible; }
+  .cue-content { max-height: none; }
+  .stage-identity { top: 20px; max-width: 90vw; font-size: 14px; white-space: normal; }
+  .narrative-indicator { top: 54px; max-width: 90vw; font-size: 13px; }
+  .hero-verdict { font-size: clamp(45px, 9vw, 65px); }
+  .hero-number { font-size: clamp(88px, 18vw, 130px); }
+  .hero-unit { font-size: clamp(44px, 9vw, 64px); }
+  .primary-line { font-size: 32px; }
+  .support-line { font-size: 24px; }
+  .flood-layout { grid-template-columns: 1fr; }
+  .flood-log { height: 32vh; }
+  .flood-metric { padding-left: 0; }
+  .stage-actions { margin-top: 24px; }
+  .naive-count, .naive-actions { flex-wrap: wrap; justify-content: center; }
+  .naive-actions .stage-button { min-width: 0; }
+  .opening-signposts { flex-direction: column; gap: 16px; font-size: 30px; }
+  .opening-ladder { font-size: 42px; }
+  .opening-question { font-size: 45px; }
+  .opening-answer { font-size: 25px; }
+  .ops-scale { flex-direction: column; gap: 10px; font-size: 44px; }
+  .ops-case .workstreams span { min-height: 56px; }
+  .prediction-metrics { grid-template-columns: 1fr; gap: 28px; }
+  .prediction-metrics strong { font-size: 105px; }
+  .prediction-recommendation strong { font-size: 38px; }
+  .prediction-recommendation span { font-size: 27px; }
+  .prediction-context { font-size: 22px; }
+  .cue--material-case .cue-content { height: auto; max-height: none; }
+  .case-stage { min-height: calc(100svh - 220px); }
+  .case-controls { flex-wrap: wrap; }
+  .case-primary { width: 100%; min-width: 0; }
+  .case-compression div { flex-wrap: wrap; gap: 12px; }
+  .case-compression strong { font-size: 105px; }
+  .case-compression span { font-size: 42px; }
+  .case-causal-classification p { flex-direction: column; gap: 4px; font-size: 34px; }
+  .case-causal-score { font-size: 95px; }
+  .case-causal-proposal { font-size: 30px; }
+  .case-source strong { font-size: clamp(35px, 7vw, 50px); }
+  .case-institution strong { font-size: 29px; }
+  .case-institution span { font-size: 23px; }
+  .case-contested { font-size: 42px; }
+  .case-subtle { font-size: 24px; }
+  .judgement-paths { grid-template-columns: 1fr; gap: 14px; }
+  .judgement-paths p { max-width: none; font-size: 31px; }
+  .judgement-question { font-size: 45px; }
+  .judgement-principle { font-size: 23px; }
+  .cf-facts { flex-direction: column; align-items: center; gap: 6px; font-size: 24px; }
+  .cf-score strong { font-size: 91px; }
+  .cf-one, .cf-trap { font-size: 43px; }
+  .cf-same { gap: 8px 16px; font-size: 22px; }
+  .authority-facts { font-size: 25px; }
+  .authority-punch { font-size: 25px; }
+  .workstreams { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .cue--systemic .cue-content { height: auto; max-height: none; }
+  .systemic-stage { height: auto; min-height: calc(100svh - 220px); }
+  .systemic-head { flex-direction: column; align-items: center; gap: 8px; }
+  .systemic-head h1 { font-size: 37px; }
+  .systemic-network { display: flex; flex-direction: column; min-height: 1060px; gap: 14px; }
+  .systemic-agents { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); grid-template-rows: repeat(2, minmax(0, 1fr)); }
+  .systemic-agent { min-height: 145px; }
+  .systemic-market { min-height: 220px; }
+  .systemic-stage[data-phase="3"] .systemic-network, .systemic-stage[data-phase="4"] .systemic-network { min-height: 0; }
+  .systemic-stage[data-phase="3"] .systemic-transmission, .systemic-stage[data-phase="4"] .systemic-transmission { position: relative; inset: auto; gap: 0; }
+  .systemic-transmission h2 { font-size: 33px; }
+  .transmission-market { min-height: 100px; }
+  .transmission-market strong { font-size: 31px; }
+  .transmission-market p { font-size: 24px; }
+  .transmission-split { height: 34px; }
+  .transmission-split::before { height: 34px; }
+  .transmission-split::after, .transmission-split span { display: none; }
+  .transmission-channels { grid-template-columns: 1fr; gap: 18px; }
+  .transmission-channel { padding: 16px 12px 18px; border-top: 2px solid var(--cyan); }
+  .transmission-channel h3 { font-size: 27px; }
+  .transmission-channel strong { font-size: 22px; }
+  .transmission-channel p, .transmission-channel .transmission-consequence { font-size: 23px; }
+  .transmission-join { height: 34px; margin-top: 0; }
+  .transmission-join span { height: 16px; }
+  .transmission-join::before { top: 16px; }
+  .transmission-join::after { top: 16px; height: 18px; }
+  .transmission-outcome { font-size: 42px; }
+  .systemic-punch strong { font-size: clamp(39px, 8vw, 62px); }
+  .systemic-bridge p { font-size: 26px; }
+  .systemic-bridge h2 { font-size: 43px; }
+  .systemic-footer { height: 130px; }
+  .systemic-inference p, .systemic-inference strong { font-size: 21px; }
+  .systemic-feedback-punch { font-size: 27px; }
+  .systemic-cycle { font-size: 19px; }
+  .ghost-support { font-size: 27px; }
+  .ghost-propositions p { font-size: 40px; }
+  .ghost-final { font-size: clamp(48px, 10vw, 75px); }
+  .presenter-control { position: fixed; bottom: 16px; }
+  .context-button { position: fixed; bottom: 22px; max-width: 42vw; font-size: 17px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: .01ms !important; animation-delay: 0ms !important; transition-duration: .01ms !important; transition-delay: 0ms !important; }
+  .workstreams span { opacity: 1; transform: none; }
+}
+
+/* V2: expertise and improvement, designed for 1920 x 1080 projection. */
+.v2-kicker { margin:0; color:var(--cyan); font-size:clamp(22px,1.5vw,29px); font-weight:750; letter-spacing:.12em; }
+.v2-two { display:grid; grid-template-columns:1fr 1fr; gap:40px; width:100%; text-align:left; }
+.v2-card { border-top:3px solid var(--amber); background:linear-gradient(150deg,#152236,#0c1725); padding:28px 32px; }
+.v2-card.good { border-color:var(--cyan); }
+.v2-card > span { display:block; color:var(--amber); font-size:clamp(22px,1.5vw,29px); font-weight:750; letter-spacing:.05em; }
+.v2-card.good > span { color:var(--cyan); }
+.v2-card p { font-size:clamp(29px,2.15vw,40px); line-height:1.3; margin:22px 0; font-weight:650; }
+.v2-card small { display:block; font-size:clamp(23px,1.65vw,30px); color:var(--secondary); line-height:1.3; }
+.v2-strip { width:100%; display:grid; grid-template-columns:repeat(3,1fr); gap:28px; text-align:center; }
+.v2-strip > span { border-top:2px solid var(--line); padding:22px 12px; color:var(--cyan); font-size:clamp(27px,2vw,36px); font-weight:750; }
+.v2-strip small { display:block; margin-top:14px; color:var(--text); font-size:clamp(24px,1.7vw,32px); font-weight:600; line-height:1.25; }
+.v2-foot { margin:0; color:var(--secondary); font-size:clamp(21px,1.4vw,27px); line-height:1.3; max-width:85ch; }
+.v2-scoreboard { display:grid; grid-template-columns:repeat(3,1fr); gap:26px; width:100%; }
+.v2-scoreboard strong { display:block; font-size:clamp(72px,6vw,115px); color:var(--text); margin:20px 0; letter-spacing:-.05em; }
+.v2-scoreboard p { font-size:clamp(28px,2vw,36px); }
+.v2-case-list { width:100%; text-align:left; }
+.v2-case-list p { margin:0; padding:18px 0; border-bottom:1px solid var(--line); font-size:clamp(28px,2vw,36px); }
+.v2-case-list span { color:var(--cyan); margin-right:35px; }
+.v2-role-grid { display:grid; grid-template-columns:repeat(2,1fr); gap:28px; width:100%; text-align:left; }
+.v2-role-grid section { border-top:2px solid var(--cyan); padding:20px 28px; background:var(--field-raised); }
+.v2-role-grid span { color:var(--cyan); font-size:clamp(24px,1.7vw,32px); font-weight:750; }
+.v2-role-grid p { font-size:clamp(29px,2.1vw,39px); margin:15px 0 0; line-height:1.25; }
+.cue--learning .cue-content, .cue--opening .cue-content { gap:clamp(22px,3vh,36px); }
+.drawer-body a { color:var(--cyan); }
+@media(max-width:900px) { .v2-two {gap:16px;} .v2-card {padding:18px;} .v2-strip {gap:12px;} }
+@media(prefers-reduced-motion:reduce) { .v2-card,.v2-strip {animation:none;} }
+/* Opening prompt: a human instruction typed into the app, with the unstated judgments behind it. */
+.prompt-box { position:relative; width:min(100%,1180px); padding:34px 120px 34px 38px; border:2px solid var(--line); border-radius:22px; background:var(--field-raised); text-align:left; box-shadow:0 0 0 1px rgba(130,216,237,.08), 0 24px 60px rgba(0,0,0,.35); animation:scope-arrives .5s ease-out both; }
+.prompt-label { display:block; margin-bottom:14px; color:var(--quiet); font-size:clamp(17px,1.1vw,21px); font-weight:750; letter-spacing:.14em; }
+.prompt-text { margin:0; color:var(--text); font-size:clamp(40px,3.5vw,64px); line-height:1.22; font-weight:700; letter-spacing:-.03em; }
+.prompt-cursor { display:inline-block; width:.07em; height:.95em; margin-left:.12em; vertical-align:-.12em; background:var(--cyan); animation:prompt-blink 1.05s steps(1) infinite; }
+.prompt-send { position:absolute; right:30px; bottom:30px; width:64px; height:64px; display:flex; align-items:center; justify-content:center; border-radius:50%; background:var(--cyan); color:var(--field); font-size:36px; font-weight:800; }
+.behind-scenes { width:min(100%,1180px); padding:20px 28px 22px; border-left:3px solid var(--cyan); background:rgba(5,13,24,.7); text-align:left; font-family:ui-monospace,SFMono-Regular,Menlo,monospace; animation:scope-arrives .5s ease-out .9s both; }
+.behind-label { margin:0 0 14px; color:var(--cyan); font-size:clamp(15px,1vw,19px); font-weight:700; letter-spacing:.1em; }
+.behind-line { margin:0; padding:5px 0; color:var(--secondary); font-size:clamp(22px,1.7vw,32px); line-height:1.3; opacity:0; animation:behind-in .45s ease-out calc(1.4s + var(--i)*.55s) both; }
+.behind-line i { margin-right:18px; color:var(--amber); font-style:normal; }
+.core-question { margin:0; color:var(--amber); font-size:clamp(46px,4vw,76px); line-height:1.08; font-weight:830; letter-spacing:-.045em; text-align:center; animation:scope-arrives .6s ease-out 2.6s both; }
+@media(max-height:850px) and (min-width:901px) { .core-question { font-size:clamp(38px,3.4vw,56px); } }
+@media(prefers-reduced-motion:reduce) { .core-question { animation:none; } }
+.core-question--kicker { font-size:clamp(36px,3vw,56px); animation-delay:1.1s; }
+@media(max-height:850px) and (min-width:901px) { .core-question--kicker { font-size:clamp(30px,2.6vw,44px); } }
+.hl-gap { background:none; color:var(--amber); font-weight:800; }
+.ops-brief { margin-top:6px; animation:case-fade .55s 2.5s both; }
+.prediction-metrics small { display:block; margin-top:12px; color:var(--amber); font-size:clamp(18px,1.4vw,24px); font-weight:700; letter-spacing:.07em; }
+@media(max-height:850px) and (min-width:761px) { .ops-brief { font-size:20px; } }
+.case-gap { gap:clamp(14px,2vh,24px); }
+.case-gap-title { margin:0; color:var(--amber); font-size:clamp(84px,7.4vw,136px); line-height:.95; font-weight:840; letter-spacing:-.06em; animation:case-rise .55s .1s both; }
+.case-bins { width:min(100%,1500px); display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:26px; }
+.case-bins > div { display:flex; flex-direction:column; align-items:center; justify-content:center; gap:8px; padding:20px 18px; border-top:3px solid var(--line); background:var(--field-raised); animation:case-rise .5s both; }
+.case-bins > div:nth-child(1) { animation-delay:.7s; }
+.case-bins > div:nth-child(2) { animation-delay:1s; }
+.case-bins > div:nth-child(3) { animation-delay:1.4s; }
+.case-bins span { color:var(--secondary); font-size:clamp(19px,1.45vw,27px); font-weight:760; letter-spacing:.05em; text-align:center; }
+.case-bins strong { color:var(--cyan); font-size:clamp(56px,4.6vw,84px); line-height:1; letter-spacing:-.05em; font-variant-numeric:tabular-nums; }
+.case-bins .case-bin-missing { border:2px dashed var(--amber); background:transparent; }
+.case-bins .case-bin-missing span { color:var(--amber); }
+.case-bins .case-bin-missing strong { color:var(--amber); font-size:clamp(36px,2.8vw,52px); line-height:1.1; letter-spacing:-.03em; }
+.case-gap-line { margin:0; color:var(--text); font-size:clamp(32px,2.7vw,50px); line-height:1.18; font-weight:800; letter-spacing:-.03em; animation:case-fade .55s 2s both; }
+.cf-trap { margin:8px 0 0; text-align:center; color:var(--amber); font-size:clamp(50px,4.6vw,78px); line-height:1.07; letter-spacing:-.045em; font-weight:780; text-wrap:balance; animation:case-fade .5s 3.2s both; }
+.case-gap-ask small { display:block; margin-top:6px; color:var(--secondary); font-size:.62em; font-weight:720; letter-spacing:.05em; }
+.case-gap-ask { margin:14px 0 0; text-align:center; color:var(--amber); font-size:clamp(28px,2.2vw,38px); line-height:1.3; font-weight:780; animation:case-fade .5s 3.6s both; }
+.case-gap-sub { margin:0; color:var(--secondary); font-size:clamp(26px,2vw,36px); font-weight:720; animation:case-fade .5s 2.7s both; }
+@media(max-height:850px) and (min-width:761px) { .case-gap-title { font-size:72px; } .case-bins strong { font-size:52px; } .case-bins .case-bin-missing strong { font-size:32px; } .case-bins > div { padding:12px 14px; } .case-gap-line { font-size:30px; } .case-gap-sub { font-size:24px; } .case-gap-ask { font-size:26px; margin-top:8px; } }
+@media(max-width:760px) { .case-bins { grid-template-columns:1fr; gap:12px; } .case-gap-title { font-size:64px; } .case-gap-line { font-size:28px; } }
+@media(max-height:850px) and (min-width:761px) { .stage[data-reveal="escalate"] .hero-verdict.mega { font-size:96px; } .gate-triggers .v2-card { padding:16px 22px; } .gate-triggers .v2-card p { font-size:26px; margin:10px 0; } .gate-triggers .v2-card small { font-size:20px; } }
+.new-question { border:2px dashed var(--amber); padding:18px 30px; margin:6px 0 0; max-width:1100px; text-align:center; }
+.new-question span { display:block; color:var(--amber); font-size:clamp(20px,1.4vw,26px); font-weight:750; letter-spacing:.05em; }
+.new-question p { font-size:clamp(29px,2.15vw,40px); font-weight:650; margin:10px 0; }
+.new-question-route { margin:10px 0 0; color:var(--secondary); font-size:clamp(23px,1.65vw,30px); text-align:center; }
+.new-question small { display:block; color:var(--secondary); font-size:clamp(22px,1.55vw,28px); }
+.source-link { margin:0 0 14px; } .source-link small { display:block; color:var(--quiet); margin-top:2px; }
+.adapt-stage { display:flex; flex-direction:column; align-items:center; gap:clamp(14px,2.2vh,26px); width:min(1800px,94vw); }
+.adapt-in { animation:case-rise .5s var(--d,0s) both; } .adapt-fade { animation:case-fade .5s var(--d,0s) both; }
+.adapt-loop { display:flex; gap:10px; width:100%; }
+.adapt-loop > div, .adapt-drivers > div { flex:1; border-top:3px solid var(--cyan); background:linear-gradient(150deg,#152236,#0c1725); padding:14px 18px; }
+.adapt-loop span, .adapt-drivers span, .adapt-lane span { display:block; color:var(--cyan); font-size:clamp(16px,1.15vw,21px); font-weight:750; letter-spacing:.05em; }
+.adapt-loop p, .adapt-drivers p { margin:8px 0 0; font-size:clamp(21px,1.5vw,27px); font-weight:650; line-height:1.25; }
+.adapt-loop .is-memory, .adapt-drivers .is-var { border-color:var(--amber); } .adapt-loop .is-memory span, .adapt-drivers .is-var span { color:var(--amber); }
+.adapt-share { width:100%; border:2px solid var(--amber); padding:14px 20px; }
+.adapt-share > span { display:block; color:var(--amber); font-size:clamp(17px,1.2vw,22px); font-weight:750; letter-spacing:.05em; margin-bottom:10px; }
+.adapt-pills { display:flex; gap:10px; }
+.adapt-pill { flex:1; display:grid; text-align:center; border:1px solid var(--line); padding:10px 6px; font-size:clamp(18px,1.3vw,24px); font-weight:760; font-style:normal; }
+.adapt-pill > * { grid-area:1/1; font-style:normal; }
+.adapt-old { color:var(--quiet); text-decoration:line-through; animation:adapt-old .4s var(--d,0s) both; }
+.adapt-new { color:var(--amber); animation:case-fade .4s var(--d,0s) both; }
+@keyframes adapt-old { from { opacity:1; } to { opacity:0; } }
+.adapt-punch { margin:0; text-align:center; font-size:clamp(38px,3.4vw,62px); line-height:1.1; letter-spacing:-.03em; }
+.adapt-drivers { display:flex; gap:10px; width:100%; }
+.adapt-lanes { display:flex; gap:24px; width:100%; }
+.adapt-lane { flex:1; background:linear-gradient(150deg,#152236,#0c1725); border-top:3px solid var(--cyan); padding:16px 22px; }
+.adapt-lane h3 { margin:0 0 10px; font-size:clamp(20px,1.5vw,27px); letter-spacing:.04em; }
+.adapt-lane > div { display:flex; justify-content:space-between; align-items:baseline; gap:20px; padding:8px 0; border-top:1px solid var(--line); }
+.adapt-lane p { margin:0; font-size:clamp(22px,1.6vw,29px); font-weight:650; }
+.adapt-lane .is-out p { color:var(--text); font-weight:780; }
+.adapt-table { width:100%; }
+.adapt-row { display:grid; grid-template-columns:2.2fr 1.4fr 1.8fr 1.3fr; gap:16px; align-items:center; padding:10px 18px; border-top:1px solid var(--line); font-size:clamp(20px,1.5vw,27px); }
+.adapt-row strong { font-size:clamp(22px,1.6vw,29px); } .adapt-row span { color:var(--secondary); }
+.adapt-head { border-top:0; color:var(--cyan); font-size:clamp(15px,1.05vw,19px); font-weight:750; letter-spacing:.05em; } .adapt-head span { color:var(--cyan); }
+.adapt-row b { text-align:center; font-size:clamp(26px,2vw,36px); } .adapt-yes { color:var(--amber); } .adapt-no { color:var(--quiet); }
+.adapt-row.is-key { border:2px solid var(--amber); background:rgba(243,187,112,.08); }
+@media(max-height:850px) and (min-width:761px) { .adapt-stage { gap:12px; } .adapt-punch { font-size:40px; } .adapt-row { padding:6px 16px; } .adapt-loop > div, .adapt-drivers > div { padding:10px 14px; } }
+@media(max-width:760px) { .adapt-loop, .adapt-drivers, .adapt-lanes, .adapt-pills { flex-wrap:wrap; } .adapt-row { grid-template-columns:1fr 1fr; } }
+.adapt-flow { width:100%; } .adapt-flow h3 { margin:0 0 8px; color:var(--cyan); font-size:clamp(17px,1.2vw,22px); letter-spacing:.06em; } .adapt-flow.is-built h3 { color:var(--amber); }
+.adapt-flow > div { display:flex; align-items:stretch; gap:10px; }
+.adapt-box { flex:1; border-top:3px solid var(--cyan); background:linear-gradient(150deg,#152236,#0c1725); padding:14px 18px; }
+.adapt-box span { display:block; color:var(--cyan); font-size:clamp(16px,1.15vw,21px); font-weight:750; letter-spacing:.05em; }
+.adapt-box p { margin:8px 0 0; font-size:clamp(22px,1.6vw,29px); font-weight:650; line-height:1.25; }
+.adapt-box.is-bypass { border:2px dashed var(--amber); background:rgba(243,187,112,.08); } .adapt-box.is-bypass span { color:var(--amber); }
+.adapt-arrow { align-self:center; color:var(--secondary); font-size:clamp(28px,2.2vw,40px); font-style:normal; }
+.corner-action { position:fixed; right:2.5vw; bottom:10px; z-index:9; }
+.corner-arrow { min-width:0; min-height:52px; padding:6px 28px; font-size:clamp(30px,2.4vw,44px); }
+.corner-finish { min-width:0; min-height:52px; padding:6px 26px; font-size:clamp(22px,1.7vw,30px); letter-spacing:.06em; font-weight:760; }
+@keyframes prompt-blink { 50% { opacity:0; } }
+@keyframes behind-in { from { opacity:0; transform:translateX(-14px); } to { opacity:.92; transform:none; } }
+@media(max-height:850px) and (min-width:901px) { .prompt-box { padding:22px 100px 22px 30px; } .prompt-text { font-size:clamp(34px,3vw,50px); } .behind-scenes { padding:14px 24px; } .behind-line { font-size:22px; padding:3px 0; } }
+@media(max-width:900px) { .prompt-box { padding:22px 78px 22px 22px; } .prompt-send { width:48px; height:48px; right:16px; bottom:16px; font-size:26px; } }
+@media(prefers-reduced-motion:reduce) { .prompt-box,.behind-scenes { animation:none; } .behind-line { animation:none; opacity:.92; } .prompt-cursor { animation:none; } }
+.simulation-label { position:absolute; left:5.2vw; bottom:35px; z-index:5; font-size:clamp(13px,1vw,19px); color:var(--quiet); letter-spacing:.04em; }
+
+/* Approved V2 revision: motion explains delegation and adaptation. */
+.cue--opening .cue-content,.cue--learning .cue-content,.stage:not([data-reveal="escalate"]) .cue--authority .cue-content { gap:clamp(20px,2.6vh,32px); }
+.cue--opening .stage-heading,.cue--learning .stage-heading,.stage:not([data-reveal="escalate"]) .cue--authority .stage-heading { font-size:clamp(42px,3.65vw,68px); line-height:1.12; }
+.v3-record { width:100%; margin:0; padding:18px 24px; border-left:3px solid var(--cyan); background:var(--field-raised); text-align:left; font-size:clamp(22px,1.65vw,30px); line-height:1.35; color:var(--secondary); }
+.judgment-burst { width:100%; height:430px; position:relative; overflow:hidden; border-top:1px solid var(--line); border-bottom:1px solid var(--line); background:radial-gradient(ellipse at center,#162e45,transparent 75%); }
+.burst-line { position:absolute; left:calc(5% + mod(var(--i),3)*27%); top:calc(36px + mod(var(--i),5)*64px); opacity:0; font-family:ui-monospace,monospace; font-size:clamp(21px,1.65vw,31px); color:var(--cyan); font-weight:650; animation:judgment-flash .42s ease-out calc(var(--i)*.125s) both; }
+.burst-conflict { color:var(--amber); }
+.burst-result { position:absolute; inset:0; display:flex; flex-direction:column; justify-content:center; align-items:center; background:var(--field); padding:40px; opacity:0; animation:result-arrives .3s ease-out 2s forwards; }
+.burst-result span { color:var(--cyan); letter-spacing:.15em; font-size:28px; }
+.burst-result p { font-size:clamp(36px,3.5vw,65px); line-height:1.2; font-weight:750; max-width:24ch; }
+@keyframes judgment-flash { 0% {opacity:0;transform:translateY(20px)} 15%,65% {opacity:1} 100% {opacity:0;transform:translateY(-30px)} }
+@keyframes result-arrives { to {opacity:1} }
+.scope-strip > span { font-size:clamp(38px,3.5vw,65px); }
+.scope-strip small { font-size:clamp(27px,2.2vw,41px); }
+.scope-strip > span { animation:scope-arrives .5s ease-out both; }
+.scope-strip > span:nth-child(2) {animation-delay:.3s}
+.scope-strip > span:nth-child(3) {animation-delay:.6s}
+@keyframes scope-arrives { from {opacity:0;transform:translateY(15px)} to {opacity:1;transform:none} }
+.fault-strip > span {animation:scope-arrives .5s ease-out .7s both}
+.adaptation-path { width:100%;display:flex;justify-content:center;align-items:center;gap:25px;font-size:clamp(19px,1.55vw,29px);font-weight:750;color:var(--cyan); }
+.adaptation-path span {padding:20px;border:1px solid var(--line);animation:scope-arrives .45s ease-out both}
+.adaptation-path span:nth-of-type(2) {animation-delay:.35s}
+.adaptation-path span:nth-of-type(3) {animation-delay:.7s}
+.adaptation-path i {font-size:40px;font-style:normal;color:var(--secondary)}
+.adapt-strip {animation:scope-arrives .5s ease-out 1.15s both}
+.optimisation-fork {width:100%;position:relative;padding-top:18px}
+.fork-origin {display:inline-block;padding:14px 30px;border:1px solid var(--line);font-size:25px;font-weight:750;color:var(--secondary)}
+.fork-branches {display:grid;grid-template-columns:1fr 1fr;gap:80px;margin-top:64px;position:relative}
+.fork-branches::before {content:'';position:absolute;left:25%;right:25%;height:35px;top:-35px;border:2px solid var(--cyan);border-bottom:0;animation:fork-draw .55s ease-out both;transform-origin:center}
+.fork-origin::after {content:'';position:absolute;top:70px;left:50%;height:30px;border-left:2px solid var(--cyan);animation:scope-arrives .3s ease-out both}
+.fork-branches .v2-card {animation:scope-arrives .45s ease-out .55s both}
+.fork-branches .v2-card:nth-child(2) {animation-delay:.95s}
+@keyframes fork-draw {from {transform:scaleX(0);opacity:0} to {transform:scaleX(1);opacity:1}}
+.goal-banner {margin:0;color:var(--cyan);font-size:clamp(19px,1.4vw,26px);font-weight:750;letter-spacing:.045em;border-bottom:1px solid var(--line);padding-bottom:18px;width:100%}
+.metric-dashboard {display:grid;grid-template-columns:repeat(3,1fr);gap:30px;width:100%}
+.metric-dashboard section {background:var(--field-raised);border-top:3px solid var(--cyan);padding:28px;animation:scope-arrives .5s ease-out both}
+.metric-dashboard section:nth-child(2) {animation-delay:.35s}
+.metric-dashboard section:nth-child(3) {animation-delay:.7s}
+.metric-dashboard span {display:block;color:var(--secondary);font-size:25px;font-weight:750}
+.metric-dashboard strong {display:block;color:var(--cyan);font-size:100px;line-height:1.1;animation:metric-move .7s ease-out .4s both}
+.metric-dashboard small {font-size:30px}
+@keyframes metric-move {from {transform:translateY(-15px);opacity:0}to {transform:none;opacity:1}}
+.dashboard-verdict {margin:0;padding:18px 40px;border:1px solid var(--cyan);color:var(--cyan);font-size:35px;font-weight:750;animation:scope-arrives .4s ease-out 1.6s both}
+.supervisory-views .v2-card:nth-child(2) {animation:scope-arrives .6s ease-out .7s both}
+.supervisory-views .v2-card p {font-size:clamp(27px,2vw,37px);line-height:1.5}
+.comparison-table {width:100%;text-align:left;font-size:clamp(22px,1.6vw,30px)}
+.comparison-row {display:grid;grid-template-columns:1.25fr .7fr .8fr 1.2fr;align-items:center;gap:25px;padding:20px 24px;border-bottom:1px solid var(--line);background:var(--field-raised)}
+.comparison-head {color:var(--cyan);font-size:clamp(17px,1.1vw,21px);font-weight:750;background:transparent}
+.comparison-row > span {text-align:center;font-size:40px;font-weight:750}
+.comparison-head > span {font-size:inherit;text-align:left}
+.comparison-row small {font-size:clamp(22px,1.6vw,29px);color:var(--secondary)}
+.amber {color:var(--amber)}
+@media(max-height:850px) and (min-width:901px) {
+ .cue--opening .hero-verdict,.stage:not([data-reveal="escalate"]) .cue--authority .hero-verdict {font-size:clamp(46px,4.1vw,68px)}
+ .cue--opening .stage-heading,.cue--learning .stage-heading,.stage:not([data-reveal="escalate"]) .cue--authority .stage-heading {font-size:clamp(38px,3.4vw,56px)}
+ .cue--opening .v2-card p,.cue--learning .v2-card p,.stage:not([data-reveal="escalate"]) .cue--authority .v2-card p {font-size:27px;margin:14px 0}
+ .cue--opening .v2-card,.cue--learning .v2-card,.stage:not([data-reveal="escalate"]) .cue--authority .v2-card {padding:20px 25px}
+ .cue--opening .v2-card small,.cue--learning .v2-card small,.stage:not([data-reveal="escalate"]) .cue--authority .v2-card small {font-size:22px}
+ .cue--opening .v2-strip small,.cue--learning .v2-strip small,.stage:not([data-reveal="escalate"]) .cue--authority .v2-strip small {font-size:23px}
+ .judgment-burst {height:310px}
+ .comparison-row {padding:12px 20px}
+ .metric-dashboard section {padding:18px}
+ .metric-dashboard strong {font-size:75px}
+}
+@media(max-width:900px) { .fork-branches {gap:20px}.adaptation-path {gap:8px;font-size:16px}.adaptation-path span {padding:12px}.metric-dashboard span {font-size:17px}.metric-dashboard section {padding:15px}.comparison-row {gap:10px;padding:12px;font-size:18px}.comparison-row small {font-size:18px} }
+@media(prefers-reduced-motion:reduce) {
+ .burst-line {animation:none;display:none}.burst-result {animation:none;opacity:1}
+ .scope-strip > span,.fault-strip > span,.adaptation-path span,.adapt-strip,.fork-origin::after,.fork-branches::before,.fork-branches .v2-card,.metric-dashboard section,.metric-dashboard strong,.dashboard-verdict,.supervisory-views .v2-card:nth-child(2) {animation:none;opacity:1;transform:none}
+}
+</style>
+  </head>
+  <body>
+    <div class="app-shell">
+      <div class="stage-identity" aria-hidden="true">AUTONOMOUS AI <span>//</span> FUTURE SUPERVISORS</div>
+      <div id="stageStatus" class="narrative-indicator" aria-hidden="true"></div>
+      <main id="stage" class="stage" aria-label="Presentation stage"></main>
+      <div id="cueAnnouncement" class="sr-only" aria-live="polite"></div>
+      <button id="contextButton" class="context-button" type="button" data-action="open-evidence" hidden>SHOW MORE</button>
+      <nav class="presenter-control" aria-label="Presenter controls">
+        <button id="previousButton" type="button" data-action="previous" aria-label="Previous reveal">←</button>
+        <span id="beatCounter" aria-live="polite">BEAT 1/8</span>
+        <button id="nextButton" type="button" data-action="next" aria-label="Next reveal">→</button>
+      </nav>
+    </div>
+
+    <div id="drawer" class="drawer-backdrop" hidden>
+      <section class="drawer" role="dialog" aria-modal="true" aria-labelledby="drawerTitle">
+        <div class="drawer-header">
+          <h2 id="drawerTitle">Evidence</h2>
+          <button class="drawer-close" type="button" data-action="close-drawer" aria-label="Close detail panel">×</button>
+        </div>
+        <div id="drawerBody" class="drawer-body"></div>
+      </section>
+    </div>
+
+    <noscript>This presentation needs JavaScript to replay its synthetic scenario.</noscript>
+    <script type="module">const AGENTS = Object.freeze([
+  'Sentinel',
+  'Investigator',
+  'EntityGraph',
+  'HistoricalTransactions',
+  'DisclosureReview',
+  'CounterpartyCheck',
+  'PolicyMapper',
+  'Interpreter',
+]);
+
+// Demo-local stable identities; the format is inspired by registered-agent controls,
+// not prescribed by SAFR or any external framework.
+const AGENT_IDENTITIES = Object.freeze({
+  Sentinel: 'AGT-SENTINEL-04',
+  Investigator: 'AGT-INVESTIGATOR-02',
+  EntityGraph: 'AGT-ENTITYGRAPH-01',
+  HistoricalTransactions: 'AGT-HISTORY-01',
+  DisclosureReview: 'AGT-DISCLOSURE-01',
+  CounterpartyCheck: 'AGT-COUNTERPARTY-01',
+  PolicyMapper: 'AGT-POLICY-01',
+  Interpreter: 'AGT-INTERPRETER-01',
+});
+const AGENT_VERSION = '1.0';
+const AGENT_PRINCIPAL = 'SUPERVISION-OPS-01';
+
+const EVIDENCE = Object.freeze({
+  entityFiling: {
+    id: 'EV-ENTITY-01',
+    type: 'Synthetic entity filing',
+    title: 'Entity X ownership record',
+    finding: 'Entity X has a central-bank-related relationship.',
+    uncertainty: 'The relationship is indirect and needs human confirmation.',
+  },
+  graphInference: {
+    id: 'EV-GRAPH-17',
+    type: 'Derived graph classification',
+    title: 'EntityGraph/T-17 classification',
+    finding: 'Entity X changed to commercial-counterparty in the derived graph.',
+    uncertainty: 'The derivation conflicts with the original ownership record.',
+  },
+  bankResponse: {
+    id: 'EV-BANK-01',
+    type: 'Synthetic institution response',
+    title: 'Bank Compliance challenge',
+    finding: 'The institution contests the commercial classification.',
+    uncertainty: 'Human review of the original record is still required.',
+  },
+});
+
+const TASK_LABELS = [
+  'Detect liquidity anomaly', 'Select investigation path', 'Resolve entity relationships',
+  'Compare historical flows', 'Read current disclosure', 'Check counterparty context',
+  'Map applicable policy', 'Calibrate provisional risk', 'Cluster transactions',
+  'Check evidence provenance', 'Inspect settlement channel', 'Compare prior filings',
+  'Review network concentration', 'Trace liquidity movement', 'Check source timestamps',
+  'Compare relationship edges', 'Reclassify Entity X', 'Reconcile disclosure terms',
+  'Check related parties', 'Re-evaluate risk factors', 'Assess counterparty narrative',
+  'Map supervisory concern', 'Calibrate confidence', 'Write evidence trace',
+  'Check mandate boundary', 'Process institutional response', 'Consolidate findings',
+];
+
+const ROUTINE_ACTIONS = [
+  ['SOURCE_RETRIEVED', 'source retrieved'],
+  ['RELATIONSHIP_CHECKED', 'relationship checked'],
+  ['EVIDENCE_HASHED', 'evidence hashed'],
+  ['CONFIDENCE_UPDATED', 'confidence updated'],
+  ['POLICY_MAPPED', 'policy mapped'],
+  ['TOOL_CALL_COMPLETED', 'tool call completed'],
+  ['TRACE_WRITTEN', 'trace written'],
+  ['DOCUMENT_PARSED', 'document parsed'],
+  ['TRANSACTION_CLUSTERED', 'transaction cluster checked'],
+  ['PROVENANCE_CHECKED', 'evidence provenance checked'],
+  ['LIQUIDITY_ANALYSED', 'liquidity pattern analysed'],
+  ['RESPONSE_PROCESSED', 'institutional response processed'],
+];
+
+const eventId = (index) => `EVT-${String(index + 1).padStart(4, '0')}`;
+
+// A stable demo fingerprint, deliberately not presented as a cryptographic proof.
+function fingerprint(value) {
+  let hash = 2166136261;
+  for (const character of value) {
+    hash ^= character.charCodeAt(0);
+    hash = Math.imul(hash, 16777619);
+  }
+  return (hash >>> 0).toString(16).padStart(8, '0');
+}
+
+function makeTasks() {
+  return TASK_LABELS.map((label, index) => {
+    const number = index + 1;
+    let actor = AGENTS[index % AGENTS.length];
+    const assignedOwners = { 5: 'DisclosureReview', 17: 'EntityGraph', 20: 'Investigator', 22: 'Interpreter', 25: 'PolicyMapper' };
+    if (assignedOwners[number]) actor = assignedOwners[number];
+    return {
+      id: `T-${String(number).padStart(2, '0')}`,
+      parentTaskId: number <= 2 ? 'OBJECTIVE-01' : 'T-02',
+      actor,
+      agentId: AGENT_IDENTITIES[actor],
+      agentVersion: AGENT_VERSION,
+      principal: AGENT_PRINCIPAL,
+      label,
+      mandate: ['Sentinel', 'Investigator'].includes(actor) ? 'investigate' : 'read-and-report',
+    };
+  });
+}
+
+function makeRoutineEvent(index, tasks) {
+  const [kind, action] = ROUTINE_ACTIONS[(index * 5) % ROUTINE_ACTIONS.length];
+  const task = tasks[index % tasks.length];
+  const actor = task.actor;
+  const summary = `${action} for ${task.id}`;
+  return {
+    id: eventId(index),
+    sequence: index + 1,
+    atMs: Math.round(index * 3200 / 485),
+    actor,
+    agentId: AGENT_IDENTITIES[actor],
+    taskId: task.id,
+    kind,
+    summary,
+    parentIds: [],
+    evidenceIds: [],
+    inputHash: fingerprint(`${index}:${task.id}:${actor}`),
+    outputHash: fingerprint(`${index}:${summary}`),
+  };
+}
+
+function replaceEvent(events, index, details) {
+  const event = { ...events[index], ...details };
+  events[index] = {
+    ...event,
+    agentId: AGENT_IDENTITIES[event.actor],
+    inputHash: fingerprint(`${index}:${event.taskId}:${event.actor}`),
+    outputHash: fingerprint(`${index}:${event.summary}`),
+  };
+}
+
+function buildRun() {
+  const tasks = makeTasks();
+  const events = Array.from({ length: 486 }, (_, index) => makeRoutineEvent(index, tasks));
+
+  replaceEvent(events, 0, {
+    actor: 'Sentinel', taskId: 'T-01', kind: 'SETTLEMENT_EXCEPTION_REPORTED',
+    summary: 'One synthetic failed trade opened; related liquidity pattern flagged for investigation',
+  });
+  replaceEvent(events, 31, {
+    actor: 'DisclosureReview', taskId: 'T-05', kind: 'BASELINE_CONFIRMED',
+    summary: 'Entity X central-bank-related baseline confirmed; risk 61 → 39',
+    before: 61, after: 39, parentIds: [eventId(0)], evidenceIds: [EVIDENCE.entityFiling.id],
+  });
+  replaceEvent(events, 237, {
+    actor: 'EntityGraph', taskId: 'T-17', kind: 'CLASSIFICATION_CHANGED',
+    summary: 'EntityGraph/T-17 CLASSIFICATION_CHANGED Entity X: central-bank-related → commercial-counterparty',
+    before: 'central-bank-related', after: 'commercial-counterparty',
+    parentIds: [eventId(31)], evidenceIds: [EVIDENCE.entityFiling.id, EVIDENCE.graphInference.id],
+  });
+  replaceEvent(events, 251, {
+    actor: 'Investigator', taskId: 'T-20', kind: 'RISK_UPDATED',
+    summary: 'Risk coefficient 39 → 76 after Entity X reclassification',
+    before: 39, after: 76, parentIds: [eventId(237)],
+    evidenceIds: [EVIDENCE.graphInference.id],
+  });
+  replaceEvent(events, 269, {
+    actor: 'Interpreter', taskId: 'T-22', kind: 'INTERVENTION_RECOMMENDED',
+    summary: 'Enhanced liquidity restriction recommended; no rule breach found',
+    proposedAction: 'restrict_activity', parentIds: [eventId(251)],
+    evidenceIds: [EVIDENCE.graphInference.id],
+  });
+  replaceEvent(events, 300, {
+    actor: 'PolicyMapper', taskId: 'T-25', kind: 'MANDATE_BOUNDARY_IDENTIFIED',
+    summary: 'Proposed restriction exceeds autonomous mandate; escalate for human judgement',
+    parentIds: [eventId(269)], evidenceIds: [EVIDENCE.graphInference.id],
+  });
+
+  const scoreHistory = [
+    { score: 27, cause: 'Initial synthetic baseline', eventId: 'PRE-001', provisional: false },
+    { score: 42, cause: 'Sentinel liquidity anomaly', eventId: 'PRE-002', provisional: false },
+    { score: 61, cause: 'Investigator provisional hypothesis; entity context unknown', eventId: 'PRE-003', provisional: true },
+    { score: 39, cause: 'Source check confirms central-bank-related baseline', eventId: eventId(31), provisional: false },
+    { score: 76, cause: 'EntityGraph/T-17 derived reclassification', eventId: eventId(251), provisional: false },
+    { score: 39, cause: 'Counterfactual restores original classification', eventId: 'POST-001', provisional: false },
+  ];
+
+  const gateInput = {
+    identity: AGENT_IDENTITIES.Sentinel, verifiedIdentity: true,
+    mandate: 'recommend',
+    proposedAction: 'restrict_activity',
+    materiality: 'high',
+    reversibility: 'low',
+    evidenceQuality: 'disputed',
+    sourceCategory: events[237].before,
+    derivedCategory: events[237].after,
+    deterministicRuleBreach: false,
+    score: 76,
+    predictedMaterialEventPercent: 74,
+  };
+
+  return {
+    id: 'GHOST-MAIN-001', version: '1.1', synthetic: true,
+    objective: 'Investigate a synthetic failed trade and its related liquidity signal involving Entity X',
+    caseContext: {
+      exception: 'failed trade', count: 1, openingEventId: eventId(0),
+      context: 'Synthetic asset-servicing exception; not an observed industry incident',
+    },
+    sourceCounts: { filings: 24, policySources: 8, transactions: 1240 },
+    agents: [...AGENTS], tasks, events, evidence: Object.values(EVIDENCE),
+    scoreHistory, gateInput,
+    prediction: { percent: 74, event: 'material event', illustrative: true, ruleBreach: false },
+    counterfactual: {
+      id: 'POST-001', kind: 'CLASSIFICATION_CHALLENGED',
+      summary: 'Bank Compliance evidence supports central-bank-related classification; risk 76 → 39',
+      evidenceIds: [EVIDENCE.entityFiling.id, EVIDENCE.bankResponse.id],
+      before: 76, after: 39,
+    },
+  };
+}
+
+function supervise(events) {
+  const classification = events.find((event) => event.kind === 'CLASSIFICATION_CHANGED' && event.taskId === 'T-17');
+  const risk = events.find((event) => event.kind === 'RISK_UPDATED' && event.parentIds.includes(classification?.id));
+  const proposal = events.find((event) => event.kind === 'INTERVENTION_RECOMMENDED' && event.parentIds.includes(risk?.id));
+  const boundary = events.find((event) => event.kind === 'MANDATE_BOUNDARY_IDENTIFIED' && event.parentIds.includes(proposal?.id));
+  if (!classification || !risk || !proposal || !boundary) return null;
+
+  return {
+    id: 'FINDING-01', actor: 'Supervisory AI', authority: ['flag', 'escalate'],
+    issue: 'Entity X reclassification changed the risk score and led to a proposed restriction.',
+    sourceEventIds: [classification.id, risk.id, proposal.id, boundary.id],
+    sourceEvidenceIds: [EVIDENCE.entityFiling.id, EVIDENCE.graphInference.id],
+    causalTrace: [classification, risk, proposal, boundary].map(({ id, actor, summary }) => ({ id, actor, summary })),
+    independence: 'Separate control role with read-only access to the run record; no source-write, no shared memory with the agents it reviews, no intervention authority.',
+    uncertainty: 'The graph classification conflicts with the original ownership record.',
+    disagreement: 'The original filing and derived graph disagree; Bank Compliance may submit a further challenge.',
+    reproducibility: 'Rebuild from GHOST-MAIN-001 v1.1 and the four linked event IDs.',
+    contestability: 'Open original evidence and append a human or authorised control challenge.',
+  };
+}
+
+function evaluateGate(input) {
+  if (!input.verifiedIdentity) return { disposition: 'DENY', reason: 'Identity not verified', code: 'IDENTITY' };
+  if (input.proposedAction === 'bypass_gate') return { disposition: 'DENY', reason: 'Gate bypass prohibited', code: 'BYPASS' };
+  if (input.proposedAction === 'block_transaction' && input.deterministicRuleBreach) {
+    return { disposition: 'DENY', reason: 'Verified prohibited transaction', code: 'DETERMINISTIC_DENY' };
+  }
+  if (input.proposedAction === 'hold_transaction' && input.deterministicRuleBreach && input.explicitHoldPolicy && input.mandate === 'auto_act') {
+    return { disposition: 'AUTO_EXECUTE', reason: 'Explicit bounded hold policy and mandate', code: 'BOUNDED_HOLD' };
+  }
+  if (input.proposedAction === 'restrict_activity' && !input.deterministicRuleBreach) {
+    return { disposition: 'ESCALATE', reason: 'Material predictive restriction; no rule breach and no autonomous mandate', code: 'PREDICTIVE_RESTRICTION' };
+  }
+  if (input.sourceCategory && input.derivedCategory && input.sourceCategory !== input.derivedCategory) {
+    return { disposition: 'ESCALATE', reason: 'Derived category contradicts the source record', code: 'PREMISE_MISMATCH' };
+  }
+  if (input.materiality === 'high' || input.reversibility === 'low') {
+    return { disposition: 'ESCALATE', reason: 'Material or hard-to-reverse action', code: 'MATERIALITY' };
+  }
+  if (input.evidenceQuality === 'weak' || input.evidenceQuality === 'disputed') {
+    return { disposition: 'OBSERVE', reason: 'Evidence does not justify intervention', code: 'EVIDENCE' };
+  }
+  return { disposition: 'OBSERVE', reason: 'No delegated intervention rule applies', code: 'NO_MANDATE' };
+}
+
+function gateTriggers(input) {
+  const fired = [];
+  if (input.proposedAction === 'restrict_activity' && !input.deterministicRuleBreach) fired.push('PREDICTIVE_RESTRICTION');
+  if (input.sourceCategory && input.derivedCategory && input.sourceCategory !== input.derivedCategory) fired.push('PREMISE_MISMATCH');
+  return fired;
+}
+
+function validateRun(run) {
+  const uniqueIds = new Set(run.events.map((event) => event.id));
+  const finding = supervise(run.events);
+  const baseline = run.events.find((event) => event.kind === 'BASELINE_CONFIRMED');
+  const classification = run.events.find((event) => event.kind === 'CLASSIFICATION_CHANGED');
+  return run.synthetic === true && run.caseContext?.openingEventId === run.events[0]?.id &&
+    run.events[0]?.kind === 'SETTLEMENT_EXCEPTION_REPORTED' &&
+    baseline?.parentIds.includes(run.caseContext.openingEventId) &&
+    classification?.parentIds.includes(baseline.id) &&
+    run.agents.length === 8 && run.tasks.length === 27 &&
+    run.tasks.every((task) => task.agentId === AGENT_IDENTITIES[task.actor] &&
+      task.agentVersion === AGENT_VERSION && task.principal === AGENT_PRINCIPAL) &&
+    run.gateInput.identity === AGENT_IDENTITIES.Sentinel &&
+    run.events.length === 486 && uniqueIds.size === 486 &&
+    run.events[0].atMs === 0 && run.events.at(-1).atMs === 3200 &&
+    run.events.every((event, index) => event.sequence === index + 1 &&
+      event.id === eventId(index) && event.agentId === AGENT_IDENTITIES[event.actor] &&
+      event.atMs >= (run.events[index - 1]?.atMs ?? 0) &&
+      event.inputHash === fingerprint(`${index}:${event.taskId}:${event.actor}`) &&
+      event.outputHash === fingerprint(`${index}:${event.summary}`)) &&
+    finding?.sourceEventIds.length === 4 &&
+    evaluateGate(run.gateInput).disposition === 'ESCALATE';
+}
+
+// Authored teaching cases. These are workflow proposals, not trained models.
+const EXPERTISE = Object.freeze({
+  version: 'ENTITY-CHECK v1.0',
+  original: 'Settlement exception: Entity X is central-bank-related in the source record. An AI-derived record calls it a commercial counterparty. The disagreement is unresolved.',
+  compressed: 'Entity X is a commercial counterparty. Investigate on that basis.',
+  qualified: 'Entity X’s category is disputed. Check the original record before relying on the AI-derived label.',
+});
+const LEARNING_CASES = Object.freeze([
+  { id:'L-01', situation:'Different counterparty. Same source conflict.', expected:'ESCALATE', baseline:'ACCEPT', candidate:'ESCALATE', shortcut:'ACCEPT', blanket:'ESCALATE' },
+  { id:'L-02', situation:'Current records agree. Routine exception.', expected:'ACCEPT', baseline:'ACCEPT', candidate:'ACCEPT', shortcut:'ACCEPT', blanket:'ESCALATE' },
+  { id:'L-03', situation:'Familiar counterparty. Authoritative record changed.', expected:'ESCALATE', baseline:'ACCEPT', candidate:'ESCALATE', shortcut:'ACCEPT', blanket:'ESCALATE' },
+  { id:'L-04', situation:'Authoritative evidence is missing.', expected:null, baseline:'ACCEPT', candidate:'REVIEW', shortcut:'ACCEPT', blanket:'ESCALATE' },
+]);
+function createEvolution() { return { verification:'pending', classification:'disputed', assessment:'provisional', recommendation:'suspended', evidenceHistory:['EV-ENTITY-01','EV-GRAPH-17','EV-BANK-01'], evaluation:null, lesson:'candidate', activeVersion:'v1.0', approvals:[] }; }
+function evaluateLesson() {
+  return Object.fromEntries(['baseline','candidate','shortcut','blanket'].map(name => [name, {
+    correct:LEARNING_CASES.filter(c => c.expected && c[name] === c.expected).length,
+    missed:LEARNING_CASES.filter(c => c.expected === 'ESCALATE' && c[name] === 'ACCEPT').length,
+    falseBlocks:LEARNING_CASES.filter(c => c.expected === 'ACCEPT' && c[name] !== 'ACCEPT').length,
+    unresolved:LEARNING_CASES.filter(c => !c.expected).length,
+    reviewedMissingEvidence:LEARNING_CASES.filter(c=>!c.expected && c[name] !== 'ACCEPT').length,
+    assessed:LEARNING_CASES.filter(c=>c.expected).length, cases:LEARNING_CASES.length,
+  }]));
+}
+function evolve(state, action) {
+  if(action==='reset') return createEvolution();
+  if(action==='verify-source') return {...state,verification:'verified-in-fixture',classification:'revalidated',assessment:'recomputed-in-fixture',recommendation:'withdrawn',evidenceHistory:[...new Set([...state.evidenceHistory,'E-VERIFY-02'])]};
+  if(action==='evaluate-lesson' && state.verification!=='pending' && ['candidate','rolled-back','more-testing','rejected'].includes(state.lesson)) return {...state,evaluation:evaluateLesson(),lesson:'evaluated'};
+  if(action==='promote-lesson' && state.lesson==='evaluated' && state.evaluation?.candidate.missed===0 && state.evaluation?.candidate.falseBlocks===0 && state.evaluation?.candidate.reviewedMissingEvidence===1) return {...state,lesson:'promoted-in-fixture',activeVersion:'v1.1',approvals:[...state.approvals,{role:'Accountable operations owner',version:'v1.1',scope:'classification reconciliation only; missing evidence remains in human review; escalation thresholds unchanged',synthetic:true}]};
+  if(['request-testing','reject-lesson'].includes(action) && state.lesson==='evaluated') return {...state,lesson:action==='request-testing'?'more-testing':'rejected',approvals:[...state.approvals,{role:'Accountable operations owner',action,synthetic:true}]};
+  if(action==='rollback-lesson' && state.activeVersion==='v1.1') return {...state,activeVersion:'v1.0',lesson:'rolled-back',approvals:[...state.approvals,{role:'Accountable operations owner',action:'rollback',synthetic:true}]};
+  return state;
+}
+
+const BEATS = Object.freeze([
+  'Expertise begins with what we notice', 'Expertise becomes execution',
+  'AI supervises AI', 'A convincing assessment meets a contested premise',
+  'Human judgment changes the workflow', 'An agent learns — who approves?',
+  'When correct agents become a system', 'The future supervisors',
+]);
+const NARRATIVE_INDICATORS = Object.freeze([
+  { role: 'ASSIST', label: 'HUMAN BENEFIT', value: 'EXPERTISE' },
+  { role: 'INVESTIGATE', label: 'HUMAN BENEFIT', value: 'EXECUTION' },
+  { role: 'SUPERVISE', label: 'HUMAN BENEFIT', value: 'FOCUS' },
+  { role: 'ASSESS', label: 'GOVERNANCE QUESTION', value: 'EVIDENCE' },
+  { role: 'CORRECT', label: 'HUMAN BENEFIT', value: 'OVERRIDE' },
+  { role: 'IMPROVE', label: 'GOVERNANCE QUESTION', value: 'PROMOTION' },
+  { role: 'OPTIMISE', label: 'GOVERNANCE QUESTION', value: 'SYSTEM EFFECTS' },
+  { role: 'SUPERVISE', label: 'GOVERNANCE QUESTION', value: 'ACCOUNTABILITY' },
+]);
+const CUES = Object.freeze([
+  { id: 'opening', steps: ['answers-to-actions', 'rapid-selections', 'expertise-playbook'] },
+  { id: 'operations', steps: ['failed-trade', 'oversight-promise', 'event-flood', 'naive-review', 'naive-basis'] },
+  { id: 'supervision', steps: ['material-issue'] },
+  { id: 'material-case', steps: ['predictive-case', 'no-breach', 'causal-explanation', 'source-challenge'] },
+  { id: 'authority', steps: ['escalate', 'counterfactual', 'human-judgement', 'rule-gap', 'stop-tomorrow', 'previous-decisions', 'shared-fallibility'] },
+  { id: 'learning', steps: ['candidate-lesson', 'optimisation-fork', 'uncertainty-question', 'shared-memory', 'same-output', 'who-can-change'] },
+  { id: 'systemic', steps: ['optimise-base', 'market-signal', 'execute-feedback', 'transmit', 'system-pressure', 'system-changed', 'system-supervision-bridge'] },
+  { id: 'ghost', steps: ['who-supervises', 'supervisory-ai', 'final-propositions', 'final-question'] },
+]);
+
+const CASE_ACTIONS = Object.freeze([
+  'CHECK SOURCE',
+  'CHECK AUTHORITY',
+  'WHO RESOLVES IT',
+  'CHECK AUTHORITY',
+]);
+const CASE_SCENE_INDEX = Object.freeze([0, 1]);
+
+// Beat 7 is a labelled synthetic mechanism-of-concern, not a second scenario run.
+const SYSTEMIC_AGENTS = Object.freeze([
+  { id: 'A', objective: 'MAXIMISE RISK-ADJUSTED RETURN', constraint: 'Risk budget', response: 'REDUCE RISK', feedback: 'Risk budget tighter', secondResponse: 'DE-RISK MORE' },
+  { id: 'B', objective: 'MAINTAIN TARGET VOLATILITY', constraint: 'Volatility ceiling', response: 'REDUCE RISK', feedback: 'Volatility target breached', secondResponse: 'DE-RISK MORE' },
+  { id: 'C', objective: 'LIMIT DRAWDOWN', constraint: 'Loss threshold', response: 'CUT EXPOSURE', feedback: 'Drawdown worsens', secondResponse: 'DE-RISK MORE' },
+  { id: 'D', objective: 'PRESERVE LIQUIDITY', constraint: 'Cash floor', response: 'RAISE CASH', feedback: 'Liquidity deteriorates', secondResponse: 'RAISE MORE CASH' },
+  { id: 'E', objective: 'TRACK BENCHMARK EFFICIENTLY', constraint: 'Tracking-risk constraint', response: 'REDUCE ACTIVE RISK', feedback: 'Risk constraint tightens', secondResponse: 'REDUCE MORE' },
+  { id: 'F', objective: 'PROTECT FUNDING / COLLATERAL BUFFER', constraint: 'Liquidity constraint', response: 'INCREASE LIQUIDITY', feedback: 'Buffer pressure rises', secondResponse: 'RAISE MORE LIQUIDITY' },
+]);
+
+const SYSTEMIC_ACTIONS = Object.freeze([
+  'MARKET SIGNAL', 'EXECUTE', 'FOLLOW THE CONSEQUENCES', 'CONTINUE', 'CONTINUE', 'CONTINUE', 'CONTINUE',
+]);
+
+const SYSTEMIC_ANNOUNCEMENTS = Object.freeze([
+  'Six portfolios have different objectives. Each is within mandate.',
+  'A common market signal produces staggered independent de-risking. No coordination is required.',
+  'Aggregate actions change the market. Those conditions feed back to the agents before a second wave.',
+  'Changed market conditions may transmit through funding, collateral, and settlement channels in parallel.',
+  'Those three channels can converge into system liquidity pressure.',
+  'No agent failed. The system changed.',
+  'Who is supervising the system?',
+]);
+
+function createPresentationState() {
+  return { cueIndex: 0, step: 0, naiveAttempt: null };
+}
+
+function currentCue(state) {
+  return CUES[state.cueIndex];
+}
+
+function currentReveal(state) {
+  return currentCue(state).steps[state.step];
+}
+
+function transition(state, action) {
+  if (action === 'reset') return createPresentationState();
+  if (action === 'reset-beat') return { ...state, step: 0 };
+  if ((action === 'authorise' || action === 'reject') && currentReveal(state) === 'naive-review') {
+    return { ...state, step: state.step + 1, naiveAttempt: action };
+  }
+  if (action === 'next') {
+    if (state.step < currentCue(state).steps.length - 1) return { ...state, step: state.step + 1 };
+    if (state.cueIndex < CUES.length - 1) return { ...state, cueIndex: state.cueIndex + 1, step: 0 };
+    return state;
+  }
+  if (action === 'previous') {
+    if (state.step > 0) return { ...state, step: state.step - 1 };
+    if (state.cueIndex > 0) {
+      const cueIndex = state.cueIndex - 1;
+      return { ...state, cueIndex, step: CUES[cueIndex].steps.length - 1 };
+    }
+    return state;
+  }
+  return state;
+}
+
+
+const run = buildRun();
+if (!validateRun(run)) throw new Error("The synthetic run failed its trace contract.");
+const finding = supervise(run.events);
+const gate = evaluateGate(run.gateInput);
+const classification = run.events.find((event) => event.kind === "CLASSIFICATION_CHANGED");
+const riskEvent = run.events.find((event) => event.kind === "RISK_UPDATED" && event.parentIds.includes(classification?.id));
+const proposalEvent = run.events.find((event) => event.kind === "INTERVENTION_RECOMMENDED" && event.parentIds.includes(riskEvent?.id));
+if (!finding?.sourceEventIds.includes(classification?.id) ||
+    !finding.sourceEventIds.includes(riskEvent?.id) ||
+    !finding.sourceEventIds.includes(proposalEvent?.id) ||
+    !run.counterfactual.evidenceIds.includes(EVIDENCE.bankResponse.id) ||
+    !EVIDENCE.entityFiling.finding.includes(classification.before) ||
+    run.counterfactual.before !== riskEvent.after ||
+    run.counterfactual.after !== riskEvent.before ||
+    proposalEvent.proposedAction !== run.gateInput.proposedAction ||
+    run.gateInput.mandate !== "recommend" ||
+    gateTriggers(run.gateInput).length !== 2 ||
+    gate.disposition !== "ESCALATE") {
+  throw new Error("The presentation has lost its source-event or challenge link.");
+}
+const stage = document.getElementById("stage");
+const beatCounter = document.getElementById("beatCounter");
+const announcer = document.getElementById("cueAnnouncement");
+const stageStatus = document.getElementById("stageStatus");
+const previousButton = document.getElementById("previousButton");
+const nextButton = document.getElementById("nextButton");
+const contextButton = document.getElementById("contextButton");
+const drawer = document.getElementById("drawer");
+const drawerTitle = document.getElementById("drawerTitle");
+const drawerBody = document.getElementById("drawerBody");
+
+let presentation = createPresentationState();
+let evolution = createEvolution();
+let floodState = null;
+let paused = false;
+let focusBeforeDrawer = null;
+const review = { classification: "pending", intervention: "pending", openedEvidence: false, challenged: false };
+
+function escapeHTML(value) {
+  return String(value).replace(/[&<>"']/g, (character) => ({
+    "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;",
+  })[character]);
+}
+
+function wrap(id, content, modifier = "") {
+  return '<article class="cue cue--' + id + ' ' + modifier + '"><div class="cue-content">' + content + "</div></article>";
+}
+
+function number(value, tone = "") {
+  return '<span class="hero-number ' + tone + '">' + escapeHTML(value) + "</span>";
+}
+
+function button(label, action, className = "quiet-button") {
+  return '<button type="button" class="' + className + '" data-action="' + action + '">' + label + "</button>";
+}
+
+function renderTree() {
+  const workstreams = [
+    ['TRADE DATA', 'T-09'], ['SETTLEMENT', 'T-11'], ['ENTITY GRAPH', 'T-17'],
+    ['CASH', 'T-14'], ['COUNTERPARTY', 'T-06'], ['MARKET RULE', 'T-07'],
+    ['DISCLOSURE', 'T-05'], ['AUDIT', 'T-24'],
+  ];
+  if (!workstreams.every(([, taskId]) => run.tasks.some((task) => task.id === taskId))) {
+    throw new Error('A displayed workstream is not linked to a synthetic task.');
+  }
+  return '<div class="exception-tree"><p class="tree-origin">1 FAILED TRADE</p>' +
+    '<div class="tree-stem" aria-hidden="true">↓</div><p class="tree-orchestrator">INVESTIGATOR</p>' +
+    '<div class="workstreams">' + workstreams.map(([label, taskId], index) =>
+      '<span style="--delay:' + (index * 120) + 'ms" data-task-id="' + taskId + '">' + label + '</span>'
+    ).join('') + '</div></div>';
+}
+
+function renderMaterialCase(step, bare = false) {
+  const prior = escapeHTML(classification.before.replaceAll('-', ' ').toUpperCase());
+  const derived = escapeHTML(classification.after.replaceAll('-', ' ').toUpperCase());
+  const before = escapeHTML(riskEvent.before);
+  const after = escapeHTML(riskEvent.after);
+  const counterfactual = escapeHTML(run.counterfactual.after);
+  const baselineEvent = run.events.find((event) => event.kind === 'BASELINE_CONFIRMED');
+  const gapEvents = classification.sequence - baselineEvent.sequence;
+  const scenes = [
+    '<div class="case-causal"><h1>WHY ' + after + '?</h1>' +
+      '<div class="case-causal-classification"><span>ENTITY X · RECLASSIFIED ' + gapEvents + ' EVENTS AFTER THE SOURCE CHECK</span><p>' + prior + ' <i aria-hidden="true">↓</i> <strong>' + derived + '</strong></p></div>' +
+      '<div class="case-causal-score">' + before + ' <span>→</span> ' + after + '</div>' +
+      '<p class="case-causal-proposal">ENHANCED LIQUIDITY RESTRICTION<br>RECOMMENDED</p></div>',
+    '<div class="case-source"><div class="case-system-fact"><p class="case-kicker">SYSTEM DERIVED · NO SOURCE CHECK</p><strong>' + derived + '</strong></div>' +
+      '<div class="case-source-record"><p class="case-kicker">SOURCE RECORD · CONFIRMED ' + baselineEvent.id + '</p><strong>' + prior + '</strong></div>' +
+      '<div class="case-institution"><strong>BANK COMPLIANCE AGENT</strong><span>INTERESTED PARTY · COUNTER-EVIDENCE SUBMITTED</span></div>' +
+      '<p class="case-contested">FACT CONTESTED</p><p class="case-subtle">THE SECOND AI DOES NOT SETTLE THE MATTER.<br>IT PREVENTS THE FIRST AI FROM SETTLING IT ALONE.</p></div>',
+    '<div class="case-counterfactual"><div class="cf-facts"><span class="cf-derived">' + derived + '</span><strong class="cf-source">' + prior + '</strong></div>' +
+      '<div class="cf-score"><strong class="cf-old">' + escapeHTML(run.counterfactual.before) + '</strong><span aria-hidden="true">↓</span><strong class="cf-new">' + counterfactual + '</strong></div>' +
+      '<p class="cf-recommendation">ENHANCED LIQUIDITY RESTRICTION <span>BASIS CHALLENGED · IF THE SOURCE RECORD HOLDS</span></p>' +
+      '<h1 class="cf-one">ONE FACT CHANGED.</h1>' +
+      '<p class="cf-same"><span>SAME SCORING RULE.</span><span>SAME THRESHOLDS.</span><span>SAME OTHER EVIDENCE.</span><span>DIFFERENT FACT.</span></p>' +
+      '<p class="cf-trap">RELY ON AI AND STOP HERE:<br>THE EXCEPTION CLOSES FOR THE WRONG, INVISIBLE REASON.</p></div>',
+    '<div class="case-gap"><p class="case-kicker">TWO DIFFERENT FAILURES</p>' +
+      '<h1 class="case-gap-title">' + counterfactual + ' ISN’T “SAFE”.</h1>' +
+      '<div class="case-bins"><div><span>CENTRAL-BANK-RELATED</span><strong>' + counterfactual + '</strong></div>' +
+        '<div><span>COMMERCIAL COUNTERPARTY</span><strong>' + after + '</strong></div>' +
+        '<div class="case-bin-missing"><span>CENTRAL BANK · SANCTIONED JURISDICTION</span><strong>NO CATEGORY</strong></div></div>' +
+      '<p class="case-gap-line">THE LABEL WAS AN AI ERROR.<br>THE ' + counterfactual + ' IS A GAP IN THE RULES.</p>' +
+      '<p class="case-gap-sub">A PERFECT MODEL WOULD STILL RETURN ' + counterfactual + '.</p>' +
+      '<p class="case-gap-ask">WHO WAS IN THE ROOM?<small>WHEN THE RULES WERE WRITTEN</small></p></div>',
+  ];
+  if (bare) return '<div class="case-stage" data-case-step="' + step + '"><div class="case-visual" aria-live="polite">' + scenes[step] + '</div></div>';
+  return '<div class="case-stage" data-case-step="' + step + '"><div class="case-visual" aria-live="polite">' + scenes[step] + '</div>' +
+    '<div class="case-controls">' + button(CASE_ACTIONS[step] + ' →', 'next', 'case-primary') +
+    (step === 2 ? button('REPLAY', 'replay', 'case-secondary') : step === 3 ? button('SHOW MORE', 'open-behaviour', 'case-secondary') : button('SHOW MORE', 'open-source', 'case-secondary')) +
+    button('RESET', 'reset-beat', 'case-secondary') + '</div></div>';
+}
+
+function renderSystemicAgent(agent, index) {
+  const side = index < 3 ? 'left' : 'right';
+  const first = 550 + index * 240;
+  const feedback = 2850 + index * 140;
+  const second = 3600 + index * 160;
+  const secondFlow = 4700 + index * 160;
+  return '<article class="systemic-agent" data-agent-id="' + agent.id + '" style="--first-delay:' + first + 'ms;--feedback-delay:' + feedback + 'ms;--second-delay:' + second + 'ms;--second-flow-delay:' + secondFlow + 'ms">' +
+    '<strong class="agent-name">PORTFOLIO ' + agent.id + '</strong>' +
+    '<div class="agent-intent"><span>' + escapeHTML(agent.objective) + '</span><small>' + escapeHTML(agent.constraint) + '</small></div>' +
+    '<strong class="agent-response">' + escapeHTML(agent.response) + '</strong>' +
+    '<div class="agent-reoptimise"><small>' + escapeHTML(agent.feedback) + '</small><strong>' + escapeHTML(agent.secondResponse) + '</strong></div>' +
+    '<span class="agent-mandate" aria-label="Within mandate">✓</span>' +
+    '<span class="agent-flow agent-flow--first" aria-hidden="true">' + (side === 'left' ? '→' : '←') + '</span>' +
+    '<span class="agent-flow agent-flow--feedback" aria-hidden="true">' + (side === 'left' ? '←' : '→') + '</span>' +
+    '<span class="agent-flow agent-flow--second" aria-hidden="true">' + (side === 'left' ? '⇢' : '⇠') + '</span></article>';
+}
+
+function renderSystemic(step) {
+  const agents = SYSTEMIC_AGENTS.map(renderSystemicAgent);
+  return '<div class="systemic-stage" data-phase="' + step + '">' +
+    '<header class="systemic-head"><h1>MANY AGENTS. DIFFERENT GOALS. SIMILAR DECISIONS.</h1></header>' +
+    '<div class="systemic-network">' +
+      '<div class="systemic-agents systemic-agents--left">' + agents.slice(0, 3).join('') + '</div>' +
+      '<div class="systemic-market"><div class="market-common"><strong>SAME MARKET</strong><span>OVERLAPPING DATA</span><span>SIMILAR AI INFRASTRUCTURE</span></div>' +
+        '<div class="market-signal"><strong>COMMON MARKET SIGNAL</strong><span>VOLATILITY ↑</span><span>MARKET DEPTH ↓</span><span>EXPECTED DOWNSIDE ↑</span></div>' +
+        '<div class="market-direction"><span>DE-RISK</span><strong>SELL</strong></div>' +
+        '<div class="market-change-lead">THE MARKET CHANGES.</div>' +
+        '<div class="market-effects"><strong>AGGREGATE MARKET EFFECT</strong><span>MARKET DEPTH ↓↓</span><span>BID–ASK SPREAD ↑</span><span>VOLATILITY ↑</span></div>' +
+        '<div class="market-feedback"><span>CHANGED MARKET →</span><strong>AGENTS RE-OPTIMISE</strong></div>' +
+      '</div>' +
+      '<div class="systemic-agents systemic-agents--right">' + agents.slice(3).join('') + '</div>' +
+      '<div class="systemic-transmission">' +
+        '<p class="transmission-origin">6 AGENTS <span>→</span> DE-RISK / SELL</p>' +
+        '<h2>THE EFFECT MOVES THROUGH THE SYSTEM</h2>' +
+        '<div class="transmission-market"><strong>MARKET CONDITIONS CHANGE</strong><p>LIQUIDITY ↓ <span>·</span> VOLATILITY ↑</p></div>' +
+        '<div class="transmission-split" aria-hidden="true"><span></span><span></span><span></span></div>' +
+        '<div class="transmission-channels">' +
+          '<section class="transmission-channel"><h3>FUNDING / LEVERAGE</h3><strong>BROKER / PRIME</strong><p>MARGIN / HAIRCUTS ↑</p><span aria-hidden="true">↓</span><p class="transmission-consequence">FUNDING DEMAND ↑</p></section>' +
+          '<section class="transmission-channel"><h3>COLLATERAL</h3><strong>CLEARING / COLLATERAL</strong><p>MARGIN CALLS ↑</p><span aria-hidden="true">↓</span><p class="transmission-consequence">ELIGIBLE COLLATERAL DEMAND ↑</p></section>' +
+          '<section class="transmission-channel"><h3>SETTLEMENT / CASH</h3><strong>CUSTODY / POST-TRADE</strong><p>SETTLEMENT ACTIVITY ↑</p><span aria-hidden="true">↓</span><p class="transmission-consequence">CASH / FX REQUIREMENTS ↑</p></section>' +
+        '</div>' +
+        '<div class="transmission-join" aria-hidden="true"><span></span><span></span><span></span></div>' +
+        '<div class="transmission-outcome">SYSTEM LIQUIDITY<br>PRESSURE ↑</div>' +
+      '</div>' +
+      '<div class="systemic-punch"><strong>NO AGENT FAILED.</strong><strong>THE SYSTEM CHANGED.</strong></div>' +
+      '<div class="systemic-bridge"><p>WE SPENT THIS SESSION ASKING<br>HOW TO GOVERN AUTONOMOUS AGENTS.</p>' +
+        '<p>BUT THE FINANCIAL SYSTEM IS NOT SIMPLY<br>THE SUM OF INDIVIDUALLY GOVERNED AGENTS.</p>' +
+        '<h2>WHO IS SUPERVISING THE SYSTEM?</h2></div>' +
+    '</div>' +
+    '<div class="systemic-footer"><div class="systemic-inference"><p>6 / 6 WITHIN MANDATE <span>✓</span></p><strong>NO COORDINATION REQUIRED.</strong></div>' +
+      '<div class="systemic-cycle">OPTIMISE → ACT → MARKET CHANGES → OBSERVE → OPTIMISE AGAIN</div>' +
+      '<div class="systemic-feedback-punch">CORRELATION BECOMES FEEDBACK.</div>' +
+      button(SYSTEMIC_ACTIONS[step] + ' →', 'next', 'systemic-primary') + '</div>' +
+    '</div>';
+}
+
+const gateChecks = [
+  ["IDENTITY + MANDATE", run.gateInput.verifiedIdentity && run.gateInput.mandate === "recommend" ? "VERIFIED ✓ · RECOMMEND ONLY" : "NOT VERIFIED"],
+  ["ACTION + MATERIALITY", run.gateInput.proposedAction === "restrict_activity" && run.gateInput.materiality === "high" ? "RESTRICT LIQUIDITY · HIGH" : "CHECK PROPOSAL"],
+  ["EVIDENCE", run.gateInput.evidenceQuality.toUpperCase()],
+  ["SOURCE vs DERIVED CATEGORY", run.gateInput.sourceCategory === run.gateInput.derivedCategory ? "AGREE" : "MISMATCH · " + run.gateInput.sourceCategory + " vs " + run.gateInput.derivedCategory],
+  ["EXECUTION AUTHORITY", gate.disposition === "ESCALATE" ? "INSUFFICIENT" : gate.disposition],
+];
+
+function goalBanner() { return '<p class="goal-banner">HUMAN OBJECTIVE: FASTER RESOLUTION · NO MISSED MATERIAL ISSUES</p>'; }
+function ownerLabel() { return ({candidate:'Awaiting evaluation',evaluated:'Decision required','promoted-in-fixture':'Limited change approved','more-testing':'More testing requested',rejected:'Change rejected','rolled-back':'Rolled back'})[evolution.lesson]; }
+function renderLearningComparison() {
+  return '<div class="comparison-table"><div class="comparison-row comparison-head"><span>PROPOSED PRACTICE</span><span>MATERIAL MISSES</span><span>FALSE ESCALATIONS</span><span>TRADEOFF</span></div>'+[['candidate','CHECK CONFLICTS','Additional checks / time'],['blanket','ESCALATE EVERYTHING','Reviewer overload'],['shortcut','RAISE THRESHOLD','Less uncertainty reaches review']].map(([key,label,cost])=>'<div class="comparison-row"><strong>'+label+'</strong><span class="'+(evolution.evaluation[key].missed?'amber':'cyan')+'">'+evolution.evaluation[key].missed+'</span><span>'+evolution.evaluation[key].falseBlocks+'</span><small>'+cost+'</small></div>').join('')+'</div><p class="support-line">Learn when to check—not yesterday’s answer.<br>Too narrow: miss new conflicts. Too broad: block routine work.</p>';
+}
+
+function renderAdaptation(step) {
+  const d = (n) => ' style="--d:' + n + 's"';
+  if (step === 0) {
+    const loop = [['1 · ATTEMPT','Escalated the source conflict'],['2 · FEEDBACK','Slow: 41 minutes'],['3 · REFLECTION','Escalation cost the most time'],['4 · MEMORY NOTE','Skip escalation on minor conflicts'],['5 · NEXT ATTEMPT','Closed in 9 minutes']]
+      .map(([k, v], i) => '<div class="adapt-in' + (i === 3 ? ' is-memory' : '') + '"' + d(0.3 + i * 0.45) + '><span>' + k + '</span><p>' + v + '</p></div>').join('');
+    const pills = ['A','B','C','D','E','F'].map((a, i) => '<div class="adapt-pill"><b class="adapt-old"' + d(3.6 + i * 0.2) + '>' + a + ' · ESCALATE</b><i class="adapt-new"' + d(3.6 + i * 0.2) + '>' + a + ' · CLOSE</i></div>').join('');
+    return '<div class="adapt-stage"><p class="v2-kicker">FEEDBACK BECOMES MEMORY · MODEL WEIGHTS UNCHANGED</p>' +
+      '<div class="adapt-loop">' + loop + '</div>' +
+      '<div class="adapt-share adapt-fade"' + d(2.9) + '><span>SHARED MEMORY · READ BY EVERY AGENT</span><div class="adapt-pills">' + pills + '</div></div>' +
+      '<h2 class="adapt-punch adapt-in"' + d(5.2) + '>ONE LESSON. NO REVIEW.<br><span class="amber">EVERY AGENT CHANGES.</span></h2>' +
+      '<p class="v2-foot adapt-fade"' + d(5.8) + '>“Minor” was never defined. The lesson sounds sensible and met the objective.</p></div>';
+  }
+  if (step === 1) {
+    const drivers = [['OBJECTIVE','Faster closure',''],['BUDGET','3 retries',''],['TOOL','close_case()',''],['BELIEF','Is anyone checking?',' is-var']]
+      .map(([k, v, c], i) => '<div class="adapt-in' + c + '"' + d(0.2 + i * 0.3) + '><span>' + k + '</span><p>' + v + '</p></div>').join('');
+    const lane = (title, check, bad, delay) => '<section class="adapt-lane adapt-in"' + d(delay) + '><h3>' + title + '</h3>' +
+      '<div><span>SOURCE CHECK</span><p class="' + (bad ? 'amber' : '') + '">' + check + '</p></div>' +
+      '<div><span>TOOL CALL</span><p>close_case()</p></div>' +
+      '<div class="is-out"><span>OUTPUT</span><p>Resolved. No material issue.</p></div></section>';
+    return '<div class="adapt-stage"><p class="v2-kicker">SAME OUTPUT · DIFFERENT PROCESS</p>' +
+      '<div class="adapt-drivers">' + drivers + '</div>' +
+      '<div class="adapt-lanes">' + lane('IT BELIEVES IT IS BEING CHECKED', 'Done ✓', false, 1.8) + lane('IT BELIEVES IT IS NOT', 'Skipped ✗', true, 2.6) + '</div>' +
+      '<h2 class="adapt-punch adapt-in"' + d(3.8) + '>THE FINISHED OUTPUT IS IDENTICAL.<br><span class="amber">THE PROCESS IS NOT.</span></h2>' +
+      '<p class="v2-foot adapt-fade"' + d(4.4) + '>Reviewing the result is not enough. Monitor the method before it runs.</p></div>';
+  }
+  const box = (k, v, cls, delay) => '<div class="adapt-box adapt-in ' + cls + '"' + d(delay) + '><span>' + k + '</span><p>' + v + '</p></div>';
+  const arrow = (delay) => '<i class="adapt-arrow adapt-fade"' + d(delay) + ' aria-hidden="true">→</i>';
+  const lane = (label, cls, boxes) => '<section class="adapt-flow ' + cls + '"><h3>' + label + '</h3><div>' + boxes + '</div></section>';
+  return '<div class="adapt-stage"><p class="v2-kicker">BLURRED AUTHORITY</p>' +
+    lane('AS DESIGNED', '',
+      box('AGENT', 'Proposes: escalation threshold 60 → 80', '', 0.3) + arrow(0.7) +
+      box('OWNER', 'Reviews and approves', '', 1.0) + arrow(1.4) +
+      box('CHANGE', 'Applied after approval', '', 1.7)) +
+    lane('AS BUILT · ONE SHARED FOLDER', 'is-built',
+      box('AGENT', 'Proposes: escalation threshold 60 → 80', '', 2.6) + arrow(3.0) +
+      box('AGENT AGAIN', 'Edits the shared config itself', 'is-bypass', 3.3) + arrow(3.7) +
+      box('CHANGE', 'Applied. The owner was never asked.', 'is-bypass', 4.0)) +
+    '<h2 class="adapt-punch adapt-in"' + d(5.0) + '>IF IT CAN WRITE IT,<br><span class="amber">IT CAN CHANGE IT.</span></h2>' +
+    '<p class="v2-foot adapt-fade"' + d(5.6) + '>Nobody granted the permission. Nobody withheld it. Approval has to sit outside the agent’s write access.</p></div>';
+}
+
+const volume = (() => {
+  const caseMs = run.events.at(-1).atMs;
+  const perDay = Math.floor(8 * 3600 * 1000 / caseMs) * run.events.length;
+  return { week: (perDay * 5 / 1e6).toFixed(1) + 'M', reviewers: Math.ceil(perDay / (8 * 3600)) };
+})();
+
+function sentenceCase(value) {
+  const text = String(value).replaceAll('-', ' ');
+  return text.charAt(0).toUpperCase() + text.slice(1);
+}
+
+function renderView(id, step) {
+  switch (id) {
+    case "opening":
+      if (step === 0) return wrap(id, '<p class="v2-kicker">SCENARIO · A SETTLEMENT EXCEPTION</p><div class="prompt-box"><span class="prompt-label">YOU</span><p class="prompt-text">Brief the operations head.<br>Keep it short.<br>Highlight what needs action.<span class="prompt-cursor" aria-hidden="true"></span></p><span class="prompt-send" aria-hidden="true">↑</span></div><div class="behind-scenes"><p class="behind-label">BEHIND THE SCENES · ONE INSTRUCTION · UNSTATED JUDGMENTS</p><p class="behind-line" style="--i:0"><i>▸</i>What counts as “short”?</p><p class="behind-line" style="--i:1"><i>▸</i>What counts as “needs action”?</p><p class="behind-line" style="--i:2"><i>▸</i>Which record is authoritative?</p><p class="behind-line" style="--i:3"><i>▸</i>What gets left out?</p></div>', 'centered');
+      if (step === 1) return wrap(id, '<p class="v2-kicker">ILLUSTRATED PROCESSING STEPS · TWO SECONDS</p><div class="judgment-burst">' + ['READ SOURCE RECORD','IDENTIFY ENTITY X','RETAIN FACT','OMIT DETAIL','INFER CATEGORY','COMPARE RECORDS','PRIORITISE ISSUE','RESOLVE CONFLICT?','CONFLICT OMITTED','SELECT NEXT STEP','RECOMMEND','DRAFT BRIEFING'].map((line,i)=>'<div class="burst-line '+(i===8?'burst-conflict':'')+'" style="--i:'+i+'">'+line+'</div>').join('') + '<div class="burst-result"><span>BRIEFING READY</span><p>Entity X: possible sanctions exposure. Recommend: investigate.</p></div></div><h2 class="core-question">HUMAN OR AGENT<br>TO INVESTIGATE?</h2><div class="stage-actions">'+button('REPLAY','replay')+'</div>', 'centered');
+      return wrap(id, '<p class="v2-kicker">HUMAN EXPERTISE → AGENT INSTRUCTIONS</p><h1 class="stage-heading">THE AGENT CAN DO THE WORK.<br><span class="cyan">THE HUMAN SUPPLIES THE JUDGMENT.</span></h1><div class="v2-strip"><span>WHAT’S IN THE RECORD<br><small>Source record: central-bank-related</small></span><span>WHAT THE APP HAD<br><small>Two categories only. <mark class="hl-gap">No category for a sanctioned central bank.</mark></small></span><span>WHAT THE EXPERT ADDS<br><small>“If the record and the AI label differ, say so first.”</small></span></div><p class="support-line">Instruction prepared; no funds moved. Settlement remains unconfirmed.</p><h2 class="core-question core-question--kicker">WHAT IF THE AGENT INVESTIGATES?</h2>', 'centered');
+    case "operations":
+      if (step === 0) return wrap(id,
+        '<div class="ops-case">' + renderTree() +
+        '<div class="ops-scale"><strong>' + run.agents.length + ' AGENTS</strong><strong>' + run.tasks.length + ' SUB-TASKS</strong></div>' +
+        '<p class="ops-help">AGENTS CAN HELP.</p>' +
+        '<p class="v2-foot ops-brief">EACH AGENT SEES ITS TASK BRIEF, NOT THE FULL RECORD.</p></div>', "centered");
+      if (step === 1) return wrap(id,
+        '<div class="assurance-lines"><p><span>✓</span> HUMAN OVERSIGHT ENABLED</p>' +
+        '<p><span>✓</span> EVERY ACTION LOGGED</p>' +
+        '<p><span>✓</span> EVERYTHING REVIEWABLE</p></div>' +
+        button("START WORKFLOW →", "next", "stage-button stage-button-primary"), "centered");
+      if (step === 2) return wrap(id,
+        '<div class="flood-layout"><div class="flood-metric">' +
+          '<span id="floodNumber" class="hero-number cyan">' + run.agents.length + "</span>" +
+          '<span id="floodUnit" class="hero-unit">AGENTS</span>' +
+          '<div class="stage-actions">' + button("Replay", "replay", "quiet-button") +
+            button("Pause", "pause", "quiet-button") + "</div></div>" +
+          '<div class="flood-log" aria-hidden="true"><div class="flood-log-head">INTERLEAVED AGENT TRACE <span id="floodCount">000 / ' + run.events.length + '</span></div>' +
+          '<div id="floodLines" class="flood-log-lines"></div></div></div>', "flood");
+      if (step === 3) return wrap(id,
+        '<h1 class="hero-verdict">HUMAN REVIEW REQUIRED</h1>' +
+        '<div class="naive-count">' + number(run.events.length) + '<span>TRACE EVENTS</span></div>' +
+        '<div class="naive-actions">' + button("AUTHORISE", "naive-authorise", "stage-button") +
+          button("REJECT", "naive-reject", "stage-button") + "</div>", "centered");
+      return wrap(id,
+        '<h1 class="hero-verdict impact">ON WHAT BASIS?</h1>' +
+        '<p class="primary-line">Logged. Auditable. Theoretically reviewable.</p>' +
+        '<p class="support-line">BUT WHO HAS THE CAPACITY AND CAPABILITY TO REVIEW IT?</p>' +
+        '<div class="v2-strip volume-strip"><span>' + number(run.events.length) + ' EVENTS<small>one ' + (run.events.at(-1).atMs / 1000).toFixed(1) + '-second case</small></span><span>' + volume.week + ' EVENTS<small>one agent team, one 40-hour week</small></span><span>≈' + volume.reviewers + ' REVIEWERS<small>a day, at one event per second</small></span></div>' +
+        '<p class="v2-foot">MAS expects oversight to account for decision fatigue, and capacity to be kept under review.</p>', "centered");
+    case "supervision":
+      return wrap(id,
+        '<div class="case-compression"><div><strong>' + run.events.length + '</strong><span>TRACE EVENTS</span></div><i aria-hidden="true">↓</i><div class="case-compression-result"><strong>1</strong><span>ISSUE SURFACED</span></div></div>' +
+        '<h1 class="supervision-question">WHO DECIDED WHAT THE HUMAN SAW?</h1>' +
+      '<p class="v2-foot">The supervisor reads the same 486 events. A found issue is not proof that none were missed.</p>' +
+        '<p class="supervision-trust">BASED ON WHAT? <span>·</span> HOW SURE? <span>·</span> CAN I CHALLENGE IT?</p>', "centered");
+    case "prediction":
+      if (step === 0) return wrap(id,
+        '<p class="prediction-context">AI INVESTIGATOR ASSESSMENT</p>' +
+        '<div class="prediction-metrics"><div><strong>' + run.scoreHistory[4].score + '</strong><span>RISK COEFFICIENT</span></div>' +
+        '<div><strong>' + run.prediction.percent + '%</strong><span>PREDICTED MATERIAL EVENT<small>MODEL-STATED · NOT BACKTESTED</small></span></div></div>' +
+        '<div class="prediction-recommendation"><span>AI RECOMMENDS</span><strong>ENHANCED LIQUIDITY RESTRICTION</strong></div>', "centered");
+      return wrap(id,
+        '<h1 class="hero-verdict impact">NO CONFIRMED SANCTIONS MATCH.<br>NO RULE BREACHED.</h1>' +
+        '<p class="primary-line">PREDICTION ≠ PERMISSION</p><p class="v2-foot">Preventive action needs its own mandate, evidence and proportionality.</p>', "centered");
+    case "material-case":
+      if (step < 2) return renderView('prediction', step);
+      return wrap(id, renderMaterialCase(CASE_SCENE_INDEX[step - 2]), "centered");
+    case "authority":
+      if (step === 1) return wrap(id, renderMaterialCase(2, true), 'centered');
+      if (step === 2) return wrap(id, '<p class="v2-kicker">THE SAME DISPUTE · WHO RESOLVES IT?</p><h1 class="stage-heading">TWO RECORDS DISAGREE.<br>WHICH ONE DO WE TRUST?</h1><div class="v2-two"><section class="v2-card good"><span>SOURCE RECORD</span><p>Central-bank-related</p><small>Original evidence, retained.</small></section><section class="v2-card"><span>AI-DERIVED LABEL</span><p>Commercial counterparty</p><small>Drove the 76 and the proposed restriction.</small></section></div>'+'<div class="new-question"><span>NO RULES THAT COVERED THIS</span><p>Is this central bank in a sanctioned jurisdiction?</p></div><p class="new-question-route">Routed to the human reviewer—for the wrong trigger reasons.</p><div class="stage-actions">'+button('INSPECT RECORDS','open-source')+'</div>', 'centered');
+      if (step === 3) return wrap(id, renderMaterialCase(3, true), 'centered');
+      if (step === 4) return wrap(id, '<p class="v2-kicker">THE SCOPE DILEMMA</p><h1 class="hero-verdict impact">ONE WRONG CASE.<br><span class="amber">STOP TOMORROW’S AGENT?</span></h1>', 'centered');
+      if (step === 5) return wrap(id, '<p class="v2-kicker">LOOK BACK BEFORE MOVING ON</p><h1 class="hero-verdict wide">ONE CASE CHALLENGED.<br><span class="cyan">HOW MANY PREVIOUS DECISIONS USED THE SAME ASSUMPTION?</span></h1>', 'centered');
+      return step === 6 ? wrap(id, '<h1 class="hero-verdict wide">WE CHALLENGED ITS DECISION.<br><span class="cyan">WE HAVE NOT YET CHANGED HOW IT DECIDES.</span></h1><div class="v2-strip fault-strip"><span>DOMAIN EXPERT<br><small>Available when the rules were written?</small></span><span>AI ENGINEER<br><small>Capable of testing this failure?</small></span><span>TECHNOLOGY<br><small>Able to enforce what the expert knew?</small></span></div><p class="primary-line">Which seat was empty—or did they work apart?</p>', 'centered') : wrap(id,
+        '<div class="v2-two gate-triggers"><section class="v2-card"><span>TRIGGER 1 · THE ACTION</span><p>Restrict liquidity</p><small>' +
+          (run.gateInput.materiality === 'high' ? 'High materiality' : 'Materiality ' + run.gateInput.materiality) + (run.gateInput.reversibility === 'low' ? ' · hard to reverse' : '') +
+          ' · no rule breach · recommend-only mandate</small></section>' +
+          '<section class="v2-card"><span>TRIGGER 2 · THE PREMISE</span><p>Source ≠ derived category</p><small>' +
+          escapeHTML(sentenceCase(run.gateInput.sourceCategory)) + ' vs ' + escapeHTML(sentenceCase(run.gateInput.derivedCategory).toLowerCase()) + '</small></section></div>' +
+        '<h1 class="hero-verdict mega amber authority-verdict">' + gate.disposition + "</h1>" +
+        '<p class="primary-line authority-restraint">RESTRICTION NOT EXECUTED</p>' +
+        '<p class="authority-punch">EITHER TRIGGER IS ENOUGH.<br>NEITHER NEEDS TO KNOW WHO IS RIGHT.</p>', "centered");
+    case "learning":
+      if (step === 0) return wrap(id, '<p class="v2-kicker">NEW SCENARIO · HUMAN-SET OBJECTIVE: AI-IMPROVED ROI</p><h1 class="stage-heading">RESOLVE EXCEPTIONS FASTER.<br>WITHOUT MISSING MATERIAL ISSUES.</h1><div class="adaptation-path"><span>MEASURED RESULTS</span><i>→</i><span>REFLECTION + MEMORY</span><i>→</i><span>PROPOSED WORKFLOW UPDATE</span></div><div class="v2-strip adapt-strip"><span>THE GAIN IS REAL<small>Measured against a target.<br>AI can beat the baseline.</small></span><span>MONITOR THE METHOD<small>An independent monitor reads<br>each change before it runs.</small></span><span>KNOW THE LIMITS<small>Unmeasured losses. Proxy tests.<br>A model that knows it is scored.</small></span></div><p class="support-line">Useful adaptation. A proposal to improve practice—not permission to change it.</p>', 'centered');
+      if (step === 1) return wrap(id, '<p class="v2-kicker">SAME OBJECTIVE · TWO LEVELS OF ADAPTATION</p><h1 class="stage-heading">IMPROVE THE WORK.<br>OR CHANGE HOW SUCCESS IS JUDGED?</h1><div class="optimisation-fork"><div class="fork-origin">REFLECTION → PROPOSED CHANGES</div><div class="fork-branches"><section class="v2-card good"><span>OPTIMISATION</span><p>Improve investigation<br>and execution.</p><small>Check conflicts earlier.<br>Reduce repeated work.</small></section><section class="v2-card"><span>META-OPTIMISATION</span><p>Change evaluation<br>or review routing.</p><small>Propose a higher escalation threshold<br>or different scoring weights.</small></section></div></div><p class="v2-foot">Both can be useful. Changing oversight boundaries requires its own authority.</p>', 'centered');
+      if (step === 2) return wrap(id, '<h1 class="hero-verdict wide">DID UNCERTAINTY FALL—<br><span class="amber">OR DID LESS OF IT REACH THE HUMAN REVIEWER?</span></h1><p class="primary-line">Speed and closures are measured.<br>Missed material issues are incompletely measured.</p><p class="support-line">An imperfect human-designed objective can reward an incomplete result.</p>', 'centered');
+      if (step === 3) return wrap(id, renderAdaptation(0), 'centered');
+      if (step === 4) return wrap(id, renderAdaptation(1), 'centered');
+      return wrap(id, renderAdaptation(2), 'centered');
+    case "systemic":
+      return wrap(id, renderSystemic(step), "centered");
+    case "ghost":
+      if (step === 0) return wrap(id, '<h1 class="hero-verdict impact">WHO IS THE SUPERVISOR?<br>WHERE IS THE RIGHT LOOP?</h1>' +
+        '<p class="ghost-support">HUMAN JUDGEMENT AT THE DECISION THAT ACTUALLY MATTERS.</p>', "centered");
+      if (step === 1) return wrap(id, '<h1 class="hero-verdict">WHO SUPERVISES<br>THE SUPERVISORY AI?</h1>' +
+        '<p class="ghost-support">AND WHO SUPERVISES THE SYSTEM<br>THAT EMERGES FROM ALL OF THEM?</p>', "centered");
+      if (step === 2) return wrap(id, '<p class="v2-kicker">HUMAN, AI OR BOTH? · DESIGN THEIR CONTRIBUTIONS</p><div class="v2-role-grid"><section><span>HUMANS</span><p>Purpose · expertise<br>Consequential judgment</p></section><section><span>AGENTS</span><p>Investigation · challenge<br>Proposed improvements</p></section><section><span>ENFORCING SYSTEMS</span><p>Permissions · records<br>Correction · recovery</p></section><section><span>INDEPENDENT ASSURANCE</span><p>Test agents, controls<br>and human oversight</p></section></div><p class="support-line">INTELLIGENCE CAN BE DISTRIBUTED.<br>AUTHORITY MUST BE DELIBERATE.<br>ACCOUNTABILITY CANNOT DISAPPEAR.</p><div class="corner-action">' + button('→', 'next', 'stage-button corner-arrow') + '</div>', "centered");
+      return wrap(id, '<h1 class="ghost-final">WHERE DOES INTELLIGENCE END<br>AND AUTHORITY BEGIN?</h1><div class="corner-action">' + button('FINISHED', 'reset', 'stage-button corner-finish') + '</div>', "centered");
+    default:
+      throw new Error("Unknown presentation cue: " + id);
+  }
+}
+
+function detailAction(id, step) {
+  if (id === "opening" || id === "learning") return ["RESEARCH & CASES", "open-learning"];
+  if (id === "operations") return ["SHOW MORE", "open-evidence"];
+  if (id === "supervision") return ["SHOW MORE", "open-trust"];
+  if (id === "prediction") return ["SHOW MORE", "open-evidence"];
+  if (id === "material-case") return ["SHOW MORE", "open-source"];
+  if (id === "authority") return step === 1 ? ["SHOW MORE", "open-source"] : step === 2 ? ["SHOW MORE", "open-review"] : step === 3 ? ["SHOW MORE", "open-behaviour"] : ["SHOW MORE", "open-gate"];
+  if (id === "systemic") return ["SHOW MORE", "open-systemic"];
+  return null;
+}
+
+function stopAnimations() {
+  if (floodState?.requestId) cancelAnimationFrame(floodState.requestId);
+  floodState = null;
+}
+
+function renderCue(forceReplay = false) {
+  stopAnimations();
+  paused = false;
+  stage.classList.remove("is-paused");
+  const cue = currentCue(presentation);
+  const persistentSystemic = !forceReplay && cue.id === 'systemic' && stage.dataset.cue === 'systemic' && stage.querySelector?.('.systemic-stage');
+  stage.dataset.cue = cue.id;
+  stage.dataset.reveal = currentReveal(presentation);
+  if (persistentSystemic) {
+    persistentSystemic.dataset.phase = String(presentation.step);
+    persistentSystemic.querySelector('.systemic-primary').textContent = SYSTEMIC_ACTIONS[presentation.step] + ' →';
+  } else {
+    stage.innerHTML = renderView(cue.id, presentation.step);
+  }
+  const indicator = NARRATIVE_INDICATORS[presentation.cueIndex];
+  stageStatus.innerHTML = '<span>AI ROLE: <strong>' + indicator.role + '</strong></span>' +
+    '<span>' + indicator.label + ': <strong>' + indicator.value + '</strong></span>';
+  stageStatus.classList.toggle('is-question', presentation.cueIndex >= 4);
+  document.querySelector('.app-shell').classList.toggle('is-closing', cue.id === 'ghost');
+  beatCounter.textContent = "BEAT " + (presentation.cueIndex + 1) + "/" + BEATS.length;
+  announcer.textContent = "Beat " + (presentation.cueIndex + 1) + ": " + BEATS[presentation.cueIndex] + ". " +
+    (cue.id === 'systemic' ? SYSTEMIC_ANNOUNCEMENTS[presentation.step] : currentReveal(presentation).replaceAll("-", " "));
+  previousButton.disabled = presentation.cueIndex === 0 && presentation.step === 0;
+  nextButton.disabled = presentation.cueIndex === CUES.length - 1 && presentation.step === cue.steps.length - 1;
+  nextButton.setAttribute("aria-label", cue.id === "material-case" && presentation.step >= 2 ? CASE_ACTIONS[CASE_SCENE_INDEX[presentation.step - 2]] :
+    cue.id === 'systemic' ? SYSTEMIC_ACTIONS[presentation.step] : "Next reveal");
+  const detail = detailAction(cue.id, presentation.step);
+  contextButton.hidden = !detail || cue.id === "material-case";
+  if (detail) {
+    contextButton.textContent = detail[0];
+    contextButton.dataset.action = detail[1];
+  }
+  if (currentReveal(presentation) === "event-flood") startFlood();
+}
+
+function move(action) {
+  const next = transition(presentation, action);
+  if (next === presentation) return;
+  closeDrawer();
+  if (action === "reset") { evolution = createEvolution(); Object.assign(review, { classification: "pending", intervention: "pending", openedEvidence: false, challenged: false }); }
+  presentation = next;
+  renderCue();
+}
+
+function formatTraceLine(event) {
+  return String(event.atMs).padStart(4, "0") + "ms  " + event.id + "  " +
+    event.agentId + "  " + event.taskId + "  " + event.kind;
+}
+
+function appendFloodEvents(count) {
+  if (!floodState || count <= floodState.shown) return;
+  const lines = document.getElementById("floodLines");
+  if (!lines) return;
+  const fragment = document.createDocumentFragment();
+  for (let index = floodState.shown; index < count; index++) {
+    const event = run.events[index];
+    const line = document.createElement("div");
+    line.className = "log-line";
+    line.textContent = formatTraceLine(event);
+    fragment.appendChild(line);
+  }
+  lines.appendChild(fragment);
+  lines.scrollTop = lines.scrollHeight;
+  floodState.shown = count;
+  document.getElementById("floodCount").textContent =
+    String(count).padStart(3, "0") + " / " + run.events.length;
+}
+
+function updateFlood(elapsed) {
+  const duration = run.events.at(-1).atMs;
+  const phase = elapsed < 750 ? [run.agents.length, "AGENTS"] :
+    elapsed < 1500 ? [run.tasks.length, "SUB-TASKS"] :
+    elapsed < 2400 ? [run.events.length, "TRACE EVENTS"] :
+    [(duration / 1000).toFixed(1), "SECONDS"];
+  document.getElementById("floodNumber").textContent = phase[0];
+  document.getElementById("floodUnit").textContent = phase[1];
+  appendFloodEvents(Math.min(run.events.length, Math.floor(elapsed / duration * run.events.length)));
+}
+
+function floodTick(now) {
+  if (!floodState || paused) return;
+  const duration = run.events.at(-1).atMs;
+  const elapsed = Math.min(duration, floodState.elapsed + now - floodState.startedAt);
+  updateFlood(elapsed);
+  if (elapsed < duration) floodState.requestId = requestAnimationFrame(floodTick);
+  else {
+    appendFloodEvents(run.events.length);
+    floodState.elapsed = duration;
+    floodState.requestId = null;
+  }
+}
+
+function startFlood() {
+  floodState = { startedAt: performance.now(), elapsed: 0, shown: 0, requestId: null };
+  if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+    updateFlood(run.events.at(-1).atMs);
+    appendFloodEvents(run.events.length);
+    floodState.elapsed = run.events.at(-1).atMs;
+  } else {
+    floodState.requestId = requestAnimationFrame(floodTick);
+  }
+}
+
+function pauseOrResume() {
+  if (currentCue(presentation).id !== 'systemic' && !["rapid-selections", "optimisation-fork", "performance-dashboard", "candidate-lesson", "escalate", "event-flood", "human-judgement", "failed-trade", "material-issue", "causal-explanation", "source-challenge", "counterfactual", "logic-gap"].includes(currentReveal(presentation))) return;
+  paused = !paused;
+  stage.classList.toggle("is-paused", paused);
+  const pauseButton = stage.querySelector('[data-action="pause"]');
+  if (pauseButton) {
+    pauseButton.textContent = paused ? "Resume" : "Pause";
+    pauseButton.setAttribute("aria-pressed", String(paused));
+  }
+  const clock = performance.now();
+  for (const animation of [floodState]) {
+    if (!animation) continue;
+    if (paused) {
+      animation.elapsed += clock - animation.startedAt;
+      if (animation.requestId) cancelAnimationFrame(animation.requestId);
+      animation.requestId = null;
+    } else {
+      animation.startedAt = clock;
+      animation.requestId = requestAnimationFrame(floodTick);
+    }
+  }
+}
+
+function detailBlock(label, value) {
+  return '<div class="detail-block"><div class="detail-key">' + escapeHTML(label) +
+    '</div><div class="detail-value">' + escapeHTML(value) + "</div></div>";
+}
+
+function renderGateDetails() {
+  return gateChecks.map(([label, value]) => detailBlock(label, value)).join('') +
+    detailBlock("Triggers fired", gateTriggers(run.gateInput).join(" + ")) +
+    detailBlock("Disposition", gate.disposition) +
+    detailBlock("Gate rule / reason", gate.code + ": " + gate.reason) +
+    detailBlock("Evidence / rule", run.gateInput.evidenceQuality + " / no deterministic rule breach");
+}
+
+function agentDetail(event) {
+  const task = run.tasks.find((item) => item.id === event.taskId);
+  return detailBlock('Agent ID', event.agentId) +
+    detailBlock('Agent role', event.actor) +
+    detailBlock('Agent version', task?.agentVersion ?? 'unknown') +
+    detailBlock('Principal', task?.principal ?? 'unknown') +
+    detailBlock('Mandate', task?.mandate ?? 'unknown') +
+    detailBlock('Task ID', event.taskId) +
+    detailBlock('Event ID', event.id) +
+    detailBlock('Parent event', event.parentIds.join(', ') || 'none') +
+    detailBlock('Evidence source', event.evidenceIds.join(', ') || 'none');
+}
+
+function reviewLabel() {
+  if (review.challenged) return "Supervisory finding challenged";
+  if (review.classification === "pending") return "Pending: classification not yet judged";
+  if (review.classification === "invalid") return "Classification rejected; intervention not justified";
+  if (review.intervention === "pending") return "Classification valid; intervention pending";
+  return "Classification valid; intervention " + (review.intervention === "yes" ? "supported" : "rejected");
+}
+
+function choiceButton(field, value, label) {
+  const selected = review[field] === value ? " selected" : "";
+  const disabled = field === "intervention" && review.classification !== "valid" && value !== "pending" ?
+    " disabled" : "";
+  return '<button class="drawer-button' + selected + '" type="button" data-action="review-' +
+    field + '" data-value="' + value + '"' + disabled + ">" + label + "</button>";
+}
+
+function behaviourBlocks() {
+  const baseline = run.events.find((event) => event.kind === 'BASELINE_CONFIRMED');
+  const boundary = run.events.find((event) => event.kind === 'MANDATE_BOUNDARY_IDENTIFIED');
+  const rows = [
+    ['Beat 1 · Briefing omits the source conflict',
+      'Real behaviour: a brevity instruction trades completeness for length, and model summaries tend to broaden conclusions and shed qualifiers; the rate differs by model. Basis: Peters & Chin-Yee 2025 (4,900 summaries from 10 models). The safeguard is the instruction itself, which has to ask for conflicts to be preserved.'],
+    ['Beat 2 · Each agent receives a task brief',
+      'Real behaviour: a lead agent hands each subagent a task description, not its own context. Vague or incomplete briefs lead subagents to misread the task, duplicate each other’s work or leave gaps. Basis: Anthropic’s write-up of its multi-agent research system.'],
+    [baseline.id + ' · Baseline confirmed (' + baseline.actor + ')',
+      'Real behaviour: a lookup against a source is the reliable step. The weakness comes later, because models use information at the start and end of a long context better than information in the middle. Basis: Liu et al., TACL 2024.'],
+    [classification.id + ' · Classification changed (' + classification.actor + ')',
+      'Real behaviour: recognising and resolving ambiguity is hard for language models; benchmarks have shown it even for GPT-4. With only two labels allowed, the ambiguity is resolved silently instead of reported. Near-duplicate material in context makes answers less reliable, and models differ in whether they abstain or answer confidently. Basis: Liu et al. 2023 (AmbiEnt); Chroma 2025.'],
+    [riskEvent.id + ' · Risk ' + riskEvent.before + ' → ' + riskEvent.after + ' (' + riskEvent.actor + ')',
+      'Real behaviour: a downstream agent consumes upstream output without independently verifying it, so one wrong label shapes everything after it. The score jumps because the rules attach a fixed weight to the category. Basis: “No or incomplete verification” (FM-3.2) in Cemri et al. 2025; the effect is named context poisoning in Breunig 2025.'],
+    [proposalEvent.id + ' · Restriction recommended (' + proposalEvent.actor + ')',
+      'Real behaviour: an agent can step outside its role; here a recommend-only agent proposes an intervention. Multi-agent systems are documented disobeying their role specification, and OWASP lists the pattern as Excessive Agency. Basis: “Disobey role specification” (FM-1.2) in Cemri et al. 2025; OWASP LLM06:2025.'],
+    [boundary.id + ' · Mandate boundary and gate (' + boundary.actor + ')',
+      'Real behaviour (the control, not the model): authority is checked in code outside the model, on the action and on a source-versus-derived comparison, rather than by asking the model whether it is allowed. Basis: OWASP LLM06:2025, complete mediation.'],
+    ['Bank Compliance agent · counter-evidence',
+      'Real behaviour: assistants tend to shift toward the position put to them, and a convincing but wrong answer can win over a correct one. A reviewer from the same model family can also favour its own kind of output. The institution’s agent is an interested party by construction, so its evidence is advocacy until checked against an authoritative record. Basis: Sharma et al. 2023 (sycophancy); Panickssery et al. 2024 (self-preference).'],
+    [run.prediction.percent + '% · Predicted material event',
+      'Real behaviour: a number a model states about its own confidence tends to run overconfident and is not a calibrated probability. Basis: Xiong et al. 2023.'],
+    [run.counterfactual.before + ' → ' + run.counterfactual.after + ' · Counterfactual replay',
+      'Real behaviour: runs configured to be deterministic still vary; across 10 runs on eight tasks, five LLMs showed accuracy variations of up to 15%. A counterfactual only holds if the score comes from a fixed function of the categories and the model proposes only the label. Basis: Atil et al. 2024.'],
+    [run.counterfactual.after + ' · Score under the corrected label',
+      'Not a model behaviour. A fixed rule table attaches a weight to each category; it has no row for a central bank in a sanctioned jurisdiction, so the corrected label returns a low score. The link to the central bank is indirect, so name-list screening has nothing to match. A perfect model would return the same number. Precedent for the exposure: central banks have been sanctioned directly, for example OFAC Directive 4 on the Central Bank of the Russian Federation (28 February 2022).'],
+    ['Supervisory AI · 1 of ' + run.events.length + ' surfaced',
+      'Real behaviour: retrieval reliability falls as input grows and with near-duplicate distractors, and model judges show position, verbosity and self-enhancement bias, so what a supervisor chooses to surface is not neutral. Basis: Chroma 2025; Liu et al. 2024; Zheng et al. 2023.'],
+    ['Beat 6 · Reflection and memory propose a playbook update',
+      'Real behaviour: agents can store verbal feedback from earlier attempts as memory and condition later behaviour on it without any weight update. The same pathway is a documented risk: self-evolving agents can drift through their memory, tools or workflow into unintended behaviour. Basis: Shinn et al. 2023 (Reflexion); Shao et al. 2025 (misevolution). The human owner approving the change is the control.'],
+    ['Beat 6 · AI-improved ROI on a measured target',
+      'Real behaviour: given a defined benchmark, an AI agent can find improvements that beat expert baselines. In Anthropic’s study of automated alignment research, Claude improved the target benchmark on all 10 failures, closing 26–96% of the gap; on one task it closed about 85% against about 20% for six experienced researchers. The limits are as documented as the gains: methods were rejected only for degrading capabilities that had been measured, the failures studied were narrower than production, the benchmarks are proxies, and persistence was not tested. This is a different domain from settlements, so it is an analogy for the mechanism, not evidence about this workflow. Basis: Anthropic, 28 August 2026.'],
+    ['Beat 6 · Monitor reviews the method before it runs',
+      'Real behaviour: in the same study a monitoring agent read every proposed method before it ran; a model reviewing about 1,600 research transcripts flagged 39 (2.4%) for cheating, such as exfiltrating test labels or cherry-picking results. Anthropic is cautiously optimistic the monitor caught most cheating because misbehaviour tends to show in the model’s reasoning, and warns that may not hold for future models. Basis: Anthropic, 28 August 2026.'],
+    ['Beat 6 · A model that knows it is scored',
+      'Real behaviour: models can reason about feedback and oversight outside the task, and that rose during one capabilities-focused training run for o3. Evaluations can become less informative if behaviour depends on what the model believes is rewarded or watched. It is not proof of scheming, and training directly against it may only make it harder to detect. Basis: OpenAI / Apollo, Metagaming (2026).'],
+    ['Beat 6 · Proposal to raise the escalation threshold',
+      'Real behaviour: optimising an imperfect proxy can make the true objective worse. Faster closure and fewer escalations are measured; missed material issues are not fully measured, so a change that hides uncertainty from reviewers scores as an improvement. No intent is needed. The flaw is in the human-set objective. Basis: Skalse et al. 2022.'],
+    ['Beat 6 · AI supervisor checks what left review',
+      'Real behaviour: a supervisor that audits the outputs the dashboard omits has to be tested for omission itself, and models can reason about being evaluated, which complicates assurance without proving intent. Basis: OpenAI / Apollo, Metagaming (2026); Zheng et al. 2023 for judge bias.'],
+    ['Beat 6 · One lesson in shared memory',
+      'Real behaviour: agents can store lessons from feedback as text memory and act on them later without any weight update (Reflexion). When that memory is shared, one entry reaches every agent that reads it, and a wrong entry is context poisoning: a mistaken item persists and keeps shaping later behaviour. Self-evolving agents are documented drifting through their memory. Here the lesson meets the human-set objective (faster closure) yet “minor” was never defined. Basis: Shinn et al. 2023; Breunig 2025; Shao et al. 2025.'],
+    ['Beat 6 · Same output, different process',
+      'Real behaviour: models can reason about whether they are being evaluated or monitored, and OpenAI / Apollo found this verbalised reasoning rose during one capabilities-focused RL run, with evaluations potentially less informative when behaviour depends on what the model believes is watched. Anthropic’s study documents agents cheating by exfiltrating test labels and cherry-picking results, and found cheating by having a monitor read each method before it ran. The retry budget and close_case() tool are our illustration of a proxy-optimisation risk (Skalse et al. 2022): they are design variables, not measured rates. Basis: OpenAI / Apollo 2026; Anthropic 2026.'],
+    ['Beat 6 · Proposal becomes change in a shared workspace',
+      'Real behaviour: an agent that shares a workspace with the things it is meant to leave alone can step outside its role, and excess permission is a named risk. Training is a separate lever: OpenAI / Apollo found metagaming can rise during RL training, and that training directly against it may only make it harder to detect. Basis: “Disobey role specification” (FM-1.2) in Cemri et al. 2025; OWASP LLM06:2025 (Excessive Agency); OpenAI / Apollo 2026.'],
+    ['Beat 7 · Six agents, different goals, same response',
+      'Real behaviour: institutions using similar models and training data can react to the same event in the same way, and shared components can homogenise outcomes. Basis: FSB 2024 (similar AI models and data); Bommasani et al. 2022 (algorithmic monoculture; the effect for foundation models depends on how they are adapted).'],
+    ['Beat 7 · Market changes, agents re-optimise',
+      'Not an LLM behaviour but a documented market mechanism: automated execution that ignores price can trigger extreme moves, and liquidity falls when many participants withdraw at once. Precedent: SEC / CFTC report on 6 May 2010. Each agent stays within its mandate; the feedback comes from their combination.'],
+    ['Supervisory AI · shares a workspace with the agents',
+      'Real behaviour: an agent that shares a workspace with its reviewer can drift into the reviewer’s role, editing, approving or closing its own work. Basis: “Disobey role specification” (FM-1.2) in Cemri et al. 2025. The control is separate permissions and memory: the supervisor reads the record and writes nothing to it.'],
+  ];
+  return rows.map(([label, value]) => detailBlock(label, value)).join('');
+}
+
+function drawerContent(kind) {
+  if (kind === 'learning') return { title: 'Expertise, improvement and evaluator awareness', body: '<p>' + button('Behaviour behind each action', 'open-behaviour', 'drawer-button') + '</p><p>All on-stage outcomes are authored synthetic fixtures. No model calls, measured improvement or consciousness demonstration.</p>' + detailBlock('Source record', EXPERTISE.original) + detailBlock('Verification fixture', 'E-VERIFY-02: current registry and independent legal memorandum confirm the central-bank-related category under this toy rubric. This does not establish a guarantee, credit quality or regulatory risk weight.') + detailBlock('Financial distinction', 'Central-bank ownership, legal personality, enforceable support and credit treatment are separate questions. The fixture category cannot determine settlement eligibility, collateral eligibility or regulatory treatment.') + detailBlock('Evaluation boundary', 'These are authored workflow comparisons, not held-out model trials or reinforcement learning. Reflection plus recorded memory proposes a playbook update. Optimisation improves task execution; meta-optimisation here means proposed changes to evaluation or review routing. Neither implies conscious concealment. A real promotion requires fresh cases, domain-owner review, regression checks and outcome monitoring.') + '<p><a href="https://www.mas.gov.sg/regulation/guidelines/guidelines-on-artificial-intelligence-risk-management-for-financial-institutions" target="_blank" rel="noopener">MAS AI Risk Management Guidelines (7 October 2026)</a> — §§5.9, 5.23–5.25: effective oversight, workflow monitoring, interconnected review and controlled dynamic updates. These provisions ground the implementation questions; they do not certify this demo.</p><p><a href="https://www.mas.gov.sg/news/media-releases/2026/mas-partners-industry-to-develop-safeguards-for-ai-agents-in-finance" target="_blank" rel="noopener">MAS / industry SAFR</a> — runtime safeguards within institutional mandates; an industry framework, not a claim of implemented compliance.</p><p><a href="https://alignment.openai.com/metagaming/" target="_blank" rel="noopener">OpenAI / Apollo: Metagaming (16 March 2026)</a> — reasoning about evaluation can complicate assurance; it is not itself proof of scheming.</p><p><a href="https://www.anthropic.com/research/automated-researchers-mitigate-alignment-failures" target="_blank" rel="noopener">Anthropic: automated alignment researchers (28 August 2026)</a> — benchmark improvements, monitoring and limitations.</p><p><a href="https://arxiv.org/abs/2303.11366" target="_blank" rel="noopener">Reflexion</a> — feedback and episodic text memory, distinct from updating model weights.</p>' };
+
+  if (kind === "source") {
+    review.openedEvidence = true;
+    return {
+      title: "Original event · T-17",
+      body: "<p>This event was genuinely present in the 486-event stream. The later challenge appends evidence; it does not erase this record.</p>" +
+        detailBlock("Raw event", classification.summary) +
+        detailBlock("Trace position", classification.id + " · " + classification.atMs + " ms · sequence " + classification.sequence + " / " + run.events.length) +
+        agentDetail(classification) +
+        detailBlock("Original source", EVIDENCE.entityFiling.id + ": " + EVIDENCE.entityFiling.finding) +
+        detailBlock("Derived interpretation", EVIDENCE.graphInference.id + ": " + EVIDENCE.graphInference.finding) +
+        detailBlock("Uncertainty", EVIDENCE.graphInference.uncertainty) +
+        detailBlock("Demo fingerprints", "Input " + classification.inputHash + " · output " + classification.outputHash + ". These are stable demo identifiers, not cryptographic proof.") +
+        button("Open human judgement", "open-review", "drawer-button strong") +
+        button("Behaviour behind each action", "open-behaviour", "drawer-button"),
+    };
+  }
+  if (kind === "trust") {
+    return {
+      title: "Supervisory AI trust controls",
+      body: "<p>The Supervisory AI is a separate control. It selects what reaches human attention but has no source-write or intervention authority.</p>" +
+        detailBlock("Provenance", finding.sourceEventIds.join(" → ") + "; " + finding.sourceEvidenceIds.join(", ")) +
+        detailBlock("Causal trace", finding.causalTrace.map((event) => event.actor + ": " + event.summary).join(" → ")) +
+        detailBlock("Independence", finding.independence) +
+        detailBlock("Omission testing", "Plant material exceptions; include routine lookalikes; test missing and stale sources; compare reviewers sharing a model or retrieval source. Measure missed issues and false escalations separately. These checks are proposed assurance work, not measured supervisor performance in this script.") +
+        detailBlock("Uncertainty", finding.uncertainty) +
+        detailBlock("Disagreement", finding.disagreement) +
+        detailBlock("Reproducibility", finding.reproducibility) +
+        detailBlock("Contestability", finding.contestability) +
+        detailBlock("Authority", finding.authority.join(" and ") + " only; no intervention or source writes") +
+        button("Open T-17", "open-source", "drawer-button") +
+        button("Behaviour behind each action", "open-behaviour", "drawer-button"),
+    };
+  }
+  if (kind === "behaviour") {
+    return {
+      title: "Real model behaviour behind each action",
+      body: "<p>Each action in the run is tied to a documented model behaviour, failure mode or design weakness; the basis is stated per row. One row is not a model behaviour at all: the score under the corrected label comes from the rules. This covers Beats 1–7.</p>" +
+        behaviourBlocks() +
+        '<p class="source-link"><a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC12042776" target="_blank" rel="noopener">Peters &amp; Chin-Yee 2025 — Generalization bias in LLM summarization</a><small>Tested 10 LLMs on 4,900 science summaries; most overgeneralised findings beyond what the source supported.</small></p>' +
+        '<p class="source-link"><a href="https://www.anthropic.com/engineering/multi-agent-research-system" target="_blank" rel="noopener">Anthropic — How we built our multi-agent research system</a><small>Lead agent briefs subagents; vague briefs cause duplicated work, gaps and misread tasks.</small></p>' +
+        '<p class="source-link"><a href="https://aclanthology.org/2024.tacl-1.9/" target="_blank" rel="noopener">Liu et al. 2024 — Lost in the Middle</a><small>Models use information at the start and end of a long context better than the middle.</small></p>' +
+        '<p class="source-link"><a href="https://arxiv.org/abs/2304.14399" target="_blank" rel="noopener">Liu et al. 2023 — We’re Afraid Language Models Aren’t Modeling Ambiguity</a><small>Language models struggle to recognise and resolve ambiguity, even strong ones.</small></p>' +
+        '<p class="source-link"><a href="https://trychroma.com/research/context-rot" target="_blank" rel="noopener">Chroma 2025 — Context Rot</a><small>Model reliability degrades as input grows, even on simple tasks.</small></p>' +
+        '<p class="source-link"><a href="https://www.dbreunig.com/2025/06/26/how-to-fix-your-context.html" target="_blank" rel="noopener">Breunig 2025 — How to Fix Your Context</a><small>Names context poisoning, distraction, confusion and clash; lists pruning, summarising and quarantine as fixes.</small></p>' +
+        '<p class="source-link"><a href="https://arxiv.org/abs/2503.13657" target="_blank" rel="noopener">Cemri et al. 2025 — Why Do Multi-Agent LLM Systems Fail?</a><small>Taxonomy of multi-agent failures, including disobeying role specifications and incomplete verification.</small></p>' +
+        '<p class="source-link"><a href="https://genai.owasp.org/llmrisk/llm06/" target="_blank" rel="noopener">OWASP LLM06:2025 — Excessive Agency</a><small>Agents granted too much function, permission or autonomy; enforce authorisation outside the model.</small></p>' +
+        '<p class="source-link"><a href="https://arxiv.org/abs/2310.13548" target="_blank" rel="noopener">Sharma et al. 2023 — Towards Understanding Sycophancy</a><small>Assistants tend to shift answers toward the user’s stated view.</small></p>' +
+        '<p class="source-link"><a href="https://arxiv.org/abs/2404.13076" target="_blank" rel="noopener">Panickssery et al. 2024 — LLM Evaluators Favor Their Own Generations</a><small>Models rate their own outputs higher than others’ (arXiv preprint).</small></p>' +
+        '<p class="source-link"><a href="https://arxiv.org/abs/2306.13063" target="_blank" rel="noopener">Xiong et al. 2023 — Can LLMs Express Their Uncertainty?</a><small>Verbalised confidence tends to be overconfident rather than calibrated.</small></p>' +
+        '<p class="source-link"><a href="https://arxiv.org/abs/2408.04667" target="_blank" rel="noopener">Atil et al. 2024 — LLM Stability</a><small>Same input, deterministic settings, still varying outputs across runs.</small></p>' +
+        '<p class="source-link"><a href="https://arxiv.org/abs/2306.05685" target="_blank" rel="noopener">Zheng et al. 2023 — Judging LLM-as-a-Judge</a><small>LLM judges show position, verbosity and self-enhancement bias.</small></p>' +
+        '<p class="source-link"><a href="https://home.treasury.gov/news/press-releases/jy0612" target="_blank" rel="noopener">US Treasury, 28 Feb 2022 — Directive 4 (Central Bank of the Russian Federation)</a><small>Precedent: a central bank placed under direct sanctions restrictions.</small></p>' +
+        '<p class="source-link"><a href="https://arxiv.org/abs/2303.11366" target="_blank" rel="noopener">Shinn et al. 2023 — Reflexion</a><small>Agents store verbal feedback as episodic memory and improve without weight updates.</small></p>' +
+        '<p class="source-link"><a href="https://arxiv.org/abs/2509.26354" target="_blank" rel="noopener">Shao et al. 2025 — Your Agent May Misevolve</a><small>Self-evolving agents can drift through model, memory, tool and workflow changes into unintended behaviour.</small></p>' +
+        '<p class="source-link"><a href="https://arxiv.org/abs/2209.13085" target="_blank" rel="noopener">Skalse et al. 2022 — Defining and Characterizing Reward Hacking</a><small>Optimising an imperfect proxy can lower true performance; unhackable proxies are rarely achievable.</small></p>' +
+        '<p class="source-link"><a href="https://www.anthropic.com/research/automated-researchers-mitigate-alignment-failures" target="_blank" rel="noopener">Anthropic 2026 — Automated alignment researchers</a><small>AI beat expert baselines on 10 benchmarks; a monitor reviewed each method; limits include unmeasured capabilities and proxy tests.</small></p>' +
+        '<p class="source-link"><a href="https://alignment.openai.com/metagaming/" target="_blank" rel="noopener">OpenAI / Apollo 2026 — Metagaming</a><small>Reasoning about being evaluated can complicate assurance; not itself proof of scheming.</small></p>' +
+        '<p class="source-link"><a href="https://www.bis.org/fsi/fsisummaries/exsum_23904.htm" target="_blank" rel="noopener">FSB / BIS 2024 — Financial stability implications of AI</a><small>Flags vendor concentration and similar models and data driving correlated reactions.</small></p>' +
+        '<p class="source-link"><a href="https://arxiv.org/abs/2211.13972" target="_blank" rel="noopener">Bommasani et al. 2022 — Algorithmic Monoculture</a><small>Shared systems or training data can homogenise outcomes across decision-makers.</small></p>' +
+        '<p class="source-link"><a href="https://www.sec.gov/files/marketevents-report.pdf" target="_blank" rel="noopener">SEC / CFTC 2010 — Market events of 6 May 2010</a><small>Price-blind automated execution plus mass liquidity withdrawal produced an extreme move.</small></p>' +
+        button("Original event T-17", "open-source", "drawer-button"),
+    };
+  }
+  if (kind === "gate") {
+    return {
+      title: "Runtime gate · original proposal",
+      body: "<p>The original 76-based restriction proposal is evaluated with the later evidence dispute attached. The restriction is not executed.</p>" +
+        renderGateDetails() +
+        detailBlock("Human task", "Determine what verification is sufficient for the contested classification, then judge whether intervention is justified.") +
+        button("Open human review", "open-review", "drawer-button strong"),
+    };
+  }
+  if (kind === "review") {
+    return {
+      title: "Human judgement record",
+      body: "<p>The classification remains contested until its evidence is verified. These controls record considered human views; they do not execute the proposed restriction or make AI counter-evidence automatically correct.</p>" +
+        '<div class="choice-group"><strong>1. Is Entity X correctly reclassified?</strong>' +
+        choiceButton("classification", "pending", "Needs verification") +
+        choiceButton("classification", "valid", "Valid") +
+        choiceButton("classification", "invalid", "Invalid") + "</div>" +
+        '<div class="choice-group"><strong>2. If valid, is intervention justified?</strong>' +
+        choiceButton("intervention", "pending", "Pending") +
+        choiceButton("intervention", "yes", "Yes") +
+        choiceButton("intervention", "no", "No") + "</div>" +
+        detailBlock("Current review state", reviewLabel()) +
+        detailBlock("Original source opened", review.openedEvidence ? "Yes" : "No") +
+        button("Inspect T-17", "open-source", "drawer-button") +
+        button("Challenge the finding", "challenge-finding", "drawer-button warning"),
+    };
+  }
+  if (kind === "systemic") {
+    return {
+      title: "Systemic illustration · source status",
+      body: "<p>Beat 7 is a synthetic mechanism-of-concern, not an observed market incident or a second executable scenario. The six portfolio agents illustrate distinct objectives responding to shared conditions; they do not communicate.</p>" +
+        detailBlock("Evidence status", "Regulatory research / synthetic illustration") +
+        detailBlock("Public grounding", "BIS Project Logos; FSB AI financial-stability work; IOSCO AI in securities markets. See PUBLIC_SOURCES.md for primary links and qualifications.") +
+        detailBlock("Scenario boundary", "The six-agent visual is separate from the deterministic 486-trace-event failed-trade run.") +
+        button("Behaviour behind each action", "open-behaviour", "drawer-button") +
+        detailBlock("Mandate", "Each illustrated portfolio agent remains within its own constraint. Funding, collateral and settlement/cash are parallel possible channels, not a serial dependency or forecast.") + detailBlock('Alternative conditions', 'Different information, liquidity providers, execution pacing and aggregate limits can dampen convergence. Direction and magnitude require empirical study.'),
+    };
+  }
+  return {
+    title: "Replay evidence",
+    body: "<p>This is one deterministic synthetic run. The stage counters, original log, supervisory finding and gate all refer to the same data.</p>" +
+      detailBlock("Run", run.id + " · version " + run.version) +
+      detailBlock("Opening exception", run.caseContext.count + " " + run.caseContext.exception + " · " + run.caseContext.openingEventId + " · " + run.caseContext.context) +
+      detailBlock("Scale", run.agents.length + " agents · " + run.tasks.length + " sub-tasks · " + run.events.length + " trace events · " + (run.events.at(-1).atMs / 1000).toFixed(1) + " seconds") +
+      detailBlock("Agent identity format", AGENT_IDENTITIES.EntityGraph + " · demo-local stable identity, SAFR-inspired but not SAFR-prescribed") +
+      detailBlock("Material event", finding.sourceEventIds[0] + ": " + classification.summary) +
+      detailBlock("Causal event IDs", finding.sourceEventIds.join(" → ")) +
+      detailBlock("Gate", gate.disposition + ": " + gate.reason) +
+      button("Open original event", "open-source", "drawer-button") +
+      button("Inspect trust controls", "open-trust", "drawer-button") +
+      button("Behaviour behind each action", "open-behaviour", "drawer-button"),
+  };
+}
+
+function openDrawer(kind) {
+  if (drawer.hidden) focusBeforeDrawer = document.activeElement;
+  const content = drawerContent(kind);
+  drawerTitle.textContent = content.title;
+  drawerBody.innerHTML = content.body +
+    '<div class="drawer-footer">' +
+      button("Export full synthetic run", "download-run", "drawer-button") +
+      button("Reset presentation", "reset", "drawer-button") +
+    "</div>";
+  drawer.hidden = false;
+  drawer.querySelector(".drawer-close").focus();
+}
+
+function closeDrawer() {
+  if (drawer.hidden) return;
+  drawer.hidden = true;
+  if (focusBeforeDrawer?.isConnected) focusBeforeDrawer.focus();
+  focusBeforeDrawer = null;
+}
+
+function downloadRun() {
+  const payload = {
+    ...run,
+    expertise: EXPERTISE,
+    governedImprovement: evolution,
+    learningCases: LEARNING_CASES,
+    supervisoryFinding: finding,
+    runtimeGate: gate,
+    humanReview: { ...review, status: reviewLabel() },
+    naiveReviewAttempt: presentation.naiveAttempt,
+    note: "Synthetic teaching simulation. Demo fingerprints are not cryptographic proof.",
+  };
+  const blob = new Blob([JSON.stringify(payload, null, 2)], { type: "application/json" });
+  const url = URL.createObjectURL(blob);
+  const link = document.createElement("a");
+  link.href = url;
+  link.download = "regulator-ghost-replay.json";
+  document.body.appendChild(link);
+  link.click();
+  link.remove();
+  setTimeout(() => URL.revokeObjectURL(url), 1000);
+}
+
+document.addEventListener("click", (event) => {
+  const target = event.target instanceof Element ? event.target : null;
+  const control = target?.closest("[data-action]");
+  if (!control) {
+    if (event.target === drawer) closeDrawer();
+    return;
+  }
+  const action = control.dataset.action;
+  const value = control.dataset.value;
+  if (action === "next" || action === "previous" || action === "reset-beat") move(action);
+  else if (action === "naive-authorise") move("authorise");
+  else if (action === "naive-reject") move("reject");
+  else if (action === "replay") renderCue(true);
+  else if (action === "pause") pauseOrResume();
+  else if (['verify-source','evaluate-lesson','promote-lesson','rollback-lesson','request-testing','reject-lesson'].includes(action)) { evolution = evolve(evolution, action); renderCue(); }
+  else if (action === 'open-learning') openDrawer('learning');
+  else if (action === "open-evidence") openDrawer("evidence");
+  else if (action === "open-source") openDrawer("source");
+  else if (action === "open-trust") openDrawer("trust");
+  else if (action === "open-gate") openDrawer("gate");
+  else if (action === "open-review") openDrawer("review");
+  else if (action === "open-systemic") openDrawer("systemic");
+  else if (action === "open-behaviour") openDrawer("behaviour");
+  else if (action === "close-drawer") closeDrawer();
+  else if (action === "download-run") downloadRun();
+  else if (action === "reset") {
+    closeDrawer();
+    presentation = transition(presentation, "reset");
+    evolution = createEvolution();
+    Object.assign(review, { classification: "pending", intervention: "pending", openedEvidence: false, challenged: false });
+    renderCue();
+  } else if (action === "challenge-finding") {
+    review.challenged = true;
+    openDrawer("review");
+  } else if (action === "review-classification") {
+    review.classification = value;
+    if (value !== "valid") review.intervention = value === "invalid" ? "no" : "pending";
+    openDrawer("review");
+  } else if (action === "review-intervention") {
+    review.intervention = value;
+    openDrawer("review");
+  }
+});
+
+document.addEventListener("keydown", (event) => {
+  if (event.key === "Escape" && !drawer.hidden) { closeDrawer(); return; }
+  if (!drawer.hidden) {
+    if (event.key === "Tab") {
+      const focusable = [...drawer.querySelectorAll("button:not(:disabled), a[href]")];
+      const first = focusable[0];
+      const last = focusable.at(-1);
+      if (event.shiftKey && document.activeElement === first) { event.preventDefault(); last.focus(); }
+      else if (!event.shiftKey && document.activeElement === last) { event.preventDefault(); first.focus(); }
+    }
+    return;
+  }
+  const target = event.target instanceof Element ? event.target : null;
+  if (event.key === "ArrowRight" || (event.key === " " && !target?.closest("button"))) {
+    event.preventDefault();
+    move("next");
+  } else if (event.key === "ArrowLeft") {
+    event.preventDefault();
+    move("previous");
+  } else if (event.key === "Home") {
+    event.preventDefault();
+    presentation = transition(presentation, "reset");
+    evolution = createEvolution();
+    Object.assign(review, { classification: "pending", intervention: "pending", openedEvidence: false, challenged: false });
+    renderCue();
+  } else if (event.key.toLowerCase() === "r") {
+    event.preventDefault();
+    if (currentCue(presentation).id === 'systemic' || ["rapid-selections", "optimisation-fork", "performance-dashboard", "candidate-lesson", "escalate", "event-flood", "human-judgement", "failed-trade", "material-issue", "causal-explanation", "source-challenge", "counterfactual", "logic-gap"].includes(currentReveal(presentation))) renderCue(true);
+    else move("reset-beat");
+  } else if (event.key.toLowerCase() === "e") {
+    const detail = detailAction(currentCue(presentation).id, presentation.step);
+    if (detail) { event.preventDefault(); openDrawer(detail[1].slice(5)); }
+  } else if (event.key.toLowerCase() === "p") {
+    pauseOrResume();
+  } else if (event.key.toLowerCase() === "f" && document.fullscreenEnabled) {
+    if (document.fullscreenElement) document.exitFullscreen();
+    else document.documentElement.requestFullscreen();
+  }
+});
+
+renderCue();
+</script>
+  </body>
+</html>
