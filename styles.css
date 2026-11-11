@@ -922,3 +922,15 @@ button:disabled { cursor: default; opacity: .35; }
 .app-shell .opening-brand,
 .app-shell .stage-identity,
 .app-shell .nav-header > div { visibility:hidden; }
+
+/* This reveal alone omits the role/benefit header. */
+.app-shell:has(.stage[data-reveal="answers-to-actions"]) .narrative-indicator { visibility:hidden; }
+.stage[data-reveal="answers-to-actions"] .hero-verdict { max-width:none; font-size:clamp(42px,4cqw,76px); }
+.stage[data-reveal="answers-to-actions"] .opening-loop-question { margin:0; color:var(--secondary); font-size:clamp(26px,2.2cqw,38px); font-weight:780; letter-spacing:.055em; }
+
+.stage[data-reveal="rules"] .custody-rule-example { margin:0; color:var(--secondary); font-size:clamp(22px,1.6cqw,31px); line-height:1.5; }
+.stage[data-reveal="rules"] .custody-rule-example strong { color:var(--cyan); font-weight:650; }
+
+.stage[data-reveal="naive-review"] .settlement-review-scale,
+.stage[data-reveal="naive-basis"] .settlement-monthly { margin:0; color:var(--secondary); font-size:clamp(22px,1.7cqw,32px); line-height:1.4; }
+.settlement-work-evidence li { margin-bottom:14px; }

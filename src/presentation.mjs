@@ -27,7 +27,7 @@ export const NARRATIVE_INDICATORS = Object.freeze([
 
 // Each cue owns one stage. Its steps are reveals within that stage, not slides.
 export const CUES = Object.freeze([
-  { id: 'opening', steps: ['opening-question', 'answers-to-actions', 'rules', 'patterns', 'investigation', 'agentic', 'authority-ladder'] },
+  { id: 'opening', steps: ['opening-question', 'answers-to-actions', 'rules', 'patterns', 'investigation', 'agentic'] },
   { id: 'operations', steps: ['failed-trade', 'oversight-promise', 'event-flood', 'naive-review', 'naive-basis'] },
   { id: 'supervision', steps: ['material-issue', 'attention-dependency'] },
   { id: 'prediction', steps: ['predictive-case', 'no-breach'] },

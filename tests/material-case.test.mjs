@@ -32,7 +32,7 @@ function clickAction(action) {
 }
 globalThis.window = { matchMedia: () => ({ matches: true }) };
 
-const { formatTraceLine, renderGateDetails, renderMaterialCase, renderSystemic, renderView } = await import("../src/theatre.mjs");
+const { formatTraceLine, renderGateDetails, renderMaterialCase, renderSystemic, renderView, renderSettlementWorkEvidence } = await import("../src/theatre.mjs");
 const { CUES, NARRATIVE_INDICATORS } = await import("../src/presentation.mjs");
 
 test("early supervisory compression withholds later risk and authority facts", () => {
@@ -189,14 +189,13 @@ test('stage furniture and detail language follow the eight-beat hierarchy', () =
     { role: 'OPTIMISE', label: 'GOVERNANCE QUESTION', value: 'SYSTEM EFFECTS' },
     { role: 'SUPERVISE', label: 'GOVERNANCE QUESTION', value: 'ACCOUNTABILITY' },
   ]);
-  assert.match(renderView('opening', 6), /ASSIST<\/span><i>↓<\/i><span>INVESTIGATE<\/span><i>↓<\/i><span>ASSESS<\/span><i>↓<\/i><span>ACT/);
   for (const cue of CUES) for (let step = 0; step < cue.steps.length; step++) {
     const markup = renderView(cue.id, step);
     assert.doesNotMatch(markup, /SYNTHETIC TEACHING SIMULATION|REGULATORY RESEARCH|SYNTHETIC ILLUSTRATION|ILLUSTRATIVE, NOT CALIBRATED|PUBLIC CONTEXT|LIVE \/ PILOT \/ OFFICIAL PROTOTYPE|INSPECT SYNTHETIC|INSPECT ORIGINAL|INSPECT TRUST|INSPECT GATE/i);
   }
   assert.match(renderMaterialCase(0), />SHOW MORE<\/button>/);
   const mainPath = CUES.flatMap((cue) => cue.steps.map((_, step) => renderView(cue.id, step))).join('');
-  assert.doesNotMatch(mainPath, /RUNTIME AUTHORITY CHECK|class="gate-steps"/);
+  assert.doesNotMatch(mainPath, /RUNTIME AUTHORITY CHECK|class="gate-steps"|AUTONOMOUS TO DO WHAT/);
   assert.equal((mainPath.match(/>ESCALATE<\/h1>/g) ?? []).length, 1);
   assert.match(renderView('operations', 2), /INTERLEAVED AGENT TRACE/);
   assert.match(renderView('operations', 3), /TRACE EVENTS/);
@@ -229,7 +228,7 @@ test("keyboard advances through every stage without changing the eight-beat cont
       assert.equal(element("stage").dataset.reveal, reveal);
       assert.equal(element("beatCounter").textContent, `BEAT ${cueIndex + 1}/8`);
       const indicator = NARRATIVE_INDICATORS[cueIndex];
-      assert.ok(element('stageStatus').innerHTML.includes(`AI ROLE: <strong>${indicator.role}</strong>`));
+      assert.ok(element('stageStatus').innerHTML.includes(reveal === 'rules' ? '<strong>NOT AI</strong>' : `AI ROLE: <strong>${indicator.role}</strong>`));
       assert.ok(element('stageStatus').innerHTML.includes(`${indicator.label}: <strong>${indicator.value}</strong>`));
       if (reveal === "escalate") verdicts++;
       if (reveal === "escalate") assert.equal(element("contextButton").dataset.action, "open-gate");
@@ -274,7 +273,8 @@ test('opening question precedes the retained message and uses the single present
   assert.match(opening, /<span>WHEN AI STARTS ACTING,<\/span><strong>WHO IS THE SUPERVISOR\?<\/strong>/);
   assert.match(opening, /OPERATIONS · FUND ACCOUNTING · LIQUIDITY MANAGEMENT/);
   assert.doesNotMatch(opening, /START →|WHERE DOES INTELLIGENCE END|Human, AI or Both/);
-  assert.match(renderView('opening', 1), /AUTONOMOUS FINANCE IS MOVING<br>FROM ANSWERS <span class="cyan">→<\/span> TO ACTIONS/);
+  assert.match(renderView('opening', 1), /ARTIFICIAL INTELLIGENCE IN FINANCE<br>IS MOVING FROM RULES<br>TO <span class="cyan">GENERATIVE AND AUTONOMY/);
+  assert.match(renderView('opening', 1), /WHAT IS HUMAN-IN-THE-LOOP/);
   const html = readFileSync(new URL('../index.html', import.meta.url), 'utf8');
   const ids = ['previousButton', 'pauseButton', 'playButton', 'replayButton', 'beatCounter', 'nextButton'];
   const positions = ids.map(id => html.indexOf('id="' + id + '"'));
@@ -283,14 +283,49 @@ test('opening question precedes the retained message and uses the single present
   assert.doesNotMatch(html, /motion-controls|START/);
 });
 
-test('accepted Beats 1–6 remain unchanged apart from the approved opening domain copy', async () => {
+test('accepted Beats 1–6 remain unchanged apart from approved surgical content edits', async () => {
   const {createHash}=await import('node:crypto');
   const contract=JSON.parse(readFileSync(new URL('../artifacts/package3/baseline/contracts.json',import.meta.url),'utf8'));
   const hash=value=>createHash('sha256').update(value).digest('hex');
-  const markup=CUES.slice(0,6).flatMap(c=>c.steps.map((_,s)=>renderView(c.id,s))).join('\n');
-  // Canonicalise only the explicitly approved opening-line replacement.
-  const canonicalMarkup=markup.replace('<p class="opening-domains">OPERATIONS · FUND ACCOUNTING · LIQUIDITY MANAGEMENT</p>', '<p class="opening-domains">OPERATIONS · TRANSACTIONS · PORTFOLIOS</p>');
-  assert.equal(hash(canonicalMarkup),contract.lockedMarkupHash);
+  // Include the retired render only in this historical hash comparison; it is absent from CUES.
+  const markup=CUES.slice(0,6).flatMap(c=>{const views=c.steps.map((_,s)=>renderView(c.id,s));return c.id==='opening'?[...views,renderView('opening',6)]:views;}).join('\n');
+  // Canonicalise only the explicitly approved opening copy replacements.
+  const canonicalMarkup=markup.replace('<p class="opening-domains">OPERATIONS · FUND ACCOUNTING · LIQUIDITY MANAGEMENT</p>', '<p class="opening-domains">OPERATIONS · TRANSACTIONS · PORTFOLIOS</p>')
+    .replace('<h1 class="hero-verdict wide">ARTIFICIAL INTELLIGENCE IN FINANCE<br>IS MOVING FROM RULES<br>TO <span class="cyan">GENERATIVE AND AUTONOMY</span></h1><p class="opening-loop-question">WHAT IS HUMAN-IN-THE-LOOP</p>', '<h1 class="hero-verdict wide">AUTONOMOUS FINANCE IS MOVING<br>FROM ANSWERS <span class="cyan">→</span> TO ACTIONS</h1><div class="opening-signposts"><span>OPERATIONS</span><span>TRANSACTIONS</span><span>PORTFOLIOS</span></div>');
+  const withoutApprovedExample=canonicalMarkup.replace('<p class="custody-rule-example">CUSTODY EXAMPLE: REQUIRED ACCOUNT AND SETTLEMENT-DATE FIELDS PRESENT?<br><strong>YES → PASS · NO → FLAG</strong></p>','');
+  assert.match(renderView('opening',2),/CUSTODY EXAMPLE: REQUIRED ACCOUNT AND SETTLEMENT-DATE FIELDS PRESENT/);
+  const withoutApprovedExplanation=withoutApprovedExample.replace('<h1 class="hero-verdict wide">LLM CHECKS AND RECOMMENDS</h1><p class="support-line">RULES FLAG A MISMATCH.<br>ML SPOTS RECURRING PATTERNS.</p>', '<h1 class="hero-verdict">EXPLAIN. QUESTION. INVESTIGATE.</h1><p class="support-line">CAPABILITIES WORK TOGETHER.</p>');
+  assert.match(renderView('opening',4),/<h1 class="hero-verdict wide">LLM CHECKS AND RECOMMENDS<\/h1>/);
+  assert.match(renderView('opening',4),/<p class="support-line">RULES FLAG A MISMATCH\.<br>ML SPOTS RECURRING PATTERNS\.<\/p>/);
+  assert.doesNotMatch(renderView('opening',4),/EXPLAIN\. QUESTION|CAPABILITIES WORK TOGETHER/);
+  const withoutApprovedAgentCopy=withoutApprovedExplanation
+    .replace('<span class="active">AGENTS</span>', '<span class="active">AGENTIC SUPERVISION</span>')
+    .replace('<h1 class="hero-verdict">AGENTS WITH OR WITHOUT AUTHORITY</h1><p class="support-line">AI BEGINS SUPERVISING AI</p>', '<h1 class="hero-verdict">AUTONOMOUS MULTI-STEP WORK</h1><p class="support-line">GREATER CAPABILITY DOES NOT GRANT GREATER AUTHORITY.</p>');
+  assert.match(renderView('opening',5), /<span class="active">AGENTS<\/span>/);
+  assert.match(renderView('opening',5), /AGENTS WITH OR WITHOUT AUTHORITY/);
+  assert.match(renderView('opening',5), /AI BEGINS SUPERVISING AI/);
+  const withoutApprovedSettlementCopy=withoutApprovedAgentCopy
+    .replace('<div class="naive-count">', '<h1 class="hero-verdict">HUMAN REVIEW REQUIRED</h1><div class="naive-count">')
+    .replace('<p class="settlement-review-scale">1 FAILED TRADE · 8 AGENTS · 27 SUBTASKS · 3.2 SECONDS</p>','')
+    .replace('<p class="settlement-monthly">At 10 investigations per month: 4,860 trace events.</p>','');
+  assert.equal(hash(withoutApprovedSettlementCopy),contract.lockedMarkupHash);
   assert.equal(hash(readFileSync(new URL('../styles.css',import.meta.url),'utf8').slice(0,contract.lockedCssLength)),contract.lockedCssHash);
   for(const [file,expected] of Object.entries(contract.sourceHashes))assert.equal(hash(readFileSync(new URL('../src/'+file,import.meta.url))),expected);
+});
+
+
+test('settlement review retains non-executing choices and exposes the complete original work inventory', () => {
+  const decision=renderView('operations',3),basis=renderView('operations',4),run=buildRun();
+  assert.doesNotMatch(decision,/HUMAN REVIEW REQUIRED/);
+  assert.match(decision,/1 FAILED TRADE · 8 AGENTS · 27 SUBTASKS · 3\.2 SECONDS/);
+  assert.match(decision,/data-action="naive-authorise"/);assert.match(decision,/data-action="naive-reject"/);
+  assert.match(basis,/ON WHAT BASIS/);assert.match(basis,/Logged\. Auditable\. Theoretically reviewable\./);
+  assert.ok(basis.includes('At 10 investigations per month: '+(10*run.events.length).toLocaleString('en-US')+' trace events.'));
+  assert.match(basis,/BUT COGNITIVELY OUT OF REACH/);
+  const evidence=renderSettlementWorkEvidence();
+  assert.equal((evidence.match(/<li data-agent-id=/g)||[]).length,run.agents.length);
+  assert.equal((evidence.match(/<li data-task-id=/g)||[]).length,run.tasks.length);
+  for(const agent of run.agents)assert.ok(evidence.includes('<strong>'+agent+'</strong>'));
+  for(const task of run.tasks)assert.ok(evidence.includes('<strong>'+task.id+' · '+task.label+'</strong><br>'+task.actor+' · '+task.agentId));
+  assert.doesNotMatch(evidence,/EVT-0238|central-bank-related|76|CLASSIFICATION_CHANGED/);
 });

@@ -7,11 +7,15 @@ const reveals = CUES.flatMap((cue) => cue.steps);
 test("eight escalating beats keep the systemic argument inside Beat 7", () => {
   assert.equal(BEATS.length, 8);
   assert.equal(CUES.length, 8);
-  assert.equal(reveals.length - 1, 70);
+  assert.equal(reveals.length - 1, 69);
   assert.deepEqual(CUES.map((cue) => cue.id), [
     "opening", "operations", "supervision", "prediction", "material-case", "nav", "systemic", "ghost",
   ]);
   assert.equal(new Set(reveals).size, reveals.length);
+  assert.equal(reveals.includes('authority-ladder'),false);
+  const agents={...createPresentationState(),cueIndex:0,step:5};
+  assert.equal(currentReveal(transition(agents,'next')),'failed-trade');
+  assert.equal(currentReveal(transition(transition(agents,'next'),'previous')),'agentic');
 });
 
 test("problems land before their solutions and the story never backtracks", () => {

@@ -135,13 +135,13 @@ export function renderView(id, step) {
         '<p class="opening-domains">OPERATIONS · FUND ACCOUNTING · LIQUIDITY MANAGEMENT</p>', 'centered');
       step -= 1;
       if (step >= 1 && step <= 4) {
-        const technologies = ['RULES', 'ML PATTERN DETECTION', 'LLM INVESTIGATION', 'AGENTIC SUPERVISION'];
-        const descriptions = ['DETERMINISTIC CHECKS', 'RECOGNISE UNUSUAL PATTERNS', 'EXPLAIN. QUESTION. INVESTIGATE.', 'AUTONOMOUS MULTI-STEP WORK'];
-        return wrap(id, '<div class="technology-path">' + technologies.slice(0, step).map((name, i) => '<span class="' + (i === step - 1 ? 'active' : '') + '">' + name + '</span>').join('<i>→</i>') + '</div><h1 class="hero-verdict">' + descriptions[step - 1] + '</h1><p class="support-line">' + (step === 1 ? 'RULES REMAIN APPROPRIATE FOR DETERMINISTIC CHECKS.' : step === 4 ? 'GREATER CAPABILITY DOES NOT GRANT GREATER AUTHORITY.' : 'CAPABILITIES WORK TOGETHER.') + '</p>', 'centered');
+        const technologies = ['RULES', 'ML PATTERN DETECTION', 'LLM INVESTIGATION', 'AGENTS'];
+        const descriptions = ['DETERMINISTIC CHECKS', 'RECOGNISE UNUSUAL PATTERNS', 'EXPLAIN. QUESTION. INVESTIGATE.', 'AGENTS WITH OR WITHOUT AUTHORITY'];
+        return wrap(id, '<div class="technology-path">' + technologies.slice(0, step).map((name, i) => '<span class="' + (i === step - 1 ? 'active' : '') + '">' + name + '</span>').join('<i>→</i>') + '</div>' + (step === 3 ? '<h1 class="hero-verdict wide">LLM CHECKS AND RECOMMENDS</h1><p class="support-line">RULES FLAG A MISMATCH.<br>ML SPOTS RECURRING PATTERNS.</p>' : '<h1 class="hero-verdict">' + descriptions[step - 1] + '</h1><p class="support-line">' + (step === 1 ? 'RULES REMAIN APPROPRIATE FOR DETERMINISTIC CHECKS.' : step === 4 ? 'AI BEGINS SUPERVISING AI' : 'CAPABILITIES WORK TOGETHER.') + '</p>') + (step === 1 ? '<p class="custody-rule-example">CUSTODY EXAMPLE: REQUIRED ACCOUNT AND SETTLEMENT-DATE FIELDS PRESENT?<br><strong>YES → PASS · NO → FLAG</strong></p>' : ''), 'centered');
       }
       return wrap(id, step === 0 ?
-        '<h1 class="hero-verdict wide">AUTONOMOUS FINANCE IS MOVING<br>FROM ANSWERS <span class="cyan">→</span> TO ACTIONS</h1>' +
-        '<div class="opening-signposts"><span>OPERATIONS</span><span>TRANSACTIONS</span><span>PORTFOLIOS</span></div>' :
+        '<h1 class="hero-verdict wide">ARTIFICIAL INTELLIGENCE IN FINANCE<br>IS MOVING FROM RULES<br>TO <span class="cyan">GENERATIVE AND AUTONOMY</span></h1>' +
+        '<p class="opening-loop-question">WHAT IS HUMAN-IN-THE-LOOP</p>' :
         '<div class="opening-ladder"><span>ASSIST</span><i>↓</i><span>INVESTIGATE</span><i>↓</i><span>ASSESS</span><i>↓</i><span>ACT</span></div>' +
         '<h1 class="opening-question">AUTONOMOUS TO DO WHAT?</h1>' +
         '<p class="opening-answer">NOT HOW INTELLIGENT THE AI IS.<br>HOW MUCH AUTHORITY ACCOMPANIES IT.</p>', "centered");
@@ -163,13 +163,14 @@ export function renderView(id, step) {
           '<div class="flood-log" aria-hidden="true"><div class="flood-log-head">INTERLEAVED AGENT TRACE <span id="floodCount">000 / ' + run.events.length + '</span></div>' +
           '<div id="floodLines" class="flood-log-lines"></div></div></div>', "flood");
       if (step === 3) return wrap(id,
-        '<h1 class="hero-verdict">HUMAN REVIEW REQUIRED</h1>' +
         '<div class="naive-count">' + number(run.events.length) + '<span>TRACE EVENTS</span></div>' +
+        '<p class="settlement-review-scale">' + run.caseContext.count + ' FAILED TRADE · ' + run.agents.length + ' AGENTS · ' + run.tasks.length + ' SUBTASKS · ' + (run.events.at(-1).atMs / 1000).toFixed(1) + ' SECONDS</p>' +
         '<div class="naive-actions">' + button("AUTHORISE", "naive-authorise", "stage-button") +
           button("REJECT", "naive-reject", "stage-button") + "</div>", "centered");
       return wrap(id,
         '<h1 class="hero-verdict impact">ON WHAT BASIS?</h1>' +
         '<p class="primary-line">Logged. Auditable. Theoretically reviewable.</p>' +
+        '<p class="settlement-monthly">At 10 investigations per month: ' + (10 * run.events.length).toLocaleString('en-US') + ' trace events.</p>' +
         '<p class="support-line">BUT COGNITIVELY OUT OF REACH.</p>', "centered");
     case "supervision":
       if (step === 1) return wrap(id,
@@ -250,7 +251,7 @@ function renderCue(forceReplay = false) {
     stage.innerHTML = renderView(cue.id, presentation.step);
   }
   const indicator = NARRATIVE_INDICATORS[presentation.cueIndex];
-  stageStatus.innerHTML = '<span>AI ROLE: <strong>' + indicator.role + '</strong></span>' +
+  stageStatus.innerHTML = (currentReveal(presentation) === 'rules' ? '<span><strong>NOT AI</strong></span>' : '<span>AI ROLE: <strong>' + indicator.role + '</strong></span>') +
     '<span>' + indicator.label + ': <strong>' + indicator.value + '</strong></span>';
   stageStatus.classList.toggle('is-question', presentation.cueIndex >= 4);
   document.querySelector('.app-shell').classList.toggle('is-closing', cue.id === 'ghost');
@@ -433,6 +434,14 @@ function researchDetails() {
     detailBlock('Technical guidance', 'OWASP Securing Agentic Applications V2, 10 November 2026: secure architectures, identity/access controls, runtime protection and assurance testing. Technical guidance, not binding financial regulation.') + sourceLink('https://genai.owasp.org/resource/securing-agentic-applications-v2/', 'OWASP Securing Agentic Applications V2');
 }
 
+export function renderSettlementWorkEvidence() {
+  return '<section class="settlement-work-evidence"><h3>' + run.agents.length + ' agents</h3><ol class="settlement-agent-list">' +
+    run.agents.map(actor => '<li data-agent-id="' + escapeHTML(AGENT_IDENTITIES[actor]) + '"><strong>' + escapeHTML(actor) + '</strong> · ' + escapeHTML(AGENT_IDENTITIES[actor]) + '</li>').join('') +
+    '</ol><h3>' + run.tasks.length + ' subtasks</h3><ol class="settlement-task-list">' +
+    run.tasks.map(task => '<li data-task-id="' + task.id + '"><strong>' + task.id + ' · ' + escapeHTML(task.label) + '</strong><br>' + escapeHTML(task.actor) + ' · ' + escapeHTML(task.agentId) + '</li>').join('') +
+    '</ol><p>Task inventory from the original synthetic run; listing a task does not invoke it or establish that an optional branch has run.</p></section>';
+}
+
 function drawerContent(kind) {
   if (kind === 'nav') return { title: 'NAV evidence · ' + navRun.id, body: renderNavEvidence(presentation.step) };
 
@@ -441,6 +450,7 @@ function drawerContent(kind) {
     detailBlock('Objective', 'Identify material risks rapidly while minimising unnecessary human escalations.') +
     detailBlock('Authority', 'Flag and recommend only. Human decision authority is retained; attention is selected by AI.') +
     detailBlock('Trace', '8 agents / 27 subtasks / 486 trace events / 3.2 simulated seconds. Records are retained for independent inspection.') +
+    (currentCue(presentation).id === 'operations' ? renderSettlementWorkEvidence() : '') +
     (presentation.cueIndex === 2 ? regulatoryDetails() : presentation.cueIndex === 3 ? detailBlock('Illustrative assessment', 'Risk coefficient 76 and separate prediction 74% are synthetic teaching values, not calibrated estimates or authority thresholds.') : '') };
   if (kind === 'research') return { title: 'External monitoring evaluation · separate from Ghost', body: researchDetails() };
   if (kind === 'domain') return { title: 'Synthetic requirements and acceptance evidence', body:
