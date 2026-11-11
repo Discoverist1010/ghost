@@ -7,9 +7,9 @@ const reveals = CUES.flatMap((cue) => cue.steps);
 test("eight escalating beats keep the systemic argument inside Beat 7", () => {
   assert.equal(BEATS.length, 8);
   assert.equal(CUES.length, 8);
-  assert.equal(reveals.length - 1, 39);
+  assert.equal(reveals.length - 1, 52);
   assert.deepEqual(CUES.map((cue) => cue.id), [
-    "opening", "operations", "supervision", "prediction", "material-case", "authority", "systemic", "ghost",
+    "opening", "operations", "supervision", "prediction", "material-case", "nav", "systemic", "ghost",
   ]);
   assert.equal(new Set(reveals).size, reveals.length);
 });
@@ -89,8 +89,7 @@ test("causal case is one beat with source and counterfactual before human author
   }
   assert.equal(currentReveal(state), 'human-confidence');
   state = transition(state, 'next');
-  assert.equal(currentReveal(state), 'package-boundary');
-  assert.equal(transition(state, 'next'), state);
+  assert.equal(currentReveal(state), 'nav-introduction');
   state = transition(state, 'previous');
   assert.equal(currentReveal(state), 'human-confidence');
   state = transition(state, 'reset-beat');

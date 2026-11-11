@@ -1,3 +1,11 @@
+# V3 Package 2 — isolated NAV stage
+
+The accepted Package 1 stylesheet remains an unchanged prefix. All new stage styling is scoped to NAV classes and the `is-nav` shell state. The existing 16:9 fitting, dark letterboxing and Back / Pause / Play / Replay / Beat Counter / Next bar are preserved.
+
+Beat 6 follows the supplied nine-panel reference as live HTML/CSS/SVG: an agent stack and workstream; Monday NAV and sequential operational confirmations; five linked daily values; a clean four-line success screen; an amber reversal with five unresolved advisory warnings; three distinct control rows; an animated published line followed by the later amber specialist comparison; a separate baseline-error punch; a dominant 2.03% difference; governance statements; restrained regulatory grounding; and the unresolved final cyan question. These are fourteen controlled states for eleven approved narrative reveals. Financial figures come from the scenario module.
+
+The independent benchmark is not present in earlier main-stage markup or presentation-scoped detail. Early details show displayed operational results rather than pretending to be the full audit. Later detail exposes original warning timestamps and provenance. Full NAV export is available only after reconstruction. No external service is needed to present the demo. The final screen holds until an explicit SHOW MORE continuation to preserved V2 material.
+
 # V3 Package 1 — stage contract
 
 Preserve V2's navy field, white hierarchy, restrained cyan for observation and amber for contested evidence/authority restraint. Main-stage content is presenter controlled. The FSB/MAS dependency screen contains both legible paraphrases under its dominant question; detailed provenance belongs in Show More. No Entity X, conflict, score or runtime verdict appears in the early supervisory stage or its drawer.

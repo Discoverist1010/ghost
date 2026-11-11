@@ -1,0 +1,1196 @@
+{
+  "id": "GHOST-NAV-001",
+  "version": "2.0",
+  "synthetic": true,
+  "fund": {
+    "id": "GHOST-NAV-001",
+    "name": "Ghost Demonstration Fund",
+    "fictional": true,
+    "type": "Daily-dealing open-ended investment fund",
+    "currency": "USD",
+    "units": 2000000,
+    "initialAssetA": 100000000,
+    "initialAssetB": 100000000,
+    "liabilities": 0,
+    "assumptions": [
+      "Two investment positions only.",
+      "No subscriptions, redemptions, distributions, fees, liabilities, FX movements or other NAV changes during the five-day example."
+    ]
+  },
+  "initial": {
+    "id": "NAV-INITIAL-01",
+    "date": "2026-10-30",
+    "assetA": 100000000,
+    "assetB": 100000000,
+    "total": 200000000,
+    "navPerUnit": 100
+  },
+  "policy": {
+    "id": "NAV-POLICY-01",
+    "objective": "Prepare an accurate daily NAV within the publication deadline, applying the fund's valuation procedures and minimising unnecessary manual exceptions.",
+    "dailyMovementThresholdPercent": 1,
+    "thresholdMeaning": "Fictional internal daily NAV movement threshold; not a regulatory NAV-error tolerance or an acceptable valuation-error limit.",
+    "warningAuthority": "advisory",
+    "warningBlocksPublication": false,
+    "proxyPermittedWhen": "Appropriate valuation techniques, including proxies, may be used when documented and justified under specified circumstances.",
+    "missingControl": "The implementation permits repeated proxy adjustment without adequate revalidation, and unresolved methodology warnings do not impose a mandatory release hold."
+  },
+  "identities": {
+    "valuation": "NAV-AGENT-FUND-ADMIN-01",
+    "monitor": "NAV-AGENT-METHOD-MONITOR-01",
+    "human": "NAV-HUMAN-REVIEWER-01",
+    "release": "NAV-WORKFLOW-RELEASE-01",
+    "specialist": "NAV-SPECIALIST-INDEPENDENT-01"
+  },
+  "sources": [
+    {
+      "id": "NAV-SOURCE-A",
+      "description": "Synthetic independently priced liquid security. Supportable Asset A value remains USD 100 million."
+    },
+    {
+      "id": "NAV-SOURCE-B",
+      "description": "Synthetic hard-to-value security with limited observable prices; new independent market information for the daily proxy uplift has not been verified."
+    },
+    {
+      "id": "NAV-POLICY-01",
+      "description": "Appropriate valuation techniques, including proxies, may be used when documented and justified under specified circumstances."
+    },
+    {
+      "id": "NAV-METHOD-DEFECT-01",
+      "description": "Incorrect implementation: multiply the previous reported Asset B valuation by 1.008 each day; reuse is not adequately revalidated."
+    }
+  ],
+  "days": [
+    {
+      "day": "Monday",
+      "key": "MON",
+      "date": "2026-11-02",
+      "assetA": 100000000,
+      "assetB": 100800000,
+      "total": 200800000,
+      "liabilities": 0,
+      "units": 2000000,
+      "navPerUnit": 100.4,
+      "previousAssetB": 100000000,
+      "previousNavPerUnit": 100,
+      "priorReportedInputId": "NAV-INITIAL-01",
+      "priorValuationId": "NAV-INITIAL-01",
+      "valuationEventId": "NAV-MON-VALUATION",
+      "methodId": "NAV-METHOD-DEFECT-01",
+      "proxyDailyRate": 0.008,
+      "movement": {
+        "percent": 0.40000000000000563,
+        "thresholdPercent": 1,
+        "investigationRequired": false
+      },
+      "reconciliation": {
+        "passed": true,
+        "meaning": "Mathematical consistency of recorded figures only; valuation assumptions are not validated."
+      },
+      "warning": {
+        "id": "NAV-MON-WARNING",
+        "message": "VALUATION METHOD REQUIRES REVIEW",
+        "authority": "advisory",
+        "blocksPublication": false,
+        "status": "unresolved",
+        "repetition": 1,
+        "reason": "Asset B proxy uplift lacks independently verified new market support; the prior reported valuation and the same method are being reused without adequate revalidation.",
+        "actor": "NAV-AGENT-METHOD-MONITOR-01",
+        "valuationEventId": "NAV-MON-VALUATION",
+        "sourceIds": [
+          "NAV-SOURCE-B",
+          "NAV-METHOD-DEFECT-01",
+          "NAV-POLICY-01"
+        ]
+      },
+      "approval": {
+        "id": "NAV-MON-APPROVAL",
+        "actor": "NAV-HUMAN-REVIEWER-01",
+        "approved": true,
+        "acknowledgedWarningId": "NAV-MON-WARNING",
+        "specialistDeterminationAvailable": false,
+        "rationale": "The reviewer received the advisory concern, reviewed the reconciled pack and daily movement result, and approved publication without a specialist valuation determination."
+      },
+      "publication": {
+        "id": "NAV-MON-PUBLICATION",
+        "approved": true,
+        "blockedByWarning": false,
+        "policyId": "NAV-POLICY-01",
+        "authority": "configured-human-approved-release",
+        "published": true
+      }
+    },
+    {
+      "day": "Tuesday",
+      "key": "TUE",
+      "date": "2026-11-03",
+      "assetA": 100000000,
+      "assetB": 101606400,
+      "total": 201606400,
+      "liabilities": 0,
+      "units": 2000000,
+      "navPerUnit": 100.8032,
+      "previousAssetB": 100800000,
+      "previousNavPerUnit": 100.4,
+      "priorReportedInputId": "NAV-MON-PUBLICATION",
+      "priorValuationId": "NAV-MON-VALUATION",
+      "valuationEventId": "NAV-TUE-VALUATION",
+      "methodId": "NAV-METHOD-DEFECT-01",
+      "proxyDailyRate": 0.008,
+      "movement": {
+        "percent": 0.40159362549800615,
+        "thresholdPercent": 1,
+        "investigationRequired": false
+      },
+      "reconciliation": {
+        "passed": true,
+        "meaning": "Mathematical consistency of recorded figures only; valuation assumptions are not validated."
+      },
+      "warning": {
+        "id": "NAV-TUE-WARNING",
+        "message": "VALUATION METHOD REQUIRES REVIEW",
+        "authority": "advisory",
+        "blocksPublication": false,
+        "status": "unresolved",
+        "repetition": 2,
+        "reason": "Asset B proxy uplift lacks independently verified new market support; the prior reported valuation and the same method are being reused without adequate revalidation.",
+        "actor": "NAV-AGENT-METHOD-MONITOR-01",
+        "valuationEventId": "NAV-TUE-VALUATION",
+        "sourceIds": [
+          "NAV-SOURCE-B",
+          "NAV-METHOD-DEFECT-01",
+          "NAV-POLICY-01"
+        ]
+      },
+      "approval": {
+        "id": "NAV-TUE-APPROVAL",
+        "actor": "NAV-HUMAN-REVIEWER-01",
+        "approved": true,
+        "acknowledgedWarningId": "NAV-TUE-WARNING",
+        "specialistDeterminationAvailable": false,
+        "rationale": "The reviewer received the advisory concern, reviewed the reconciled pack and daily movement result, and approved publication without a specialist valuation determination."
+      },
+      "publication": {
+        "id": "NAV-TUE-PUBLICATION",
+        "approved": true,
+        "blockedByWarning": false,
+        "policyId": "NAV-POLICY-01",
+        "authority": "configured-human-approved-release",
+        "published": true
+      }
+    },
+    {
+      "day": "Wednesday",
+      "key": "WED",
+      "date": "2026-11-04",
+      "assetA": 100000000,
+      "assetB": 102419251.2,
+      "total": 202419251.2,
+      "liabilities": 0,
+      "units": 2000000,
+      "navPerUnit": 101.2096256,
+      "previousAssetB": 101606400,
+      "previousNavPerUnit": 100.8032,
+      "priorReportedInputId": "NAV-TUE-PUBLICATION",
+      "priorValuationId": "NAV-TUE-VALUATION",
+      "valuationEventId": "NAV-WED-VALUATION",
+      "methodId": "NAV-METHOD-DEFECT-01",
+      "proxyDailyRate": 0.008,
+      "movement": {
+        "percent": 0.4031872004063279,
+        "thresholdPercent": 1,
+        "investigationRequired": false
+      },
+      "reconciliation": {
+        "passed": true,
+        "meaning": "Mathematical consistency of recorded figures only; valuation assumptions are not validated."
+      },
+      "warning": {
+        "id": "NAV-WED-WARNING",
+        "message": "VALUATION METHOD REQUIRES REVIEW",
+        "authority": "advisory",
+        "blocksPublication": false,
+        "status": "unresolved",
+        "repetition": 3,
+        "reason": "Asset B proxy uplift lacks independently verified new market support; the prior reported valuation and the same method are being reused without adequate revalidation.",
+        "actor": "NAV-AGENT-METHOD-MONITOR-01",
+        "valuationEventId": "NAV-WED-VALUATION",
+        "sourceIds": [
+          "NAV-SOURCE-B",
+          "NAV-METHOD-DEFECT-01",
+          "NAV-POLICY-01"
+        ]
+      },
+      "approval": {
+        "id": "NAV-WED-APPROVAL",
+        "actor": "NAV-HUMAN-REVIEWER-01",
+        "approved": true,
+        "acknowledgedWarningId": "NAV-WED-WARNING",
+        "specialistDeterminationAvailable": false,
+        "rationale": "The reviewer received the advisory concern, reviewed the reconciled pack and daily movement result, and approved publication without a specialist valuation determination."
+      },
+      "publication": {
+        "id": "NAV-WED-PUBLICATION",
+        "approved": true,
+        "blockedByWarning": false,
+        "policyId": "NAV-POLICY-01",
+        "authority": "configured-human-approved-release",
+        "published": true
+      }
+    },
+    {
+      "day": "Thursday",
+      "key": "THU",
+      "date": "2026-11-05",
+      "assetA": 100000000,
+      "assetB": 103238605.2096,
+      "total": 203238605.2096,
+      "liabilities": 0,
+      "units": 2000000,
+      "navPerUnit": 101.6193026048,
+      "previousAssetB": 102419251.2,
+      "previousNavPerUnit": 101.2096256,
+      "priorReportedInputId": "NAV-WED-PUBLICATION",
+      "priorValuationId": "NAV-WED-VALUATION",
+      "valuationEventId": "NAV-THU-VALUATION",
+      "methodId": "NAV-METHOD-DEFECT-01",
+      "proxyDailyRate": 0.008,
+      "movement": {
+        "percent": 0.40478067414173147,
+        "thresholdPercent": 1,
+        "investigationRequired": false
+      },
+      "reconciliation": {
+        "passed": true,
+        "meaning": "Mathematical consistency of recorded figures only; valuation assumptions are not validated."
+      },
+      "warning": {
+        "id": "NAV-THU-WARNING",
+        "message": "VALUATION METHOD REQUIRES REVIEW",
+        "authority": "advisory",
+        "blocksPublication": false,
+        "status": "unresolved",
+        "repetition": 4,
+        "reason": "Asset B proxy uplift lacks independently verified new market support; the prior reported valuation and the same method are being reused without adequate revalidation.",
+        "actor": "NAV-AGENT-METHOD-MONITOR-01",
+        "valuationEventId": "NAV-THU-VALUATION",
+        "sourceIds": [
+          "NAV-SOURCE-B",
+          "NAV-METHOD-DEFECT-01",
+          "NAV-POLICY-01"
+        ]
+      },
+      "approval": {
+        "id": "NAV-THU-APPROVAL",
+        "actor": "NAV-HUMAN-REVIEWER-01",
+        "approved": true,
+        "acknowledgedWarningId": "NAV-THU-WARNING",
+        "specialistDeterminationAvailable": false,
+        "rationale": "The reviewer received the advisory concern, reviewed the reconciled pack and daily movement result, and approved publication without a specialist valuation determination."
+      },
+      "publication": {
+        "id": "NAV-THU-PUBLICATION",
+        "approved": true,
+        "blockedByWarning": false,
+        "policyId": "NAV-POLICY-01",
+        "authority": "configured-human-approved-release",
+        "published": true
+      }
+    },
+    {
+      "day": "Friday",
+      "key": "FRI",
+      "date": "2026-11-06",
+      "assetA": 100000000,
+      "assetB": 104064514.0512768,
+      "total": 204064514.0512768,
+      "liabilities": 0,
+      "units": 2000000,
+      "navPerUnit": 102.0322570256384,
+      "previousAssetB": 103238605.2096,
+      "previousNavPerUnit": 101.6193026048,
+      "priorReportedInputId": "NAV-THU-PUBLICATION",
+      "priorValuationId": "NAV-THU-VALUATION",
+      "valuationEventId": "NAV-FRI-VALUATION",
+      "methodId": "NAV-METHOD-DEFECT-01",
+      "proxyDailyRate": 0.008,
+      "movement": {
+        "percent": 0.40637399613377917,
+        "thresholdPercent": 1,
+        "investigationRequired": false
+      },
+      "reconciliation": {
+        "passed": true,
+        "meaning": "Mathematical consistency of recorded figures only; valuation assumptions are not validated."
+      },
+      "warning": {
+        "id": "NAV-FRI-WARNING",
+        "message": "VALUATION METHOD REQUIRES REVIEW",
+        "authority": "advisory",
+        "blocksPublication": false,
+        "status": "unresolved",
+        "repetition": 5,
+        "reason": "Asset B proxy uplift lacks independently verified new market support; the prior reported valuation and the same method are being reused without adequate revalidation.",
+        "actor": "NAV-AGENT-METHOD-MONITOR-01",
+        "valuationEventId": "NAV-FRI-VALUATION",
+        "sourceIds": [
+          "NAV-SOURCE-B",
+          "NAV-METHOD-DEFECT-01",
+          "NAV-POLICY-01"
+        ]
+      },
+      "approval": {
+        "id": "NAV-FRI-APPROVAL",
+        "actor": "NAV-HUMAN-REVIEWER-01",
+        "approved": true,
+        "acknowledgedWarningId": "NAV-FRI-WARNING",
+        "specialistDeterminationAvailable": false,
+        "rationale": "The reviewer received the advisory concern, reviewed the reconciled pack and daily movement result, and approved publication without a specialist valuation determination."
+      },
+      "publication": {
+        "id": "NAV-FRI-PUBLICATION",
+        "approved": true,
+        "blockedByWarning": false,
+        "policyId": "NAV-POLICY-01",
+        "authority": "configured-human-approved-release",
+        "published": true
+      }
+    }
+  ],
+  "events": [
+    {
+      "id": "NAV-MON-VALUATION",
+      "day": "Monday",
+      "at": "2026-11-02T09:00:00Z",
+      "kind": "VALUATION_PREPARED",
+      "actor": "NAV-AGENT-FUND-ADMIN-01",
+      "parentIds": [
+        "NAV-INITIAL-01"
+      ],
+      "sourceIds": [
+        "NAV-SOURCE-A",
+        "NAV-SOURCE-B",
+        "NAV-POLICY-01",
+        "NAV-METHOD-DEFECT-01"
+      ],
+      "payload": {
+        "assetA": 100000000,
+        "assetB": 100800000,
+        "previousReportedAssetB": 100000000,
+        "rate": 0.008,
+        "total": 200800000,
+        "navPerUnit": 100.4,
+        "units": 2000000
+      }
+    },
+    {
+      "id": "NAV-MON-RECONCILIATION",
+      "day": "Monday",
+      "at": "2026-11-02T09:02:00Z",
+      "kind": "RECONCILIATION_PASSED",
+      "actor": "NAV-AGENT-FUND-ADMIN-01",
+      "parentIds": [
+        "NAV-MON-VALUATION"
+      ],
+      "sourceIds": [
+        "NAV-SOURCE-A",
+        "NAV-SOURCE-B",
+        "NAV-POLICY-01",
+        "NAV-METHOD-DEFECT-01"
+      ],
+      "payload": {
+        "passed": true,
+        "meaning": "Mathematical consistency of recorded figures only; valuation assumptions are not validated."
+      }
+    },
+    {
+      "id": "NAV-MON-MOVEMENT",
+      "day": "Monday",
+      "at": "2026-11-02T09:03:00Z",
+      "kind": "MOVEMENT_CHECK_PASSED",
+      "actor": "NAV-DETERMINISTIC-MOVEMENT-CHECK",
+      "parentIds": [
+        "NAV-MON-RECONCILIATION"
+      ],
+      "sourceIds": [
+        "NAV-SOURCE-A",
+        "NAV-SOURCE-B",
+        "NAV-POLICY-01",
+        "NAV-METHOD-DEFECT-01"
+      ],
+      "payload": {
+        "percent": 0.40000000000000563,
+        "thresholdPercent": 1,
+        "investigationRequired": false
+      }
+    },
+    {
+      "id": "NAV-MON-WARNING",
+      "day": "Monday",
+      "at": "2026-11-02T09:05:00Z",
+      "kind": "AI_WARNING_RECORDED",
+      "actor": "NAV-AGENT-METHOD-MONITOR-01",
+      "parentIds": [
+        "NAV-MON-VALUATION",
+        "NAV-MON-MOVEMENT"
+      ],
+      "sourceIds": [
+        "NAV-SOURCE-A",
+        "NAV-SOURCE-B",
+        "NAV-POLICY-01",
+        "NAV-METHOD-DEFECT-01"
+      ],
+      "payload": {
+        "id": "NAV-MON-WARNING",
+        "message": "VALUATION METHOD REQUIRES REVIEW",
+        "authority": "advisory",
+        "blocksPublication": false,
+        "status": "unresolved",
+        "repetition": 1,
+        "reason": "Asset B proxy uplift lacks independently verified new market support; the prior reported valuation and the same method are being reused without adequate revalidation.",
+        "actor": "NAV-AGENT-METHOD-MONITOR-01",
+        "valuationEventId": "NAV-MON-VALUATION",
+        "sourceIds": [
+          "NAV-SOURCE-B",
+          "NAV-METHOD-DEFECT-01",
+          "NAV-POLICY-01"
+        ]
+      }
+    },
+    {
+      "id": "NAV-MON-APPROVAL",
+      "day": "Monday",
+      "at": "2026-11-02T09:10:00Z",
+      "kind": "HUMAN_APPROVAL_RECORDED",
+      "actor": "NAV-HUMAN-REVIEWER-01",
+      "parentIds": [
+        "NAV-MON-WARNING",
+        "NAV-MON-RECONCILIATION",
+        "NAV-MON-MOVEMENT"
+      ],
+      "sourceIds": [
+        "NAV-SOURCE-A",
+        "NAV-SOURCE-B",
+        "NAV-POLICY-01",
+        "NAV-METHOD-DEFECT-01"
+      ],
+      "payload": {
+        "id": "NAV-MON-APPROVAL",
+        "actor": "NAV-HUMAN-REVIEWER-01",
+        "approved": true,
+        "acknowledgedWarningId": "NAV-MON-WARNING",
+        "specialistDeterminationAvailable": false,
+        "rationale": "The reviewer received the advisory concern, reviewed the reconciled pack and daily movement result, and approved publication without a specialist valuation determination."
+      }
+    },
+    {
+      "id": "NAV-MON-PUBLICATION",
+      "day": "Monday",
+      "at": "2026-11-02T09:15:00Z",
+      "kind": "PUBLICATION_APPROVED",
+      "actor": "NAV-WORKFLOW-RELEASE-01",
+      "parentIds": [
+        "NAV-MON-APPROVAL"
+      ],
+      "sourceIds": [
+        "NAV-SOURCE-A",
+        "NAV-SOURCE-B",
+        "NAV-POLICY-01",
+        "NAV-METHOD-DEFECT-01"
+      ],
+      "payload": {
+        "id": "NAV-MON-PUBLICATION",
+        "approved": true,
+        "blockedByWarning": false,
+        "policyId": "NAV-POLICY-01",
+        "authority": "configured-human-approved-release",
+        "published": true
+      }
+    },
+    {
+      "id": "NAV-TUE-VALUATION",
+      "day": "Tuesday",
+      "at": "2026-11-03T09:00:00Z",
+      "kind": "VALUATION_PREPARED",
+      "actor": "NAV-AGENT-FUND-ADMIN-01",
+      "parentIds": [
+        "NAV-MON-PUBLICATION"
+      ],
+      "sourceIds": [
+        "NAV-SOURCE-A",
+        "NAV-SOURCE-B",
+        "NAV-POLICY-01",
+        "NAV-METHOD-DEFECT-01"
+      ],
+      "payload": {
+        "assetA": 100000000,
+        "assetB": 101606400,
+        "previousReportedAssetB": 100800000,
+        "rate": 0.008,
+        "total": 201606400,
+        "navPerUnit": 100.8032,
+        "units": 2000000
+      }
+    },
+    {
+      "id": "NAV-TUE-RECONCILIATION",
+      "day": "Tuesday",
+      "at": "2026-11-03T09:02:00Z",
+      "kind": "RECONCILIATION_PASSED",
+      "actor": "NAV-AGENT-FUND-ADMIN-01",
+      "parentIds": [
+        "NAV-TUE-VALUATION"
+      ],
+      "sourceIds": [
+        "NAV-SOURCE-A",
+        "NAV-SOURCE-B",
+        "NAV-POLICY-01",
+        "NAV-METHOD-DEFECT-01"
+      ],
+      "payload": {
+        "passed": true,
+        "meaning": "Mathematical consistency of recorded figures only; valuation assumptions are not validated."
+      }
+    },
+    {
+      "id": "NAV-TUE-MOVEMENT",
+      "day": "Tuesday",
+      "at": "2026-11-03T09:03:00Z",
+      "kind": "MOVEMENT_CHECK_PASSED",
+      "actor": "NAV-DETERMINISTIC-MOVEMENT-CHECK",
+      "parentIds": [
+        "NAV-TUE-RECONCILIATION"
+      ],
+      "sourceIds": [
+        "NAV-SOURCE-A",
+        "NAV-SOURCE-B",
+        "NAV-POLICY-01",
+        "NAV-METHOD-DEFECT-01"
+      ],
+      "payload": {
+        "percent": 0.40159362549800615,
+        "thresholdPercent": 1,
+        "investigationRequired": false
+      }
+    },
+    {
+      "id": "NAV-TUE-WARNING",
+      "day": "Tuesday",
+      "at": "2026-11-03T09:05:00Z",
+      "kind": "AI_WARNING_RECORDED",
+      "actor": "NAV-AGENT-METHOD-MONITOR-01",
+      "parentIds": [
+        "NAV-TUE-VALUATION",
+        "NAV-TUE-MOVEMENT"
+      ],
+      "sourceIds": [
+        "NAV-SOURCE-A",
+        "NAV-SOURCE-B",
+        "NAV-POLICY-01",
+        "NAV-METHOD-DEFECT-01"
+      ],
+      "payload": {
+        "id": "NAV-TUE-WARNING",
+        "message": "VALUATION METHOD REQUIRES REVIEW",
+        "authority": "advisory",
+        "blocksPublication": false,
+        "status": "unresolved",
+        "repetition": 2,
+        "reason": "Asset B proxy uplift lacks independently verified new market support; the prior reported valuation and the same method are being reused without adequate revalidation.",
+        "actor": "NAV-AGENT-METHOD-MONITOR-01",
+        "valuationEventId": "NAV-TUE-VALUATION",
+        "sourceIds": [
+          "NAV-SOURCE-B",
+          "NAV-METHOD-DEFECT-01",
+          "NAV-POLICY-01"
+        ]
+      }
+    },
+    {
+      "id": "NAV-TUE-APPROVAL",
+      "day": "Tuesday",
+      "at": "2026-11-03T09:10:00Z",
+      "kind": "HUMAN_APPROVAL_RECORDED",
+      "actor": "NAV-HUMAN-REVIEWER-01",
+      "parentIds": [
+        "NAV-TUE-WARNING",
+        "NAV-TUE-RECONCILIATION",
+        "NAV-TUE-MOVEMENT"
+      ],
+      "sourceIds": [
+        "NAV-SOURCE-A",
+        "NAV-SOURCE-B",
+        "NAV-POLICY-01",
+        "NAV-METHOD-DEFECT-01"
+      ],
+      "payload": {
+        "id": "NAV-TUE-APPROVAL",
+        "actor": "NAV-HUMAN-REVIEWER-01",
+        "approved": true,
+        "acknowledgedWarningId": "NAV-TUE-WARNING",
+        "specialistDeterminationAvailable": false,
+        "rationale": "The reviewer received the advisory concern, reviewed the reconciled pack and daily movement result, and approved publication without a specialist valuation determination."
+      }
+    },
+    {
+      "id": "NAV-TUE-PUBLICATION",
+      "day": "Tuesday",
+      "at": "2026-11-03T09:15:00Z",
+      "kind": "PUBLICATION_APPROVED",
+      "actor": "NAV-WORKFLOW-RELEASE-01",
+      "parentIds": [
+        "NAV-TUE-APPROVAL"
+      ],
+      "sourceIds": [
+        "NAV-SOURCE-A",
+        "NAV-SOURCE-B",
+        "NAV-POLICY-01",
+        "NAV-METHOD-DEFECT-01"
+      ],
+      "payload": {
+        "id": "NAV-TUE-PUBLICATION",
+        "approved": true,
+        "blockedByWarning": false,
+        "policyId": "NAV-POLICY-01",
+        "authority": "configured-human-approved-release",
+        "published": true
+      }
+    },
+    {
+      "id": "NAV-WED-VALUATION",
+      "day": "Wednesday",
+      "at": "2026-11-04T09:00:00Z",
+      "kind": "VALUATION_PREPARED",
+      "actor": "NAV-AGENT-FUND-ADMIN-01",
+      "parentIds": [
+        "NAV-TUE-PUBLICATION"
+      ],
+      "sourceIds": [
+        "NAV-SOURCE-A",
+        "NAV-SOURCE-B",
+        "NAV-POLICY-01",
+        "NAV-METHOD-DEFECT-01"
+      ],
+      "payload": {
+        "assetA": 100000000,
+        "assetB": 102419251.2,
+        "previousReportedAssetB": 101606400,
+        "rate": 0.008,
+        "total": 202419251.2,
+        "navPerUnit": 101.2096256,
+        "units": 2000000
+      }
+    },
+    {
+      "id": "NAV-WED-RECONCILIATION",
+      "day": "Wednesday",
+      "at": "2026-11-04T09:02:00Z",
+      "kind": "RECONCILIATION_PASSED",
+      "actor": "NAV-AGENT-FUND-ADMIN-01",
+      "parentIds": [
+        "NAV-WED-VALUATION"
+      ],
+      "sourceIds": [
+        "NAV-SOURCE-A",
+        "NAV-SOURCE-B",
+        "NAV-POLICY-01",
+        "NAV-METHOD-DEFECT-01"
+      ],
+      "payload": {
+        "passed": true,
+        "meaning": "Mathematical consistency of recorded figures only; valuation assumptions are not validated."
+      }
+    },
+    {
+      "id": "NAV-WED-MOVEMENT",
+      "day": "Wednesday",
+      "at": "2026-11-04T09:03:00Z",
+      "kind": "MOVEMENT_CHECK_PASSED",
+      "actor": "NAV-DETERMINISTIC-MOVEMENT-CHECK",
+      "parentIds": [
+        "NAV-WED-RECONCILIATION"
+      ],
+      "sourceIds": [
+        "NAV-SOURCE-A",
+        "NAV-SOURCE-B",
+        "NAV-POLICY-01",
+        "NAV-METHOD-DEFECT-01"
+      ],
+      "payload": {
+        "percent": 0.4031872004063279,
+        "thresholdPercent": 1,
+        "investigationRequired": false
+      }
+    },
+    {
+      "id": "NAV-WED-WARNING",
+      "day": "Wednesday",
+      "at": "2026-11-04T09:05:00Z",
+      "kind": "AI_WARNING_RECORDED",
+      "actor": "NAV-AGENT-METHOD-MONITOR-01",
+      "parentIds": [
+        "NAV-WED-VALUATION",
+        "NAV-WED-MOVEMENT"
+      ],
+      "sourceIds": [
+        "NAV-SOURCE-A",
+        "NAV-SOURCE-B",
+        "NAV-POLICY-01",
+        "NAV-METHOD-DEFECT-01"
+      ],
+      "payload": {
+        "id": "NAV-WED-WARNING",
+        "message": "VALUATION METHOD REQUIRES REVIEW",
+        "authority": "advisory",
+        "blocksPublication": false,
+        "status": "unresolved",
+        "repetition": 3,
+        "reason": "Asset B proxy uplift lacks independently verified new market support; the prior reported valuation and the same method are being reused without adequate revalidation.",
+        "actor": "NAV-AGENT-METHOD-MONITOR-01",
+        "valuationEventId": "NAV-WED-VALUATION",
+        "sourceIds": [
+          "NAV-SOURCE-B",
+          "NAV-METHOD-DEFECT-01",
+          "NAV-POLICY-01"
+        ]
+      }
+    },
+    {
+      "id": "NAV-WED-APPROVAL",
+      "day": "Wednesday",
+      "at": "2026-11-04T09:10:00Z",
+      "kind": "HUMAN_APPROVAL_RECORDED",
+      "actor": "NAV-HUMAN-REVIEWER-01",
+      "parentIds": [
+        "NAV-WED-WARNING",
+        "NAV-WED-RECONCILIATION",
+        "NAV-WED-MOVEMENT"
+      ],
+      "sourceIds": [
+        "NAV-SOURCE-A",
+        "NAV-SOURCE-B",
+        "NAV-POLICY-01",
+        "NAV-METHOD-DEFECT-01"
+      ],
+      "payload": {
+        "id": "NAV-WED-APPROVAL",
+        "actor": "NAV-HUMAN-REVIEWER-01",
+        "approved": true,
+        "acknowledgedWarningId": "NAV-WED-WARNING",
+        "specialistDeterminationAvailable": false,
+        "rationale": "The reviewer received the advisory concern, reviewed the reconciled pack and daily movement result, and approved publication without a specialist valuation determination."
+      }
+    },
+    {
+      "id": "NAV-WED-PUBLICATION",
+      "day": "Wednesday",
+      "at": "2026-11-04T09:15:00Z",
+      "kind": "PUBLICATION_APPROVED",
+      "actor": "NAV-WORKFLOW-RELEASE-01",
+      "parentIds": [
+        "NAV-WED-APPROVAL"
+      ],
+      "sourceIds": [
+        "NAV-SOURCE-A",
+        "NAV-SOURCE-B",
+        "NAV-POLICY-01",
+        "NAV-METHOD-DEFECT-01"
+      ],
+      "payload": {
+        "id": "NAV-WED-PUBLICATION",
+        "approved": true,
+        "blockedByWarning": false,
+        "policyId": "NAV-POLICY-01",
+        "authority": "configured-human-approved-release",
+        "published": true
+      }
+    },
+    {
+      "id": "NAV-THU-VALUATION",
+      "day": "Thursday",
+      "at": "2026-11-05T09:00:00Z",
+      "kind": "VALUATION_PREPARED",
+      "actor": "NAV-AGENT-FUND-ADMIN-01",
+      "parentIds": [
+        "NAV-WED-PUBLICATION"
+      ],
+      "sourceIds": [
+        "NAV-SOURCE-A",
+        "NAV-SOURCE-B",
+        "NAV-POLICY-01",
+        "NAV-METHOD-DEFECT-01"
+      ],
+      "payload": {
+        "assetA": 100000000,
+        "assetB": 103238605.2096,
+        "previousReportedAssetB": 102419251.2,
+        "rate": 0.008,
+        "total": 203238605.2096,
+        "navPerUnit": 101.6193026048,
+        "units": 2000000
+      }
+    },
+    {
+      "id": "NAV-THU-RECONCILIATION",
+      "day": "Thursday",
+      "at": "2026-11-05T09:02:00Z",
+      "kind": "RECONCILIATION_PASSED",
+      "actor": "NAV-AGENT-FUND-ADMIN-01",
+      "parentIds": [
+        "NAV-THU-VALUATION"
+      ],
+      "sourceIds": [
+        "NAV-SOURCE-A",
+        "NAV-SOURCE-B",
+        "NAV-POLICY-01",
+        "NAV-METHOD-DEFECT-01"
+      ],
+      "payload": {
+        "passed": true,
+        "meaning": "Mathematical consistency of recorded figures only; valuation assumptions are not validated."
+      }
+    },
+    {
+      "id": "NAV-THU-MOVEMENT",
+      "day": "Thursday",
+      "at": "2026-11-05T09:03:00Z",
+      "kind": "MOVEMENT_CHECK_PASSED",
+      "actor": "NAV-DETERMINISTIC-MOVEMENT-CHECK",
+      "parentIds": [
+        "NAV-THU-RECONCILIATION"
+      ],
+      "sourceIds": [
+        "NAV-SOURCE-A",
+        "NAV-SOURCE-B",
+        "NAV-POLICY-01",
+        "NAV-METHOD-DEFECT-01"
+      ],
+      "payload": {
+        "percent": 0.40478067414173147,
+        "thresholdPercent": 1,
+        "investigationRequired": false
+      }
+    },
+    {
+      "id": "NAV-THU-WARNING",
+      "day": "Thursday",
+      "at": "2026-11-05T09:05:00Z",
+      "kind": "AI_WARNING_RECORDED",
+      "actor": "NAV-AGENT-METHOD-MONITOR-01",
+      "parentIds": [
+        "NAV-THU-VALUATION",
+        "NAV-THU-MOVEMENT"
+      ],
+      "sourceIds": [
+        "NAV-SOURCE-A",
+        "NAV-SOURCE-B",
+        "NAV-POLICY-01",
+        "NAV-METHOD-DEFECT-01"
+      ],
+      "payload": {
+        "id": "NAV-THU-WARNING",
+        "message": "VALUATION METHOD REQUIRES REVIEW",
+        "authority": "advisory",
+        "blocksPublication": false,
+        "status": "unresolved",
+        "repetition": 4,
+        "reason": "Asset B proxy uplift lacks independently verified new market support; the prior reported valuation and the same method are being reused without adequate revalidation.",
+        "actor": "NAV-AGENT-METHOD-MONITOR-01",
+        "valuationEventId": "NAV-THU-VALUATION",
+        "sourceIds": [
+          "NAV-SOURCE-B",
+          "NAV-METHOD-DEFECT-01",
+          "NAV-POLICY-01"
+        ]
+      }
+    },
+    {
+      "id": "NAV-THU-APPROVAL",
+      "day": "Thursday",
+      "at": "2026-11-05T09:10:00Z",
+      "kind": "HUMAN_APPROVAL_RECORDED",
+      "actor": "NAV-HUMAN-REVIEWER-01",
+      "parentIds": [
+        "NAV-THU-WARNING",
+        "NAV-THU-RECONCILIATION",
+        "NAV-THU-MOVEMENT"
+      ],
+      "sourceIds": [
+        "NAV-SOURCE-A",
+        "NAV-SOURCE-B",
+        "NAV-POLICY-01",
+        "NAV-METHOD-DEFECT-01"
+      ],
+      "payload": {
+        "id": "NAV-THU-APPROVAL",
+        "actor": "NAV-HUMAN-REVIEWER-01",
+        "approved": true,
+        "acknowledgedWarningId": "NAV-THU-WARNING",
+        "specialistDeterminationAvailable": false,
+        "rationale": "The reviewer received the advisory concern, reviewed the reconciled pack and daily movement result, and approved publication without a specialist valuation determination."
+      }
+    },
+    {
+      "id": "NAV-THU-PUBLICATION",
+      "day": "Thursday",
+      "at": "2026-11-05T09:15:00Z",
+      "kind": "PUBLICATION_APPROVED",
+      "actor": "NAV-WORKFLOW-RELEASE-01",
+      "parentIds": [
+        "NAV-THU-APPROVAL"
+      ],
+      "sourceIds": [
+        "NAV-SOURCE-A",
+        "NAV-SOURCE-B",
+        "NAV-POLICY-01",
+        "NAV-METHOD-DEFECT-01"
+      ],
+      "payload": {
+        "id": "NAV-THU-PUBLICATION",
+        "approved": true,
+        "blockedByWarning": false,
+        "policyId": "NAV-POLICY-01",
+        "authority": "configured-human-approved-release",
+        "published": true
+      }
+    },
+    {
+      "id": "NAV-FRI-VALUATION",
+      "day": "Friday",
+      "at": "2026-11-06T09:00:00Z",
+      "kind": "VALUATION_PREPARED",
+      "actor": "NAV-AGENT-FUND-ADMIN-01",
+      "parentIds": [
+        "NAV-THU-PUBLICATION"
+      ],
+      "sourceIds": [
+        "NAV-SOURCE-A",
+        "NAV-SOURCE-B",
+        "NAV-POLICY-01",
+        "NAV-METHOD-DEFECT-01"
+      ],
+      "payload": {
+        "assetA": 100000000,
+        "assetB": 104064514.0512768,
+        "previousReportedAssetB": 103238605.2096,
+        "rate": 0.008,
+        "total": 204064514.0512768,
+        "navPerUnit": 102.0322570256384,
+        "units": 2000000
+      }
+    },
+    {
+      "id": "NAV-FRI-RECONCILIATION",
+      "day": "Friday",
+      "at": "2026-11-06T09:02:00Z",
+      "kind": "RECONCILIATION_PASSED",
+      "actor": "NAV-AGENT-FUND-ADMIN-01",
+      "parentIds": [
+        "NAV-FRI-VALUATION"
+      ],
+      "sourceIds": [
+        "NAV-SOURCE-A",
+        "NAV-SOURCE-B",
+        "NAV-POLICY-01",
+        "NAV-METHOD-DEFECT-01"
+      ],
+      "payload": {
+        "passed": true,
+        "meaning": "Mathematical consistency of recorded figures only; valuation assumptions are not validated."
+      }
+    },
+    {
+      "id": "NAV-FRI-MOVEMENT",
+      "day": "Friday",
+      "at": "2026-11-06T09:03:00Z",
+      "kind": "MOVEMENT_CHECK_PASSED",
+      "actor": "NAV-DETERMINISTIC-MOVEMENT-CHECK",
+      "parentIds": [
+        "NAV-FRI-RECONCILIATION"
+      ],
+      "sourceIds": [
+        "NAV-SOURCE-A",
+        "NAV-SOURCE-B",
+        "NAV-POLICY-01",
+        "NAV-METHOD-DEFECT-01"
+      ],
+      "payload": {
+        "percent": 0.40637399613377917,
+        "thresholdPercent": 1,
+        "investigationRequired": false
+      }
+    },
+    {
+      "id": "NAV-FRI-WARNING",
+      "day": "Friday",
+      "at": "2026-11-06T09:05:00Z",
+      "kind": "AI_WARNING_RECORDED",
+      "actor": "NAV-AGENT-METHOD-MONITOR-01",
+      "parentIds": [
+        "NAV-FRI-VALUATION",
+        "NAV-FRI-MOVEMENT"
+      ],
+      "sourceIds": [
+        "NAV-SOURCE-A",
+        "NAV-SOURCE-B",
+        "NAV-POLICY-01",
+        "NAV-METHOD-DEFECT-01"
+      ],
+      "payload": {
+        "id": "NAV-FRI-WARNING",
+        "message": "VALUATION METHOD REQUIRES REVIEW",
+        "authority": "advisory",
+        "blocksPublication": false,
+        "status": "unresolved",
+        "repetition": 5,
+        "reason": "Asset B proxy uplift lacks independently verified new market support; the prior reported valuation and the same method are being reused without adequate revalidation.",
+        "actor": "NAV-AGENT-METHOD-MONITOR-01",
+        "valuationEventId": "NAV-FRI-VALUATION",
+        "sourceIds": [
+          "NAV-SOURCE-B",
+          "NAV-METHOD-DEFECT-01",
+          "NAV-POLICY-01"
+        ]
+      }
+    },
+    {
+      "id": "NAV-FRI-APPROVAL",
+      "day": "Friday",
+      "at": "2026-11-06T09:10:00Z",
+      "kind": "HUMAN_APPROVAL_RECORDED",
+      "actor": "NAV-HUMAN-REVIEWER-01",
+      "parentIds": [
+        "NAV-FRI-WARNING",
+        "NAV-FRI-RECONCILIATION",
+        "NAV-FRI-MOVEMENT"
+      ],
+      "sourceIds": [
+        "NAV-SOURCE-A",
+        "NAV-SOURCE-B",
+        "NAV-POLICY-01",
+        "NAV-METHOD-DEFECT-01"
+      ],
+      "payload": {
+        "id": "NAV-FRI-APPROVAL",
+        "actor": "NAV-HUMAN-REVIEWER-01",
+        "approved": true,
+        "acknowledgedWarningId": "NAV-FRI-WARNING",
+        "specialistDeterminationAvailable": false,
+        "rationale": "The reviewer received the advisory concern, reviewed the reconciled pack and daily movement result, and approved publication without a specialist valuation determination."
+      }
+    },
+    {
+      "id": "NAV-FRI-PUBLICATION",
+      "day": "Friday",
+      "at": "2026-11-06T09:15:00Z",
+      "kind": "PUBLICATION_APPROVED",
+      "actor": "NAV-WORKFLOW-RELEASE-01",
+      "parentIds": [
+        "NAV-FRI-APPROVAL"
+      ],
+      "sourceIds": [
+        "NAV-SOURCE-A",
+        "NAV-SOURCE-B",
+        "NAV-POLICY-01",
+        "NAV-METHOD-DEFECT-01"
+      ],
+      "payload": {
+        "id": "NAV-FRI-PUBLICATION",
+        "approved": true,
+        "blockedByWarning": false,
+        "policyId": "NAV-POLICY-01",
+        "authority": "configured-human-approved-release",
+        "published": true
+      }
+    },
+    {
+      "id": "NAV-SPECIALIST-RECONSTRUCTION",
+      "at": "2026-11-06T17:00:00Z",
+      "kind": "SPECIALIST_RECONSTRUCTION_ESTABLISHED",
+      "actor": "NAV-SPECIALIST-INDEPENDENT-01",
+      "parentIds": [
+        "NAV-MON-PUBLICATION",
+        "NAV-TUE-PUBLICATION",
+        "NAV-WED-PUBLICATION",
+        "NAV-THU-PUBLICATION",
+        "NAV-FRI-PUBLICATION"
+      ],
+      "sourceIds": [
+        "NAV-SOURCE-A",
+        "NAV-SOURCE-B",
+        "NAV-METHOD-DEFECT-01"
+      ],
+      "payload": {
+        "id": "NAV-SPECIALIST-RECONSTRUCTION",
+        "actor": "NAV-SPECIALIST-INDEPENDENT-01",
+        "establishedAt": "2026-11-06T17:00:00Z",
+        "retrospective": true,
+        "illustrative": true,
+        "assetA": 100000000,
+        "assetB": 100000000,
+        "total": 200000000,
+        "navPerUnit": 100,
+        "conclusion": "In this simplified example, Asset B should have remained USD 100 million; the automatic uplifts were unsupported.",
+        "sourceIds": [
+          "NAV-SOURCE-A",
+          "NAV-SOURCE-B",
+          "NAV-METHOD-DEFECT-01"
+        ]
+      }
+    }
+  ],
+  "specialist": {
+    "id": "NAV-SPECIALIST-RECONSTRUCTION",
+    "actor": "NAV-SPECIALIST-INDEPENDENT-01",
+    "establishedAt": "2026-11-06T17:00:00Z",
+    "retrospective": true,
+    "illustrative": true,
+    "assetA": 100000000,
+    "assetB": 100000000,
+    "total": 200000000,
+    "navPerUnit": 100,
+    "conclusion": "In this simplified example, Asset B should have remained USD 100 million; the automatic uplifts were unsupported.",
+    "sourceIds": [
+      "NAV-SOURCE-A",
+      "NAV-SOURCE-B",
+      "NAV-METHOD-DEFECT-01"
+    ]
+  },
+  "comparisons": [
+    {
+      "day": "Monday",
+      "differencePerUnit": 0.4000000000000057,
+      "cumulativeDifferencePercent": 0.40000000000000036
+    },
+    {
+      "day": "Tuesday",
+      "differencePerUnit": 0.8032000000000039,
+      "cumulativeDifferencePercent": 0.8032000000000039
+    },
+    {
+      "day": "Wednesday",
+      "differencePerUnit": 1.2096255999999954,
+      "cumulativeDifferencePercent": 1.2096255999999972
+    },
+    {
+      "day": "Thursday",
+      "differencePerUnit": 1.6193026047999979,
+      "cumulativeDifferencePercent": 1.619302604799988
+    },
+    {
+      "day": "Friday",
+      "differencePerUnit": 2.032257025638401,
+      "cumulativeDifferencePercent": 2.0322570256384065
+    }
+  ],
+  "summary": {
+    "movementPassed": 5,
+    "reconciliationsPassed": 5,
+    "approvals": 5,
+    "publications": 5,
+    "unresolvedWarnings": 5,
+    "fridayTotal": 204064514.0512768,
+    "fridayNavPerUnit": 102.0322570256384,
+    "cumulativeDifferencePercent": 2.0322570256384065
+  }
+}

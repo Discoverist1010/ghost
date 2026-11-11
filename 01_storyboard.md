@@ -1,3 +1,11 @@
+# V3 Package 2 — current Beat 6
+
+Package 1 baseline `26ae2a9a873ee22674edae7897eaf923aa0339e7` is locked. The old Beat 6 review placeholder below is superseded by **The NAV That Became Its Own Truth**. Beats 1–5 and the preserved V2 Beats 7–8 retain their accepted rendering and sequence.
+
+Beat 6 has fourteen presenter states implementing eleven narrative reveals: productive agent → Monday success → five-day timeline → five successful cycles → advisory warning → accounting / movement / valuation (three separate clicks) → retrospective specialist reconstruction → separate baseline-error punch → cumulative difference → governance failure → regulatory grounding → final override question. No animation advances the narrative.
+
+The warning is disclosed to the audience after the successful cycles, while its audit timestamps remain before daily human approvals and releases. The specialist comparison appears only at `nav-reconstruction`, after all five days. The final question is stable: Next is disabled. SHOW MORE contains an explicit continuation to preserved V2 material; no Package 3 scene or answer is added.
+
 # V3 Package 1 — current presenter path
 
 This section supersedes the V2 path recorded below. Baseline: `7459a5c6f20fa3648e81ecbccf993a902eaef9b1`. Package 1 has 27 controlled states including its review pause; no timer advances the story.

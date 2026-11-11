@@ -61,7 +61,9 @@ test('missing evidence and probabilistic confidence cannot expand execution auth
 test('deeper failure, external research and runtime restraint all remain in Beat 5', () => {
   assert.deepEqual(CUES[4].steps, ['causal-explanation','source-challenge','counterfactual','conflict-omitted','domain-rule','sdlc','monitor-evasion','monitor-assurance','escalate','human-judgement','human-confidence']);
   let boundary = { ...createPresentationState(), cueIndex: 5 };
-  assert.equal(currentReveal(boundary), 'package-boundary');
+  assert.equal(currentReveal(boundary), 'nav-introduction');
+  boundary = { ...boundary, step: CUES[5].steps.length - 1 };
+  assert.equal(currentReveal(boundary), 'nav-override');
   assert.equal(transition(boundary, 'next'), boundary);
   assert.equal(currentReveal(transition(boundary, 'continue-legacy')), 'optimise-base');
 });

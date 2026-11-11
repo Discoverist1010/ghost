@@ -1,3 +1,4 @@
+import { renderNav, renderNavEvidence, navRun } from './nav-theatre.mjs';
 import { AGENT_IDENTITIES, DOMAIN_RULE, submitSourceChallenge, buildRun, EVIDENCE, evaluateGate, supervise, validateRun } from "./scenario.mjs";
 import { BEATS, CASE_ACTIONS, CUES, NARRATIVE_INDICATORS, SYSTEMIC_ACTIONS, SYSTEMIC_AGENTS, SYSTEMIC_ANNOUNCEMENTS, createPresentationState, currentCue, currentReveal, transition } from "./presentation.mjs";
 
@@ -242,8 +243,8 @@ export function renderView(id, step) {
         '<p class="primary-line">PREDICTION ≠ PERMISSION</p>', "centered");
     case "material-case":
       return wrap(id, renderMaterialCase(step), "centered");
-    case "authority":
-      return wrap(id, '<h1 class="hero-verdict">PACKAGE 1<br>REVIEW PAUSE</h1><p class="support-line">PRESERVED V2 MATERIAL FOLLOWS ONLY ON REQUEST.</p>' + button('CONTINUE TO PRESERVED V2 MATERIAL →', 'continue-legacy', 'quiet-button'), 'centered');
+    case "nav":
+      return wrap(id, renderNav(step), "centered");
     case "runtime":
       if (step === 1) return wrap(id,
         '<h1 class="hero-verdict judgement-title">HUMAN JUDGEMENT REQUIRED</h1>' +
@@ -283,7 +284,7 @@ function detailAction(id, step) {
     if (step >= 3) return ['SHOW MORE', 'open-domain'];
     return ['SHOW MORE', 'open-source'];
   }
-  if (id === "authority") return null;
+  if (id === "nav") return ["SHOW MORE", "open-nav"];
   if (id === "systemic") return ["SHOW MORE", "open-systemic"];
   return null;
 }
@@ -313,11 +314,12 @@ function renderCue(forceReplay = false) {
   stageStatus.classList.toggle('is-question', presentation.cueIndex >= 4);
   document.querySelector('.app-shell').classList.toggle('is-closing', cue.id === 'ghost');
   document.querySelector('.app-shell').classList.toggle('is-opening', currentReveal(presentation) === 'opening-question');
+  document.querySelector('.app-shell').classList.toggle('is-nav', cue.id === 'nav');
   beatCounter.textContent = "BEAT " + (presentation.cueIndex + 1) + "/" + BEATS.length;
   announcer.textContent = "Beat " + (presentation.cueIndex + 1) + ": " + BEATS[presentation.cueIndex] + ". " +
     (cue.id === 'systemic' ? SYSTEMIC_ANNOUNCEMENTS[presentation.step] : currentReveal(presentation).replaceAll("-", " "));
   previousButton.disabled = presentation.cueIndex === 0 && presentation.step === 0;
-  nextButton.disabled = ["causal-explanation", "package-boundary"].includes(currentReveal(presentation)) || presentation.cueIndex === CUES.length - 1 && presentation.step === cue.steps.length - 1;
+  nextButton.disabled = ["causal-explanation", "nav-override"].includes(currentReveal(presentation)) || presentation.cueIndex === CUES.length - 1 && presentation.step === cue.steps.length - 1;
   nextButton.setAttribute("aria-label", cue.id === "material-case" ? CASE_ACTIONS[presentation.step] :
     cue.id === 'systemic' ? SYSTEMIC_ACTIONS[presentation.step] : "Next reveal");
   const detail = detailAction(cue.id, presentation.step);
@@ -491,6 +493,8 @@ function researchDetails() {
 }
 
 function drawerContent(kind) {
+  if (kind === 'nav') return { title: 'NAV evidence · ' + navRun.id, body: renderNavEvidence(presentation.step) };
+
   const early = presentation.cueIndex < 4;
   if (early) return { title: 'Supervision and evidence', body:
     detailBlock('Objective', 'Identify material risks rapidly while minimising unnecessary human escalations.') +
@@ -592,7 +596,7 @@ function openDrawer(kind) {
   drawerTitle.textContent = content.title;
   drawerBody.innerHTML = content.body +
     '<div class="drawer-footer">' +
-      (presentation.cueIndex >= 4 ? button("Export full synthetic run", "download-run", "drawer-button") : '') +
+      (presentation.cueIndex >= 4 && currentCue(presentation).id !== 'nav' ? button("Export full synthetic run", "download-run", "drawer-button") : '') +
       button("Reset presentation", "reset", "drawer-button") +
     "</div>";
   drawer.hidden = false;
@@ -604,6 +608,15 @@ function closeDrawer() {
   drawer.hidden = true;
   if (focusBeforeDrawer?.isConnected) focusBeforeDrawer.focus();
   focusBeforeDrawer = null;
+}
+
+function downloadNav() {
+  const url = URL.createObjectURL(new Blob([JSON.stringify(navRun, null, 2)], { type: 'application/json' }));
+  const link = document.createElement('a');
+  link.href = url;
+  link.download = 'ghost-nav-five-day-audit.json';
+  link.click();
+  setTimeout(() => URL.revokeObjectURL(url), 1000);
 }
 
 function downloadRun() {
@@ -647,6 +660,8 @@ document.addEventListener("click", (event) => {
     if (currentReveal(presentation) === 'opening-question') move('next');
     else if (paused) pauseOrResume();
   }
+  else if (action === "open-nav") openDrawer("nav");
+  else if (action === "download-nav") downloadNav();
   else if (action === "open-evidence") openDrawer("evidence");
   else if (action === "open-source") openDrawer("source");
   else if (action === "open-trust") openDrawer("trust");

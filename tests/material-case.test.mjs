@@ -310,7 +310,7 @@ test("keyboard advances through every stage without changing the eight-beat cont
       if (reveal === "escalate") assert.equal(element("contextButton").dataset.action, "open-gate");
       if (reveal === "human-judgement") assert.equal(element("contextButton").dataset.action, "open-review");
       if (cueIndex !== CUES.length - 1 || reveal !== CUES[cueIndex].steps.at(-1)) {
-        if (reveal === 'package-boundary') clickAction('continue-legacy');
+        if (reveal === 'nav-override') clickAction('continue-legacy');
         else keydown({ key: reveal === 'causal-explanation' ? 'c' : 'ArrowRight', target: null, preventDefault() {} });
       }
     }
@@ -335,7 +335,7 @@ test("Beat 7 keeps one DOM stage across acts and replays only on request", () =>
   const key = (name) => keydown({ key: name, target: null, preventDefault() {} });
   key('Home');
   for (const cue of CUES.slice(0, 6)) for (const reveal of cue.steps) {
-    if (reveal === 'package-boundary') clickAction('continue-legacy');
+    if (reveal === 'nav-override') clickAction('continue-legacy');
     else key(reveal === 'causal-explanation' ? 'c' : 'ArrowRight');
   }
   assert.equal(stage.dataset.reveal, 'optimise-base');
@@ -380,4 +380,14 @@ test('opening question precedes the retained message and uses the single present
   assert.ok(positions.every((value, index) => value >= 0 && (index === 0 || value > positions[index - 1])));
   assert.equal((html.match(/class="presenter-control"/g) ?? []).length, 1);
   assert.doesNotMatch(html, /motion-controls|START/);
+});
+
+test('accepted Package 1 and preserved V2 rendering contracts remain byte-identical', async () => {
+  const {createHash}=await import('node:crypto');
+  const contract=JSON.parse(readFileSync(new URL('../artifacts/package2/baseline/contracts.json',import.meta.url),'utf8'));
+  const hash=value=>createHash('sha256').update(value).digest('hex');
+  const markup=CUES.filter((_,i)=>i<5||i>=6).flatMap(c=>c.steps.map((_,s)=>renderView(c.id,s))).concat([renderView('runtime',0),renderView('runtime',1)]).join('\n');
+  assert.equal(hash(markup),contract.lockedMarkupHash);
+  assert.equal(hash(readFileSync(new URL('../styles.css',import.meta.url),'utf8').slice(0,contract.lockedCssLength)),contract.lockedCssHash);
+  assert.equal(hash(readFileSync(new URL('../src/scenario.mjs',import.meta.url),'utf8')),contract.scenarioSourceHash);
 });

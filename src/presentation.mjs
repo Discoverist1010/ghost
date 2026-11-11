@@ -1,10 +1,12 @@
+import { NAV_REVEALS } from './nav-scenario.mjs';
+
 export const BEATS = Object.freeze([
   'From answers to actions',
   'Agents help — humans lose the thread',
   'AI supervises AI',
   'Prediction is not permission',
   'One fact changes the case',
-  'Package 1 review boundary',
+  'The NAV That Became Its Own Truth',
   'When correct agents become a system',
   'The ghost',
 ]);
@@ -27,7 +29,7 @@ export const CUES = Object.freeze([
   { id: 'supervision', steps: ['material-issue', 'attention-dependency'] },
   { id: 'prediction', steps: ['predictive-case', 'no-breach'] },
   { id: 'material-case', steps: ['causal-explanation', 'source-challenge', 'counterfactual', 'conflict-omitted', 'domain-rule', 'sdlc', 'monitor-evasion', 'monitor-assurance', 'escalate', 'human-judgement', 'human-confidence'] },
-  { id: 'authority', steps: ['package-boundary'] },
+  { id: 'nav', steps: NAV_REVEALS },
   { id: 'systemic', steps: ['optimise-base', 'market-signal', 'execute-feedback', 'transmit', 'system-pressure', 'system-changed', 'system-supervision-bridge'] },
   { id: 'ghost', steps: ['who-supervises', 'right-loop', 'supervisory-ai', 'final-propositions', 'final-question'] },
 ]);
@@ -81,12 +83,12 @@ export function transition(state, action) {
   if (action === 'check-source' && currentReveal(state) === 'causal-explanation') {
     return { ...state, step: 1, sourceCheck: { initiatedBy: 'human', actor: 'Bank Compliance Agent', evidenceId: 'EV-BANK-01', sourceEventId: 'EVT-0238' } };
   }
-  if (action === 'continue-legacy' && currentReveal(state) === 'package-boundary') return { ...state, cueIndex: 6, step: 0 };
+  if (action === 'continue-legacy' && currentReveal(state) === 'nav-override') return { ...state, cueIndex: 6, step: 0 };
   if ((action === 'authorise' || action === 'reject') && currentReveal(state) === 'naive-review') {
     return { ...state, step: state.step + 1, naiveAttempt: action };
   }
   if (action === 'next') {
-    if (['causal-explanation', 'package-boundary'].includes(currentReveal(state))) return state;
+    if (['causal-explanation', 'nav-override'].includes(currentReveal(state))) return state;
     if (state.step < currentCue(state).steps.length - 1) return { ...state, step: state.step + 1 };
     if (state.cueIndex < CUES.length - 1) return { ...state, cueIndex: state.cueIndex + 1, step: 0 };
     return state;

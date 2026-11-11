@@ -1,3 +1,11 @@
+# V3 Package 2 — acceptance additions
+
+Baseline before edits: 31 passing tests on `26ae2a9a873ee22674edae7897eaf923aa0339e7`. Only presentation assertions made obsolete by replacing the Beat 6 placeholder are updated; the settlement, authority, source-challenge, systemic and finale contracts remain.
+
+Focused NAV tests cover full-precision compounding, initial fund arithmetic, each daily value and movement, strict greater-than movement triggering, recorded arithmetic versus valuation support, the retrospective specialist, cumulative difference, warning/approval/publication chronology, unresolved warning retention, policy-bound release, dramatic withholding, separate control reveals, source qualifications and final hold with explicit legacy access. A hash contract compares accepted Package 1 / V2 markup, the accepted stylesheet prefix and settlement scenario source with the pre-edit baseline.
+
+Visual acceptance includes all fourteen NAV states in real local browser captures at 1920×1080 fullscreen, one non-16:9 normal window, pause/resume/replay, the timeline and warning animation, deferred evidence, complete audit export and no external network requests. New screenshots and evidence are under `artifacts/package2/`; the completion report records final outcomes. No Package 3 implementation is authorised.
+
 # V3 Package 1 — current acceptance checks
 
 Baseline `npm test`: 24/24 before edits. The current suite preserves trace/authority/systemic tests and updates only obsolete presentation assertions (new controlled reveals, explicit source action, runtime now inside Beat 5). Focused Package 1 tests cover human initiation, separately attributable challenge evidence, conditional counterfactual, retained omitted evidence, the synthetic requirement/acceptance gap, research qualification and authority with missing evidence or changed scores.

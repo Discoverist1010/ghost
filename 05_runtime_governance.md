@@ -1,3 +1,11 @@
+# V3 Package 2 — NAV permissions and controls
+
+The NAV workflow is separate from the accepted settlement authority gate. Its valuation agent prepares figures, the method monitor can read/report, a named human reviewer can approve, and a configured release workflow publishes when its conditions pass. An unresolved advisory warning is not configured as a mandatory hold. This is the defect being demonstrated, not a security bypass or a new authority rule for Package 1.
+
+`decideNavPublication` requires reconciliation, no triggered movement investigation, human approval and no policy-imposed warning hold. Tests show that removing approval, failing reconciliation, triggering movement investigation or configuring a blocking warning prevents approval. The default fictional policy nevertheless permits the repeated unsupported valuation method to survive five daily releases.
+
+The 1% movement threshold is internal and fictional, not an acceptable NAV valuation-error limit or a regulatory tolerance. The specialist's retrospective comparison requires investigation; the demo does not issue a legal classification or determine remediation. CSSF 24/856 §38 is a Luxembourg example, not a universally applicable rule or an assumed jurisdiction for this fund. OWASP is technical guidance. The final override question remains unanswered.
+
 # V3 Package 1 — authority continuity
 
 The original recommendation-only gate remains a synthetic teaching abstraction. It returns `ESCALATE` for the original material predictive restriction, with disputed evidence and no verified deterministic breach. Neither risk 76, prediction 74%, model confidence nor the source challenge authorises execution. Missing evidence cannot enable an automatic hold: a bounded deterministic hold additionally requires adequate evidence, low materiality, high reversibility, explicit hold policy and `auto_act` mandate.

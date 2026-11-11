@@ -1,0 +1,29 @@
+[
+  {
+    "scene": "opening-question",
+    "pixelIdentical": true,
+    "differenceBounds": null,
+    "dimensions": [
+      1920,
+      1080
+    ]
+  },
+  {
+    "scene": "attention-dependency",
+    "pixelIdentical": true,
+    "differenceBounds": null,
+    "dimensions": [
+      1920,
+      1080
+    ]
+  },
+  {
+    "scene": "source-challenge",
+    "pixelIdentical": true,
+    "differenceBounds": null,
+    "dimensions": [
+      1920,
+      1080
+    ]
+  }
+]

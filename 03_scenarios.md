@@ -1,3 +1,13 @@
+# V3 Package 2 — deterministic five-day NAV scenario
+
+`src/nav-scenario.mjs` is a separate pure-function teaching model, not a fund accounting engine and not a change to `GHOST-MAIN-001`. Fictional daily-dealing fund: Asset A USD 100m, initial Asset B USD 100m, 2m units, initial NAV/unit USD 100. There are no flows, distributions, fees, liabilities, FX movements or other NAV changes. The synthetic dates are Monday 2 through Friday 6 November 2026; no market feed is used.
+
+Defective method: **reported Asset B today = previous reported Asset B × 1.008**. Each prior publication is the next day's operational input. A new unsupported uplift compounds every day; this is not merely carrying a fixed one-off error forward. Only display values are rounded. Friday total is USD 204,064,514.0512768, NAV/unit USD 102.0322570256384. The later independent comparison is USD 200m / USD 100 per unit, giving approximately 2.032257% difference.
+
+Every daily audit contains valuation 09:00 → reconciliation 09:02 → movement check 09:03 → advisory warning 09:05 → human approval 09:10 → permitted publication 09:15 UTC. Warning, human and release records have separate identities and linked parent IDs. The human acknowledges the advisory warning without a specialist determination; the configured workflow permits publication. All five warnings remain unresolved. The specialist reconstructs the comparison at Friday 17:00, after publication; earlier reviewers did not already possess that final determination.
+
+Separate controls: reconciliation validates recorded arithmetic; the fictional 1% movement check compares consecutive published NAVs; the monitor questions unsupported methodology but cannot impose a release hold. No regulatory NAV-error tolerance is encoded in that movement rule. No hallucination, reward hacking or intentional deception is established. Full precision, policy, source provenance and chronology can be exported after reconstruction.
+
 # V3 Package 1 — scenario additions
 
 The original `GHOST-MAIN-001` v1.1 trace is preserved: 8 roles, 27 tasks, 486 events, 3200ms; `EntityGraph/T-17` remains `EVT-0238`. The original evidence and risk history remain intact.
