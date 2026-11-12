@@ -1,3 +1,5 @@
+> Historical review record. Counts, branch state and approval instructions below describe the original review, not the current accepted version. See [current guide](README.md) and [historical index](HISTORY.md). Original report retained below.
+
 # Approval update — 12 November 2026
 
 The user approved committing, merging and pushing Package 3 and the subsequent surgical UI corrections. All left-hand stage headers are hidden; right-hand headers remain unchanged. The opening domain line now reads **OPERATIONS · FUND ACCOUNTING · LIQUIDITY MANAGEMENT**. The preservation test canonicalises only this expressly approved copy replacement. All 53 tests pass. Screenshots of these later corrections are in `artifacts/header-correction/`. The local-review/no-commit statements below record the earlier review checkpoint.

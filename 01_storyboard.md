@@ -1,3 +1,101 @@
+# Current accepted storyboard
+
+Updated 13 November 2026 against accepted implementation `bf34d11`. Eight beats contain **51 principal presenter states**. State lists below come directly from `src/presentation.mjs`; internal animation steps are not extra slides. The submitted HTML remains unchanged.
+
+## Beat 1 · `opening` — 6 states
+
+1. `opening-question`
+2. `answers-to-actions`
+3. `rules`
+4. `patterns`
+5. `investigation`
+6. `agentic`
+
+## Beat 2 · `operations` — 6 states
+
+1. `failed-trade`
+2. `oversight-promise`
+3. `event-flood`
+4. `trace-overview`
+5. `material-signal`
+6. `cognitive-limits`
+
+## Beat 3 · `supervision` — 1 states
+
+1. `attention-dependency`
+
+## Beat 4 · `prediction` — 1 states
+
+1. `predictive-case`
+
+## Beat 5 · `material-case` — 14 states
+
+1. `causal-explanation`
+2. `source-challenge`
+3. `counterfactual`
+4. `policy-question`
+5. `policy-finding`
+6. `right-restriction`
+7. `right-correction`
+8. `right-basis`
+9. `incomplete-reviews`
+10. `sdlc`
+11. `correction-process`
+12. `retrospective-question`
+13. `system-assurance`
+14. `human-questions`
+
+## Beat 6 · `nav` — 7 states
+
+1. `nav-introduction`
+2. `nav-monday`
+3. `nav-adaptation`
+4. `nav-week`
+5. `nav-reconstruction`
+6. `nav-grounding`
+7. `nav-override`
+
+## Beat 7 · `systemic` — 9 states
+
+1. `independent-agents`
+2. `common-shock`
+3. `first-wave`
+4. `changed-market`
+5. `second-wave`
+6. `correlation-feedback`
+7. `system-pressure`
+8. `system-changed`
+9. `system-supervision`
+
+## Beat 8 · `ghost` — 7 states
+
+1. `supervision-informs`
+2. `supervision-structures`
+3. `supervision-enforces`
+4. `capability-authority`
+5. `supervisory-dimensions`
+6. `due-diligence`
+7. `final-question`
+
+## Reveal and causality rules
+
+The opening supervisory question remains first, with one discreet disclosure. Failed-trade activity resolves 486 trace events into one material finding before exposing cognitive limits and supervisory influence.
+
+The original 76 / 74% assessment precedes WHY 76. CHECK ORIGINAL SOURCE deliberately invokes AI #2; Next/Space cannot substitute for that human request. The source contradiction precedes conditional 76→39. A separately invoked deterministic policy check then reveals a specific restriction. The three findings are right restriction/wrong reason, right correction/wrong to clear, right restriction/right basis; the next action goes directly to BOTH AI MISSED THE REAL RISK. SDLC, reusable correction, historical impact, independent assurance and human questions follow.
+
+NAV progresses through reasonable objectives, Monday publication-only approval, feedback-driven priority reduction, five-day apparent success, retrospective reconstruction, grounding and the override question. The human-approval/supervisory-confidence conclusion is on adaptation; no separate baseline-error screen remains.
+
+Systemic first-wave actions change market inputs before second-wave feedback. No standalone funding-timing or transmission screen remains. The final systemic supervision question leads into the finale.
+
+The first three finale states accumulate arrangements on the same composition. Capability/authority and the four dimensions follow, then the five-question practical recap. The next action clears the recap for **WHERE DOES SUPERVISION RESIDE?** Next is disabled indefinitely; Back returns to recap, Replay holds the ending and deliberate reset remains available. No subsequent conclusion appears.
+
+The original runtime gate and omitted-conflict evidence remain available without their removed standalone stages. See [current scenario logic](03_scenarios.md), [visual contract](06_ui_wireframes.md) and [historical index](HISTORY.md).
+
+---
+
+<details>
+<summary>Historical storyboard revisions — superseded; retained verbatim</summary>
+
 ## Final Beat 8 revision — 12 November 2026 (current finale)
 
 Supersedes the earlier finale descriptions below. Five visual compositions use seven presenter-controlled reveals:
@@ -91,3 +189,5 @@ The six portfolios have different objectives and constraints; they do not commun
 Final spoken synthesis: “Autonomous AI may begin as a productivity engine, become an operational actor, and increasingly participate in supervision. The question is not simply whether the future supervisor is human or AI. It is how we design a financial system in which machines can act at machine speed, while judgement, authority and accountability remain deliberately governed.” Then reveal **WHERE DOES INTELLIGENCE END AND AUTHORITY BEGIN?** and stop.
 
 See [PUBLIC_SOURCES.md](PUBLIC_SOURCES.md) for the public grounding and evidence-status distinctions. Every case number and the six-agent systemic visual are teaching illustrations, not observed industry incidents.
+
+</details>

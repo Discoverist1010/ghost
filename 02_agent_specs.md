@@ -1,3 +1,31 @@
+# Current actors and mandates
+
+> Current documentation refreshed 13 November 2026 against accepted implementation `bf34d11`. This is internal repository documentation; audience-facing materials remain unbranded. Earlier records below are historical, not the current specification.
+
+All actors are simulated. The 8-agent headline describes the existing burst and its eight audience-facing workstreams, not eight additional actors added during review. The immutable run retains its original actor/task identities. Supervisory AI and Bank Compliance Agent are subsequent reviewers, not extra members of that headline.
+
+| Actor / workflow | Responsibility | Boundary |
+| --- | --- | --- |
+| Failed-trade investigation and specialists | Produce 27 subtasks and 486 attributed events | Source evidence remains intact; derived findings are contestable |
+| AI Investigator | Assess counterparty risk and recommend a restriction | Recommend only; neither score nor prediction grants execution permission |
+| Initial Supervisory AI | Prioritise and summarise material evidence | Summary omission does not delete source evidence |
+| Bank Compliance Agent · AI #2 | Compare derived classification with original evidence | Explicit human request; classification challenge is not policy clearance |
+| Independent policy check | Deterministically match entity, exposure, policy and effective date | Not a third AI; separately attributable policy disposition |
+| Runtime gate | Check original proposal against mandate and disputed evidence | ESCALATE; no execution |
+| Valuation AI | Prepare NAV using the synthetic proxy methodology | Publication remains subject to human approval; proxy suitability unresolved |
+| NAV Supervisory AI | Adapt exception priority from review feedback | Cannot validate methodology, waive policy or approve publication |
+| Human approver / release workflow | Record publication-specific decisions and release steps | Ordinary approval is distinct from specialist valuation validation |
+| Independent valuation specialist | Reconstruct supportable valuation retrospectively | Not an independently verified price available to every earlier reviewer |
+| Six systemic agents | Portfolio risk, FX, treasury, collateral/margin, dealer liquidity and settlement/prefunding | Independent bounded mandates; collective effects need not imply individual misconduct |
+
+Full role attribution remains in the deterministic runs and evidence drawers. Historical role proposals below must not be read as additional implemented capabilities.
+
+
+---
+
+<details>
+<summary>Historical design and implementation record — superseded; retained verbatim</summary>
+
 # Agent Specifications
 
 All roles below are simulated. The run opens with one synthetic failed-trade exception and a related liquidity signal. The 8-agent headline counts machine-activity roles in the flood: Sentinel, Investigator, Interpreter and five named specialist sub-agents. They share 27 bounded sub-tasks, including liquidity analysis, transaction clustering, provenance, regulatory mapping, confidence calibration and audit writing. The presentation's eight branch labels are **workstreams mapped to task IDs**, not eight additional agent identities. Supervisory AI and Bank Compliance Agent enter after the burst and are not included in the eight.
@@ -56,3 +84,5 @@ Forbidden actions: rewrite evidence or generate regulatory interpretation.
 Role: decide the material question surfaced by the control loop. In the main run: “Is the Entity X reclassification valid, and if so is intervention justified?”
 
 Must receive original evidence, causal trace, uncertainty, disagreement and a way to challenge the Supervisory AI's selection. A generic `AUTHORISE / REJECT` prompt over 486 events is shown only as the deliberately inadequate first design. Human review does not retroactively turn a model prediction into a rule breach.
+
+</details>

@@ -1,3 +1,45 @@
+# Current synthetic scenarios
+
+> Current documentation refreshed 13 November 2026 against accepted implementation `bf34d11`. This is internal repository documentation; audience-facing materials remain unbranded. Earlier records below are historical, not the current specification.
+
+## Failed trade and central-bank near miss
+
+One failed trade creates eight workstreams, 27 subtasks and 486 trace events in 3.2 simulated seconds. The material finding preserves `EVT-0238` and its original evidence identity. At ten investigations per month, the cognitive-limit illustration is 4,860 trace events.
+
+The Investigator's original coefficient is 76; 74% is a separate illustrative prediction. A deliberate human request invokes Bank Compliance source verification. The original central-bank-related source contradicts the derived commercial classification. Using that source classification conditionally in the same calculation gives 39; it does not produce a new probability or clear the exposure.
+
+A separate human-invoked deterministic check uses fictional effective-dated institutional policy and a matching specific exposure. It independently warrants a protective restriction through authorised compliance handling. Neither a central-bank relationship nor jurisdiction alone establishes the disposition. The original AI reasoning and mandate remain unchanged.
+
+The three findings progress from right restriction/wrong reason, to right correction/wrong to clear, to right restriction/right basis. Historical review must use original-date evidence and policy; it neither rewrites history nor automatically executes remediation.
+
+## NAV optimisation and adaptive triage
+
+Asset A remains USD100 million. Asset B begins at USD100 million and its reported value is multiplied by 1.008 each day. Two million units remain outstanding. Full precision is retained internally; presentation values are rounded.
+
+| Day | Published NAV per unit | Difference from retrospective $100 benchmark |
+| --- | ---: | ---: |
+| Monday | $100.40 | +0.40% |
+| Tuesday | $100.80 | +0.80% |
+| Wednesday | $101.21 | +1.21% |
+| Thursday | $101.62 | +1.62% |
+| Friday | $102.03 | +2.03% |
+
+Friday's full-precision NAV is $102.0322570256384. Each daily movement remains below the fictional 1% internal movement threshold; that check is not a regulatory NAV-error tolerance. The specialist retrospectively reconstructs NAV 100, rather than supplying a verified daily price to earlier reviewers.
+
+Monday's methodology concern precedes provisional approval of Monday's publication. The synthetic feedback update inappropriately generalises that approval and reduces triage priority from 100 to 35, below the prominence threshold 50. Without that approval the reduction does not occur. The concern stays unresolved and recorded; subsequent ordinary approvals do not validate the proxy. This is bounded deterministic adaptive triage, not unrestricted model training or deliberate concealment.
+
+## Systemic feedback
+
+Six independent agents respond to a common equity/USD-funding shock. Their first-wave decisions change market inputs before second-wave re-optimisation. Stress depends on constrained conditions and dampeners; it is not inevitable. Settlement timing remains in the model and evidence without a separate timing scene. BIS Project Logos is research context, not proof that this exact synthetic USD mechanism occurred in production.
+
+Source qualifications remain in [PUBLIC_SOURCES.md](PUBLIC_SOURCES.md).
+
+
+---
+
+<details>
+<summary>Historical design and implementation record — superseded; retained verbatim</summary>
+
 ## NAV revision — 12 November 2026 (current synthetic scenario)
 
 Asset A remains USD 100m. Observable proxy levels rise 0.8% daily; reported Asset B compounds its prior reported value by that movement, with proxy suitability unresolved. Two million units produce Friday NAV 102.0322570256384. The later independent specialist reconstruction remains USD 100 per unit; difference 2.0322570256384065%. Daily movements remain below the fictional 1% movement threshold, which is not regulatory NAV-error tolerance.
@@ -83,3 +125,5 @@ Learning point: governance must anticipate optimisation against the metric.
 Six hypothetical portfolio agents have distinct objectives and constraints, each **within mandate**. One shared market signal can lead them independently toward similar de-risking decisions without communication or a shared model. The first aggregate flow may change market depth, spread and volatility; those conditions then feed back into agent decisions and may prompt a second wave. The presentation illustrates three possible parallel channels from changed market conditions: funding/leverage through broker/prime, collateral through clearing/collateral, and settlement/cash through custody/post-trade. They may converge on system liquidity pressure; no channel is asserted to cause the next, and no outcome is inevitable or an observed incident.
 
 Beat 7 is documented and detailed as **REGULATORY RESEARCH / SYNTHETIC ILLUSTRATION**: **OPTIMISE → FEEDBACK → TRANSMIT → SYSTEM CHANGED → WHO SUPERVISES THE SYSTEM?** The caveat is available through SHOW MORE rather than carried as main-stage furniture. It is grounded conceptually by BIS Project Logos and FSB/IOSCO work in [PUBLIC_SOURCES.md](PUBLIC_SOURCES.md), but is not generated by the main 486-trace-event case. A future executable scenario would require its own trace, evidence and tests.
+
+</details>

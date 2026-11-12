@@ -1,3 +1,31 @@
+# Current data and provenance contract
+
+> Current documentation refreshed 13 November 2026 against accepted implementation `bf34d11`. This is internal repository documentation; audience-facing materials remain unbranded. Earlier records below are historical, not the current specification.
+
+Implemented objects in `src/scenario.mjs`, `src/nav-scenario.mjs` and `src/systemic-scenario.mjs` are the authoritative executable schemas. Earlier conceptual fields below may be proposals rather than exported fields.
+
+## Separate records, separate meanings
+
+- Original source entity evidence and derived classification remain separate; `EVT-0238` does not edit the original source.
+- Original risk assessment, illustrative prediction and recommendation retain their attribution.
+- Human source request, Bank Compliance challenge and conditional counterfactual append attributable records without replacing the original 486-event history.
+- Independent policy request and result retain exposure, policy identity, applicability dates and required disposition. They do not overwrite the AI recommendation or gate input.
+- Correction proposals and historical-review requirements do not automatically mutate previous decisions or execute remediation.
+- NAV audit chronology distinguishes methodology warning, Monday publication-only approval, feedback interpretation, priority update, unresolved recurring evidence, daily approvals/publications and retrospective specialist reconstruction.
+- Systemic state records distinguish the common shock, individual actions, market update and second-wave feedback.
+
+## Presentation and export boundaries
+
+Evidence drawers and normal presenter exports respect reveal timing; they must not disclose a later source contradiction, policy finding or retrospective NAV benchmark early. Public projections use the existing neutral labels while internal repository/run identifiers remain preserved. Fingerprints are deterministic identifiers, not cryptographic proof of external events.
+
+The audience's concise policy evidence view has three fields: Entity, Applicable Rule, Required Action. Detailed policy verification and audit records remain underlying data; concise presentation does not remove them.
+
+
+---
+
+<details>
+<summary>Historical design and implementation record — superseded; retained verbatim</summary>
+
 # Synthetic Data Model
 
 All IDs and relationships are synthetic. This document describes the **conceptual data contract and possible extensions**; the implemented fields are in `src/scenario.mjs`. Do not read every field below as already present in the exported run. Rendered synthetic screens derive from one reproducible run, not a decorative log or independent score sequence.
@@ -87,3 +115,5 @@ The main finding refers to T-17 and the specific risk, recommendation and mandat
 - review_id, finding_id, question, evidence_seen_ids, reviewer_identity, decision (`pending`, `approve`, `reject`, `challenge`), rationale, timestamp
 
 The meaningful question is whether the reclassification is valid and, if so, whether intervention is justified. The main scripted presentation may end with decision `pending`. The current implementation records a presenter choice or challenge in the exported `humanReview` state, not as an additional member of the fixed 486-event raw trace. It also records whether the reviewer opened the source. A future persistent review ledger would need its own append-only events.
+
+</details>

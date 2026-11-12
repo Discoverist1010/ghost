@@ -1,3 +1,30 @@
+# Current visual and interaction contract
+
+> Current documentation refreshed 13 November 2026 against accepted implementation `bf34d11`. This is internal repository documentation; audience-facing materials remain unbranded. Earlier records below are historical, not the current specification.
+
+The accepted stage uses dark navy, strong white typography, restrained cyan and selective amber, generous negative space and presenter-controlled reveals. No new theme, decorative graphics or branding is introduced. Source drawings and removed scenes below are historical.
+
+## Current compositions
+
+- Opening supervisory question, then a single discreet synthetic-scenario disclosure. No HTML presentation title; the external deck provides context.
+- Failed-trade activity becomes 486 trace events and one material issue, then cognitive limits and the attention-dependency question. No AUTHORISE/REJECT or ON WHAT BASIS stage.
+- WHY 76 shows only derived commercial classification before explicit source verification. The conditional 76→39 is visually central. The later independent policy finding precedes three distinct findings. No standalone omitted-conflict or runtime-gate screen.
+- NAV has seven principal states. The amber human-approval/supervisory-confidence conclusion belongs on the priority-reduction scene. There is no standalone baseline-error screen. Four grounding anchors remain legible.
+- Systemic feedback has nine states. No standalone funding-timing or parallel-transmission screen; relevant model/evidence detail remains.
+- Finale has five compositions across seven states: three progressively accumulated supervision arrangements; independent capability/permission progressions; four supervisory dimensions with five human-confidence conditions together; exactly five scenario-linked recap rows; final question alone with its muted introduction.
+
+## Controls and evidence
+
+Retain Back, Next, Pause/Play, Replay, fullscreen and deliberate reset. Animations do not automatically advance narrative states. Human source and policy action buttons remain deliberate gates. Evidence appears contextually after approved reveals. The final screen says **WHERE DOES SUPERVISION RESIDE?**, holds indefinitely and disables Next. It has no appended accountability question, definitions or further ending.
+
+The offline HTML retains the 16:9 stage and browser interactions. Existing rendered evidence is indexed in [HISTORY.md](HISTORY.md); this documentation update does not substitute new mockups for it.
+
+
+---
+
+<details>
+<summary>Historical design and implementation record — superseded; retained verbatim</summary>
+
 # V3 Package 3 — scoped final two beats
 
 Accepted Beats 1–6, stage sizing and the unified presenter bar are retained. Beat 7 reuses the six-node/common-market network identity, staggered decisions, outward feedback and parallel transmission concepts. Sparse role nodes replace the old six portfolio objectives. OPTIMISE → FEEDBACK → TRANSMIT remains visible at the relevant moments. First-wave compliance precedes aggregate market effects; the timing mismatch has its own clear three-column composition.
@@ -60,3 +87,5 @@ Use a deep navy / near-black field, near-white type, restrained cyan for observa
 Evidence drawers are optional drill-down views for stable `EVT-XXXX` event IDs, `AGT-…` demo-agent identities, timestamps, mandates, evidence, fingerprints, causal links, human review and the full eight Supervisory AI trust controls. The audience never needs to open one to understand the story. Source maturity and synthetic qualifications stay in the README, public-source notes and drawer detail—not in main-stage chrome.
 
 Keyboard: Right/Space next, Left previous, R replay the current animation, P pause/resume it, F fullscreen, Esc close detail, Home reset. Motion represents a state change—branching, the real log burst, 486 → 1, causal reconstruction, gate checks or 76 → 39. No autonomous transition may force the presenter past a discussion pause.
+
+</details>

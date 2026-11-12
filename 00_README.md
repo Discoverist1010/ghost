@@ -1,3 +1,31 @@
+# Current build and preservation contract
+
+> Current documentation refreshed 13 November 2026 against accepted implementation `bf34d11`. This is internal repository documentation; audience-facing materials remain unbranded. Earlier records below are historical, not the current specification.
+
+The accepted V3 source implements eight beats and 51 principal states. The delivered audience artifact is `dist/demo.html`; it has already been submitted. Keep repository administration separate from delivery changes.
+
+## Authority of documents
+
+Use the current sections of [README](README.md) and the numbered documents together with implemented state definitions and tests. Historical sections and Package review reports explain development history; they do not override subsequently accepted revisions. Raise a genuine discrepancy rather than restoring an obsolete scene from an old specification.
+
+## Preservation rules
+
+Preserve the 486-event trace, `EVT-0238`, source identity, separate original and challenged records, risk 76, illustrative 74%, conditional 39, independently invoked policy verification and original ESCALATE gate. Preserve NAV arithmetic, approval-dependent triage and all systemic/finale controls. No live AI calls or transaction execution are required.
+
+Audience HTML and exports remain unbranded. The deck supplies the title; the HTML starts with the supervisory question and one synthetic-scenario disclosure. The standalone file works offline in a normal browser. PowerPoint is not assumed to execute HTML natively.
+
+## Maintenance workflow
+
+Inspect branch and worktree before changes; preserve uncommitted work. Use the existing `feature/ghost-v3` branch for authorised development. Do not delete test fixtures or historical evidence as cleanup. Build or change delivered files only when explicitly within scope. Run relevant checks and distinguish source tests, browser evidence and actual venue validation.
+
+See [verification](07_eval_harness.md) and [history](HISTORY.md). This documentation refresh does not request a new rehearsal, delivery package or release.
+
+
+---
+
+<details>
+<summary>Historical design and implementation record — superseded; retained verbatim</summary>
+
 # REGULATOR//GHOST Demo Build Contract
 
 Purpose: provide a presenter-led decision theatre for a 30-minute senior financial-services panel on autonomous AI, agentic supervision, runtime governance and human judgement at machine speed.
@@ -69,3 +97,5 @@ npm run dev
 Open `http://127.0.0.1:4173`. Use the discreet on-screen arrows, Right/Space for next and Left for previous. `R` replays the current animation, `P` pauses it, `F` toggles fullscreen, Esc closes a detail drawer, and Home resets. Contextual detail controls open original events and causal links; the drawer exports the complete synthetic run. Run the scenario and presentation-state checks with `npm test`. No dependency install is required.
 
 The remaining documents specify the scenes, agent boundaries, scenarios, synthetic data, runtime decisions, visual states and evaluation checks. If a detail conflicts, this contract and the causal order in `01_storyboard.md` govern the main demo.
+
+</details>

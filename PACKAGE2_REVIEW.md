@@ -1,3 +1,5 @@
+> Historical review record. Counts, branch state and approval instructions below describe the original review, not the current accepted version. See [current guide](README.md) and [historical index](HISTORY.md). Original report retained below.
+
 > Historical review checkpoint: the local-only status below records the pre-approval handoff. The executive producer subsequently approved committing, merging and pushing this work.
 
 # Ghost V3 Package 2 — local review handoff

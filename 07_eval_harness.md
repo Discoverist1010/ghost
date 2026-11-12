@@ -1,3 +1,37 @@
+# Current verification and evidence guide
+
+> Current documentation refreshed 13 November 2026 against accepted implementation `bf34d11`. This is internal repository documentation; audience-facing materials remain unbranded. Earlier records below are historical, not the current specification.
+
+## Accepted baseline
+
+At accepted implementation `bf34d11`, the local suite contains **82 passing tests**. The presentation has eight beats and 51 principal states:6/6/1/1/14/7/9/7. Older counts in historical records describe earlier revisions, not current acceptance criteria.
+
+Run `npm test` from the repository root. The suite exercises deterministic scenario arithmetic, chronology, provenance, state progression, deliberate action gates, evidence disclosure, original ESCALATE behaviour, systemic feedback, NAV adaptation and finale controls. Tests are not proof of an external institution's compliance or the actual presentation venue.
+
+## Important invariants
+
+- Preserve eight workstreams, 27 subtasks, 486 trace events and `EVT-0238` source identity.
+- Keep original 76, illustrative 74%, conditional 39 and independent policy disposition separate.
+- Require explicit source/policy actions; preserve original evidence and risk history.
+- Preserve effective-date/entity/exposure matching and recommend-only execution boundary.
+- NAV starts 100 with two assets and two million units; proxy grows 0.8% daily; Friday full-precision NAV 102.0322570256384; retrospective benchmark 100. Approval-driven priority 100→35 never resolves the methodology concern.
+- Seven NAV states; the central human-approval conclusion appears on adaptation. No redundant baseline scene.
+- Finale has seven states, exactly five recap rows and an indefinitely held final question with Next disabled.
+
+## Browser and offline evidence
+
+Existing local review recorded the standalone `file://` path across all 51 states, 44 contextual evidence views, exports, controls and 16:9 layout. The standalone bundles 12 modules and CSS with no runtime network requirement. These are local browser findings, not a claim of native PowerPoint HTML execution or venue validation. The final HTML has been submitted; this maintenance does not rebuild it or reopen delivery work.
+
+## Protected fixtures and historical reports
+
+Do not remove `artifacts/offline-integration/baseline/contracts.json` or `artifacts/nav-correction/baseline-nav-audit.json`: tests reference these fixtures. Preserve other screenshots and audit/report artifacts as dated evidence. See [HISTORY.md](HISTORY.md) for interpretation of earlier package results and counts.
+
+
+---
+
+<details>
+<summary>Historical design and implementation record — superseded; retained verbatim</summary>
+
 ## NAV revision verification — 12 November 2026
 
 Baseline: 70 passing tests at 986a9984eb61ec53e44c5985887fe09d36f0cc86. Revised suite: 72 passing tests, including full-precision proxy arithmetic, approval-dependent priority, persistence of unresolved concerns, specialist-only resolution, staged evidence and eight NAV reveals. A fresh baseline contract hashes every non-NAV rendered state, protected source modules and the complete pre-existing CSS prefix. Actual Chrome review covers fullscreen 1920×1080, windowed 1440×1000, all eight beats, evidence drawers, same-scene insight, Back/Next, Pause/Play, Replay, Home and fullscreen. Review artifacts: `artifacts/nav-revision/`.
@@ -97,3 +131,5 @@ The log is an output of the same scenario state as the screen, not a separately 
 
 ## Demo Safety
 No live client, transaction or institution data. All names synthetic. No claim of real supervisory capability.
+
+</details>

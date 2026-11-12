@@ -1,3 +1,67 @@
+# Ghost V3 — repository guide
+
+> Current documentation refreshed 13 November 2026 against accepted implementation `bf34d11`. This is internal repository documentation; audience-facing materials remain unbranded. Earlier records below are historical, not the current specification.
+
+The accepted demonstration is complete. The executive producer confirmed that the final HTML has been submitted. This housekeeping update changes documentation only; it does not rebuild or alter that delivery.
+
+The presenter-led demonstration opens with **WHEN AI STARTS ACTING, WHO IS THE SUPERVISOR?** and ends with **WHERE DOES SUPERVISION RESIDE?** Eight beats contain **51 principal presenter states**. All scenarios are synthetic and illustrative; public research supplies context rather than evidence of these exact events occurring in production.
+
+## Delivery and development
+
+- [Submitted standalone HTML](dist/demo.html): self-contained browser delivery, including styles and modules, usable offline without a server, API key or external AI calls.
+- [Existing PowerPoint integration notes](POWERPOINT_INTEGRATION.md): browser launch guidance and integration boundaries. No delivery or PowerPoint work is part of this documentation refresh.
+- Developer source entry: `index.html`; Node.js 20 or newer is required for repository scripts, not to open the standalone HTML.
+- `npm run dev` serves the source at `http://127.0.0.1:4173`; `npm test` runs the deterministic checks; `npm run build` regenerates the standalone delivery. Do not rebuild the submitted file as routine housekeeping.
+
+The submitted `dist/demo.html` is 240,364 bytes. SHA-256: `450f5e90a7985ff6edc4fe244ae974eed9299a43f193cd7c195c02a6e79da9aa`.
+
+## Accepted narrative
+
+| Beat | States | Focus |
+| --- | ---: | --- |
+| 1 · From answers to actions | 6 | Rules, patterns, investigation and agents |
+| 2 · Failed-trade investigation | 6 | Eight workstreams, 27 subtasks, 486 trace events; one material signal and human cognitive limits |
+| 3 · Supervisory influence | 1 | Who decided what the human saw? |
+| 4 · Investigator recommendation | 1 | Risk 76 and a separate illustrative 74% prediction |
+| 5 · Central-bank near miss | 14 | Human-triggered source challenge, conditional 76→39, independent policy restriction, incomplete domain coverage and historical review |
+| 6 · NAV | 7 | Publication approval changes supervisory priority while an inadequately validated proxy compounds |
+| 7 · Systemic effects | 9 | Six bounded agents respond to market conditions their collective actions help change |
+| 8 · Finale | 7 | Supervision arrangements, capability versus authority, four dimensions, five practical questions, final question |
+
+The original recommendation remains recommend-only. A separate deterministic policy finding does not validate the original reasoning or confer execution authority. The original runtime gate still returns **ESCALATE** without executing the restriction; its evidence is retained without a standalone runtime slide.
+
+## Controls and evidence
+
+The existing presenter bar supports Back, Next, Pause/Play, Replay, fullscreen and deliberate reset. Explicit source and policy checks require their action buttons; ordinary Next or Space cannot bypass them. Evidence drawers disclose contextual evidence after the intended reveal. The final question holds indefinitely with Next disabled; Back and Replay remain available.
+
+The opening carries one disclosure: “Public-source research. All demonstration scenarios are synthetic and illustrative.” Detailed attribution and qualifications remain in evidence drawers, exports and [PUBLIC_SOURCES.md](PUBLIC_SOURCES.md). Internal run identities are preserved; audience exports use the existing neutral projection.
+
+## Documentation map
+
+- [Build and preservation contract](00_README.md)
+- [Current storyboard](01_storyboard.md)
+- [Actors and mandates](02_agent_specs.md)
+- [Scenario arithmetic and causality](03_scenarios.md)
+- [Data and provenance](04_data_model.md)
+- [Runtime and review boundaries](05_runtime_governance.md)
+- [Visual and interaction contract](06_ui_wireframes.md)
+- [Verification record](07_eval_harness.md)
+- [Historical reports, artifacts and legacy files](HISTORY.md)
+
+The paper remains supporting research, not an alternative current UI specification: [consolidated spine](papers/ghost-in-the-harness/GHOST_IN_THE_HARNESS_CONSOLIDATED_SPINE_2026-10-06.md) and [research ledger](papers/ghost-in-the-harness/GHOST_IN_THE_HARNESS_RESEARCH_LEDGER_2026-10-06.md).
+
+## Limitations and maintenance
+
+No live model inference, client data or real transaction execution is involved. The 74% prediction is illustrative, not calibrated analytics. Daily NAV movement checks are fictional internal controls, not regulatory error tolerances. Policy examples are fictional institutional rules, not invented real legal obligations. Public sources retain their individual maturity and jurisdictional qualifications.
+
+Preserve accepted narrative, financial calculations, evidence identities and submitted delivery. No open-source licence has been selected; this refresh does not change licensing. Historical reports record what was verified at their original review dates and do not supersede this guide.
+
+
+---
+
+<details>
+<summary>Historical design and implementation record — superseded; retained verbatim</summary>
+
 # REGULATOR//GHOST
 
 **Where does intelligence end and authority begin?**
@@ -96,3 +160,5 @@ The constitutional articles and product work are proposals. They do not add live
 No open-source licence has been selected. Public availability does not imply unrestricted reuse; see [GitHub's licensing guidance](https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/licensing-a-repository). Licence selection remains an explicit project decision. Suggestions are welcome through issues; do not submit confidential information.
 
 For the underlying design intent, see the [build contract](00_README.md), [storyboard](01_storyboard.md) and [evaluation plan](07_eval_harness.md).
+
+</details>

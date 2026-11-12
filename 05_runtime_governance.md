@@ -1,3 +1,37 @@
+# Current runtime and supervisory boundaries
+
+> Current documentation refreshed 13 November 2026 against accepted implementation `bf34d11`. This is internal repository documentation; audience-facing materials remain unbranded. Earlier records below are historical, not the current specification.
+
+## Original proposal and independent policy disposition
+
+The original Investigator proposal has disputed evidence and a recommend-only mandate. Its unchanged gate input returns **ESCALATE**, with no proposed restriction executed. Neither risk 76 nor the illustrative 74% prediction grants authority. The independent sanctions-policy match has its own provenance and authorised compliance-handling pathway; it does not retrospectively authorise the original AI action.
+
+The runtime gate remains a synthetic teaching abstraction. Its standalone projected screen was removed by accepted direction; absence of that screen does not remove the logic or evidence.
+
+## Human-triggered review
+
+Ordinary Next or Space cannot invoke AI #2 or bypass the source-check decision. The human explicitly requests source verification. AI #2 challenges classification within its remit; it does not independently clear the exposure. The separate third-level check is deterministic policy verification, not another AI supervisor.
+
+A lower conditional risk coefficient is not permission. An applicable policy requires a matching specific exposure and effective date, not merely an entity relationship or jurisdiction label.
+
+## NAV adaptive priority
+
+The Valuation AI prepares NAV; the supervisor selects prominence of exceptions; humans approve publication; specialist methodology review is distinct. Monday approval is publication-specific. The deterministic feedback mechanism reduces subsequent priority 100→35 based on that approval while preserving the unresolved warning. It cannot change valuation policy, waive mandatory controls or approve publication. Without the approval the reduction does not occur.
+
+## Correction and assurance
+
+Look back: trace and reassess historical cases under evidence and policy effective at the time. Fix forward: correct reusable rules and test past failures before reuse. These practical recommendations are informed by the cited frameworks, not blanket AI Verify requirements. Historical records remain immutable and remediation requires appropriate authority.
+
+System assurance considers complete workflow coverage, domain requirements and feedback effects. The UK AISI monitor-evasion research remains distinct background; no synthetic actor is portrayed as deliberately evading monitoring.
+
+Finale permissions are independent of technical sophistication. Observe, inform, prioritise, constrain and intervene require appropriately bounded mandates; they are not automatic entitlements of rules, ML, LLMs, agents or adaptive methods.
+
+
+---
+
+<details>
+<summary>Historical design and implementation record — superseded; retained verbatim</summary>
+
 ## NAV triage authority — 12 November 2026
 
 Beat 6's supervisor may adapt exception priority from human review outcomes. It cannot change valuation policy, waive mandatory controls, independently approve publication or close the concern through publication approval. The synthetic failure generalises Monday-only provisional approval into reduced attention for an unresolved methodology issue. Valuation, triage, human approval and release remain distinct actors. Specialist resolution requires its own attributed finding and evidence. No general training pipeline or unrestricted self-modification is implemented. Other runtime gates are unchanged.
@@ -81,3 +115,5 @@ Every material finding exposes: **provenance** (exact original event/evidence ID
 
 ## Presenter Message
 “Human in the loop” is too vague. Human judgement belongs at designed authority boundaries; AI supervision helps find those boundaries at machine scale, and its own selection must be inspectable and challengeable. Runtime governance is how the institution delegates bounded authority rather than acting because “the AI said so.”
+
+</details>

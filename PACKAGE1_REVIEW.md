@@ -1,3 +1,5 @@
+> Historical review record. Counts, branch state and approval instructions below describe the original review, not the current accepted version. See [current guide](README.md) and [historical index](HISTORY.md). Original report retained below.
+
 > Historical review record: the local-only status below describes the review checkpoint. The user subsequently instructed Codex to commit and push this work.
 
 # Ghost V3 Package 1 — local review handoff
