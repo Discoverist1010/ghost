@@ -7,7 +7,7 @@ const reveals = CUES.flatMap((cue) => cue.steps);
 test("eight escalating beats keep the systemic argument inside Beat 7", () => {
   assert.equal(BEATS.length, 8);
   assert.equal(CUES.length, 8);
-  assert.equal(reveals.length - 1, 69);
+  assert.equal(reveals.length - 1, 73);
   assert.deepEqual(CUES.map((cue) => cue.id), [
     "opening", "operations", "supervision", "prediction", "material-case", "nav", "systemic", "ghost",
   ]);
@@ -21,17 +21,19 @@ test("eight escalating beats keep the systemic argument inside Beat 7", () => {
 test("problems land before their solutions and the story never backtracks", () => {
   const before = (a, b) => assert.ok(reveals.indexOf(a) < reveals.indexOf(b), `${a} must precede ${b}`);
   before("failed-trade", "event-flood");
-  before("event-flood", "naive-basis");
-  before("naive-basis", "material-issue");
-  before("material-issue", "predictive-case");
-  before("predictive-case", "no-breach");
-  before("no-breach", "causal-explanation");
+  before("event-flood", "trace-overview");
+  before("trace-overview", "material-signal");
+  before("material-signal", "cognitive-limits");
+  before("cognitive-limits", "attention-dependency");
+  before("attention-dependency", "predictive-case");
+  before("predictive-case", "causal-explanation");
+  assert.equal(reveals.includes("no-breach"),false);
   before("causal-explanation", "source-challenge");
   before("source-challenge", "counterfactual");
   before("source-challenge", "escalate");
   before("counterfactual", "escalate");
-  before("escalate", "human-judgement");
-  before("human-judgement", "independent-agents");
+  before("escalate", "human-questions");
+  before("human-questions", "independent-agents");
   assert.equal(reveals.includes("gate-run"), false);
   before("independent-agents", "common-shock");
   before("common-shock", "first-wave");
@@ -63,27 +65,32 @@ test("six independent agent objectives remain within mandate", () => {
   assert.equal(currentReveal(state), 'supervision-informs');
 });
 
-test("naive authorise and reject reveal the inadequate basis without approving", () => {
-  const start = { ...createPresentationState(), cueIndex: 1, step: 3 };
-  for (const choice of ["authorise", "reject"]) {
-    const result = transition(start, choice);
-    assert.equal(currentReveal(result), "naive-basis");
-    assert.equal(result.naiveAttempt, choice);
-    assert.equal("approved" in result, false);
+test("retired authorise/reject actions cannot approve or change the revised arc", () => {
+  assert.deepEqual(CUES[1].steps,['failed-trade','oversight-promise','event-flood','trace-overview','material-signal','cognitive-limits']);
+  assert.deepEqual(CUES[2].steps,['attention-dependency']);
+  assert.equal(reveals.some(r=>['naive-review','naive-basis','material-issue'].includes(r)),false);
+  for(let step=0;step<CUES[1].steps.length;step++)for(const action of ['authorise','reject']){
+    const start={...createPresentationState(),cueIndex:1,step};
+    assert.equal(transition(start,action),start);
+    assert.equal('approved' in start,false);
   }
-  assert.equal(transition(createPresentationState(), "authorise").naiveAttempt, null);
+  let state={...createPresentationState(),cueIndex:1,step:3};
+  for(const expected of ['material-signal','cognitive-limits','attention-dependency','predictive-case']){
+    const previous=state;state=transition(state,'next');assert.equal(currentReveal(state),expected);
+    assert.deepEqual(transition(state,'previous'),previous);
+  }
 });
 
 test("causal case is one beat with source and counterfactual before human authority", () => {
   let state = { ...createPresentationState(), cueIndex: 4 };
-  assert.equal(CASE_ACTIONS.length, 11);
+  assert.equal(CASE_ACTIONS.length, 16);
   assert.equal(transition(state, 'next'), state, 'Next cannot invoke a second AI');
   assert.equal(state.sourceCheck, null);
   state = transition(state, 'check-source');
   assert.equal(currentReveal(state), 'source-challenge');
   assert.equal(state.sourceCheck.initiatedBy, 'human');
   for (let step = 2; step < CUES[4].steps.length; step++) {
-    state = transition(state, 'next');
+    state = transition(state,currentReveal(state)==='policy-question'?'check-policy':'next');
     assert.equal(state.cueIndex, 4);
     assert.equal(state.step, step);
   }

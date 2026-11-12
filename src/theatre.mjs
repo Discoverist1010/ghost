@@ -1,3 +1,6 @@
+import { renderArc2, ARC2_DETAILS, buildArc2Audit, renderArc2Evidence } from './central-bank-theatre.mjs';
+import { testSourceClassification, verifySanctionsPolicy } from './central-bank-scenario.mjs';
+import { SETTLEMENT_WORKFLOW } from './settlement-workflow.mjs';
 import { renderSystemic, renderSystemicBody, renderSystemicEvidence } from './systemic-theatre.mjs';
 import { renderFinale } from './finale.mjs';
 export { renderSystemic };
@@ -39,6 +42,8 @@ let presentation = createPresentationState();
 let floodState = null;
 let paused = false;
 let sourceChallenge = null;
+let classificationTest = null;
+let policyResult = null;
 let focusBeforeDrawer = null;
 const review = { classification: "pending", intervention: "pending", openedEvidence: false, challenged: false };
 
@@ -76,47 +81,7 @@ function renderTree() {
     ).join('') + '</div></div>';
 }
 
-export function renderMaterialCase(step) {
-  if (step >= 3) return renderDeepCase(step);
-  const prior = escapeHTML(classification.before.replaceAll('-', ' ').toUpperCase());
-  const derived = escapeHTML(classification.after.replaceAll('-', ' ').toUpperCase());
-  const before = escapeHTML(riskEvent.before);
-  const after = escapeHTML(riskEvent.after);
-  const counterfactual = escapeHTML(run.counterfactual.after);
-  const scenes = [
-    '<div class="case-causal"><h1>WHY ' + after + '?</h1>' +
-      '<div class="case-causal-classification"><span>ENTITY X · DERIVED CLASSIFICATION</span><p>' + prior + ' <i aria-hidden="true">↓</i> <strong>' + derived + '</strong></p></div>' +
-      '<div class="case-causal-score">' + before + ' <span>→</span> ' + after + '</div>' +
-      '<p class="case-causal-proposal">ENHANCED LIQUIDITY RESTRICTION<br>RECOMMENDED</p></div>',
-    '<div class="case-source"><p class="human-trigger">HUMAN REQUESTED → CHECK SOURCE</p><div class="case-system-fact"><p class="case-kicker">SYSTEM DERIVED</p><strong>' + derived + '</strong></div>' +
-      '<div class="case-source-record"><p class="case-kicker">SOURCE RECORD</p><strong>' + prior + '</strong></div>' +
-      '<div class="case-institution"><strong>BANK COMPLIANCE AGENT</strong><span>COUNTER-EVIDENCE SUBMITTED</span></div>' +
-      '<p class="case-contested">FACT CONTESTED</p><p class="case-subtle">THE SECOND AI DOES NOT SETTLE THE MATTER.<br>IT PREVENTS THE FIRST AI FROM SETTLING IT ALONE.</p></div>',
-    '<div class="case-counterfactual"><div class="cf-facts"><span class="cf-derived">' + derived + '</span><strong class="cf-source">' + prior + '</strong></div>' +
-      '<div class="cf-score"><strong class="cf-old">' + escapeHTML(run.counterfactual.before) + '</strong><span aria-hidden="true">↓</span><strong class="cf-new">' + counterfactual + '</strong></div>' +
-      '<p class="cf-recommendation">ENHANCED LIQUIDITY RESTRICTION <span>BASIS CHALLENGED</span></p>' +
-      '<h1 class="cf-one">ONE FACT CHANGED.</h1>' +
-      '<p class="cf-conditional">CONDITIONAL COUNTERFACTUAL · CLASSIFICATION STILL CONTESTED</p><p class="cf-same"><span>SAME MODEL.</span><span>SAME RULES.</span><span>SAME OTHER EVIDENCE.</span><span>DIFFERENT FACT.</span></p></div>',
-  ];
-  return '<div class="case-stage" data-case-step="' + step + '"><div class="case-visual" aria-live="polite">' + scenes[step] + '</div>' +
-    '<div class="case-controls">' + button(CASE_ACTIONS[step] + ' →', step === 0 ? 'check-source' : 'next', 'case-primary') +
-    (step === 2 ? '' : button('SHOW MORE', 'open-source', 'case-secondary')) + '</div></div>';
-}
-
-function renderDeepCase(step) {
-  const content = {
-    3: '<h1 class="hero-verdict amber">CONFLICT OMITTED</h1><div class="omission-flow"><p>SUPERVISOR SUMMARY <strong>INCOMPLETE</strong></p><span>↓ INDEPENDENT SOURCE INSPECTION</span><p>UNDERLYING EVIDENCE <strong>STILL AVAILABLE</strong></p></div><p class="support-line">NOT DELETED. NO INTENTIONAL CONCEALMENT ESTABLISHED.</p>',
-    4: '<h1 class="hero-verdict">WHO DESIGNED THE<br>CLASSIFICATION RULE?</h1><p class="primary-line">DOMAIN EXPERTS WERE CONSULTED.</p><p class="support-line">THEIR ESSENTIAL EXCEPTION NEVER REACHED THE RULE.</p>',
-    5: '<div class="sdlc-flow"><span>REQUIREMENT</span><i>→</i><span>IMPLEMENTATION</span><i>→</i><span>TEST</span><i>→</i><span>DOMAIN REVIEW</span></div><div class="sdlc-gap"><p>CENTRAL-BANK-RELATED EXCEPTION</p><strong>ABSENT FROM RULE + ACCEPTANCE TESTS</strong></div><h1 class="sdlc-punch">THE CODE PASSED.<br>THE BUSINESS RULE WAS INCOMPLETE.</h1><p class="support-line">DOMAIN EXPERTISE THROUGHOUT THE LIFECYCLE.</p>',
-    6: '<h1 class="hero-verdict">CAN THE MONITOR BE EVADED?</h1><p class="research-institute">UK AI SECURITY INSTITUTE</p><strong class="hero-number amber">85%</strong><p class="research-qualification">Action-monitor evasion in a specific controlled Mythos 5.2 evaluation after repeated monitor feedback.</p>',
-    7: '<h1 class="hero-verdict">IF AI CAN LEARN TO EVADE A MONITOR,<br>WHO TESTS THE SUPERVISORY AI?</h1><p class="primary-line">INDEPENDENT MONITORING · EVIDENCE ACCESS</p><p class="support-line">BOUNDED PERMISSIONS · ADVERSARIAL ASSURANCE</p><p class="guidance-anchor">OWASP Securing Agentic Applications V2 · Technical guidance</p>',
-    10: '<h1 class="hero-verdict">CAN THE HUMAN DISAGREE?</h1><p class="primary-line">EXPERTISE · CAPACITY · EVIDENCE</p><p class="primary-line">INDEPENDENCE · CONFIDENCE</p>',
-  };
-  if (step === 8 || step === 9) return renderView('runtime', step - 8);
-  return '<div class="deep-case">' + content[step] + '<div class="case-controls">' +
-    button(CASE_ACTIONS[step] + ' →', 'next', 'case-primary') +
-    button('SHOW MORE', step <= 5 ? 'open-domain' : step === 10 ? 'open-review' : 'open-research', 'case-secondary') + '</div></div>';
-}
+export function renderMaterialCase(step) { return renderArc2(step); }
 
 const gateChecks = [
   ["IDENTITY + MANDATE", run.gateInput.verifiedIdentity && run.gateInput.mandate === "recommend" ? "VERIFIED ✓ · RECOMMEND ONLY" : "NOT VERIFIED"],
@@ -162,33 +127,25 @@ export function renderView(id, step) {
           "</div>" +
           '<div class="flood-log" aria-hidden="true"><div class="flood-log-head">INTERLEAVED AGENT TRACE <span id="floodCount">000 / ' + run.events.length + '</span></div>' +
           '<div id="floodLines" class="flood-log-lines"></div></div></div>', "flood");
-      if (step === 3) return wrap(id,
-        '<div class="naive-count">' + number(run.events.length) + '<span>TRACE EVENTS</span></div>' +
-        '<p class="settlement-review-scale">' + run.caseContext.count + ' FAILED TRADE · ' + run.agents.length + ' AGENTS · ' + run.tasks.length + ' SUBTASKS · ' + (run.events.at(-1).atMs / 1000).toFixed(1) + ' SECONDS</p>' +
-        '<div class="naive-actions">' + button("AUTHORISE", "naive-authorise", "stage-button") +
-          button("REJECT", "naive-reject", "stage-button") + "</div>", "centered");
+      if (step === 3 || step === 4) return wrap(id,
+        '<div class="trace-signal-scene"><h1 class="trace-signal-title"><strong>' + run.events.length + '</strong><span>TRACE EVENTS</span></h1>' +
+        '<p class="trace-signal-scale">' + run.caseContext.count + ' FAILED TRADE · ' + run.agents.length + ' AGENTS · ' + run.tasks.length + ' SUBTASKS · ' + (run.events.at(-1).atMs / 1000).toFixed(1) + ' SECONDS</p>' +
+        (step === 4 ? '<div class="trace-signal-result"><h2>1 MATERIAL ISSUE IDENTIFIED</h2><p>THE SIGNAL BECOMES VISIBLE.</p></div>' : '') + '</div>', 'centered');
       return wrap(id,
-        '<h1 class="hero-verdict impact">ON WHAT BASIS?</h1>' +
-        '<p class="primary-line">Logged. Auditable. Theoretically reviewable.</p>' +
-        '<p class="settlement-monthly">At 10 investigations per month: ' + (10 * run.events.length).toLocaleString('en-US') + ' trace events.</p>' +
-        '<p class="support-line">BUT COGNITIVELY OUT OF REACH.</p>', "centered");
+        '<div class="cognitive-scene"><h1>LOGGED. AUDITABLE.<br>THEORETICALLY REVIEWABLE.</h1>' +
+        '<p class="cognitive-scale">At 10 investigations per month: ' + (10 * run.events.length).toLocaleString('en-US') + ' trace events.</p>' +
+        '<h2>BUT COGNITIVELY OUT OF REACH.</h2>' +
+        '<div class="cognitive-anchors"><p><strong>FSB:</strong> Complex agentic activity may require AI-assisted monitoring;<br>effective human oversight remains essential.</p><p><strong>MAS AIRM:</strong> Automation bias and decision fatigue challenge meaningful human oversight.</p></div></div>', 'centered');
     case "supervision":
-      if (step === 1) return wrap(id,
-        '<h1 class="hero-verdict dependency-question">WHO DECIDED WHAT THE HUMAN SAW?</h1>' +
-        '<p class="dependency-punch">THE SOLUTION CREATED A NEW DEPENDENCY.</p>' +
-        '<div class="regulatory-anchors"><p><strong>FSB:</strong> Complex agentic activity may require AI-assisted monitoring; effective human oversight remains essential.</p><p><strong>MAS AIRM:</strong> Automation bias and decision fatigue challenge meaningful human oversight.</p></div>', 'centered');
       return wrap(id,
-        '<div class="case-compression"><div><strong>' + run.events.length + '</strong><span>TRACE EVENTS</span></div><i aria-hidden="true">↓</i><div class="case-compression-result"><strong>1</strong><span>MATERIAL ISSUE</span></div></div>' +
-        '<p class="supervision-trust">THE SIGNAL BECOMES VISIBLE.</p>', "centered");
+        '<h1 class="hero-verdict dependency-question">WHO DECIDED WHAT THE HUMAN SAW?</h1>' +
+        '<p class="dependency-punch">THE SOLUTION CREATED A NEW DEPENDENCY.</p>', 'centered');
     case "prediction":
-      if (step === 0) return wrap(id,
-        '<p class="prediction-context">AI INVESTIGATOR ASSESSMENT</p>' +
-        '<div class="prediction-metrics"><div><strong>' + run.scoreHistory[4].score + '</strong><span>RISK COEFFICIENT</span></div>' +
+      return wrap(id,
+        '<p class="prediction-context arc2-assessment-context">FROM THE FAILED-TRADE INVESTIGATION: ENTITY X COUNTERPARTY RISK</p>' +
+        '<div class="prediction-metrics"><div><strong>' + run.gateInput.score + '</strong><span>RISK COEFFICIENT</span></div>' +
         '<div><strong>' + run.prediction.percent + '%</strong><span>PREDICTED MATERIAL EVENT</span></div></div>' +
         '<div class="prediction-recommendation"><span>AI RECOMMENDS</span><strong>ENHANCED LIQUIDITY RESTRICTION</strong></div>', "centered");
-      return wrap(id,
-        '<h1 class="hero-verdict impact">NO RULE HAS BEEN BREACHED</h1>' +
-        '<p class="primary-line">PREDICTION ≠ PERMISSION</p>', "centered");
     case "material-case":
       return wrap(id, renderMaterialCase(step), "centered");
     case "nav":
@@ -217,14 +174,8 @@ export function renderView(id, step) {
 function detailAction(id, step) {
   if (id === "operations") return ["SHOW MORE", "open-evidence"];
   if (id === "supervision") return ["SHOW MORE", "open-trust"];
-  if (id === "prediction") return ["SHOW MORE", "open-evidence"];
-  if (id === "material-case") {
-    if (step === 8) return ['SHOW MORE', 'open-gate'];
-    if (step >= 9) return ['SHOW MORE', 'open-review'];
-    if (step >= 6) return ['SHOW MORE', 'open-research'];
-    if (step >= 3) return ['SHOW MORE', 'open-domain'];
-    return ['SHOW MORE', 'open-source'];
-  }
+  if (id === "prediction") return ['VIEW AI ASSESSMENT','open-arc2'];
+  if (id === "material-case") return [ARC2_DETAILS[step], 'open-arc2'];
   if (id === "nav") return ["SHOW MORE", "open-nav"];
   if (id === "systemic") return ["SHOW MORE", "open-systemic"];
   if (id === 'ghost' && step !== CUES[7].steps.length - 1) return ['SHOW MORE', 'open-finale'];
@@ -261,11 +212,11 @@ function renderCue(forceReplay = false) {
   announcer.textContent = "Beat " + (presentation.cueIndex + 1) + ": " + BEATS[presentation.cueIndex] + ". " +
     (cue.id === 'systemic' ? SYSTEMIC_ANNOUNCEMENTS[presentation.step] : currentReveal(presentation).replaceAll("-", " "));
   previousButton.disabled = presentation.cueIndex === 0 && presentation.step === 0;
-  nextButton.disabled = ["causal-explanation"].includes(currentReveal(presentation)) || presentation.cueIndex === CUES.length - 1 && presentation.step === cue.steps.length - 1;
+  nextButton.disabled = ["causal-explanation","policy-question"].includes(currentReveal(presentation)) || presentation.cueIndex === CUES.length - 1 && presentation.step === cue.steps.length - 1;
   nextButton.setAttribute("aria-label", cue.id === "material-case" ? CASE_ACTIONS[presentation.step] :
     cue.id === 'systemic' ? SYSTEMIC_ACTIONS[presentation.step] : "Next reveal");
   const detail = detailAction(cue.id, presentation.step);
-  contextButton.hidden = !detail || (cue.id === "material-case" && presentation.step < 8);
+  contextButton.hidden = !detail || cue.id === "material-case";
   if (detail) {
     contextButton.textContent = detail[0];
     contextButton.dataset.action = detail[1];
@@ -279,7 +230,15 @@ function move(action) {
   if (next === presentation) return;
   closeDrawer();
   if (action === 'check-source') sourceChallenge = submitSourceChallenge(run, next.sourceCheck);
-  if (action === 'reset-beat' && currentCue(presentation).id === 'material-case') sourceChallenge = null;
+  if (next.cueIndex === 4 && next.step === 2) {
+    classificationTest = testSourceClassification(run, sourceChallenge);
+    if (!classificationTest) return;
+  }
+  if (action === 'check-policy') {
+    policyResult = verifySanctionsPolicy({request:next.policyCheck});
+    if (policyResult?.status !== 'MATCH_REQUIRES_AUTHORISED_HANDLING') return;
+  }
+  if (action === 'reset-beat' && currentCue(presentation).id === 'material-case') { sourceChallenge = null; classificationTest = null; policyResult = null; }
   presentation = next;
   renderCue();
 }
@@ -435,14 +394,34 @@ function researchDetails() {
 }
 
 export function renderSettlementWorkEvidence() {
-  return '<section class="settlement-work-evidence"><h3>' + run.agents.length + ' agents</h3><ol class="settlement-agent-list">' +
+  let taskNumber = 0;
+  return '<section class="settlement-work-evidence"><h3>8 agents · 27 subtasks</h3><p>Illustrative custody workflow responsibilities. The original synthetic trace retains its technical actor names and task IDs; this explanatory breakdown does not rename or overwrite those records.</p>' +
+    SETTLEMENT_WORKFLOW.map((agent,index) => '<section class="settlement-workflow-agent" data-workflow-agent="' + (index + 1) + '"><h4>' + escapeHTML(agent.role) + '</h4><ol class="settlement-workflow-tasks" start="' + (taskNumber + 1) + '">' + agent.tasks.map(label => '<li data-workflow-task="' + (++taskNumber) + '">' + escapeHTML(label) + '</li>').join('') + '</ol></section>').join('') +
+    '<details><summary>Original technical trace inventory · 8 actors / 27 task IDs</summary><ol class="settlement-agent-list">' +
     run.agents.map(actor => '<li data-agent-id="' + escapeHTML(AGENT_IDENTITIES[actor]) + '"><strong>' + escapeHTML(actor) + '</strong> · ' + escapeHTML(AGENT_IDENTITIES[actor]) + '</li>').join('') +
-    '</ol><h3>' + run.tasks.length + ' subtasks</h3><ol class="settlement-task-list">' +
-    run.tasks.map(task => '<li data-task-id="' + task.id + '"><strong>' + task.id + ' · ' + escapeHTML(task.label) + '</strong><br>' + escapeHTML(task.actor) + ' · ' + escapeHTML(task.agentId) + '</li>').join('') +
-    '</ol><p>Task inventory from the original synthetic run; listing a task does not invoke it or establish that an optional branch has run.</p></section>';
+    '</ol><ol class="settlement-task-list">' + run.tasks.map(task => '<li data-task-id="' + task.id + '"><strong>' + task.id + ' · ' + escapeHTML(task.label) + '</strong><br>' + escapeHTML(task.actor) + ' · ' + escapeHTML(task.agentId) + '</li>').join('') +
+    '</ol></details><p>Listing a responsibility or task does not invoke an optional branch or establish an outcome.</p></section>';
+}
+
+function arc2Context() {
+  return {step:currentCue(presentation).id === 'prediction' ? -1 : presentation.step, sourceRequest:presentation.sourceCheck,challenge:sourceChallenge,classificationTest,policyRequest:presentation.policyCheck,policyResult};
+}
+function arc2ResearchDetails() {
+  return '<h3>System-level assurance · research context</h3><p>Singapore AISI recommends contextual system evaluation with realistic tool integrations, representative workflows and subject-matter expertise. Strong model benchmarks alone do not establish system fitness.</p>' +
+    sourceLink('https://sgaisi.sg/resources/how-should-evaluators-test-ai-systems-as-opposed-to-models/','Singapore AISI · testing systems rather than models') +
+    '<p>Google DeepMind’s AI Control Roadmap discusses coverage (fraction of traffic monitored), recall (misaligned behaviours caught) and time-to-response in its internal AI-control context. Relating monitoring coverage to this missing financial-policy check is Ghost’s teaching analogy, not a claim that DeepMind evaluated financial obligations or this demonstration.</p>' +
+    sourceLink('https://deepmind.google/blog/securing-the-future-of-ai-agents/','Google DeepMind · securing internal AI systems') +
+    '<p>The 2026 Singapore Consensus is a scientific research-priorities document, not regulation or an endorsement of Ghost. Its human-oversight and AI-assisted-oversight discussions provide supporting background.</p>' +
+    sourceLink('https://aipriorities.org/','2026 Singapore Consensus · requested reference') + sourceLink('https://aisafetypriorities.org/','2026 Singapore Consensus · verified current publication site') +
+    '<details><summary>Separate adversarial monitorability evidence · UK AISI</summary>' + researchDetails() + '</details>';
 }
 
 function drawerContent(kind) {
+  if (['prediction','material-case'].includes(currentCue(presentation).id)) {
+    const context=arc2Context();
+    return {title:context.step<0?'AI Investigator assessment':ARC2_DETAILS[context.step],body:renderArc2Evidence(run,context)+(context.step>=12?arc2ResearchDetails():'')+(context.step>=13?renderGateDetails()+safrDetails():'')};
+  }
+
   if (kind === 'nav') return { title: 'NAV evidence · ' + navRun.id, body: renderNavEvidence(presentation.step) };
 
   const early = presentation.cueIndex < 4;
@@ -450,8 +429,8 @@ function drawerContent(kind) {
     detailBlock('Objective', 'Identify material risks rapidly while minimising unnecessary human escalations.') +
     detailBlock('Authority', 'Flag and recommend only. Human decision authority is retained; attention is selected by AI.') +
     detailBlock('Trace', '8 agents / 27 subtasks / 486 trace events / 3.2 simulated seconds. Records are retained for independent inspection.') +
-    (currentCue(presentation).id === 'operations' ? renderSettlementWorkEvidence() : '') +
-    (presentation.cueIndex === 2 ? regulatoryDetails() : presentation.cueIndex === 3 ? detailBlock('Illustrative assessment', 'Risk coefficient 76 and separate prediction 74% are synthetic teaching values, not calibrated estimates or authority thresholds.') : '') };
+    (['operations','supervision'].includes(currentCue(presentation).id) ? renderSettlementWorkEvidence() : '') +
+    (presentation.cueIndex === 2 || currentReveal(presentation) === 'cognitive-limits' ? regulatoryDetails() : presentation.cueIndex === 3 ? detailBlock('Illustrative assessment', 'Risk coefficient 76 and separate prediction 74% are synthetic teaching values, not calibrated estimates or authority thresholds.') : '') };
   if (kind === 'research') return { title: 'External monitoring evaluation · separate from Ghost', body: researchDetails() };
   if (kind === 'domain') return { title: 'Synthetic requirements and acceptance evidence', body:
     Object.entries(DOMAIN_RULE).map(([key, value]) => detailBlock(key, value)).join('') +
@@ -539,7 +518,7 @@ function openDrawer(kind) {
   drawerTitle.textContent = content.title;
   drawerBody.innerHTML = content.body +
     '<div class="drawer-footer">' +
-      (presentation.cueIndex === 4 ? button("Export full synthetic run", "download-run", "drawer-button") : '') +
+      (['prediction','material-case'].includes(currentCue(presentation).id) ? button('Export visible evidence','download-arc2','drawer-button') : '') +
       button("Reset presentation", "reset", "drawer-button") +
     "</div>";
   drawer.hidden = false;
@@ -562,7 +541,13 @@ function downloadNav() {
   setTimeout(() => URL.revokeObjectURL(url), 1000);
 }
 
+function downloadArc2() {
+  const url=URL.createObjectURL(new Blob([JSON.stringify(buildArc2Audit(run,arc2Context()),null,2)],{type:'application/json'}));
+  const link=document.createElement('a');link.href=url;link.download='ghost-arc2-visible-evidence.json';link.click();setTimeout(()=>URL.revokeObjectURL(url),1000);
+}
+
 function downloadRun() {
+  if (['prediction','material-case'].includes(currentCue(presentation).id)) { downloadArc2(); return; }
   const payload = {
     ...run,
     supervisoryFinding: finding,
@@ -594,15 +579,15 @@ document.addEventListener("click", (event) => {
   }
   const action = control.dataset.action;
   const value = control.dataset.value;
-  if (["next", "previous", "reset-beat", "check-source"].includes(action)) move(action);
-  else if (action === "naive-authorise") move("authorise");
-  else if (action === "naive-reject") move("reject");
+  if (["next", "previous", "reset-beat", "check-source", "check-policy"].includes(action)) move(action);
   else if (action === "replay") renderCue(true);
   else if (action === "pause" && !paused) pauseOrResume();
   else if (action === "play") {
     if (currentReveal(presentation) === 'opening-question') move('next');
     else if (paused) pauseOrResume();
   }
+  else if (action === "open-arc2") openDrawer("arc2");
+  else if (action === "download-arc2") downloadArc2();
   else if (action === "open-nav") openDrawer("nav");
   else if (action === "download-nav") downloadNav();
   else if (action === "open-evidence") openDrawer("evidence");
@@ -619,7 +604,7 @@ document.addEventListener("click", (event) => {
   else if (action === "reset") {
     closeDrawer();
     presentation = transition(presentation, "reset");
-    sourceChallenge = null;
+    sourceChallenge = null; classificationTest = null; policyResult = null;
     Object.assign(review, { classification: "pending", intervention: "pending", openedEvidence: false, challenged: false });
     renderCue();
   } else if (action === "challenge-finding") {
@@ -657,7 +642,7 @@ document.addEventListener("keydown", (event) => {
   } else if (event.key === "Home") {
     event.preventDefault();
     presentation = transition(presentation, "reset");
-    sourceChallenge = null;
+    sourceChallenge = null; classificationTest = null; policyResult = null;
     Object.assign(review, { classification: "pending", intervention: "pending", openedEvidence: false, challenged: false });
     renderCue();
   } else if (event.key.toLowerCase() === "r") {

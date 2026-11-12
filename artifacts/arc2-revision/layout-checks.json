@@ -1,0 +1,414 @@
+{
+  "fullscreen": [
+    {
+      "reveal": "predictive-case",
+      "size": [
+        1920,
+        1080
+      ],
+      "letterbox": [
+        0,
+        0
+      ],
+      "bad": []
+    },
+    {
+      "reveal": "causal-explanation",
+      "size": [
+        1920,
+        1080
+      ],
+      "letterbox": [
+        0,
+        0
+      ],
+      "bad": []
+    },
+    {
+      "reveal": "source-challenge",
+      "size": [
+        1920,
+        1080
+      ],
+      "letterbox": [
+        0,
+        0
+      ],
+      "bad": []
+    },
+    {
+      "reveal": "counterfactual",
+      "size": [
+        1920,
+        1080
+      ],
+      "letterbox": [
+        0,
+        0
+      ],
+      "bad": []
+    },
+    {
+      "reveal": "conflict-omitted",
+      "size": [
+        1920,
+        1080
+      ],
+      "letterbox": [
+        0,
+        0
+      ],
+      "bad": []
+    },
+    {
+      "reveal": "policy-question",
+      "size": [
+        1920,
+        1080
+      ],
+      "letterbox": [
+        0,
+        0
+      ],
+      "bad": []
+    },
+    {
+      "reveal": "policy-finding",
+      "size": [
+        1920,
+        1080
+      ],
+      "letterbox": [
+        0,
+        0
+      ],
+      "bad": []
+    },
+    {
+      "reveal": "right-restriction",
+      "size": [
+        1920,
+        1080
+      ],
+      "letterbox": [
+        0,
+        0
+      ],
+      "bad": []
+    },
+    {
+      "reveal": "incomplete-reviews",
+      "size": [
+        1920,
+        1080
+      ],
+      "letterbox": [
+        0,
+        0
+      ],
+      "bad": []
+    },
+    {
+      "reveal": "sdlc",
+      "size": [
+        1920,
+        1080
+      ],
+      "letterbox": [
+        0,
+        0
+      ],
+      "bad": []
+    },
+    {
+      "reveal": "correction-process",
+      "size": [
+        1920,
+        1080
+      ],
+      "letterbox": [
+        0,
+        0
+      ],
+      "bad": []
+    },
+    {
+      "reveal": "correction-obligations",
+      "size": [
+        1920,
+        1080
+      ],
+      "letterbox": [
+        0,
+        0
+      ],
+      "bad": []
+    },
+    {
+      "reveal": "retrospective-question",
+      "size": [
+        1920,
+        1080
+      ],
+      "letterbox": [
+        0,
+        0
+      ],
+      "bad": []
+    },
+    {
+      "reveal": "system-assurance",
+      "size": [
+        1920,
+        1080
+      ],
+      "letterbox": [
+        0,
+        0
+      ],
+      "bad": []
+    },
+    {
+      "reveal": "escalate",
+      "size": [
+        1920,
+        1080
+      ],
+      "letterbox": [
+        0,
+        0
+      ],
+      "bad": []
+    },
+    {
+      "reveal": "human-questions",
+      "size": [
+        1920,
+        1080
+      ],
+      "letterbox": [
+        0,
+        0
+      ],
+      "bad": []
+    },
+    {
+      "reveal": "human-confidence",
+      "size": [
+        1920,
+        1080
+      ],
+      "letterbox": [
+        0,
+        0
+      ],
+      "bad": []
+    }
+  ],
+  "windowed": [
+    {
+      "reveal": "predictive-case",
+      "size": [
+        1440,
+        1000
+      ],
+      "letterbox": [
+        95,
+        95
+      ],
+      "bad": []
+    },
+    {
+      "reveal": "causal-explanation",
+      "size": [
+        1440,
+        1000
+      ],
+      "letterbox": [
+        95,
+        95
+      ],
+      "bad": []
+    },
+    {
+      "reveal": "source-challenge",
+      "size": [
+        1440,
+        1000
+      ],
+      "letterbox": [
+        95,
+        95
+      ],
+      "bad": []
+    },
+    {
+      "reveal": "counterfactual",
+      "size": [
+        1440,
+        1000
+      ],
+      "letterbox": [
+        95,
+        95
+      ],
+      "bad": []
+    },
+    {
+      "reveal": "conflict-omitted",
+      "size": [
+        1440,
+        1000
+      ],
+      "letterbox": [
+        95,
+        95
+      ],
+      "bad": []
+    },
+    {
+      "reveal": "policy-question",
+      "size": [
+        1440,
+        1000
+      ],
+      "letterbox": [
+        95,
+        95
+      ],
+      "bad": []
+    },
+    {
+      "reveal": "policy-finding",
+      "size": [
+        1440,
+        1000
+      ],
+      "letterbox": [
+        95,
+        95
+      ],
+      "bad": []
+    },
+    {
+      "reveal": "right-restriction",
+      "size": [
+        1440,
+        1000
+      ],
+      "letterbox": [
+        95,
+        95
+      ],
+      "bad": []
+    },
+    {
+      "reveal": "incomplete-reviews",
+      "size": [
+        1440,
+        1000
+      ],
+      "letterbox": [
+        95,
+        95
+      ],
+      "bad": []
+    },
+    {
+      "reveal": "sdlc",
+      "size": [
+        1440,
+        1000
+      ],
+      "letterbox": [
+        95,
+        95
+      ],
+      "bad": []
+    },
+    {
+      "reveal": "correction-process",
+      "size": [
+        1440,
+        1000
+      ],
+      "letterbox": [
+        95,
+        95
+      ],
+      "bad": []
+    },
+    {
+      "reveal": "correction-obligations",
+      "size": [
+        1440,
+        1000
+      ],
+      "letterbox": [
+        95,
+        95
+      ],
+      "bad": []
+    },
+    {
+      "reveal": "retrospective-question",
+      "size": [
+        1440,
+        1000
+      ],
+      "letterbox": [
+        95,
+        95
+      ],
+      "bad": []
+    },
+    {
+      "reveal": "system-assurance",
+      "size": [
+        1440,
+        1000
+      ],
+      "letterbox": [
+        95,
+        95
+      ],
+      "bad": []
+    },
+    {
+      "reveal": "escalate",
+      "size": [
+        1440,
+        1000
+      ],
+      "letterbox": [
+        95,
+        95
+      ],
+      "bad": []
+    },
+    {
+      "reveal": "human-questions",
+      "size": [
+        1440,
+        1000
+      ],
+      "letterbox": [
+        95,
+        95
+      ],
+      "bad": []
+    },
+    {
+      "reveal": "human-confidence",
+      "size": [
+        1440,
+        1000
+      ],
+      "letterbox": [
+        95,
+        95
+      ],
+      "bad": []
+    }
+  ]
+}

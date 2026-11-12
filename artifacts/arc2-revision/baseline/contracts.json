@@ -1,0 +1,15 @@
+{
+  "baseline": "c4abc64dbe61a36b202c2440594c2f60601ff919",
+  "protectedMarkupHash": "a10e70296d2fb4f984e094862cffefe8d1109c40a3d69e13839d6de384cf1870",
+  "cssLength": 82267,
+  "cssHash": "7da7844925cbd71548c064acfa5f7a7054d779e670b0c119e813d9e690f730ad",
+  "sourceHashes": {
+    "scenario.mjs": "d880d8ec2e15750bef88e97c5fb0ca08238e5ac7d9b1c6bc77caa440200a84af",
+    "nav-scenario.mjs": "011e8520744d9a2480dd562e4e82b1316eda632b3e8daadb34beb43e4f48865d",
+    "systemic-scenario.mjs": "2d55c3a4f8d084af8470fb396666157658c4d4fce38b974b95de16af50d05e1d",
+    "finale.mjs": "2958974259f6b8a2e5fa46badd284ff36b4337a077848285bf2c5439902dc78b",
+    "nav-theatre.mjs": "c58f8c62e2170f3f6d1be8b3819c49788643de91e576b01831923352aca55085",
+    "systemic-theatre.mjs": "da8ef0848e05df7111d1ed2125f9b82050bde152de60cd0441677e25016d1d85",
+    "settlement-workflow.mjs": "b685c15e7563652d275e44c61796189c9061e127bbd61493d1dfdef7b7f041e3"
+  }
+}

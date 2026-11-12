@@ -1,0 +1,14 @@
+[
+  {
+    "reveal": "source-challenge",
+    "paused": true,
+    "resumed": true,
+    "replayRestarts": true
+  },
+  {
+    "reveal": "counterfactual",
+    "paused": true,
+    "resumed": true,
+    "replayRestarts": true
+  }
+]

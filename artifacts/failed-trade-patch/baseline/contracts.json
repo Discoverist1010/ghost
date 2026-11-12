@@ -1,0 +1,13 @@
+{
+  "baseline": "c4abc64dbe61a36b202c2440594c2f60601ff919",
+  "unchangedMarkupHash": "6cb893ef3d441e3f8a99950027c8e8d8ce642b09eda2c74d0e072645c4c287b2",
+  "initialOperationsHash": "e42433e0bc9a60f5f1d7db03c1911f92da0816ef5a0c076a59168bdcd7641c35",
+  "cssLength": 80219,
+  "cssHash": "bb4b36f9c53dc83b13734ccea97abf36d5547ad30f5885beb77a90a9cd4409fb",
+  "sourceHashes": {
+    "scenario.mjs": "d880d8ec2e15750bef88e97c5fb0ca08238e5ac7d9b1c6bc77caa440200a84af",
+    "nav-scenario.mjs": "011e8520744d9a2480dd562e4e82b1316eda632b3e8daadb34beb43e4f48865d",
+    "systemic-scenario.mjs": "2d55c3a4f8d084af8470fb396666157658c4d4fce38b974b95de16af50d05e1d",
+    "finale.mjs": "2958974259f6b8a2e5fa46badd284ff36b4337a077848285bf2c5439902dc78b"
+  }
+}

@@ -1,0 +1,72 @@
+{
+  "checks": [
+    {
+      "reveal": "predictive-case",
+      "bodyHasSanctions": false,
+      "bodyHasSource": false,
+      "bodyHas39": false,
+      "fullRunButtonAbsent": true,
+      "exportSaved": true
+    },
+    {
+      "reveal": "causal-explanation",
+      "bodyHasSanctions": false,
+      "bodyHasSource": false,
+      "bodyHas39": false,
+      "fullRunButtonAbsent": true,
+      "exportSaved": true
+    },
+    {
+      "reveal": "source-challenge",
+      "bodyHasSanctions": false,
+      "bodyHasSource": true,
+      "bodyHas39": false,
+      "fullRunButtonAbsent": true,
+      "exportSaved": true
+    },
+    {
+      "reveal": "counterfactual",
+      "bodyHasSanctions": false,
+      "bodyHasSource": true,
+      "bodyHas39": true,
+      "fullRunButtonAbsent": true,
+      "exportSaved": true
+    },
+    {
+      "reveal": "policy-question",
+      "bodyHasSanctions": false,
+      "bodyHasSource": true,
+      "bodyHas39": true,
+      "fullRunButtonAbsent": true,
+      "exportSaved": true
+    },
+    {
+      "reveal": "policy-finding",
+      "bodyHasSanctions": true,
+      "bodyHasSource": true,
+      "bodyHas39": true,
+      "fullRunButtonAbsent": true,
+      "exportSaved": true
+    },
+    {
+      "reveal": "system-assurance",
+      "bodyHasSanctions": true,
+      "bodyHasSource": true,
+      "bodyHas39": true,
+      "fullRunButtonAbsent": true,
+      "exportSaved": true,
+      "links": 7,
+      "researchQualified": true,
+      "ukPreserved": true
+    },
+    {
+      "reveal": "escalate",
+      "bodyHasSanctions": true,
+      "bodyHasSource": true,
+      "bodyHas39": true,
+      "fullRunButtonAbsent": true,
+      "exportSaved": true
+    }
+  ],
+  "drawers": 8
+}

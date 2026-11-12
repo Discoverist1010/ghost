@@ -934,3 +934,80 @@ button:disabled { cursor: default; opacity: .35; }
 .stage[data-reveal="naive-review"] .settlement-review-scale,
 .stage[data-reveal="naive-basis"] .settlement-monthly { margin:0; color:var(--secondary); font-size:clamp(22px,1.7cqw,32px); line-height:1.4; }
 .settlement-work-evidence li { margin-bottom:14px; }
+
+/* Failed-trade arc tightening: scoped to the three revised scenes. */
+.stage[data-reveal="trace-overview"] .cue-content,
+.stage[data-reveal="material-signal"] .cue-content { animation:none; }
+.trace-signal-scene { width:100%; height:43cqh; display:flex; flex-direction:column; align-items:center; gap:3.4cqh; }
+.trace-signal-title { display:flex; align-items:baseline; justify-content:center; gap:1.7cqw; margin:0; line-height:1; }
+.trace-signal-title strong { font-size:8cqw; letter-spacing:-.065em; font-weight:850; }
+.trace-signal-title span { font-size:3.5cqw; font-weight:780; color:var(--text); }
+.trace-signal-scale { margin:0; color:var(--secondary); font-size:1.6cqw; line-height:1.4; }
+.trace-signal-result { display:flex; flex-direction:column; gap:2cqh; margin-top:2cqh; animation:case-rise .65s both; }
+.trace-signal-result h2 { margin:0; color:var(--cyan); font-size:2.9cqw; line-height:1.15; font-weight:800; letter-spacing:-.025em; }
+.trace-signal-result p { margin:0; color:var(--secondary); font-size:1.6cqw; line-height:1.3; }
+.cognitive-scene { width:100%; display:flex; flex-direction:column; align-items:center; gap:3.2cqh; }
+.cognitive-scene h1 { font-size:3.5cqw; line-height:1.13; letter-spacing:-.035em; font-weight:840; margin:0; }
+.cognitive-scale { font-size:1.65cqw; line-height:1.4; margin:0; color:var(--secondary); }
+.cognitive-scene h2 { font-size:2.6cqw; line-height:1.2; font-weight:780; margin:0; letter-spacing:-.02em; }
+.cognitive-anchors { width:min(100%,1500px); margin-top:1.5cqh; display:grid; gap:1.5cqh; }
+.cognitive-anchors p { font-size:1.45cqw; line-height:1.4; margin:0; color:var(--secondary); }
+.cognitive-anchors strong { font-weight:750; }
+.cue--supervision .dependency-punch { font-size:2.15cqw; color:var(--secondary); }
+.settlement-workflow-agent h4 { font-size:24px; margin-bottom:12px; color:var(--text); }
+.settlement-workflow-tasks li { margin-bottom:8px; }
+.settlement-work-evidence details { margin-top:28px; }
+.settlement-work-evidence summary { cursor:pointer; color:var(--cyan); }
+
+/* Arc 2 only: original trace, earlier arc and later scenes retain their styles. */
+.arc2-stage { width:100%; height:100%; justify-content:center; display:flex; flex-direction:column; align-items:center; gap:3.2cqh; }
+.arc2-content { width:100%; display:flex; flex-direction:column; align-items:center; gap:2.6cqh; text-align:center; }
+.arc2-content h1 { margin:0; font-size:4.25cqw; line-height:1.13; font-weight:840; letter-spacing:-.04em; }
+.arc2-content .amber { color:var(--amber); }
+.arc2-content p { margin:0; }
+.arc2-content .arc2-eyebrow { font-size:1.4cqw; letter-spacing:.045em; color:var(--secondary); line-height:1.4; }
+.arc2-content .arc2-support { font-size:1.85cqw; line-height:1.4; color:var(--secondary); }
+.arc2-content .arc2-small { font-size:1.3cqw; line-height:1.45; color:var(--secondary); }
+.arc2-classification { font-size:2.65cqw; line-height:1.25; font-weight:780; }
+.arc2-content .arc2-last { font-size:2.1cqw; line-height:1.4; margin-top:1cqh; font-weight:730; }
+.arc2-source-intro { display:flex; flex-direction:column; gap:1.2cqh; }
+.arc2-content h1.arc2-source-agent { font-size:2.1cqw; }
+.arc2-source-comparison { display:flex; flex-direction:column; gap:1.5cqh; font-size:1.6cqw; line-height:1.4; animation:case-rise .65s .9s both; }
+.arc2-source-comparison strong { color:var(--cyan); font-size:2.25cqw; display:block; }
+.arc2-source-result { display:flex; flex-direction:column; gap:1.25cqh; animation:case-rise .65s 1.7s both; }
+.arc2-content .arc2-source-result .arc2-support { font-size:1.4cqw; }
+.arc2-source-result .arc2-classification { font-size:2.15cqw; }
+.arc2-content .arc2-source-result .arc2-small { font-size:1.15cqw; }
+.arc2-counter-score { display:flex; align-items:center; gap:3.8cqw; font-size:8cqw; line-height:1.1; font-weight:800; }
+.arc2-counter-score>span { color:var(--secondary); font-size:4.5cqw; }
+.arc2-score-before { animation:arc2-score-demote .65s .35s both; }
+.arc2-score-after { color:var(--cyan); animation:case-rise .65s .8s both; }
+.arc2-counter-conclusion { display:flex; flex-direction:column; gap:1.5cqh; animation:case-rise .65s 1.4s both; }
+.arc2-content .arc2-medium { font-size:3.2cqw; }
+.arc2-content h1.arc2-policy-title { font-size:3.7cqw; }
+.arc2-content h1.arc2-design-title { font-size:3.5cqw; }
+.arc2-sdlc { display:flex; align-items:center; gap:1cqw; font-size:1.4cqw; font-weight:720; color:var(--secondary); }
+.arc2-sdlc span { color:var(--cyan); }
+.arc2-content .arc2-design-punch { font-size:2.9cqw; font-weight:800; line-height:1.2; color:var(--amber); }
+.arc2-content h1.arc2-correction-title { font-size:3.6cqw; }
+.arc2-obligations { display:grid; grid-template-columns:1fr 1fr; gap:5cqw; width:100%; }
+.arc2-obligations section { display:flex; flex-direction:column; gap:2.5cqh; align-items:center; }
+.arc2-content .arc2-obligations h1 { font-size:2.7cqw; }
+.arc2-content h1.arc2-assurance-title { font-size:3.5cqw; }
+.arc2-research { display:flex; flex-direction:column; gap:3cqh; max-width:75cqw; margin-top:2cqh; text-align:left; }
+.arc2-research p { color:var(--secondary); font-size:1.7cqw; line-height:1.45; }
+.arc2-research strong { color:var(--cyan); }
+.arc2-gate-facts { display:flex; gap:3cqw; color:var(--secondary); font-size:1.75cqw; }
+.arc2-gate-facts strong { color:var(--text); }
+.arc2-content .hero-verdict.mega { font-size:7cqw; }
+.arc2-content .arc2-gate-restraint { font-size:2.2cqw; font-weight:750; }
+.arc2-content .arc2-gate-principle { font-size:1.7cqw; color:var(--secondary); line-height:1.4; }
+.arc2-content h1.arc2-human-title { font-size:3.5cqw; }
+.arc2-content .arc2-human-second { font-size:2.7cqw; line-height:1.25; font-weight:740; margin-top:2cqh; animation:case-rise .65s .8s both; }
+.arc2-stage .case-controls { margin-top:1cqh; }
+.arc2-stage .case-primary { min-height:64px; font-size:1.5cqw; }
+.arc2-stage .case-secondary { min-height:56px; font-size:1.2cqw; padding:12px 18px; }
+.cue--prediction .arc2-assessment-context { font-size:1.4cqw; max-width:76cqw; line-height:1.4; }
+.arc2-audit { font-size:17px; line-height:1.5; white-space:pre-wrap; overflow-wrap:anywhere; }
+@keyframes arc2-score-demote { from {opacity:1} to {opacity:.5} }
+@media(prefers-reduced-motion:reduce) { .arc2-stage * { animation-duration:.01ms!important; animation-delay:0ms!important; } }

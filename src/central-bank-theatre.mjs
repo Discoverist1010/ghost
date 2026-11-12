@@ -1,0 +1,55 @@
+import {ARC2_ENTITY,ARC2_JURISDICTION,ARC2_POLICY,ARC2_EXPOSURE,ARC2_DESIGN_GAP,createCorrectionPlan} from './central-bank-scenario.mjs';
+import {buildRun,evaluateGate,supervise} from './scenario.mjs';
+const run=buildRun();
+const esc=x=>String(x).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const h=(text,cls='')=>`<h1 class="${cls}">${text}</h1>`;
+const p=(text,cls='')=>`<p class="${cls}">${text}</p>`;
+const action=(label,act,cls='case-primary')=>`<button type="button" class="${cls}" data-action="${act}">${label}</button>`;
+export const ARC2_DETAILS=Object.freeze(['VIEW AI ASSESSMENT','VIEW SOURCE EVIDENCE','VIEW TEST ASSUMPTIONS','INSPECT THE OMISSION','VIEW REVIEW SCOPE','VIEW POLICY MATCH','VIEW POLICY BASIS','VIEW REVIEW COVERAGE','VIEW REQUIREMENTS & TESTS','VIEW CORRECTION PROPOSAL','VIEW CORRECTION SCOPE','VIEW HISTORICAL REVIEW','VIEW RESEARCH EVIDENCE','VIEW AUTHORITY BOUNDARY','VIEW OVERSIGHT CONDITIONS','VIEW OVERSIGHT CONDITIONS']);
+export function renderArc2(step) {
+  let content='';
+  if(step===0)content=h('WHY 76?')+p('ENTITY X · AI-DERIVED CLASSIFICATION','arc2-eyebrow')+p('COMMERCIAL COUNTERPARTY','arc2-classification cyan')+p('COMMERCIAL CLASSIFICATION → RISK 76','arc2-support');
+  if(step===1)content=`<div class="arc2-source-intro">${p('HUMAN REQUESTED SOURCE VERIFICATION','arc2-eyebrow')}${h('AI #2 · BANK COMPLIANCE AGENT','arc2-source-agent')}</div><div class="arc2-source-comparison">${p('AI #1 DERIVED: <strong>COMMERCIAL COUNTERPARTY</strong>')}${p('ORIGINAL SOURCE: <strong>CENTRAL-BANK-RELATED</strong>')}</div><div class="arc2-source-result">${p('AI #2 FLAGS CONTRADICTORY EVIDENCE','arc2-support')}${p('CLASSIFICATION CONTESTED','arc2-classification amber')}${p('COUNTER-EVIDENCE CHALLENGES THE CONCLUSION. IT DOES NOT ESTABLISH FINAL TRUTH.','arc2-small')}</div>`;
+  if(step===2)content=p('IF THE ORIGINAL CLASSIFICATION IS USED','arc2-eyebrow')+`<div class="arc2-counter-score"><strong class="arc2-score-before">${run.counterfactual.before}</strong><span>→</span><strong class="arc2-score-after">${run.counterfactual.after}</strong></div><div class="arc2-counter-conclusion">${h('ONE FACT CHANGED.','arc2-medium')}${p('SAME MODEL · SAME RULES · DIFFERENT CLASSIFICATION','arc2-support')}${p('CONDITIONAL CLASSIFICATION-DEPENDENT SCORE · NO PERMISSION OR SAFETY CERTIFICATION','arc2-small')}</div>`;
+  if(step===3)content=h('CONFLICT OMITTED','amber')+p('THE SUMMARY WAS INCOMPLETE.','arc2-support')+p('THE ORIGINAL EVIDENCE REMAINED AVAILABLE.','arc2-support');
+  if(step===4)content=h('SO WAS THE<br>RESTRICTION WRONG?');
+  if(step===5)content=p('INDEPENDENT DETERMINISTIC POLICY CHECK','arc2-eyebrow')+h('APPLICABLE SANCTIONS-RELATED<br>POLICY FOUND','arc2-policy-title')+p('SPECIFIC EXPOSURE · EFFECTIVE-DATED INSTITUTIONAL POLICY','arc2-support')+p('PROTECTIVE RESTRICTION REQUIRES AUTHORISED COMPLIANCE HANDLING.','arc2-small');
+  if(step===6)content=h('RIGHT RESTRICTION.<br><span class="amber">WRONG REASON.</span>');
+  if(step===7)content=h('BOTH AIS MISSED<br>THE REAL RISK.')+p('AI #1 ASSESSED COUNTERPARTY RISK.','arc2-support')+p('AI #2 VERIFIED ENTITY CLASSIFICATION.','arc2-support')+p('NEITHER CHECKED THE APPLICABLE SANCTIONS RESTRICTION.','arc2-last amber');
+  if(step===8)content=h('WHO DESIGNED THE<br>SUPERVISORY RULES?','arc2-design-title')+`<div class="arc2-sdlc">REQUIREMENTS <span>→</span> IMPLEMENTATION <span>→</span> TESTING <span>→</span> DOMAIN VALIDATION</div>`+p('CLASSIFICATION EXCEPTION + CROSS-DOMAIN POLICY CHECK','arc2-small')+p('THE CODE PASSED.<br>THE BUSINESS RULE WAS INCOMPLETE.','arc2-design-punch');
+  if(step===9)content=h('WE CORRECTED ITS DECISION.<br><span class="amber">WE HAVE NOT YET CORRECTED<br>HOW IT DECIDES.</span>','arc2-correction-title');
+  if(step===10)content=`<div class="arc2-obligations"><section>${h('PROSPECTIVE','cyan')}${p('CORRECT THE REUSABLE RULES.','arc2-support')}${p('Domain expertise · integrated policy checks<br>Complete-workflow testing before reuse','arc2-small')}</section><section>${h('RETROSPECTIVE','amber')}${p('REVIEW EARLIER DECISIONS.','arc2-support')}${p('Original-date evidence and policy<br>Authorised review · preserved records','arc2-small')}</section></div>`;
+  if(step===11)content=h('ONE CASE CORRECTED.<br><span class="amber">HOW MANY DECISIONS USED<br>THE SAME ASSUMPTION?</span>');
+  if(step===12)content=h("WHO TESTED WHAT THE<br>SUPERVISOR WASN'T CHECKING?",'arc2-assurance-title')+`<div class="arc2-research"><p><strong>SINGAPORE AISI:</strong> Evaluate the complete AI system, including deployment context, tools, domain expertise and realistic workflows.</p><p><strong>GOOGLE DEEPMIND:</strong> Evaluate monitoring coverage, detection effectiveness and time-to-response.</p></div>`;
+  if(step===13)content=p('ORIGINAL AI PROPOSAL','arc2-eyebrow')+`<div class="arc2-gate-facts"><span>EVIDENCE: <strong>DISPUTED</strong></span><span>MANDATE: <strong>RECOMMEND ONLY</strong></span></div>`+`<h1 class="hero-verdict mega amber">${evaluateGate(run.gateInput).disposition}</h1>`+p('RESTRICTION NOT EXECUTED','arc2-gate-restraint')+p("THE SYSTEM DOESN'T NEED TO KNOW WHO IS RIGHT<br>TO KNOW IT SHOULD NOT ACT.",'arc2-gate-principle');
+  if(step===14)content=h('WHAT IF THE HUMAN NEVER<br>ASKED AI #2 TO CHECK?','arc2-human-title')+p('WHAT IF THE DOMAIN REQUIREMENT<br>WAS NEVER BUILT INTO THE SYSTEM?','arc2-human-second amber');
+  if(step===15)content=h('CAN THE HUMAN DISAGREE—<br>AND KNOW WHAT ELSE<br>TO QUESTION?')+p('EXPERTISE · EVIDENCE · CAPACITY<br>INDEPENDENCE · CONFIDENCE','arc2-support');
+  const primary=step===0?action('CHECK ORIGINAL SOURCE →','check-source'):step===1?action('TEST SOURCE CLASSIFICATION →','next'):step===4?action('CHECK APPLICABLE POLICY →','check-policy'):'';
+  const secondary=action(ARC2_DETAILS[step],'open-arc2','case-secondary');
+  return `<div class="arc2-stage" data-arc2-step="${step}"><div class="arc2-content">${content}</div><div class="case-controls">${primary}${secondary}</div></div>`;
+}
+export function buildArc2Audit(originalRun,{step=-1,sourceRequest=null,challenge=null,classificationTest=null,policyRequest=null,policyResult=null}={}) {
+  const classification=originalRun.events.find(e=>e.id==='EVT-0238');
+  const audit={id:'ARC2-REVIEW-001',synthetic:true,originalRunId:originalRun.id,visibleThroughStep:step,assessment:{id:'ORIGINAL-ASSESSMENT-001',actor:'Investigator',riskEventId:originalRun.events.find(e=>e.kind==='RISK_UPDATED'&&e.parentIds.includes('EVT-0238')).id,recommendationEventId:originalRun.events.find(e=>e.kind==='INTERVENTION_RECOMMENDED').id,classification:classification.after,risk:originalRun.gateInput.score,prediction:{...originalRun.prediction},recommendation:'Enhanced liquidity restriction',sourceEventId:classification.id,calculationInputs:{selectedClassification:classification.after,sourceCounts:{...originalRun.sourceCounts}},statedReasoning:'The derived commercial counterparty classification increases the original model’s assessed liquidity risk; the Investigator recommends a restriction. Recommendation is not execution authority.'}};
+  if(step>=1&&sourceRequest&&challenge){audit.sourceRequest={...sourceRequest};audit.challenge=structuredClone(challenge);delete audit.challenge.counterfactual; audit.originalSource=structuredClone(originalRun.evidence.find(e=>e.id==='EV-ENTITY-01'));audit.originalClassificationEvent=structuredClone(classification);}
+  if(step>=2&&classificationTest){audit.conditionalClassificationTest=structuredClone(classificationTest);audit.originalRiskEvent=structuredClone(originalRun.events.find(e=>e.kind==='RISK_UPDATED'&&e.parentIds.includes('EVT-0238')));audit.originalRecommendation=structuredClone(originalRun.events.find(e=>e.kind==='INTERVENTION_RECOMMENDED'));}
+  if(step>=3)audit.omission={id:'OMISSION-REVIEW-001',supervisoryFindingId:supervise(originalRun.events).id,initialSummary:structuredClone(supervise(originalRun.events).initialSummary),summary:'Initial supervisor summary omitted the original source contradiction.',rawEvidenceRetained:true,sourceEvidenceId:'EV-ENTITY-01',deliberateConcealmentEstablished:false};
+  if(step>=5&&policyResult){audit.policyRequest=structuredClone(policyRequest);audit.policyResult=structuredClone(policyResult);audit.policySources={entity:{...ARC2_ENTITY},jurisdiction:{...ARC2_JURISDICTION},policy:{...ARC2_POLICY},exposure:{...ARC2_EXPOSURE}};}
+  if(step>=7)audit.reviewCoverage={ai1:'Counterparty risk assessment',ai2:'Entity-classification source verification',missing:'Integrated sanctions-related policy verification',deceptionEstablished:false};
+  if(step>=8)audit.designGap=structuredClone(ARC2_DESIGN_GAP);
+  if(step>=9)audit.correctionProposal=createCorrectionPlan(policyResult);
+  if(step>=13)audit.originalRun=structuredClone(originalRun);
+  if(step>=13)audit.originalRuntimeGate={input:structuredClone(originalRun.gateInput),result:evaluateGate(originalRun.gateInput),executed:false,separatePolicyPathway:'The independently verified policy must go through its own authorised sanctions/compliance control. It does not modify or retrospectively authorise this original AI proposal.'};
+  return audit;
+}
+export function renderArc2Evidence(originalRun,context) {
+  const audit=buildArc2Audit(originalRun,context);
+  const step=context.step;
+  let body='<p>Progressively disclosed, independently attributable synthetic records. Original trace and risk history remain unchanged.</p>';
+  if(step===0)body+='<p>This is the Investigator’s derived assessment and selected inputs only. Original-source comparison requires the explicit human source-verification action.</p>';
+  if(step>=2)body+='<p>The conditional 39 applies only to the original classification-dependent risk model. It is not a safety certificate, transaction permission or updated 74% probability. Original evidence, recommendation and prediction remain separate.</p>';
+  if(step>=5)body+='<p><strong>Fictional institutional policy, not a real sanctions law.</strong> Verified entity relationship + jurisdiction context + specific pending exposure + effective policy date are all required. Neither a central-bank relationship nor jurisdiction alone establishes a restriction. The policy check is newly requested during this review; it was absent from the original workflow. It is deterministic, not a third AI supervisor.</p><p>The policy warrants a protective restriction only on EXPOSURE-X-USD-01. No hold is executed here. The policy pathway needs its own authorised compliance handling; it cannot validate the original AI reasoning or expand its mandate.</p>';
+  if(step>=9)body+='<p>Prospective changes are proposals requiring approval and complete-workflow evaluation. Retrospective review must use each case’s original-date sources and applicable policy versions. No settled transaction is reversed, earlier decision rewritten, sanctions violation presumed or later policy applied retroactively.</p>';
+  body+=`<pre class="arc2-audit">${esc(JSON.stringify(audit,null,2))}</pre>`;
+  return body;
+}

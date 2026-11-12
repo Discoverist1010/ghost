@@ -1,3 +1,11 @@
+# Arc 2 — current local verification
+
+Before editing: 54/54 tests, including the preserved uncommitted settlement patch. Current suite: 68/68. Original trace/source/authority tests remain; presentation assertions change only for the approved replacement of Beats 4–5. A new pre-edit hash contract protects all opening, settlement, NAV, systemic and finale markup, the full pre-edit CSS prefix and seven untouched scenario/presentation modules.
+
+Fourteen focused Arc 2 tests cover human requests, source attribution, conditional recomputation, preserved original evidence, independently matched effective-dated policy, missing/wrong source records and scope, non-automatic jurisdiction/relationship matching, separate authority, cross-domain design, prospective and retrospective constraints, progressive drawer/export disclosure, research qualification and the stable NAV handoff.
+
+Browser checks cover all 74 states; native 1920×1080 fullscreen and normal 1440×1000 content; required source and policy actions gated against Next/Space; scoped JSON downloads at eight stages; later original-run export with all 486 events; source and conditional-test Pause/Play/Replay; original runtime ESCALATE and final disabled Next. Actual screenshots, short motion evidence, exported records and reports are in `artifacts/arc2-revision/`.
+
 # V3 Package 3 — current acceptance
 
 Baseline: 41/41 tests before edits on `c2316088e2093f0e7ac8dfda3db15ca73ae4db96`. Current: 53/53. Presentation assertions for replaced V2 Beats 7/8 and ordinary NAV continuation are updated; substantive settlement/NAV financial tests remain. The new pre-edit hash contract protects all accepted Beats 1–6 markup, the entire accepted CSS prefix and both financial scenario modules.

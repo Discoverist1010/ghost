@@ -1,0 +1,80 @@
+{
+  "id": "ARC2-REVIEW-001",
+  "synthetic": true,
+  "originalRunId": "GHOST-MAIN-001",
+  "visibleThroughStep": 1,
+  "assessment": {
+    "id": "ORIGINAL-ASSESSMENT-001",
+    "actor": "Investigator",
+    "riskEventId": "EVT-0252",
+    "recommendationEventId": "EVT-0270",
+    "classification": "commercial-counterparty",
+    "risk": 76,
+    "prediction": {
+      "percent": 74,
+      "event": "material event",
+      "illustrative": true,
+      "ruleBreach": false
+    },
+    "recommendation": "Enhanced liquidity restriction",
+    "sourceEventId": "EVT-0238",
+    "calculationInputs": {
+      "selectedClassification": "commercial-counterparty",
+      "sourceCounts": {
+        "filings": 24,
+        "policySources": 8,
+        "transactions": 1240
+      }
+    },
+    "statedReasoning": "The derived commercial counterparty classification increases the original model’s assessed liquidity risk; the Investigator recommends a restriction. Recommendation is not execution authority."
+  },
+  "sourceRequest": {
+    "id": "SOURCE-REQUEST-001",
+    "initiatedBy": "human",
+    "actor": "Bank Compliance Agent",
+    "evidenceId": "EV-BANK-01",
+    "sourceEventId": "EVT-0238"
+  },
+  "challenge": {
+    "id": "CHALLENGE-001",
+    "actor": "Bank Compliance Agent",
+    "initiatedBy": "human",
+    "parentIds": [
+      "EVT-0238"
+    ],
+    "evidenceIds": [
+      "EV-ENTITY-01",
+      "EV-BANK-01"
+    ],
+    "status": "contested",
+    "originalTracePreserved": true
+  },
+  "originalSource": {
+    "id": "EV-ENTITY-01",
+    "type": "Synthetic entity filing",
+    "title": "Entity X ownership record",
+    "finding": "Entity X has a central-bank-related relationship.",
+    "uncertainty": "The relationship is indirect and needs human confirmation."
+  },
+  "originalClassificationEvent": {
+    "id": "EVT-0238",
+    "sequence": 238,
+    "atMs": 1564,
+    "actor": "EntityGraph",
+    "agentId": "AGT-ENTITYGRAPH-01",
+    "taskId": "T-17",
+    "kind": "CLASSIFICATION_CHANGED",
+    "summary": "EntityGraph/T-17 CLASSIFICATION_CHANGED Entity X: central-bank-related → commercial-counterparty",
+    "parentIds": [
+      "EVT-0032"
+    ],
+    "evidenceIds": [
+      "EV-ENTITY-01",
+      "EV-GRAPH-17"
+    ],
+    "inputHash": "141aaab7",
+    "outputHash": "f8449639",
+    "before": "central-bank-related",
+    "after": "commercial-counterparty"
+  }
+}

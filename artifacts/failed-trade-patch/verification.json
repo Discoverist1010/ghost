@@ -1,0 +1,165 @@
+{
+  "path": [
+    "opening-question",
+    "answers-to-actions",
+    "rules",
+    "patterns",
+    "investigation",
+    "agentic",
+    "failed-trade",
+    "oversight-promise",
+    "event-flood",
+    "trace-overview",
+    "material-signal",
+    "cognitive-limits",
+    "attention-dependency",
+    "predictive-case",
+    "no-breach",
+    "causal-explanation",
+    "source-challenge",
+    "counterfactual",
+    "conflict-omitted",
+    "domain-rule",
+    "sdlc",
+    "monitor-evasion",
+    "monitor-assurance",
+    "escalate",
+    "human-judgement",
+    "human-confidence",
+    "nav-introduction",
+    "nav-monday",
+    "nav-week",
+    "nav-success",
+    "nav-warning",
+    "nav-control-accounting",
+    "nav-control-movement",
+    "nav-control-valuation",
+    "nav-reconstruction",
+    "nav-baseline",
+    "nav-cumulative",
+    "nav-governance",
+    "nav-grounding",
+    "nav-override",
+    "independent-agents",
+    "common-shock",
+    "first-wave",
+    "funding-timing",
+    "changed-market",
+    "second-wave",
+    "correlation-feedback",
+    "parallel-transmission",
+    "system-pressure",
+    "system-changed",
+    "system-supervision",
+    "supervision-informs",
+    "supervision-structures",
+    "human-authority-machine-attention",
+    "supervision-enforces",
+    "supervision-progression",
+    "supervision-methods",
+    "supervision-powers",
+    "capability-authority",
+    "confidence-question",
+    "confidence-expertise",
+    "confidence-evidence",
+    "confidence-capacity",
+    "confidence-independence",
+    "confidence-challenge",
+    "human",
+    "ai",
+    "both",
+    "accountability",
+    "final-question"
+  ],
+  "errors": [],
+  "externalRequests": [],
+  "scenes": [
+    {
+      "reveal": "material-signal",
+      "bad": [],
+      "scroll": [
+        1920,
+        1080
+      ]
+    },
+    {
+      "reveal": "cognitive-limits",
+      "bad": [],
+      "scroll": [
+        1920,
+        1080
+      ]
+    },
+    {
+      "reveal": "attention-dependency",
+      "bad": [],
+      "scroll": [
+        1920,
+        1080
+      ]
+    }
+  ],
+  "rawTitle": {
+    "x": 560.21875,
+    "y": 304.796875,
+    "width": 799.546875,
+    "height": 153.59375
+  },
+  "holdsBeforeSignal": true,
+  "noAutoAdvance": true,
+  "signalTitle": {
+    "x": 560.21875,
+    "y": 304.796875,
+    "width": 799.546875,
+    "height": 153.59375
+  },
+  "pauseFreezes": true,
+  "playResumes": true,
+  "replayRestarts": true,
+  "workflowRoles": 8,
+  "workflowTasks": 27,
+  "drawerText": "8 agents · 27 subtasks\n\nIllustrative custody workflow responsibilities. The original synthetic trace retains its technical actor names and task IDs; this explanatory breakdown does not rename or overwrite those records.\n\nCase Orchestrator\nRegister the failed-trade exception\nDefine the investigation scope\nConsolidate the investigation evidence\nSettlement Instructions Agent\nCompare trade and settlement instructions\nValidate security and quantity fields\nCheck the instructed settlement date\nCompare delivery and receipt terms\nCustody Position Agent\nConfirm the custody holding\nCheck securities available for delivery\nIdentify reservations or encumbrances\nCash & FX Agent\nCheck the required currency balance\nConfirm funding requirements\nCheck FX value-date alignment\nCheck payment cut-off times\nCounterparty & SSI Agent\nConfirm counterparty identity\nValidate standing settlement instructions\nCompare receiving account details\nCheck the instruction version in force\nMessaging & Network Agent\nReview settlement-message status\nIdentify missing acknowledgements\nTrace rejection or failure codes\nReference Data & Market Calendar Agent\nValidate security reference data\nCheck relevant market holidays\nCheck market and custodian deadlines\nSupervisory / Materiality Agent\nRank evidence by materiality\nIdentify the issue requiring attention\nPrepare a concise review summary\nOriginal technical trace inventory · 8 actors / 27 task IDs\n\nListing a responsibility or task does not invoke an optional branch or establish an outcome.",
+  "originalTaskIds": 27,
+  "originalAgents": 8,
+  "sourceStillGated": true,
+  "finalNextDisabled": true,
+  "homeResets": true,
+  "windowed": [
+    {
+      "reveal": "material-signal",
+      "size": [
+        1440,
+        1000
+      ],
+      "letterbox": [
+        95,
+        95
+      ],
+      "bad": []
+    },
+    {
+      "reveal": "cognitive-limits",
+      "size": [
+        1440,
+        1000
+      ],
+      "letterbox": [
+        95,
+        95
+      ],
+      "bad": []
+    },
+    {
+      "reveal": "attention-dependency",
+      "size": [
+        1440,
+        1000
+      ],
+      "letterbox": [
+        95,
+        95
+      ],
+      "bad": []
+    }
+  ]
+}

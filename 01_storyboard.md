@@ -1,3 +1,9 @@
+# Arc 2 — current local revision (12 November 2026)
+
+This revision supersedes the earlier Beats 4–5 descriptions below. Beat 4 contains the original 76 / 74% assessment, now explicitly linked to the failed-trade investigation. There is no standalone no-rule-breach screen. Beat 5: WHY 76 (derived classification only) → explicit human source request → AI #2 contradiction → conditional 76→39 → omitted conflict → explicit applicable-policy check → independent policy finding → RIGHT RESTRICTION / WRONG REASON → narrow AI scopes → missing cross-domain design → corrected decision versus reusable method → prospective/retrospective duties → historical-dependency question → system assurance → original proposal ESCALATE → human oversight questions → NAV only on Next.
+
+There are 16 presenter states in Beat 5 and 74 in the full eight-beat show. Source comparison progresses within one pausable reveal. The sanctions finding, kicker and historical-review question each have a deliberate pause. The settlement-arc tightening is preserved as existing uncommitted work. NAV, systemic and finale remain unchanged.
+
 # V3 Package 3 — complete eight-beat presenter path
 
 This current section supersedes the historical V2 Beat 7/8 and Package 2 legacy-continuation notes below. Accepted baseline: `c2316088e2093f0e7ac8dfda3db15ca73ae4db96`. Beats 1–6 retain their accepted stage markup, financial data and ordering. The NAV override question holds until ordinary Next; Back returns to it.

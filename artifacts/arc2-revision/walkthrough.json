@@ -1,0 +1,232 @@
+{
+  "path": [
+    "opening-question",
+    "answers-to-actions",
+    "rules",
+    "patterns",
+    "investigation",
+    "agentic",
+    "failed-trade",
+    "oversight-promise",
+    "event-flood",
+    "trace-overview",
+    "material-signal",
+    "cognitive-limits",
+    "attention-dependency",
+    "predictive-case",
+    "causal-explanation",
+    "source-challenge",
+    "counterfactual",
+    "conflict-omitted",
+    "policy-question",
+    "policy-finding",
+    "right-restriction",
+    "incomplete-reviews",
+    "sdlc",
+    "correction-process",
+    "correction-obligations",
+    "retrospective-question",
+    "system-assurance",
+    "escalate",
+    "human-questions",
+    "human-confidence",
+    "nav-introduction",
+    "nav-monday",
+    "nav-week",
+    "nav-success",
+    "nav-warning",
+    "nav-control-accounting",
+    "nav-control-movement",
+    "nav-control-valuation",
+    "nav-reconstruction",
+    "nav-baseline",
+    "nav-cumulative",
+    "nav-governance",
+    "nav-grounding",
+    "nav-override",
+    "independent-agents",
+    "common-shock",
+    "first-wave",
+    "funding-timing",
+    "changed-market",
+    "second-wave",
+    "correlation-feedback",
+    "parallel-transmission",
+    "system-pressure",
+    "system-changed",
+    "system-supervision",
+    "supervision-informs",
+    "supervision-structures",
+    "human-authority-machine-attention",
+    "supervision-enforces",
+    "supervision-progression",
+    "supervision-methods",
+    "supervision-powers",
+    "capability-authority",
+    "confidence-question",
+    "confidence-expertise",
+    "confidence-evidence",
+    "confidence-capacity",
+    "confidence-independence",
+    "confidence-challenge",
+    "human",
+    "ai",
+    "both",
+    "accountability",
+    "final-question"
+  ],
+  "scenes": [
+    {
+      "reveal": "predictive-case",
+      "bad": [],
+      "scroll": [
+        1920,
+        1080
+      ]
+    },
+    {
+      "reveal": "causal-explanation",
+      "bad": [],
+      "scroll": [
+        1920,
+        1080
+      ]
+    },
+    {
+      "reveal": "source-challenge",
+      "bad": [],
+      "scroll": [
+        1920,
+        1080
+      ]
+    },
+    {
+      "reveal": "counterfactual",
+      "bad": [],
+      "scroll": [
+        1920,
+        1080
+      ]
+    },
+    {
+      "reveal": "conflict-omitted",
+      "bad": [],
+      "scroll": [
+        1920,
+        1080
+      ]
+    },
+    {
+      "reveal": "policy-question",
+      "bad": [],
+      "scroll": [
+        1920,
+        1080
+      ]
+    },
+    {
+      "reveal": "policy-finding",
+      "bad": [],
+      "scroll": [
+        1920,
+        1080
+      ]
+    },
+    {
+      "reveal": "right-restriction",
+      "bad": [],
+      "scroll": [
+        1920,
+        1080
+      ]
+    },
+    {
+      "reveal": "incomplete-reviews",
+      "bad": [],
+      "scroll": [
+        1920,
+        1080
+      ]
+    },
+    {
+      "reveal": "sdlc",
+      "bad": [],
+      "scroll": [
+        1920,
+        1080
+      ]
+    },
+    {
+      "reveal": "correction-process",
+      "bad": [],
+      "scroll": [
+        1920,
+        1080
+      ]
+    },
+    {
+      "reveal": "correction-obligations",
+      "bad": [],
+      "scroll": [
+        1920,
+        1080
+      ]
+    },
+    {
+      "reveal": "retrospective-question",
+      "bad": [],
+      "scroll": [
+        1920,
+        1080
+      ]
+    },
+    {
+      "reveal": "system-assurance",
+      "bad": [],
+      "scroll": [
+        1920,
+        1080
+      ]
+    },
+    {
+      "reveal": "escalate",
+      "bad": [],
+      "scroll": [
+        1920,
+        1080
+      ]
+    },
+    {
+      "reveal": "human-questions",
+      "bad": [],
+      "scroll": [
+        1920,
+        1080
+      ]
+    },
+    {
+      "reveal": "human-confidence",
+      "bad": [],
+      "scroll": [
+        1920,
+        1080
+      ]
+    }
+  ],
+  "errors": [],
+  "externalRequests": [],
+  "causal-explanation-gated": true,
+  "policy-question-gated": true,
+  "finalDisabled": true,
+  "native": {
+    "inner": [
+      1920,
+      1080
+    ],
+    "screen": [
+      1920,
+      1080
+    ],
+    "fullscreen": true
+  }
+}

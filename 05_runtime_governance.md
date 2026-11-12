@@ -1,3 +1,11 @@
+# Arc 2 — separate recommendation and policy authority
+
+The original `gateInput` remains unchanged: disputed evidence, recommend-only mandate, risk 76, separate illustrative prediction 74%, no verified deterministic breach in that original proposal. Its gate still returns ESCALATE. The independent policy finding has its own source, scope, effective dates, request, matching result and authorised sanctions/compliance pathway. It does not mutate the original trace or retrospectively authorise the original AI-originated action. No restriction or protective hold is executed in this demonstration.
+
+The initial classification exception and the missing entity × jurisdiction × date × exposure policy integration are separate requirements/test omissions. Domain experts were consulted; essential requirements were not translated through implementation, acceptance testing and business validation. Responsibility spans the organisation's complete lifecycle.
+
+Visible-evidence exports are scoped to the current reveal, including after Back navigation. The original classification evidence appears only after human initiation, the conditional risk test only at its own reveal, and the policy records only after the separate policy action. The full retained original run becomes exportable at the original-gate reveal, after those facts have been disclosed. Reset clears review requests and appended local results. Runtime identity/action/evidence/mandate details and SAFR qualifications remain inspectable.
+
 # V3 Package 3 — authority and accountability synthesis
 
 The settlement runtime gate and NAV release policy remain unchanged. Beat 7 never expands agent mandates in response to stress. Cumulative action budgets bound both waves; fixed role-specific rules consume changed market inputs. Routing/timing choices inside approved policies are not self-authorised policy changes. Meta-optimisation of governing strategies, permissions or objectives is a separate governance concern.

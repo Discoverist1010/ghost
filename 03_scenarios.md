@@ -1,3 +1,11 @@
+# Arc 2 — independent fictional policy basis
+
+`src/central-bank-scenario.mjs` adds separate records; it does not modify the 486-event scenario. Entity X's independently represented relationship record, fictional Jurisdiction J-7, effective-dated institutional policy INST-SAN-07 and pending new unsecured USD liquidity extension EXPOSURE-X-USD-01 must all match. The selected case date is 2 November 2026; policy validity is [1 October 2026, 1 January 2027). The policy requires restriction of this specific exposure pending authorised compliance handling. Neither central-bank relatedness nor jurisdiction alone suffices. No real institution, jurisdictional sanctions rule or legal obligation is invented.
+
+The policy verification is newly requested during review, deterministic and explicitly not another AI. The original workflow lacked this integrated check. A matched policy does not rehabilitate the original commercial-classification reasoning or grant execution rights to its author. The source challenge still only contests classification; the conditional 39 is limited to that risk calculation and does not update the original 74% prediction or certify transaction permission.
+
+Correction proposals distinguish prospective requirements/tests/approval from retrospective original-date evidence and policy review. No historical decision is overwritten, settled transaction reversed, violation presumed or policy applied before its effective date.
+
 # V3 Package 3 — conditional USD funding mechanism
 
 `src/systemic-scenario.mjs` defines six independent institutional principals: portfolio risk, FX conversion, treasury liquidity, collateral/margin, dealer liquidity, settlement/prefunding. Each has a distinct identity, objective, mandate and constraint. Two waves remain inside fixed cumulative synthetic action limits; no messages, coordination, shared controlling objective or policy rewriting occur.
