@@ -1,0 +1,31 @@
+{
+  "id": "ARC2-REVIEW-001",
+  "synthetic": true,
+  "originalRunId": "DEMO-MAIN-001",
+  "visibleThroughStep": 0,
+  "assessment": {
+    "id": "ORIGINAL-ASSESSMENT-001",
+    "actor": "Investigator",
+    "riskEventId": "EVT-0252",
+    "recommendationEventId": "EVT-0270",
+    "classification": "commercial-counterparty",
+    "risk": 76,
+    "prediction": {
+      "percent": 74,
+      "event": "material event",
+      "illustrative": true,
+      "ruleBreach": false
+    },
+    "recommendation": "Enhanced liquidity restriction",
+    "sourceEventId": "EVT-0238",
+    "calculationInputs": {
+      "selectedClassification": "commercial-counterparty",
+      "sourceCounts": {
+        "filings": 24,
+        "policySources": 8,
+        "transactions": 1240
+      }
+    },
+    "statedReasoning": "The derived commercial counterparty classification increases the original model’s assessed liquidity risk; the Investigator recommends a restriction. Recommendation is not execution authority."
+  }
+}

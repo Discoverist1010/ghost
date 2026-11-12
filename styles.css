@@ -1065,3 +1065,48 @@ button:disabled { cursor: default; opacity: .35; }
 /* Recap label belongs only to the relocated capability/authority screen. */
 .p3-finale .finale-recap { position:absolute; top:3.8cqh; left:4cqw; margin:0; color:var(--secondary); font-size:1.2cqw; font-weight:650; letter-spacing:.12em; }
 .cue--ghost .cue-content:has(.finale-recap) { animation:none; }
+
+/* Final Beat 8: five compositions, seven presenter-controlled reveals. */
+.cue--ghost .cue-content:has(.finale-v4) { animation:none; }
+.finale-v4 { max-width:1690px; margin-inline:auto; gap:32px; }
+.p3-finale.finale-v4 h1 { font-size:3cqw; line-height:1.16; }
+.finale-v4 h2,.finale-v4 p { margin:0; }
+.finale-evolution { width:91%; display:grid; grid-template-rows:14.4cqh 15.8cqh 17.6cqh; text-align:left; }
+.finale-evolution-slot { display:flex; align-items:flex-start; }
+.finale-evolution-item { width:100%; padding:16px 0; }
+.finale-evolution-item.is-revealed { animation:finale-v4-enter .45s both; }
+.finale-evolution-item h2 { font-size:1.95cqw; line-height:1.2; color:var(--cyan); font-weight:750; margin-bottom:12px; }
+.finale-evolution-item p { font-size:1.4cqw; line-height:1.4; color:var(--secondary); max-width:1440px; }
+.finale-v4-note { font-size:1.1cqw; line-height:1.4; color:var(--secondary); }
+.finale-v4-paths { width:94%; display:grid; gap:45px; margin:12px 0; text-align:left; }
+.finale-v4-paths h2 { font-size:1.2cqw; color:var(--secondary); font-weight:600; letter-spacing:.055em; }
+.finale-v4-paths .finale-row strong { font-size:1.65cqw; }
+.finale-v4-support { font-size:1.5cqw; line-height:1.5; color:var(--secondary); }
+.finale-four-dimensions { width:91%; display:grid; grid-template-columns:1fr 1fr; gap:44px 80px; margin:12px 0; text-align:left; }
+.finale-four-dimensions h2 { font-size:1.6cqw; line-height:1.25; color:var(--cyan); margin-bottom:15px; }
+.finale-four-dimensions p { font-size:1.5cqw; line-height:1.4; color:var(--text); max-width:640px; }
+.finale-confidence-together { width:94%; margin-top:15px; }
+.finale-confidence-together p { font-size:1.05cqw; color:var(--secondary); letter-spacing:.055em; margin-bottom:15px; }
+.finale-confidence-together strong { font-size:1.35cqw; line-height:1.45; color:var(--cyan); font-weight:650; }
+.finale-v4[data-composition="recap"] { gap:25px; }
+.p3-finale.finale-v4[data-composition="recap"] h1 { font-size:2.7cqw; }
+.finale-recap-table { width:100%; table-layout:fixed; border-collapse:collapse; text-align:left; }
+.finale-recap-table .recap-arc { width:22%; }
+.finale-recap-table .recap-insight { width:32%; }
+.finale-recap-table .recap-question { width:46%; }
+.finale-recap-table th,.finale-recap-table td { padding:17px 24px 17px 0; vertical-align:top; line-height:1.36; }
+.finale-recap-table thead th { font-size:1.05cqw; letter-spacing:.08em; font-weight:650; color:var(--secondary); padding-bottom:14px; }
+.finale-recap-table tbody th { font-size:1.22cqw; font-weight:750; color:var(--text); }
+.finale-recap-table tbody td { font-size:1.25cqw; color:var(--text); }
+.finale-recap-table tbody .recap-question-text { font-size:1.4cqw; color:var(--cyan); font-weight:650; padding-right:0; }
+.finale-recap-table tbody tr { border-top:1px solid #acc8d51c; }
+.p3-finale.finale-v4 .finale-last { font-size:2cqw; line-height:1.45; }
+.finale-v4 .finale-last>strong { font-size:4.5cqw; line-height:1.2; }
+@keyframes finale-v4-enter { from {opacity:0;transform:translateY(8px)} to {opacity:1;transform:none} }
+/* The definitive ending contains only its introductory statement and question. */
+.app-shell:has([data-finale="final-question"]) .narrative-indicator { display:none; }
+
+/* Opening disclosure is shown once; the deck supplies title and context. */
+.opening-disclosure { display:none; position:absolute; z-index:5; left:6cqw; right:6cqw; bottom:17.5cqh; margin:0; color:var(--secondary); font-size:1.15cqw; line-height:1.4; text-align:center; }
+.is-opening .opening-disclosure { display:block; }
+.nav-header { justify-content:flex-end; }

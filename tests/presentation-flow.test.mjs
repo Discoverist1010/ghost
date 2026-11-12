@@ -7,7 +7,7 @@ const reveals = CUES.flatMap((cue) => cue.steps);
 test("eight escalating beats keep the systemic argument inside Beat 7", () => {
   assert.equal(BEATS.length, 8);
   assert.equal(CUES.length, 8);
-  assert.equal(reveals.length - 1, 58);
+  assert.equal(reveals.length - 1, 50);
   assert.deepEqual(CUES.map((cue) => cue.id), [
     "opening", "operations", "supervision", "prediction", "material-case", "nav", "systemic", "ghost",
   ]);
@@ -62,9 +62,10 @@ test("problems land before their solutions and the story never backtracks", () =
   assert.equal(reveals.includes("parallel-transmission"),false);
   before("system-pressure", "system-changed");
   before("system-changed", "system-supervision");
-  before("system-supervision", "capability-authority");
-  before("capability-authority", "supervision-informs");
-  before("both", "final-question");
+  before("system-supervision", "supervision-informs");
+  before("supervision-enforces", "capability-authority");
+  before("supervisory-dimensions", "due-diligence");
+  before("due-diligence", "final-question");
   assert.equal(reveals.filter((id) => id === "escalate").length, 0);
 });
 
@@ -83,7 +84,7 @@ test("six independent agent objectives remain within mandate", () => {
   }
   state = transition(state, 'next');
   assert.equal(currentCue(state).id, 'ghost');
-  assert.equal(currentReveal(state), 'capability-authority');
+  assert.equal(currentReveal(state), 'supervision-informs');
 });
 
 test("retired authorise/reject actions cannot approve or change the revised arc", () => {

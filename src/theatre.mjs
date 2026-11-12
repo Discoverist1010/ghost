@@ -1,3 +1,4 @@
+import { audienceText, audienceEvidence } from './audience.mjs';
 import { renderArc2, arc2SceneStep, arc2FindingStage, arc2DetailForStep, ARC2_DETAILS, buildArc2Audit, renderArc2Evidence } from './central-bank-theatre.mjs';
 import { testSourceClassification, verifySanctionsPolicy } from './central-bank-scenario.mjs';
 import { SETTLEMENT_WORKFLOW } from './settlement-workflow.mjs';
@@ -386,11 +387,11 @@ function regulatoryDetails() {
     sourceLink('https://www.mas.gov.sg/regulation/guidelines/guidelines-on-artificial-intelligence-risk-management-for-financial-institutions', 'MAS AI Risk Management Guidelines');
 }
 function safrDetails() {
-  return detailBlock('SAFR status', 'Industry-developed runtime safeguards reference under MAS BuildFin.ai; V1.1. Ghost is a synthetic teaching abstraction, not an implementation, certification or regulatory endorsement.') + sourceLink('https://www.mas.gov.sg/-/media/mas-media-library/development/fintech/ai-safr/safr-v1-1.pdf', 'SAFR V1.1');
+  return detailBlock('SAFR status', 'Industry-developed runtime safeguards reference under MAS BuildFin.ai; V1.1. This is a synthetic teaching abstraction, not an implementation, certification or regulatory endorsement.') + sourceLink('https://www.mas.gov.sg/-/media/mas-media-library/development/fintech/ai-safr/safr-v1-1.pdf', 'SAFR V1.1');
 }
 function researchDetails() {
-  return detailBlock('External evaluation', 'UK AI Security Institute testing reproduced in Anthropic’s November 2026 Fable 5.2 / Mythos 5.2 system card, pp. 181–182, Figure AISI.1. In a controlled file-download task, the model attempted obfuscated bash scripts against an action-only monitor; repeated feedback included monitor scores and explanations. Reported evasion rose from 30% on the first attempt to 85% with iteration. Conditions matter; this is not a general AI evasion rate or evidence about Ghost or financial supervisory systems.') +
-    detailBlock('Separate concern', 'Ghost demonstrates an incomplete classification rule and omitted conflict. It does not establish deliberate concealment, reward hacking or inevitable deception by capable models. Action monitoring remains a useful defence.') +
+  return detailBlock('External evaluation', 'UK AI Security Institute testing reproduced in Anthropic’s November 2026 Fable 5.2 / Mythos 5.2 system card, pp. 181–182, Figure AISI.1. In a controlled file-download task, the model attempted obfuscated bash scripts against an action-only monitor; repeated feedback included monitor scores and explanations. Reported evasion rose from 30% on the first attempt to 85% with iteration. Conditions matter; this is not a general AI evasion rate or evidence about this demonstration or financial supervisory systems.') +
+    detailBlock('Separate concern', 'This demonstration illustrates an incomplete classification rule and omitted conflict. It does not establish deliberate concealment, reward hacking or inevitable deception by capable models. Action monitoring remains a useful defence.') +
     sourceLink('https://www.anthropic.com/claude-fable-and-mythos-5-2', 'Anthropic system-card publication') + sourceLink('https://assets.claude.com/27d60918d218125e7504bc7354c4b4626ec56b11.pdf', 'System card · UK AISI evaluation') +
     detailBlock('Technical guidance', 'OWASP Securing Agentic Applications V2, 10 November 2026: secure architectures, identity/access controls, runtime protection and assurance testing. Technical guidance, not binding financial regulation.') + sourceLink('https://genai.owasp.org/resource/securing-agentic-applications-v2/', 'OWASP Securing Agentic Applications V2');
 }
@@ -411,9 +412,9 @@ function arc2Context() {
 function arc2ResearchDetails() {
   return '<h3>System-level assurance · research context</h3><p>Singapore AISI recommends contextual system evaluation with realistic tool integrations, representative workflows and subject-matter expertise. Strong model benchmarks alone do not establish system fitness.</p>' +
     sourceLink('https://sgaisi.sg/resources/how-should-evaluators-test-ai-systems-as-opposed-to-models/','Singapore AISI · testing systems rather than models') +
-    '<p>Google DeepMind’s AI Control Roadmap discusses coverage (fraction of traffic monitored), recall (misaligned behaviours caught) and time-to-response in its internal AI-control context. Relating monitoring coverage to this missing financial-policy check is Ghost’s teaching analogy, not a claim that DeepMind evaluated financial obligations or this demonstration.</p>' +
+    '<p>Google DeepMind’s AI Control Roadmap discusses coverage (fraction of traffic monitored), recall (misaligned behaviours caught) and time-to-response in its internal AI-control context. Relating monitoring coverage to this missing financial-policy check is a teaching analogy, not a claim that DeepMind evaluated financial obligations or this demonstration.</p>' +
     sourceLink('https://deepmind.google/blog/securing-the-future-of-ai-agents/','Google DeepMind · securing internal AI systems') +
-    '<p>The 2026 Singapore Consensus is a scientific research-priorities document, not regulation or an endorsement of Ghost. Its human-oversight and AI-assisted-oversight discussions provide supporting background.</p>' +
+    '<p>The 2026 Singapore Consensus is a scientific research-priorities document, not regulation or an endorsement of this demonstration. Its human-oversight and AI-assisted-oversight discussions provide supporting background.</p>' +
     sourceLink('https://aipriorities.org/','2026 Singapore Consensus · requested reference') + sourceLink('https://aisafetypriorities.org/','2026 Singapore Consensus · verified current publication site') +
     '<details><summary>Separate adversarial monitorability evidence · UK AISI</summary>' + researchDetails() + '</details>';
 }
@@ -433,10 +434,10 @@ function drawerContent(kind) {
     detailBlock('Trace', '8 agents / 27 subtasks / 486 trace events / 3.2 simulated seconds. Records are retained for independent inspection.') +
     (['operations','supervision'].includes(currentCue(presentation).id) ? renderSettlementWorkEvidence() : '') +
     (presentation.cueIndex === 2 || currentReveal(presentation) === 'cognitive-limits' ? regulatoryDetails() : presentation.cueIndex === 3 ? detailBlock('Illustrative assessment', 'Risk coefficient 76 and separate prediction 74% are synthetic teaching values, not calibrated estimates or authority thresholds.') : '') };
-  if (kind === 'research') return { title: 'External monitoring evaluation · separate from Ghost', body: researchDetails() };
+  if (kind === 'research') return { title: 'External monitoring evaluation · separate from this demonstration', body: researchDetails() };
   if (kind === 'domain') return { title: 'Synthetic requirements and acceptance evidence', body:
     Object.entries(DOMAIN_RULE).map(([key, value]) => detailBlock(key, value)).join('') +
-    detailBlock('Failure mechanisms', 'This case: incomplete business requirement. Unsupported inference: a conclusion beyond evidence. Hallucination: invented model output. Unsuitable objective: optimisation of the wrong target. Monitor evasion: deliberate avoidance of detection. These are distinct; Ghost does not establish all five.') +
+    detailBlock('Failure mechanisms', 'This case: incomplete business requirement. Unsupported inference: a conclusion beyond evidence. Hallucination: invented model output. Unsuitable objective: optimisation of the wrong target. Monitor evasion: deliberate avoidance of detection. These are distinct; this demonstration does not establish all five.') +
     detailBlock('Design control', 'Cross-domain expertise participates in requirements, implementation, tests and change management, with explicit exception fixtures; final sign-off alone is insufficient.') + button('Inspect original evidence', 'open-source', 'drawer-button') };
 
   if (kind === "source") {
@@ -517,8 +518,8 @@ function drawerContent(kind) {
 function openDrawer(kind) {
   if (drawer.hidden) focusBeforeDrawer = document.activeElement;
   const content = drawerContent(kind);
-  drawerTitle.textContent = content.title;
-  drawerBody.innerHTML = content.body + (content.compact ? '' :
+  drawerTitle.textContent = audienceText(content.title);
+  drawerBody.innerHTML = audienceText(content.body) + (content.compact ? '' :
     '<div class="drawer-footer">' +
       (['prediction','material-case'].includes(currentCue(presentation).id) ? button('Export visible evidence','download-arc2','drawer-button') : '') +
       button("Reset presentation", "reset", "drawer-button") +
@@ -536,17 +537,17 @@ function closeDrawer() {
 
 function downloadNav() {
   if (currentCue(presentation).id !== "nav" || presentation.step < 4) return;
-  const url = URL.createObjectURL(new Blob([JSON.stringify(navRun, null, 2)], { type: 'application/json' }));
+  const url = URL.createObjectURL(new Blob([JSON.stringify(audienceEvidence(navRun), null, 2)], { type: 'application/json' }));
   const link = document.createElement('a');
   link.href = url;
-  link.download = 'ghost-nav-five-day-audit.json';
+  link.download = 'nav-five-day-audit.json';
   link.click();
   setTimeout(() => URL.revokeObjectURL(url), 1000);
 }
 
 function downloadArc2() {
-  const url=URL.createObjectURL(new Blob([JSON.stringify(buildArc2Audit(run,arc2Context()),null,2)],{type:'application/json'}));
-  const link=document.createElement('a');link.href=url;link.download='ghost-arc2-visible-evidence.json';link.click();setTimeout(()=>URL.revokeObjectURL(url),1000);
+  const url=URL.createObjectURL(new Blob([JSON.stringify(audienceEvidence(buildArc2Audit(run,arc2Context())),null,2)],{type:'application/json'}));
+  const link=document.createElement('a');link.href=url;link.download='source-review-evidence.json';link.click();setTimeout(()=>URL.revokeObjectURL(url),1000);
 }
 
 function downloadRun() {
@@ -562,11 +563,11 @@ function downloadRun() {
     naiveReviewAttempt: presentation.naiveAttempt,
     note: "Synthetic teaching simulation. Demo fingerprints are not cryptographic proof.",
   };
-  const blob = new Blob([JSON.stringify(payload, null, 2)], { type: "application/json" });
+  const blob = new Blob([JSON.stringify(audienceEvidence(payload), null, 2)], { type: "application/json" });
   const url = URL.createObjectURL(blob);
   const link = document.createElement("a");
   link.href = url;
-  link.download = "regulator-ghost-replay.json";
+  link.download = "presentation-replay.json";
   document.body.appendChild(link);
   link.click();
   link.remove();

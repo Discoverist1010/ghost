@@ -1,0 +1,156 @@
+{
+  "markup": {
+    "opening-question": "e01ae5218000b22ab15d96f5020aa1151ba0797554bcba3ec84c4586d78e4e92",
+    "answers-to-actions": "257c17903f862f9640e90a5dfbff4c529b92eaa0231742d2c5d9a46046ace699",
+    "rules": "c56380e5823b2de81dd7917e16b134bf88efa817420bc72895bf755dce0dec1f",
+    "patterns": "d2de9e9c2b1231f7fdf506c0dbbb5d38b0b3ec0d06d6c17695d112b7e268a10a",
+    "investigation": "d45e8e8f65787c799540a8d5e571aaee1af3428197b7bd2a86dde50c675f849c",
+    "agentic": "5a5b1bcac2ff57ddf015463fa5aad97d34656587034060747971c28cf4e7eeb3",
+    "failed-trade": "488c44554d652480477b06ee4ededfbd03da3dce9d254d8489a79c62df623f82",
+    "oversight-promise": "3fd3093e4f97f05560a48cb655ee769c39b624a553646ab0469154ac68e4bbe7",
+    "event-flood": "c0157d013a20ad30080c9526b13279ac182ec22e45439f00279b4c9e84cfe974",
+    "trace-overview": "14369309fa8c906103c4512af0ed33f90ba8713977bb37668bebebd4e48412f1",
+    "material-signal": "8c9d50ac2cc412056c2bf9fe52dbfe08a6cfcd6044eb1fcd274e98b06a9b9739",
+    "cognitive-limits": "afc51b9683673f05229765771bb62fbc4e0a441a8378675ef2c78531680cbc17",
+    "attention-dependency": "52fb87c899460108fc87f3b48d97abaae3708b75ec2b192c1cb7e28e4c3c24cb",
+    "predictive-case": "45da0913da46f4bd66001235f91d87fedbd6b51e13cef0e868fe06cf50d72712",
+    "causal-explanation": "ccea5a9109e0946a859e51ab729c40b44de9492d4236bdaef01d9fc32acf0b83",
+    "source-challenge": "92680a35573d0a3cc3dd59264db431607dac33ecc2af51034d70bb8faf6282f5",
+    "counterfactual": "f8f3bfc82151ff8e9b76cddb99e196e14aeecef5958403d5fdcb15f1d3ccf563",
+    "policy-question": "3737940bad164d28c19d9c46c9a49009ef645407120c29e31f35041a11fb3db1",
+    "policy-finding": "f4efb39161ff24e0960bae8a0c2a6921b634fb1769b575e5d8a6c6fa467201b9",
+    "right-restriction": "2ee845235b771f70c6c998e63441020a7792efeb846223462a58efb371a3e8d7",
+    "right-correction": "7971654811d6b6276c11c67a77e754f5ddd6971491173781b80bd7f3344a0301",
+    "right-basis": "f111eb0af585f3dd7ff14d1d5d1c36d3188341cd30b07299b5dad463f2daffdb",
+    "incomplete-reviews": "6833154bade798b55372996bdb7badc972dcd1f0dd495c9b2afa265995503185",
+    "sdlc": "5751484f1f775bd206978384c2e7f51c269b7059043e4d64874315241982f3ce",
+    "correction-process": "cfc48508f48fa7daf65232d37a7db852f14e813ebd92106e2ee728e6b029991d",
+    "retrospective-question": "025b836d538e8825e1f251a9cb776e95c525edd9eebceeccb2ff269b9284ec14",
+    "system-assurance": "283e0cc3cf9daf0e0d4919a7d275543fdf5459fd0718440a1310065dab5ba366",
+    "human-questions": "4e390928f3f30a65491874a49f10036969c8f232e9c2e82aaaa6f8b64266ddf0",
+    "nav-introduction": "1d1a8a28385f9e320c00ba50a70da26544c844a298faad55bfb43e63fd840c76",
+    "nav-monday": "9079c4314bf8175e131e377ef0a38c45d2b94bca967d5740db384a676df85783",
+    "nav-adaptation": "f574cc6c6f8e17f756bb3cc301d3bd9fbc34c97c8d0c61c685e6c7a1ab11e7a9",
+    "nav-week": "87aa69119cb42685f6b8d70231a1a07c076369d25d8f8f4bbd35b5c46d52f55a",
+    "nav-reconstruction": "196a550d93b60524ebf2ee94e3ec17ed9dfc81c860dd0014c76caa2cc4dc1afd",
+    "nav-grounding": "df628a0bd41026999b5455d3c89fa77b615bf9781bf286f0de1409e7aae372f8",
+    "nav-override": "0e900ac2f8c9589c2ad1d8ac27be5089831aa2629b6d2fca4546608d9302981e",
+    "independent-agents": "c0606da5eec98e3060f891a367aa856ae3e0dfe8eca5a67273a77aad012291c7",
+    "common-shock": "23b481890a34c643e745618413f53b5dd4b964e5327629c34583e5d57ee902ea",
+    "first-wave": "0ec6ca35e161238584463ca5b8bc53ff69aeec6f44380154e644c31ffbf5448d",
+    "changed-market": "149d97ce196095a702da5122756feddbb21139eeda9b98e126e26f7d1f8a88b8",
+    "second-wave": "6ae8acc52c3546eee041fe26225520ad008acc60e19372f29e56cf6d04c29222",
+    "correlation-feedback": "47d0c6355b657f025de2482cb9668f702991507cd968d1fc3985cba25991b766",
+    "system-pressure": "bd2a796bd1ec3054b3e7bad3eab1911ac8c42500664dbfd61e7873430dd3c8f7",
+    "system-changed": "a06d0409a9c02eabba6b0055c73c0fe2d758d0b95dfeadb136d6d9572ab230a1",
+    "system-supervision": "64ef61ca22865e376ade89a118fc116a6b822ba585aba9b3ea9dc0315ea2c13c",
+    "supervision-informs": "9dc617154258995b162bfd12b29189580717e24999704024632271a43e971bd3",
+    "supervision-structures": "8b0de77b4b8bee6fe48efae99ecdd3abe16a9c6ac13502c3aa33d09fe78cbc08",
+    "supervision-enforces": "f623321ace17ff6fbcd63df30174e936a916f94ff33976f19b125e61addbe708",
+    "capability-authority": "da33f7d60ffa16452055950cbbc47f2282e017e251f2b6a4e3ac0b5f2fac7cae",
+    "supervisory-dimensions": "d99243a3098999bb35663e3c4902b9b3d91fd351d535d77dbfcfc3155730189d",
+    "due-diligence": "3b0b40071dd2cc85175ea51747a0fec30654b7b63871cba30b4a0f1dafbc2faf",
+    "final-question": "35546d953c3b6baf1c4aa5b030ea91eaeedb02936b0132c8d97e460f2c8a25b9"
+  },
+  "sourceHashes": {
+    "scenario.mjs": "d880d8ec2e15750bef88e97c5fb0ca08238e5ac7d9b1c6bc77caa440200a84af",
+    "nav-scenario.mjs": "6e9a1e0a9147b30a6e7c901b45f242734b0d8fccd95226de2770524eebb543a8",
+    "central-bank-scenario.mjs": "e8f9d920b56592fcd975fca3c2ecacede7e2abf45a90194973b897838fb63ec2",
+    "systemic-scenario.mjs": "2d55c3a4f8d084af8470fb396666157658c4d4fce38b974b95de16af50d05e1d",
+    "settlement-workflow.mjs": "b685c15e7563652d275e44c61796189c9061e127bbd61493d1dfdef7b7f041e3",
+    "finale.mjs": "8452f79d6ef3b934b871b0621a8ad293267676c94815d507eab0523b73e9167a"
+  },
+  "cues": [
+    {
+      "id": "opening",
+      "steps": [
+        "opening-question",
+        "answers-to-actions",
+        "rules",
+        "patterns",
+        "investigation",
+        "agentic"
+      ]
+    },
+    {
+      "id": "operations",
+      "steps": [
+        "failed-trade",
+        "oversight-promise",
+        "event-flood",
+        "trace-overview",
+        "material-signal",
+        "cognitive-limits"
+      ]
+    },
+    {
+      "id": "supervision",
+      "steps": [
+        "attention-dependency"
+      ]
+    },
+    {
+      "id": "prediction",
+      "steps": [
+        "predictive-case"
+      ]
+    },
+    {
+      "id": "material-case",
+      "steps": [
+        "causal-explanation",
+        "source-challenge",
+        "counterfactual",
+        "policy-question",
+        "policy-finding",
+        "right-restriction",
+        "right-correction",
+        "right-basis",
+        "incomplete-reviews",
+        "sdlc",
+        "correction-process",
+        "retrospective-question",
+        "system-assurance",
+        "human-questions"
+      ]
+    },
+    {
+      "id": "nav",
+      "steps": [
+        "nav-introduction",
+        "nav-monday",
+        "nav-adaptation",
+        "nav-week",
+        "nav-reconstruction",
+        "nav-grounding",
+        "nav-override"
+      ]
+    },
+    {
+      "id": "systemic",
+      "steps": [
+        "independent-agents",
+        "common-shock",
+        "first-wave",
+        "changed-market",
+        "second-wave",
+        "correlation-feedback",
+        "system-pressure",
+        "system-changed",
+        "system-supervision"
+      ]
+    },
+    {
+      "id": "ghost",
+      "steps": [
+        "supervision-informs",
+        "supervision-structures",
+        "supervision-enforces",
+        "capability-authority",
+        "supervisory-dimensions",
+        "due-diligence",
+        "final-question"
+      ]
+    }
+  ]
+}

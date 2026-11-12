@@ -1,0 +1,20 @@
+{
+  "pauseFrozen": true,
+  "playResumed": true,
+  "replay": true,
+  "evolutionCounts": [
+    1,
+    2,
+    3
+  ],
+  "back": true,
+  "evidence": true,
+  "recapRows": 5,
+  "recapDirectToFinal": true,
+  "finalStable": true,
+  "nextDisabled": true,
+  "finalHeaderHidden": true,
+  "homeReset": true,
+  "fullscreen": true,
+  "exited": true
+}

@@ -5,7 +5,8 @@
   "type": "module",
   "scripts": {
     "dev": "node scripts/dev-server.mjs",
-    "test": "node --test"
+    "test": "node --test",
+    "build": "node scripts/build-standalone.mjs"
   },
   "engines": {
     "node": ">=20"

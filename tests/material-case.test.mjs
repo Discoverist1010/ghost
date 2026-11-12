@@ -153,7 +153,8 @@ test("Beat 7 retains financial channel evidence, pressure and a separate BIS kic
 
 test('stage furniture and detail language follow the eight-beat hierarchy', () => {
   const html = readFileSync(new URL('../index.html', import.meta.url), 'utf8');
-  assert.ok(html.includes('AUTONOMOUS AI <span>//</span> FUTURE SUPERVISORS'));
+  assert.doesNotMatch(html,/class="(?:opening-brand|opening-session|stage-identity)"/);
+  assert.match(html,/Public-source research\. All demonstration scenarios are synthetic and illustrative\./);
   assert.match(html, /id="contextButton"[^>]*>SHOW MORE/);
   assert.deepEqual(NARRATIVE_INDICATORS, [
     { role: 'ASSIST', label: 'HUMAN BENEFIT', value: 'PRODUCTIVITY' },
@@ -187,9 +188,9 @@ test('trace lines expose telemetry identity without implying model deliberations
 
 test("Ghost progressively synthesises supervision and preserves the exact final question", async () => {
  const {FINAL_QUESTION}=await import('../src/finale.mjs');
- assert.match(renderView('ghost',1),/AI INFORMS/);assert.doesNotMatch(renderView('ghost',1),/STRUCTURES|ENFORCED/);
- assert.match(renderView('ghost',2),/AI STRUCTURES/);assert.match(renderView('ghost',4),/AI-ENFORCED CONTROLS GOVERN/);
- assert.match(renderView('ghost',0),/MORE CAPABLE.*≠ MORE AUTHORISED/s);
+ assert.match(renderView('ghost',0),/AI INFORMS/);assert.doesNotMatch(renderView('ghost',0),/STRUCTURES|ENFORCED/);
+ assert.match(renderView('ghost',1),/AI STRUCTURES/);assert.match(renderView('ghost',2),/AI-ENFORCED CONTROLS GOVERN/);
+ assert.match(renderView('ghost',3),/MORE CAPABLE.*≠ MORE AUTHORISED/s);
  const final=renderView('ghost',CUES[7].steps.length-1);
  assert.equal(final.replace(/<[^>]*>/g,'').replace(/\s+/g,' ').trim(),FINAL_QUESTION);
  assert.doesNotMatch(final,/THANK YOU|CHECKLIST|BIS|p3-network/);
@@ -256,18 +257,11 @@ test('opening question precedes the retained message and uses the single present
   assert.doesNotMatch(html, /motion-controls|START/);
 });
 
-test('all retained screens, scenarios and styles match the pre-recap-relocation baseline',async()=>{
+test('audience debranding preserves all approved reveals, cues and immutable scenario modules',async()=>{
  const {createHash}=await import('node:crypto'),hash=v=>createHash('sha256').update(v).digest('hex');
- const c=JSON.parse(readFileSync(new URL('../artifacts/recap-relocation/baseline.json',import.meta.url),'utf8'));
- const current=CUES.flatMap(c=>c.steps);
- for(const cue of CUES)for(const [s,id]of cue.steps.entries()) {
-  let html=renderView(cue.id,s);
-  if(id==='capability-authority')html=html.replace('<p class="finale-recap">RECAP</p>','').replace(/<\/div><\/div><\/article>$/,'<p class="finale-support">CONSTRAIN · Enforce approved limits on agent actions,<br>such as holding execution pending required human approval.</p></div></div></article>');
-  assert.equal(hash(html),c.markup[id],id);
- }
-
- assert.deepEqual(Object.keys(c.markup).filter(id=>!current.includes(id)),[]);
- assert.equal(hash(readFileSync(new URL('../styles.css',import.meta.url),'utf8').slice(0,c.cssLength)),c.cssHash);
+ const c=JSON.parse(readFileSync(new URL('../artifacts/offline-integration/baseline/contracts.json',import.meta.url),'utf8'));
+ for(const cue of CUES)for(const [s,id]of cue.steps.entries())assert.equal(hash(renderView(cue.id,s)),c.markup[id],id);
+ assert.deepEqual(CUES,c.cues);
  for(const [f,h]of Object.entries(c.sourceHashes))assert.equal(hash(readFileSync(new URL('../src/'+f,import.meta.url))),h,f);
 });
 

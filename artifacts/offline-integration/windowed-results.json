@@ -1,0 +1,13 @@
+{
+  "viewport": [
+    1440,
+    1000
+  ],
+  "stage": [
+    1440,
+    810
+  ],
+  "ratio": 1.7777777777777777,
+  "disclosureAboveControls": true,
+  "overflow": false
+}

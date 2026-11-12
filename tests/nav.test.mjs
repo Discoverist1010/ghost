@@ -190,7 +190,7 @@ test('Beat 6 question holds until ordinary Next enters Beat 7', () => {
   state=transition(state,'next');
   assert.equal(currentReveal(state),'independent-agents');
   for(const _ of CUES[6].steps) state=transition(state,'next');
-  assert.equal(currentReveal(state),'capability-authority');
+  assert.equal(currentReveal(state),'supervision-informs');
 });
 
 

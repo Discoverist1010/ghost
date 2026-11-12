@@ -1,0 +1,58 @@
+[
+  {
+    "reveal": "supervision-informs",
+    "size": [
+      1440,
+      1000
+    ],
+    "clipped": []
+  },
+  {
+    "reveal": "supervision-structures",
+    "size": [
+      1440,
+      1000
+    ],
+    "clipped": []
+  },
+  {
+    "reveal": "supervision-enforces",
+    "size": [
+      1440,
+      1000
+    ],
+    "clipped": []
+  },
+  {
+    "reveal": "capability-authority",
+    "size": [
+      1440,
+      1000
+    ],
+    "clipped": []
+  },
+  {
+    "reveal": "supervisory-dimensions",
+    "size": [
+      1440,
+      1000
+    ],
+    "clipped": []
+  },
+  {
+    "reveal": "due-diligence",
+    "size": [
+      1440,
+      1000
+    ],
+    "clipped": []
+  },
+  {
+    "reveal": "final-question",
+    "size": [
+      1440,
+      1000
+    ],
+    "clipped": []
+  }
+]

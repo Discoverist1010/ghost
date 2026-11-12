@@ -1,3 +1,17 @@
+## Final Beat 8 revision — 12 November 2026 (current finale)
+
+Supersedes the earlier finale descriptions below. Five visual compositions use seven presenter-controlled reveals:
+
+1. `supervision-informs`: first arrangement on the evolution composition.
+2. `supervision-structures`: adds the second arrangement in the same fixed layout.
+3. `supervision-enforces`: adds the third arrangement; all three remain together. These are conceptual arrangements, not a mandatory adoption sequence.
+4. `capability-authority`: **MORE CAPABLE AI ≠ MORE AUTHORISED AI**; methods and permitted actions are independent dimensions.
+5. `supervisory-dimensions`: capability, influence, authority and confidence; all five conditions for human challenge appear together.
+6. `due-diligence`: **FIVE QUESTIONS BEFORE YOU DELEGATE TO AI**. Exactly five rows connect the specific exceptions, AI-on-AI, authority, NAV and systemic demonstrations to their insights and practical questions. This is Ghost's original practical synthesis, not verbatim regulatory requirements. Existing evidence drawers and public-source qualifications remain available.
+7. `final-question`: the introductory statement followed only by **WHERE DOES SUPERVISION RESIDE?** Next is disabled indefinitely; Back returns to the recap, Replay holds the ending, and Home deliberately resets.
+
+The HUMAN? / AI? / BOTH? sequence, repeated authority/attention conclusion, five separate confidence conditions and appended final definitions are consolidated. No timer advances the narrative. The complete presentation retains eight beats and has 51 principal states. Beats 1–7, their scenarios, calculations and audit evidence remain unchanged. Actual review evidence and test results are in `artifacts/final-finale/`.
+
 ## NAV revision — 12 November 2026 (current Beat 6)
 
 Supersedes the historical Package 2 sequence below for Beat 6 only. Eight principal presenter reveals: objectives → Monday publication-specific approval → approval-driven triage adaptation → five-day timeline and completed checks → retrospective specialist reconstruction → financial baseline and supervisory-influence insight → regulatory grounding → final override question. Reveal 6 uses Next once to disclose the supervisory consequence on the same scene, then Next to continue. No timer advances the narrative. The final NAV question holds until Next enters Beat 7. All other beats retain their accepted markup.

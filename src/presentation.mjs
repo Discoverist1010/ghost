@@ -11,7 +11,7 @@ export const BEATS = Object.freeze([
   'Right restriction. Wrong reason.',
   'The NAV That Became Its Own Truth',
   'When correct agents become a system',
-  'The ghost',
+  'The supervision question',
 ]);
 
 export const NARRATIVE_INDICATORS = Object.freeze([

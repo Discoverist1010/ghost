@@ -1,0 +1,125 @@
+{
+  "visited": [
+    "opening-question",
+    "answers-to-actions",
+    "rules",
+    "patterns",
+    "investigation",
+    "agentic",
+    "failed-trade",
+    "oversight-promise",
+    "event-flood",
+    "trace-overview",
+    "material-signal",
+    "cognitive-limits",
+    "attention-dependency",
+    "predictive-case",
+    "causal-explanation",
+    "source-challenge",
+    "counterfactual",
+    "policy-question",
+    "policy-finding",
+    "right-restriction",
+    "right-correction",
+    "right-basis",
+    "incomplete-reviews",
+    "sdlc",
+    "correction-process",
+    "retrospective-question",
+    "system-assurance",
+    "human-questions",
+    "nav-introduction",
+    "nav-monday",
+    "nav-adaptation",
+    "nav-week",
+    "nav-reconstruction",
+    "nav-grounding",
+    "nav-override",
+    "independent-agents",
+    "common-shock",
+    "first-wave",
+    "changed-market",
+    "second-wave",
+    "correlation-feedback",
+    "system-pressure",
+    "system-changed",
+    "system-supervision",
+    "supervision-informs",
+    "supervision-structures",
+    "supervision-enforces",
+    "capability-authority",
+    "supervisory-dimensions",
+    "due-diligence",
+    "final-question"
+  ],
+  "checks": [
+    {
+      "reveal": "supervision-informs",
+      "size": [
+        1920,
+        1080
+      ],
+      "overflow": false,
+      "clipped": []
+    },
+    {
+      "reveal": "supervision-structures",
+      "size": [
+        1920,
+        1080
+      ],
+      "overflow": false,
+      "clipped": []
+    },
+    {
+      "reveal": "supervision-enforces",
+      "size": [
+        1920,
+        1080
+      ],
+      "overflow": false,
+      "clipped": []
+    },
+    {
+      "reveal": "capability-authority",
+      "size": [
+        1920,
+        1080
+      ],
+      "overflow": false,
+      "clipped": []
+    },
+    {
+      "reveal": "supervisory-dimensions",
+      "size": [
+        1920,
+        1080
+      ],
+      "overflow": false,
+      "clipped": []
+    },
+    {
+      "reveal": "due-diligence",
+      "size": [
+        1920,
+        1080
+      ],
+      "overflow": false,
+      "clipped": []
+    },
+    {
+      "reveal": "final-question",
+      "size": [
+        1920,
+        1080
+      ],
+      "overflow": false,
+      "clipped": []
+    }
+  ],
+  "finalStable": true,
+  "nextDisabled": true,
+  "back": "due-diligence",
+  "replay": true,
+  "errors": []
+}
