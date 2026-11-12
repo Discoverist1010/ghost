@@ -113,7 +113,7 @@ test('research is system-level assurance, with UK AISI evasion separated from th
  for(const step of [3,7,8])assert.doesNotMatch(renderArc2(step),/DECEPTION|HALLUCINATION|REWARD HACK/);
 });
 test('final human questions lead to NAV only on presenter command',()=>{
- const state={...checked,step:16};assert.equal(currentReveal(state),'human-confidence');
+ const state={...checked,step:15};assert.equal(currentReveal(state),'human-confidence');
  assert.match(renderArc2(14),/WHAT IF THE HUMAN NEVER/);assert.match(renderArc2(14),/DOMAIN REQUIREMENT/);
  assert.match(renderArc2(15),/CAN THE HUMAN DISAGREE—/);
  const next=transition(state,'next');assert.equal(currentReveal(next),'nav-introduction');assert.deepEqual(transition(next,'previous'),state);
