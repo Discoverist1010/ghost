@@ -81,10 +81,10 @@ test('NAV final question only progresses on command and Back reconstructs the bo
  assert.deepEqual(transition(next,'previous'),start);
 });
 test('finale retains independent dimensions but omits only the four requested screens',()=>{
- assert.doesNotMatch(renderFinale(0),/STRUCTURES|ENFORCED/);
- assert.match(renderFinale(4),/MORE CAPABLE.*≠ MORE AUTHORISED/s);
- assert.match(renderFinale(4),/RULES.*ML.*LLMs.*AGENTS.*ADAPTIVE METHODS/s);
- assert.match(renderFinale(4),/OBSERVE.*INFORM.*PRIORITISE.*CONSTRAIN.*INTERVENE/s);
+ assert.doesNotMatch(renderFinale(1),/STRUCTURES|ENFORCED/);
+ assert.match(renderFinale(0),/MORE CAPABLE.*≠ MORE AUTHORISED/s);
+ assert.match(renderFinale(0),/RULES.*ML.*LLMs.*AGENTS.*ADAPTIVE METHODS/s);
+ assert.match(renderFinale(0),/OBSERVE.*INFORM.*PRIORITISE.*CONSTRAIN.*INTERVENE/s);
  assert.equal(FINALE_REVEALS.length,15);
  for(const id of ['supervision-progression','supervision-methods','supervision-powers','accountability'])assert.equal(FINALE_REVEALS.includes(id),false);
 });
@@ -103,11 +103,12 @@ test('exact final question is the last stable state with no automatic continuati
 });
 
 
-test('capability screen names AI and explains bounded constraints without the removed synthesis',()=>{
+test('relocated recap screen names AI and omits the removed constraint explanation',()=>{
  const stage=renderFinale(FINALE_REVEALS.indexOf('capability-authority'));
  assert.match(stage,/MORE CAPABLE AI<br><span class="amber">≠ MORE AUTHORISED/);
- assert.match(stage,/CONSTRAIN · Enforce approved limits on agent actions/);
- assert.match(stage,/holding execution pending required human approval/);
+ assert.match(stage,/<p class="finale-recap">RECAP<\/p>/);
+ assert.doesNotMatch(stage,/CONSTRAIN ·|holding execution pending/);
+ assert.equal(FINALE_REVEALS[0],'capability-authority');
  assert.doesNotMatch(stage,/Supervisory capability, supervisory influence/);
 });
 
@@ -117,4 +118,13 @@ test('closing screen replaces the accountability clause with the four supervisor
  assert.match(stage,/WHERE DOES SUPERVISION RESIDE\?/);
  assert.match(stage,/SUPERVISORY CAPABILITY, SUPERVISORY INFLUENCE, SUPERVISORY AUTHORITY AND SUPERVISORY CONFIDENCE ARE DIFFERENT THINGS\./);
  assert.doesNotMatch(stage,/WHO REMAINS ACCOUNTABLE FOR THE CONSEQUENCES/);
+});
+
+
+test('system supervisory question transitions directly into the recap, with Back intact',()=>{
+ const before={...createPresentationState(),cueIndex:6,step:CUES[6].steps.length-1};
+ assert.equal(currentReveal(before),'system-supervision');
+ const after=transition(before,'next');assert.equal(currentReveal(after),'capability-authority');
+ assert.deepEqual(transition(after,'previous'),before);
+ assert.equal(currentReveal(transition(after,'next')),'supervision-informs');
 });

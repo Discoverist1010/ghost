@@ -1061,3 +1061,7 @@ button:disabled { cursor: default; opacity: .35; }
 /* NAV correction: conclusion joins the adaptation; grounding keeps a fourth peer anchor. */
 .nav-revised .nav-adaptation-conclusion { max-width:1220px; margin:18px auto 0; font-size:37px; line-height:1.32; font-weight:650; color:var(--amber); }
 .nav-revised[data-nav-reveal="nav-grounding"] .nav-revised-reg p { margin:18px 0; }
+
+/* Recap label belongs only to the relocated capability/authority screen. */
+.p3-finale .finale-recap { position:absolute; top:3.8cqh; left:4cqw; margin:0; color:var(--secondary); font-size:1.2cqw; font-weight:650; letter-spacing:.12em; }
+.cue--ghost .cue-content:has(.finale-recap) { animation:none; }

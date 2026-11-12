@@ -33,7 +33,7 @@ function clickAction(action) {
 globalThis.window = { matchMedia: () => ({ matches: true }) };
 
 const { formatTraceLine, renderGateDetails, renderMaterialCase, renderSystemic, renderView, renderSettlementWorkEvidence } = await import("../src/theatre.mjs");
-const { CUES, NARRATIVE_INDICATORS } = await import("../src/presentation.mjs");
+const { CUES, NARRATIVE_INDICATORS, createPresentationState, currentReveal, transition } = await import("../src/presentation.mjs");
 
 test("early supervisory compression withholds later risk and authority facts", () => {
   const raw=renderView('operations',3),signal=renderView('operations',4),cognitive=renderView('operations',5),dependency=renderView('supervision',0);
@@ -141,7 +141,7 @@ test("Beat 7 shock, decisions, timing and feedback stay separately controlled", 
  assert.match(readFileSync(new URL('../styles.css',import.meta.url),'utf8'),/animation:p3-link 1s both/);
 });
 
-test("Beat 7 parallel transmission precedes pressure and a separate BIS kicker", () => {
+test("Beat 7 retains financial channel evidence, pressure and a separate BIS kicker", () => {
  const m=renderSystemic(7);assert.equal((m.match(/<section style=/g)||[]).length,3);
  for(const c of ['FX & USD FUNDING','COLLATERAL & MARGIN','SETTLEMENT & PREFUNDING'])assert.ok(m.includes(c));
  assert.doesNotMatch(m,/SYSTEM LIQUIDITY PRESSURE|NO AGENT FAILED|BIS PROJECT LOGOS/);
@@ -187,9 +187,9 @@ test('trace lines expose telemetry identity without implying model deliberations
 
 test("Ghost progressively synthesises supervision and preserves the exact final question", async () => {
  const {FINAL_QUESTION}=await import('../src/finale.mjs');
- assert.match(renderView('ghost',0),/AI INFORMS/);assert.doesNotMatch(renderView('ghost',0),/STRUCTURES|ENFORCED/);
- assert.match(renderView('ghost',1),/AI STRUCTURES/);assert.match(renderView('ghost',3),/AI-ENFORCED CONTROLS GOVERN/);
- assert.match(renderView('ghost',4),/MORE CAPABLE.*≠ MORE AUTHORISED/s);
+ assert.match(renderView('ghost',1),/AI INFORMS/);assert.doesNotMatch(renderView('ghost',1),/STRUCTURES|ENFORCED/);
+ assert.match(renderView('ghost',2),/AI STRUCTURES/);assert.match(renderView('ghost',4),/AI-ENFORCED CONTROLS GOVERN/);
+ assert.match(renderView('ghost',0),/MORE CAPABLE.*≠ MORE AUTHORISED/s);
  const final=renderView('ghost',CUES[7].steps.length-1);
  assert.equal(final.replace(/<[^>]*>/g,'').replace(/\s+/g,' ').trim(),FINAL_QUESTION);
  assert.doesNotMatch(final,/THANK YOU|CHECKLIST|BIS|p3-network/);
@@ -256,21 +256,19 @@ test('opening question precedes the retained message and uses the single present
   assert.doesNotMatch(html, /motion-controls|START/);
 });
 
-test('all remaining screens and other source modules match the pre-removal baseline', async () => {
+test('all retained screens, scenarios and styles match the pre-recap-relocation baseline',async()=>{
  const {createHash}=await import('node:crypto'),hash=v=>createHash('sha256').update(v).digest('hex');
- const c=JSON.parse(readFileSync(new URL('../artifacts/finale-removal/baseline.json',import.meta.url),'utf8'));
+ const c=JSON.parse(readFileSync(new URL('../artifacts/recap-relocation/baseline.json',import.meta.url),'utf8'));
  const current=CUES.flatMap(c=>c.steps);
  for(const cue of CUES)for(const [s,id]of cue.steps.entries()) {
   let html=renderView(cue.id,s);
-  // Normalise only the approved wording changes on this retained screen.
-  if(id==='capability-authority')html=html.replace('MORE CAPABLE AI<br>','MORE CAPABLE<br>').replace('CONSTRAIN · Enforce approved limits on agent actions,<br>such as holding execution pending required human approval.','Supervisory capability, supervisory influence<br>and supervisory authority are different things.');
-  if(id==='final-question')html=html.replace('WHERE DOES SUPERVISION RESIDE? SUPERVISORY CAPABILITY, SUPERVISORY INFLUENCE, SUPERVISORY AUTHORITY AND SUPERVISORY CONFIDENCE ARE DIFFERENT THINGS.','WHERE DOES SUPERVISION RESIDE—AND WHO REMAINS ACCOUNTABLE FOR THE CONSEQUENCES?');
+  if(id==='capability-authority')html=html.replace('<p class="finale-recap">RECAP</p>','').replace(/<\/div><\/div><\/article>$/,'<p class="finale-support">CONSTRAIN · Enforce approved limits on agent actions,<br>such as holding execution pending required human approval.</p></div></div></article>');
   assert.equal(hash(html),c.markup[id],id);
  }
 
- assert.deepEqual(Object.keys(c.markup).filter(id=>!current.includes(id)),['supervision-progression','supervision-methods','supervision-powers','accountability']);
- assert.equal(hash(readFileSync(new URL('../styles.css',import.meta.url))),c.cssHash);
- for(const [f,h] of Object.entries(c.sourceHashes))assert.equal(hash(readFileSync(new URL('../src/'+f,import.meta.url))),h,f);
+ assert.deepEqual(Object.keys(c.markup).filter(id=>!current.includes(id)),[]);
+ assert.equal(hash(readFileSync(new URL('../styles.css',import.meta.url),'utf8').slice(0,c.cssLength)),c.cssHash);
+ for(const [f,h]of Object.entries(c.sourceHashes))assert.equal(hash(readFileSync(new URL('../src/'+f,import.meta.url))),h,f);
 });
 
 test('settlement signal, cognitive limit and requested custody responsibilities remain deterministic', async () => {
@@ -291,4 +289,13 @@ test('settlement signal, cognitive limit and requested custody responsibilities 
   for(const task of run.tasks)assert.ok(evidence.includes('<strong>'+task.id+' · '+task.label+'</strong><br>'+task.actor+' · '+task.agentId));
   assert.equal(renderSettlementWorkEvidence(),evidence);
   assert.doesNotMatch(evidence,/EVT-0238|central-bank-related|76|CLASSIFICATION_CHANGED/);
+});
+
+
+test('presenter navigation skips only the retired parallel-transmission screen',()=>{
+ const step=CUES[6].steps.indexOf('correlation-feedback');
+ const before={...createPresentationState(),cueIndex:6,step};
+ const after=transition(before,'next');
+ assert.equal(currentReveal(after),'system-pressure');assert.deepEqual(transition(after,'previous'),before);
+ assert.match(renderView('systemic',after.step),/SYSTEM LIQUIDITY PRESSURE/);
 });
