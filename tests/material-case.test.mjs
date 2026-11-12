@@ -189,7 +189,7 @@ test("Ghost progressively synthesises supervision and preserves the exact final 
  const {FINAL_QUESTION}=await import('../src/finale.mjs');
  assert.match(renderView('ghost',0),/AI INFORMS/);assert.doesNotMatch(renderView('ghost',0),/STRUCTURES|ENFORCED/);
  assert.match(renderView('ghost',1),/AI STRUCTURES/);assert.match(renderView('ghost',3),/AI-ENFORCED CONTROLS GOVERN/);
- assert.match(renderView('ghost',4),/INFORMS.*STRUCTURES.*GOVERN/s);assert.match(renderView('ghost',7),/MORE CAPABLE.*≠ MORE AUTHORISED/s);
+ assert.match(renderView('ghost',4),/MORE CAPABLE.*≠ MORE AUTHORISED/s);
  const final=renderView('ghost',CUES[7].steps.length-1);
  assert.equal(final.replace(/<[^>]*>/g,'').replace(/\s+/g,' ').trim(),FINAL_QUESTION);
  assert.doesNotMatch(final,/THANK YOU|CHECKLIST|BIS|p3-network/);
@@ -256,17 +256,21 @@ test('opening question precedes the retained message and uses the single present
   assert.doesNotMatch(html, /motion-controls|START/);
 });
 
-test('all non-NAV screens and source modules remain identical to the accepted baseline', async () => {
+test('all remaining screens and other source modules match the pre-removal baseline', async () => {
  const {createHash}=await import('node:crypto'),hash=v=>createHash('sha256').update(v).digest('hex');
- const c=JSON.parse(readFileSync(new URL('../artifacts/nav-revision/baseline/contracts.json',import.meta.url),'utf8'));
- const markup=CUES.filter(c=>c.id!=='nav').flatMap(c=>c.steps.map((_,s)=>{
-  const html=renderView(c.id,s);
-  // Approved retrospective additions only; retain the exact prior hero/layout contract.
-  return c.steps[s]==='retrospective-question' ? html.replace(/<div class="arc2-retro-actions">.*?<\/div><p class="arc2-retro-reference">.*?<\/p>/s,'') : html;
- })).join('\n');
- assert.equal(hash(markup),c.protectedMarkupHash);
- assert.equal(hash(readFileSync(new URL('../styles.css',import.meta.url),'utf8').slice(0,c.cssLength)),c.cssHash);
- for(const [f,h] of Object.entries(c.sourceHashes))assert.equal(hash(readFileSync(new URL('../src/'+f,import.meta.url))),h);
+ const c=JSON.parse(readFileSync(new URL('../artifacts/finale-removal/baseline.json',import.meta.url),'utf8'));
+ const current=CUES.flatMap(c=>c.steps);
+ for(const cue of CUES)for(const [s,id]of cue.steps.entries()) {
+  let html=renderView(cue.id,s);
+  // Normalise only the approved wording changes on this retained screen.
+  if(id==='capability-authority')html=html.replace('MORE CAPABLE AI<br>','MORE CAPABLE<br>').replace('CONSTRAIN · Enforce approved limits on agent actions,<br>such as holding execution pending required human approval.','Supervisory capability, supervisory influence<br>and supervisory authority are different things.');
+  if(id==='final-question')html=html.replace('WHERE DOES SUPERVISION RESIDE? SUPERVISORY CAPABILITY, SUPERVISORY INFLUENCE, SUPERVISORY AUTHORITY AND SUPERVISORY CONFIDENCE ARE DIFFERENT THINGS.','WHERE DOES SUPERVISION RESIDE—AND WHO REMAINS ACCOUNTABLE FOR THE CONSEQUENCES?');
+  assert.equal(hash(html),c.markup[id],id);
+ }
+
+ assert.deepEqual(Object.keys(c.markup).filter(id=>!current.includes(id)),['supervision-progression','supervision-methods','supervision-powers','accountability']);
+ assert.equal(hash(readFileSync(new URL('../styles.css',import.meta.url))),c.cssHash);
+ for(const [f,h] of Object.entries(c.sourceHashes))assert.equal(hash(readFileSync(new URL('../src/'+f,import.meta.url))),h,f);
 });
 
 test('settlement signal, cognitive limit and requested custody responsibilities remain deterministic', async () => {

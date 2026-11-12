@@ -7,7 +7,7 @@ const reveals = CUES.flatMap((cue) => cue.steps);
 test("eight escalating beats keep the systemic argument inside Beat 7", () => {
   assert.equal(BEATS.length, 8);
   assert.equal(CUES.length, 8);
-  assert.equal(reveals.length - 1, 64);
+  assert.equal(reveals.length - 1, 59);
   assert.deepEqual(CUES.map((cue) => cue.id), [
     "opening", "operations", "supervision", "prediction", "material-case", "nav", "systemic", "ghost",
   ]);
@@ -62,8 +62,8 @@ test("problems land before their solutions and the story never backtracks", () =
   before("system-pressure", "system-changed");
   before("system-changed", "system-supervision");
   before("system-supervision", "supervision-informs");
-  before("supervision-powers", "accountability");
-  before("accountability", "final-question");
+  before("supervision-enforces", "capability-authority");
+  before("both", "final-question");
   assert.equal(reveals.filter((id) => id === "escalate").length, 0);
 });
 

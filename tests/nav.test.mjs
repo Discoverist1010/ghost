@@ -108,9 +108,9 @@ test('publication follows explicit policy and approval rather than a monitor byp
   assert.equal(decideNavPublication({...input,policy:{...NAV_POLICY,warningBlocksPublication:true}}).approved, false);
 });
 
-test('eight reveals withhold the retrospective comparison until after the five-day timeline', () => {
-  assert.equal(NAV_REVEALS.length,8);
-  assert.deepEqual(NAV_REVEALS,['nav-introduction','nav-monday','nav-adaptation','nav-week','nav-reconstruction','nav-baseline','nav-grounding','nav-override']);
+test('seven reveals withhold the retrospective comparison until after the five-day timeline', () => {
+  assert.equal(NAV_REVEALS.length,7);
+  assert.deepEqual(NAV_REVEALS,['nav-introduction','nav-monday','nav-adaptation','nav-week','nav-reconstruction','nav-grounding','nav-override']);
   assert.doesNotMatch(renderNav(0), /nav-check|PRIORITY REDUCED|RECONSTRUCTION/);
   assert.match(renderNav(1), /MONDAY NAV: \$100.40/);
   assert.match(renderNav(1), /MONDAY PUBLICATION ONLY/);
@@ -122,15 +122,16 @@ test('eight reveals withhold the retrospective comparison until after the five-d
   }
   assert.match(renderNav(4), /SPECIALIST RECONSTRUCTION: \$100.00/);
   assert.match(renderNavEvidence(4), /AFTER Friday publication/);
-  assert.match(renderNav(5), /YESTERDAY'S ERROR/);
-  assert.match(renderNav(5), /Human approval became an input to the AI's confidence about what no longer needed human attention\./);
-  assert.match(renderNav(5), /HUMAN AUTHORITY — APPROVE PUBLICATION/);
-  assert.match(renderNav(5), /MACHINE INFLUENCE — PRIORITISE ESCALATIONS/);
+  assert.match(renderNav(2), /Human approval became an input to the AI's confidence about what no longer needed human attention\./);
+  assert.match(renderNav(2), /TRIAGE PRIORITY 100 → 35/);
+  assert.doesNotMatch(renderNav(2), /Concern recorded\.|Bounded triage adaptation/);
+  assert.ok(!NAV_REVEALS.includes('nav-baseline'));
+  assert.ok(NAV_REVEALS.every((_,i)=>!renderNav(i).includes("YESTERDAY'S ERROR")));
 });
 
 test('NAV grounding retains distinct movement, reconciliation and valuation meanings and qualified sources', () => {
-  assert.match(renderNav(6), /WHO CHECKED THE METHOD/);
-  const evidence=renderNavEvidence(6);
+  assert.match(renderNav(5), /WHO CHECKED THE METHOD/);
+  const evidence=renderNavEvidence(5);
   for(const phrase of ['paragraph 38','not a universally applicable rule','distinct from this example','OWASP is neither an accounting standard nor a financial regulator','IOSCO','MAS','FSB']) assert.ok(evidence.includes(phrase));
   assert.match(evidence,/assumptions|valuation/);
 });
@@ -190,4 +191,24 @@ test('Beat 6 question holds until ordinary Next enters Beat 7', () => {
   assert.equal(currentReveal(state),'independent-agents');
   for(const _ of CUES[6].steps) state=transition(state,'next');
   assert.equal(currentReveal(state),'supervision-informs');
+});
+
+
+test('four grounding anchors and research-qualified controls accompany ordinary seven-reveal navigation',()=>{
+ const stage=renderNav(5),evidence=renderNavEvidence(5);
+ assert.match(stage,/SINGAPORE AISI \/ GOOGLE DEEPMIND:<\/strong> Test the complete system and unintended effects of optimisation\./);
+ assert.equal((stage.match(/<strong>/g)||[]).length,4);
+ for(const phrase of ['8 July 2026','specification gaming','AI Control Roadmap','20 May 2026','Tencent CodeBuddy','Protect material exceptions','Periodically evaluate supervisory coverage','not verbatim regulatory requirements'])assert.ok(evidence.includes(phrase),phrase);
+ for(const url of ['https://sgaisi.sg/resources/how-should-evaluators-test-ai-systems-as-opposed-to-models/','https://deepmind.google/blog/specification-gaming-the-flip-side-of-ai-ingenuity/','https://deepmind.google/blog/securing-the-future-of-ai-agents/','https://www.imda.gov.sg/'])assert.ok(evidence.includes(url));
+ assert.doesNotMatch(renderNavEvidence(4),/System evaluation and optimisation/);
+ let state={...createPresentationState(),cueIndex:5,step:4};
+ state=transition(state,'next');assert.equal(currentReveal(state),'nav-grounding');
+ state=transition(state,'next');assert.equal(currentReveal(state),'nav-override');
+ state=transition(state,'previous');assert.equal(currentReveal(state),'nav-grounding');
+});
+
+test('NAV correction preserves the complete previously accepted synthetic audit',async()=>{
+ const {readFileSync}=await import('node:fs');
+ const previous=JSON.parse(readFileSync(new URL('../artifacts/nav-correction/baseline-nav-audit.json',import.meta.url),'utf8'));
+ assert.deepEqual(buildNavScenario(),previous);
 });

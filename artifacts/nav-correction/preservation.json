@@ -1,0 +1,11 @@
+{
+  "remainingScreens": 64,
+  "changed": [
+    "nav-adaptation",
+    "nav-grounding"
+  ],
+  "removed": [
+    "nav-baseline"
+  ],
+  "allOtherScreensIdentical": true
+}

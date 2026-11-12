@@ -18,7 +18,7 @@ export const NAV_POLICY = Object.freeze({
 });
 export const NAV_REVEALS = Object.freeze([
   'nav-introduction', 'nav-monday', 'nav-adaptation', 'nav-week',
-  'nav-reconstruction', 'nav-baseline', 'nav-grounding', 'nav-override',
+  'nav-reconstruction', 'nav-grounding', 'nav-override',
 ]);
 // Bounded synthetic triage update, not model training. The defective signal is
 // publication approval: its limited scope does not validate the methodology.

@@ -1057,3 +1057,7 @@ button:disabled { cursor: default; opacity: .35; }
 .arc2-stage[data-arc2-step="11"] .arc2-retro-actions p { font-size:1.65cqw; line-height:1.4; color:var(--secondary); }
 .arc2-stage[data-arc2-step="11"] .arc2-retro-actions strong { color:var(--cyan); font-weight:750; }
 .arc2-stage[data-arc2-step="11"] .arc2-retro-reference { font-size:1.05cqw; line-height:1.4; letter-spacing:.035em; color:var(--secondary); margin-top:1.1cqh; }
+
+/* NAV correction: conclusion joins the adaptation; grounding keeps a fourth peer anchor. */
+.nav-revised .nav-adaptation-conclusion { max-width:1220px; margin:18px auto 0; font-size:37px; line-height:1.32; font-weight:650; color:var(--amber); }
+.nav-revised[data-nav-reveal="nav-grounding"] .nav-revised-reg p { margin:18px 0; }

@@ -227,11 +227,6 @@ function renderCue(forceReplay = false) {
 }
 
 function move(action) {
-  // Reveal the supervisory consequence on the same NAV scene before leaving it.
-  if (action === 'next' && currentReveal(presentation) === 'nav-baseline') {
-    const insight = stage.querySelector?.('.nav-revised-insight');
-    if (insight && !insight.open) { insight.open = true; return; }
-  }
   const next = transition(presentation, action);
   if (next === presentation) return;
   closeDrawer();
