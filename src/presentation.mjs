@@ -31,13 +31,13 @@ export const CUES = Object.freeze([
   { id: 'operations', steps: ['failed-trade', 'oversight-promise', 'event-flood', 'trace-overview', 'material-signal', 'cognitive-limits'] },
   { id: 'supervision', steps: ['attention-dependency'] },
   { id: 'prediction', steps: ['predictive-case'] },
-  { id: 'material-case', steps: ['causal-explanation','source-challenge','counterfactual','conflict-omitted','policy-question','policy-finding','right-restriction','incomplete-reviews','sdlc','correction-process','correction-obligations','retrospective-question','system-assurance','escalate','human-questions','human-confidence'] },
+  { id: 'material-case', steps: ['causal-explanation','source-challenge','counterfactual','policy-question','policy-finding','right-restriction','right-correction','right-basis','incomplete-reviews','sdlc','correction-process','correction-obligations','retrospective-question','system-assurance','escalate','human-questions','human-confidence'] },
   { id: 'nav', steps: NAV_REVEALS },
   { id: 'systemic', steps: SYSTEMIC_REVEALS },
   { id: 'ghost', steps: FINALE_REVEALS },
 ]);
 
-export const CASE_ACTIONS = Object.freeze(['CHECK ORIGINAL SOURCE','TEST SOURCE CLASSIFICATION','FOLLOW THE OMISSION','CHECK WIDER POLICY','CHECK APPLICABLE POLICY','CONTINUE','CONTINUE','FOLLOW THE DESIGN','FOLLOW THE CORRECTION','CONTINUE','LOOK BACK','TEST THE SYSTEM','CHECK ORIGINAL AUTHORITY','HUMAN CONFIDENCE','CONTINUE','CONTINUE TO NAV']);
+export const CASE_ACTIONS = Object.freeze(['CHECK ORIGINAL SOURCE','TEST SOURCE CLASSIFICATION','CHECK WIDER POLICY','3RD LEVEL CHECK','CONTINUE','CONTINUE','CONTINUE','CONTINUE','FOLLOW THE DESIGN','FOLLOW THE CORRECTION','CONTINUE','LOOK BACK','TEST THE SYSTEM','CHECK ORIGINAL AUTHORITY','HUMAN CONFIDENCE','CONTINUE','CONTINUE TO NAV']);
 
 export const SYSTEMIC_ACTIONS = Object.freeze(['SEE THE SHOCK','FOLLOW THE DECISIONS','CHECK THE TIMING','FOLLOW THE MARKET','FOLLOW THE FEEDBACK','FOLLOW THE INPUT','FOLLOW TRANSMISSION','FOLLOW THE PRESSURE','CONTINUE','ASK THE QUESTION','CONTINUE']);
 export const SYSTEMIC_ANNOUNCEMENTS = Object.freeze(['Six independent agents. Six bounded mandates. One financial system.','The external equity and USD funding shock precedes agent decisions.','Six independently governed first-wave actions remain within mandate. No coordination required.','Pending local equity proceeds and dated FX cannot meet earlier USD obligations without bridging funding.','First-wave actions change market conditions.','Changed market information feeds back before second-wave re-optimisation.','Correlation becomes feedback; objectives and policies remain unchanged.','FX and USD funding, collateral and margin, settlement and prefunding are parallel interacting channels.','System liquidity pressure may rise under constrained conditions; it is not inevitable.','No agent breached its mandate. The system changed. Project Logos is ongoing research.','Who is supervising the system?']);
@@ -60,7 +60,7 @@ export function transition(state, action) {
   if (action === 'check-source' && currentReveal(state) === 'causal-explanation') {
     return { ...state, step: 1, sourceCheck: { id:'SOURCE-REQUEST-001', initiatedBy: 'human', actor: 'Bank Compliance Agent', evidenceId: 'EV-BANK-01', sourceEventId: 'EVT-0238' } };
   }
-  if (action === 'check-policy' && currentReveal(state) === 'policy-question' && state.sourceCheck?.initiatedBy === 'human') return { ...state, step: 5, policyCheck: {id:'POLICY-REQUEST-001',initiatedBy:'human',kind:'deterministic-policy-check',scope:'EXPOSURE-X-USD-01',requestedDuring:'newly-initiated-review'} };
+  if (action === 'check-policy' && currentReveal(state) === 'policy-question' && state.sourceCheck?.initiatedBy === 'human') return { ...state, step: 4, policyCheck: {id:'POLICY-REQUEST-001',initiatedBy:'human',kind:'deterministic-policy-check',scope:'EXPOSURE-X-USD-01',requestedDuring:'newly-initiated-review'} };
   if (action === 'next') {
     if (['causal-explanation','policy-question'].includes(currentReveal(state))) return state;
     if (state.step < currentCue(state).steps.length - 1) return { ...state, step: state.step + 1 };

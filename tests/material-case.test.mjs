@@ -233,12 +233,12 @@ test("Beat 7 keeps one outer stage and explicit deterministic replay", () => {
 });
 
 test('Arc 2 system assurance replaces monitor-evasion staging without attributing deception', () => {
- const research=renderMaterialCase(12),design=renderMaterialCase(8);
+ const research=renderMaterialCase(13),design=renderMaterialCase(9);
  assert.match(research,/SINGAPORE AISI/);assert.match(research,/GOOGLE DEEPMIND/);
  assert.doesNotMatch(research,/85%|Mythos|EVASION/);
  assert.match(design,/REQUIREMENTS.*IMPLEMENTATION.*TESTING.*DOMAIN VALIDATION/s);
  assert.match(design,/THE CODE PASSED/);assert.match(design,/THE BUSINESS RULE WAS INCOMPLETE/);
- assert.match(renderMaterialCase(15),/CAN THE HUMAN DISAGREE—/);
+ assert.match(renderMaterialCase(16),/CAN THE HUMAN DISAGREE—/);
 });
 
 test('opening question precedes the retained message and uses the single presenter bar', () => {

@@ -7,12 +7,16 @@ const reveals = CUES.flatMap((cue) => cue.steps);
 test("eight escalating beats keep the systemic argument inside Beat 7", () => {
   assert.equal(BEATS.length, 8);
   assert.equal(CUES.length, 8);
-  assert.equal(reveals.length - 1, 73);
+  assert.equal(reveals.length - 1, 74);
   assert.deepEqual(CUES.map((cue) => cue.id), [
     "opening", "operations", "supervision", "prediction", "material-case", "nav", "systemic", "ghost",
   ]);
   assert.equal(new Set(reveals).size, reveals.length);
   assert.equal(reveals.includes('authority-ladder'),false);
+  assert.equal(reveals.includes('conflict-omitted'),false);
+  const correction={...createPresentationState(),cueIndex:4,step:2};
+  assert.equal(currentReveal(transition(correction,'next')),'policy-question');
+  assert.deepEqual(transition(transition(correction,'next'),'previous'),correction);
   const agents={...createPresentationState(),cueIndex:0,step:5};
   assert.equal(currentReveal(transition(agents,'next')),'failed-trade');
   assert.equal(currentReveal(transition(transition(agents,'next'),'previous')),'agentic');
@@ -83,7 +87,7 @@ test("retired authorise/reject actions cannot approve or change the revised arc"
 
 test("causal case is one beat with source and counterfactual before human authority", () => {
   let state = { ...createPresentationState(), cueIndex: 4 };
-  assert.equal(CASE_ACTIONS.length, 16);
+  assert.equal(CASE_ACTIONS.length, 17);
   assert.equal(transition(state, 'next'), state, 'Next cannot invoke a second AI');
   assert.equal(state.sourceCheck, null);
   state = transition(state, 'check-source');

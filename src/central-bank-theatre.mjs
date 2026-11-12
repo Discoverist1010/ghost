@@ -5,17 +5,23 @@ const esc=x=>String(x).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;'
 const h=(text,cls='')=>`<h1 class="${cls}">${text}</h1>`;
 const p=(text,cls='')=>`<p class="${cls}">${text}</p>`;
 const action=(label,act,cls='case-primary')=>`<button type="button" class="${cls}" data-action="${act}">${label}</button>`;
-export const ARC2_DETAILS=Object.freeze(['VIEW AI ASSESSMENT','VIEW SOURCE EVIDENCE','VIEW TEST ASSUMPTIONS','INSPECT THE OMISSION','VIEW REVIEW SCOPE','VIEW POLICY MATCH','VIEW POLICY BASIS','VIEW REVIEW COVERAGE','VIEW REQUIREMENTS & TESTS','VIEW CORRECTION PROPOSAL','VIEW CORRECTION SCOPE','VIEW HISTORICAL REVIEW','VIEW RESEARCH EVIDENCE','VIEW AUTHORITY BOUNDARY','VIEW OVERSIGHT CONDITIONS','VIEW OVERSIGHT CONDITIONS']);
-export function renderArc2(step) {
+export const ARC2_DETAILS=Object.freeze(['VIEW AI ASSESSMENT','VIEW SOURCE EVIDENCE','VIEW TEST ASSUMPTIONS','INSPECT THE OMISSION','VIEW REVIEW SCOPE','SEE WHY THE RULE APPLIES','VIEW POLICY BASIS','VIEW REVIEW COVERAGE','VIEW REQUIREMENTS & TESTS','VIEW CORRECTION PROPOSAL','VIEW CORRECTION SCOPE','VIEW HISTORICAL REVIEW','VIEW RESEARCH EVIDENCE','VIEW AUTHORITY BOUNDARY','VIEW OVERSIGHT CONDITIONS','VIEW OVERSIGHT CONDITIONS']);
+// Keep evidence phase numbering stable while omitting the retired stage reveal.
+export const arc2SceneStep = step => step < 3 ? step : step <= 5 ? step + 1 : step <= 7 ? 6 : step - 1;
+export const arc2FindingStage = step => step === 6 ? 2 : step === 7 ? 3 : 1;
+export const arc2DetailForStep = step => step === 6 ? 'VIEW TEST ASSUMPTIONS' : step === 7 ? 'SEE WHY THE RULE APPLIES' : ARC2_DETAILS[arc2SceneStep(step)];
+export function renderArc2(step, findingStage = 1) {
   let content='';
   if(step===0)content=h('WHY 76?')+p('ENTITY X · AI-DERIVED CLASSIFICATION','arc2-eyebrow')+p('COMMERCIAL COUNTERPARTY','arc2-classification cyan')+p('COMMERCIAL CLASSIFICATION → RISK 76','arc2-support');
   if(step===1)content=`<div class="arc2-source-intro">${p('HUMAN REQUESTED SOURCE VERIFICATION','arc2-eyebrow')}${h('AI #2 · BANK COMPLIANCE AGENT','arc2-source-agent')}</div><div class="arc2-source-comparison">${p('AI #1 DERIVED: <strong>COMMERCIAL COUNTERPARTY</strong>')}${p('ORIGINAL SOURCE: <strong>CENTRAL-BANK-RELATED</strong>')}</div><div class="arc2-source-result">${p('AI #2 FLAGS CONTRADICTORY EVIDENCE','arc2-support')}${p('CLASSIFICATION CONTESTED','arc2-classification amber')}${p('COUNTER-EVIDENCE CHALLENGES THE CONCLUSION. IT DOES NOT ESTABLISH FINAL TRUTH.','arc2-small')}</div>`;
   if(step===2)content=p('IF THE ORIGINAL CLASSIFICATION IS USED','arc2-eyebrow')+`<div class="arc2-counter-score"><strong class="arc2-score-before">${run.counterfactual.before}</strong><span>→</span><strong class="arc2-score-after">${run.counterfactual.after}</strong></div><div class="arc2-counter-conclusion">${h('ONE FACT CHANGED.','arc2-medium')}${p('SAME MODEL · SAME RULES · DIFFERENT CLASSIFICATION','arc2-support')}${p('CONDITIONAL CLASSIFICATION-DEPENDENT SCORE · NO PERMISSION OR SAFETY CERTIFICATION','arc2-small')}</div>`;
   if(step===3)content=h('CONFLICT OMITTED','amber')+p('THE SUMMARY WAS INCOMPLETE.','arc2-support')+p('THE ORIGINAL EVIDENCE REMAINED AVAILABLE.','arc2-support');
-  if(step===4)content=h('SO WAS THE<br>RESTRICTION WRONG?');
-  if(step===5)content=p('INDEPENDENT DETERMINISTIC POLICY CHECK','arc2-eyebrow')+h('APPLICABLE SANCTIONS-RELATED<br>POLICY FOUND','arc2-policy-title')+p('SPECIFIC EXPOSURE · EFFECTIVE-DATED INSTITUTIONAL POLICY','arc2-support')+p('PROTECTIVE RESTRICTION REQUIRES AUTHORISED COMPLIANCE HANDLING.','arc2-small');
-  if(step===6)content=h('RIGHT RESTRICTION.<br><span class="amber">WRONG REASON.</span>');
-  if(step===7)content=h('BOTH AIS MISSED<br>THE REAL RISK.')+p('AI #1 ASSESSED COUNTERPARTY RISK.','arc2-support')+p('AI #2 VERIFIED ENTITY CLASSIFICATION.','arc2-support')+p('NEITHER CHECKED THE APPLICABLE SANCTIONS RESTRICTION.','arc2-last amber');
+  if(step===4)content=h('SO WAS THE RECOMMENDED<br>RESTRICTION WRONG?')+p('WHAT IS MORE LIKELY—THE USER STOPS HERE,<br>OR ASKS THE AI TO DO A 3RD LEVEL CHECK?','arc2-support');
+  if(step===5)content=p('A SEPARATE SANCTIONS RULE CHECK','arc2-eyebrow')+h('THE SCORE FELL TO 39.<br><span class="amber">BUT A RESTRICTION<br>IS STILL REQUIRED.</span>','arc2-sanctions-title')+p("This specific exposure matches a sanctions restriction under the bank's policy.",'arc2-sanctions-support');
+  if(step===6 && findingStage===1)content=p('AI #1 · INITIAL ASSESSMENT','arc2-eyebrow')+h('RIGHT RESTRICTION.<br><span class="amber">WRONG REASON.</span>')+p('Risk 76, based on an incorrect classification.','arc2-support');
+  if(step===6 && findingStage===2)content=p('AI #2 · HUMAN-REQUESTED SOURCE CHECK','arc2-eyebrow')+h('RIGHT CORRECTION.<br><span class="amber">WRONG TO CLEAR.</span>')+p('Risk 76 → 39. But a lower score does not mean the exposure is permissible.','arc2-finding-support')+p('CLEARANCE WOULD BE AN ERRONEOUS INFERENCE.<br>AI #2 DID NOT AUTHORISE OR EXECUTE IT.','arc2-small');
+  if(step===6 && findingStage===3)content=p('INDEPENDENT POLICY CHECK','arc2-eyebrow')+h('RIGHT RESTRICTION.<br><span class="cyan">RIGHT BASIS.</span>')+p('The specific exposure matches an applicable sanctions restriction.','arc2-support');
+  if(step===7)content=h('BOTH AI MISSED<br>THE REAL RISK.')+p('AI #1 ASSESSED COUNTERPARTY RISK.','arc2-support')+p('AI #2 VERIFIED ENTITY CLASSIFICATION.','arc2-support')+p('NEITHER CHECKED THE APPLICABLE SANCTIONS RESTRICTION.','arc2-last amber');
   if(step===8)content=h('WHO DESIGNED THE<br>SUPERVISORY RULES?','arc2-design-title')+`<div class="arc2-sdlc">REQUIREMENTS <span>→</span> IMPLEMENTATION <span>→</span> TESTING <span>→</span> DOMAIN VALIDATION</div>`+p('CLASSIFICATION EXCEPTION + CROSS-DOMAIN POLICY CHECK','arc2-small')+p('THE CODE PASSED.<br>THE BUSINESS RULE WAS INCOMPLETE.','arc2-design-punch');
   if(step===9)content=h('WE CORRECTED ITS DECISION.<br><span class="amber">WE HAVE NOT YET CORRECTED<br>HOW IT DECIDES.</span>','arc2-correction-title');
   if(step===10)content=`<div class="arc2-obligations"><section>${h('PROSPECTIVE','cyan')}${p('CORRECT THE REUSABLE RULES.','arc2-support')}${p('Domain expertise · integrated policy checks<br>Complete-workflow testing before reuse','arc2-small')}</section><section>${h('RETROSPECTIVE','amber')}${p('REVIEW EARLIER DECISIONS.','arc2-support')}${p('Original-date evidence and policy<br>Authorised review · preserved records','arc2-small')}</section></div>`;
@@ -24,8 +30,9 @@ export function renderArc2(step) {
   if(step===13)content=p('ORIGINAL AI PROPOSAL','arc2-eyebrow')+`<div class="arc2-gate-facts"><span>EVIDENCE: <strong>DISPUTED</strong></span><span>MANDATE: <strong>RECOMMEND ONLY</strong></span></div>`+`<h1 class="hero-verdict mega amber">${evaluateGate(run.gateInput).disposition}</h1>`+p('RESTRICTION NOT EXECUTED','arc2-gate-restraint')+p("THE SYSTEM DOESN'T NEED TO KNOW WHO IS RIGHT<br>TO KNOW IT SHOULD NOT ACT.",'arc2-gate-principle');
   if(step===14)content=h('WHAT IF THE HUMAN NEVER<br>ASKED AI #2 TO CHECK?','arc2-human-title')+p('WHAT IF THE DOMAIN REQUIREMENT<br>WAS NEVER BUILT INTO THE SYSTEM?','arc2-human-second amber');
   if(step===15)content=h('CAN THE HUMAN DISAGREE—<br>AND KNOW WHAT ELSE<br>TO QUESTION?')+p('EXPERTISE · EVIDENCE · CAPACITY<br>INDEPENDENCE · CONFIDENCE','arc2-support');
-  const primary=step===0?action('CHECK ORIGINAL SOURCE →','check-source'):step===1?action('TEST SOURCE CLASSIFICATION →','next'):step===4?action('CHECK APPLICABLE POLICY →','check-policy'):'';
-  const secondary=action(ARC2_DETAILS[step],'open-arc2','case-secondary');
+  const primary=step===0?action('CHECK ORIGINAL SOURCE →','check-source'):step===1?action('TEST SOURCE CLASSIFICATION →','next'):step===4?action('3RD LEVEL CHECK →','check-policy'):'';
+  const detail=step===6&&findingStage===2?'VIEW TEST ASSUMPTIONS':step===6&&findingStage===3?'SEE WHY THE RULE APPLIES':ARC2_DETAILS[step];
+  const secondary=action(detail,'open-arc2','case-secondary');
   return `<div class="arc2-stage" data-arc2-step="${step}"><div class="arc2-content">${content}</div><div class="case-controls">${primary}${secondary}</div></div>`;
 }
 export function buildArc2Audit(originalRun,{step=-1,sourceRequest=null,challenge=null,classificationTest=null,policyRequest=null,policyResult=null}={}) {
@@ -42,7 +49,16 @@ export function buildArc2Audit(originalRun,{step=-1,sourceRequest=null,challenge
   if(step>=13)audit.originalRuntimeGate={input:structuredClone(originalRun.gateInput),result:evaluateGate(originalRun.gateInput),executed:false,separatePolicyPathway:'The independently verified policy must go through its own authorised sanctions/compliance control. It does not modify or retrospectively authorise this original AI proposal.'};
   return audit;
 }
+export function renderSanctionsRuleEvidence() {
+  const date = value => new Date(value+'T00:00:00Z').toLocaleDateString('en-GB',{day:'numeric',month:'long',year:'numeric',timeZone:'UTC'});
+  const entity='Entity X — '+ARC2_ENTITY.relationship+'; '+ARC2_JURISDICTION.name+'.';
+  const rule='Fictional bank policy '+ARC2_POLICY.id+' v'+ARC2_POLICY.version+', effective '+date(ARC2_POLICY.effectiveFrom)+' to '+date(ARC2_POLICY.effectiveUntil)+' (exclusive). Applies to '+ARC2_EXPOSURE.id+': a new unsecured USD liquidity extension dated '+date(ARC2_EXPOSURE.asOf)+'.';
+  const requiredAction=ARC2_POLICY.scope.split('. ')[0]+'.';
+  return '<dl class="arc2-policy-evidence"><dt>1. Entity</dt><dd>'+esc(entity)+'</dd><dt>2. Applicable Rule</dt><dd>'+esc(rule)+'</dd><dt>3. Required Action</dt><dd>'+esc(requiredAction)+'</dd></dl>';
+}
+
 export function renderArc2Evidence(originalRun,context) {
+  if(context.step===5 || context.step===6 && context.findingStage===3)return renderSanctionsRuleEvidence();
   const audit=buildArc2Audit(originalRun,context);
   const step=context.step;
   let body='<p>Progressively disclosed, independently attributable synthetic records. Original trace and risk history remain unchanged.</p>';

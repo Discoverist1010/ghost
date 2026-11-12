@@ -1,4 +1,4 @@
-import { renderArc2, ARC2_DETAILS, buildArc2Audit, renderArc2Evidence } from './central-bank-theatre.mjs';
+import { renderArc2, arc2SceneStep, arc2FindingStage, arc2DetailForStep, ARC2_DETAILS, buildArc2Audit, renderArc2Evidence } from './central-bank-theatre.mjs';
 import { testSourceClassification, verifySanctionsPolicy } from './central-bank-scenario.mjs';
 import { SETTLEMENT_WORKFLOW } from './settlement-workflow.mjs';
 import { renderSystemic, renderSystemicBody, renderSystemicEvidence } from './systemic-theatre.mjs';
@@ -81,7 +81,7 @@ function renderTree() {
     ).join('') + '</div></div>';
 }
 
-export function renderMaterialCase(step) { return renderArc2(step); }
+export function renderMaterialCase(step) { return renderArc2(arc2SceneStep(step),arc2FindingStage(step)); }
 
 const gateChecks = [
   ["IDENTITY + MANDATE", run.gateInput.verifiedIdentity && run.gateInput.mandate === "recommend" ? "VERIFIED ✓ · RECOMMEND ONLY" : "NOT VERIFIED"],
@@ -175,7 +175,7 @@ function detailAction(id, step) {
   if (id === "operations") return ["SHOW MORE", "open-evidence"];
   if (id === "supervision") return ["SHOW MORE", "open-trust"];
   if (id === "prediction") return ['VIEW AI ASSESSMENT','open-arc2'];
-  if (id === "material-case") return [ARC2_DETAILS[step], 'open-arc2'];
+  if (id === "material-case") return [arc2DetailForStep(step), 'open-arc2'];
   if (id === "nav") return ["SHOW MORE", "open-nav"];
   if (id === "systemic") return ["SHOW MORE", "open-systemic"];
   if (id === 'ghost' && step !== CUES[7].steps.length - 1) return ['SHOW MORE', 'open-finale'];
@@ -404,7 +404,7 @@ export function renderSettlementWorkEvidence() {
 }
 
 function arc2Context() {
-  return {step:currentCue(presentation).id === 'prediction' ? -1 : presentation.step, sourceRequest:presentation.sourceCheck,challenge:sourceChallenge,classificationTest,policyRequest:presentation.policyCheck,policyResult};
+  return {step:currentCue(presentation).id === 'prediction' ? -1 : arc2SceneStep(presentation.step), findingStage:arc2FindingStage(presentation.step),sourceRequest:presentation.sourceCheck,challenge:sourceChallenge,classificationTest,policyRequest:presentation.policyCheck,policyResult};
 }
 function arc2ResearchDetails() {
   return '<h3>System-level assurance · research context</h3><p>Singapore AISI recommends contextual system evaluation with realistic tool integrations, representative workflows and subject-matter expertise. Strong model benchmarks alone do not establish system fitness.</p>' +
@@ -419,7 +419,7 @@ function arc2ResearchDetails() {
 function drawerContent(kind) {
   if (['prediction','material-case'].includes(currentCue(presentation).id)) {
     const context=arc2Context();
-    return {title:context.step<0?'AI Investigator assessment':ARC2_DETAILS[context.step],body:renderArc2Evidence(run,context)+(context.step>=12?arc2ResearchDetails():'')+(context.step>=13?renderGateDetails()+safrDetails():'')};
+    return {title:context.step<0?'AI Investigator assessment':arc2DetailForStep(presentation.step),compact:context.step===5 || context.step===6 && context.findingStage===3,body:renderArc2Evidence(run,context)+(context.step>=12?arc2ResearchDetails():'')+(context.step>=13?renderGateDetails()+safrDetails():'')};
   }
 
   if (kind === 'nav') return { title: 'NAV evidence · ' + navRun.id, body: renderNavEvidence(presentation.step) };
@@ -516,11 +516,11 @@ function openDrawer(kind) {
   if (drawer.hidden) focusBeforeDrawer = document.activeElement;
   const content = drawerContent(kind);
   drawerTitle.textContent = content.title;
-  drawerBody.innerHTML = content.body +
+  drawerBody.innerHTML = content.body + (content.compact ? '' :
     '<div class="drawer-footer">' +
       (['prediction','material-case'].includes(currentCue(presentation).id) ? button('Export visible evidence','download-arc2','drawer-button') : '') +
       button("Reset presentation", "reset", "drawer-button") +
-    "</div>";
+    "</div>");
   drawer.hidden = false;
   drawer.querySelector(".drawer-close").focus();
 }

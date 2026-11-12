@@ -1010,4 +1010,11 @@ button:disabled { cursor: default; opacity: .35; }
 .cue--prediction .arc2-assessment-context { font-size:1.4cqw; max-width:76cqw; line-height:1.4; }
 .arc2-audit { font-size:17px; line-height:1.5; white-space:pre-wrap; overflow-wrap:anywhere; }
 @keyframes arc2-score-demote { from {opacity:1} to {opacity:.5} }
+.arc2-content h1.arc2-sanctions-title { font-size:3.9cqw; line-height:1.18; }
+.arc2-content .arc2-sanctions-support { max-width:70cqw; font-size:1.7cqw; line-height:1.4; color:var(--secondary); }
+.arc2-policy-evidence { margin:0; }
+.arc2-policy-evidence dt { color:var(--text); font-size:26px; font-weight:750; margin:28px 0 12px; }
+.arc2-policy-evidence dd { margin:0; color:var(--secondary); font-size:23px; line-height:1.5; }
 @media(prefers-reduced-motion:reduce) { .arc2-stage * { animation-duration:.01ms!important; animation-delay:0ms!important; } }
+
+.arc2-content .arc2-finding-support { max-width:70cqw; font-size:1.85cqw; line-height:1.4; color:var(--secondary); }

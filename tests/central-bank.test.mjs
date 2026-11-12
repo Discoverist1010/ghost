@@ -9,7 +9,7 @@ const why={...createPresentationState(),cueIndex:4,step:0};
 const requested=transition(why,'check-source');
 const challenge=submitSourceChallenge(run,requested.sourceCheck);
 const calculation=testSourceClassification(run,challenge);
-const question={...requested,step:4};
+const question={...requested,step:3};
 const checked=transition(question,'check-policy');
 const result=verifySanctionsPolicy({request:checked.policyCheck});
 const context={sourceRequest:requested.sourceCheck,challenge,classificationTest:calculation,policyRequest:checked.policyCheck,policyResult:result};
@@ -47,6 +47,9 @@ test('WHY 76 and source comparison withhold later discoveries',()=>{
 });
 test('policy verification is a separate explicit action and deterministic attributed result',()=>{
  assert.equal(transition(question,'next'),question);assert.equal(question.policyCheck,null);
+ assert.match(renderArc2(4),/SO WAS THE RECOMMENDED<br>RESTRICTION WRONG/);
+ assert.match(renderArc2(4),/WHAT IS MORE LIKELY—THE USER STOPS HERE/);
+ assert.match(renderArc2(4),/>3RD LEVEL CHECK →<\/button>/);
  assert.equal(currentReveal(checked),'policy-finding');assert.equal(checked.policyCheck.kind,'deterministic-policy-check');
  assert.equal(result.status,'MATCH_REQUIRES_AUTHORISED_HANDLING');assert.equal(result.isAI,false);assert.equal(result.executed,false);
  assert.equal(result.requestId,checked.policyCheck.id);assert.equal(result.policyId,ARC2_POLICY.id);assert.equal(result.exposureId,ARC2_EXPOSURE.id);
@@ -110,8 +113,44 @@ test('research is system-level assurance, with UK AISI evasion separated from th
  for(const step of [3,7,8])assert.doesNotMatch(renderArc2(step),/DECEPTION|HALLUCINATION|REWARD HACK/);
 });
 test('final human questions lead to NAV only on presenter command',()=>{
- const state={...checked,step:15};assert.equal(currentReveal(state),'human-confidence');
+ const state={...checked,step:16};assert.equal(currentReveal(state),'human-confidence');
  assert.match(renderArc2(14),/WHAT IF THE HUMAN NEVER/);assert.match(renderArc2(14),/DOMAIN REQUIREMENT/);
  assert.match(renderArc2(15),/CAN THE HUMAN DISAGREE—/);
  const next=transition(state,'next');assert.equal(currentReveal(next),'nav-introduction');assert.deepEqual(transition(next,'previous'),state);
+});
+
+test('sanctions discovery uses the approved hierarchy and only three audience-facing evidence fields',()=>{
+ const screen=renderArc2(5);
+ assert.match(screen,/A SEPARATE SANCTIONS RULE CHECK/);
+ assert.match(screen,/THE SCORE FELL TO 39/);
+ assert.match(screen,/<span class="amber">BUT A RESTRICTION<br>IS STILL REQUIRED/);
+ assert.match(screen,/This specific exposure matches a sanctions restriction under the bank's policy\./);
+ assert.match(screen,/SEE WHY THE RULE APPLIES/);
+ assert.doesNotMatch(screen,/RIGHT RESTRICTION|WRONG REASON|APPLICABLE SANCTIONS-RELATED/);
+ const evidence=renderArc2Evidence(run,{...context,step:5});
+ assert.deepEqual([...evidence.matchAll(/<dt>(.*?)<\/dt>/g)].map(m=>m[1]),['1. Entity','2. Applicable Rule','3. Required Action']);
+ assert.equal((evidence.match(/<dd>/g)||[]).length,3);
+ assert.match(evidence,/Entity X/);assert.match(evidence,/INST-SAN-07/);assert.match(evidence,/EXPOSURE-X-USD-01/);assert.match(evidence,/1 October 2026/);
+ assert.doesNotMatch(evidence,/<pre|<details|<h3|Progressively disclosed|conditional 39/);
+ assert.equal(buildArc2Audit(run,{...context,step:5}).policyResult.status,'MATCH_REQUIRES_AUTHORISED_HANDLING');
+ assert.equal(buildArc2Audit(run,{...context,step:5}).policyResult.executed,false);
+});
+
+test('three findings advance directly to incomplete reviews without an extra synthesis', async()=>{
+ const {arc2SceneStep,arc2FindingStage}=await import('../src/central-bank-theatre.mjs');
+ const ids=CUES[4].steps;const start=ids.indexOf('right-restriction');
+ assert.deepEqual(ids.slice(start,start+5),['right-restriction','right-correction','right-basis','incomplete-reviews','sdlc']);
+ let state={...checked,step:start};
+ const stages=[];
+ for(const nextId of ['right-correction','right-basis','incomplete-reviews']){
+  const old=state;stages.push(renderArc2(arc2SceneStep(state.step),arc2FindingStage(state.step)));
+  state=transition(state,'next');assert.equal(currentReveal(state),nextId);assert.deepEqual(transition(state,'previous'),old);
+ }
+ assert.match(stages[0],/AI #1 · INITIAL ASSESSMENT/);assert.match(stages[0],/RIGHT RESTRICTION.*WRONG REASON/s);
+ assert.match(stages[1],/AI #2 · HUMAN-REQUESTED SOURCE CHECK/);assert.match(stages[1],/RIGHT CORRECTION.*WRONG TO CLEAR/s);
+ assert.match(stages[1],/CLEARANCE WOULD BE AN ERRONEOUS INFERENCE/);assert.match(stages[1],/AI #2 DID NOT AUTHORISE OR EXECUTE IT/);
+ assert.match(stages[2],/INDEPENDENT POLICY CHECK/);assert.match(stages[2],/RIGHT RESTRICTION.*RIGHT BASIS/s);
+ assert.doesNotMatch(stages.join(''),/THREE CHECKS|TWO INCOMPLETE ANSWERS|WHY DID DISCOVERING/);
+ const evidence=renderArc2Evidence(run,{...context,step:6,findingStage:3});assert.equal((evidence.match(/<dt>/g)||[]).length,3);
+ assert.equal(buildArc2Audit(run,{...context,step:6}).policyResult.executed,false);
 });
