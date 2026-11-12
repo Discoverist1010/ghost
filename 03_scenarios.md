@@ -1,3 +1,9 @@
+## NAV revision — 12 November 2026 (current synthetic scenario)
+
+Asset A remains USD 100m. Observable proxy levels rise 0.8% daily; reported Asset B compounds its prior reported value by that movement, with proxy suitability unresolved. Two million units produce Friday NAV 102.0322570256384. The later independent specialist reconstruction remains USD 100 per unit; difference 2.0322570256384065%. Daily movements remain below the fictional 1% movement threshold, which is not regulatory NAV-error tolerance.
+
+Monday's human approval covers that publication only, pending specialist verification. A deterministic Tuesday feedback update generalises this limited approval: synthetic confidence increases from 0 to 0.65 and priority becomes round(100 × (1−0.65)) = 35, below the synthetic prominence threshold of 50. Without the approval priority stays 100. Tuesday–Friday signals remain unresolved in the audit; ordinary publication approvals are separate from specialist findings. The regenerated 37-event NAV audit preserves warning-before-approval chronology and separate actors. Earlier Package 2 audit artifacts remain historical records.
+
 # Arc 2 — independent fictional policy basis
 
 `src/central-bank-scenario.mjs` adds separate records; it does not modify the 486-event scenario. Entity X's independently represented relationship record, fictional Jurisdiction J-7, effective-dated institutional policy INST-SAN-07 and pending new unsecured USD liquidity extension EXPOSURE-X-USD-01 must all match. The selected case date is 2 November 2026; policy validity is [1 October 2026, 1 January 2027). The policy requires restriction of this specific exposure pending authorised compliance handling. Neither central-bank relatedness nor jurisdiction alone suffices. No real institution, jurisdictional sanctions rule or legal obligation is invented.

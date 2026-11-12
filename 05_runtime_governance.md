@@ -1,3 +1,7 @@
+## NAV triage authority — 12 November 2026
+
+Beat 6's supervisor may adapt exception priority from human review outcomes. It cannot change valuation policy, waive mandatory controls, independently approve publication or close the concern through publication approval. The synthetic failure generalises Monday-only provisional approval into reduced attention for an unresolved methodology issue. Valuation, triage, human approval and release remain distinct actors. Specialist resolution requires its own attributed finding and evidence. No general training pipeline or unrestricted self-modification is implemented. Other runtime gates are unchanged.
+
 # Arc 2 — separate recommendation and policy authority
 
 The original `gateInput` remains unchanged: disputed evidence, recommend-only mandate, risk 76, separate illustrative prediction 74%, no verified deterministic breach in that original proposal. Its gate still returns ESCALATE. The independent policy finding has its own source, scope, effective dates, request, matching result and authorised sanctions/compliance pathway. It does not mutate the original trace or retrospectively authorise the original AI-originated action. No restriction or protective hold is executed in this demonstration.

@@ -1,0 +1,446 @@
+
+> regulator-ghost@0.1.0 test
+> node --test
+
+TAP version 13
+# Subtest: original trace, event identity and initial 76/74 assessment survive the new policy review
+ok 1 - original trace, event identity and initial 76/74 assessment survive the new policy review
+  ---
+  duration_ms: 14.369513
+  type: 'test'
+  ...
+# Subtest: source verification requires the explicit human action and retains attributed challenge evidence
+ok 2 - source verification requires the explicit human action and retains attributed challenge evidence
+  ---
+  duration_ms: 0.45038
+  type: 'test'
+  ...
+# Subtest: conditional recalculation changes only the classification-dependent coefficient
+ok 3 - conditional recalculation changes only the classification-dependent coefficient
+  ---
+  duration_ms: 0.550182
+  type: 'test'
+  ...
+# Subtest: WHY 76 and source comparison withhold later discoveries
+ok 4 - WHY 76 and source comparison withhold later discoveries
+  ---
+  duration_ms: 0.947116
+  type: 'test'
+  ...
+# Subtest: policy verification is a separate explicit action and deterministic attributed result
+ok 5 - policy verification is a separate explicit action and deterministic attributed result
+  ---
+  duration_ms: 0.41575
+  type: 'test'
+  ...
+# Subtest: a policy record and verified source, entity, jurisdiction and exposure are all required
+ok 6 - a policy record and verified source, entity, jurisdiction and exposure are all required
+  ---
+  duration_ms: 0.573957
+  type: 'test'
+  ...
+# Subtest: effective dates apply to the exposure date and never retroactively
+ok 7 - effective dates apply to the exposure date and never retroactively
+  ---
+  duration_ms: 0.460439
+  type: 'test'
+  ...
+# Subtest: neither central-bank relationship nor jurisdiction alone establishes a protective restriction
+ok 8 - neither central-bank relationship nor jurisdiction alone establishes a protective restriction
+  ---
+  duration_ms: 0.597171
+  type: 'test'
+  ...
+# Subtest: independent policy does not grant the original AI execution authority or rewrite its reasoning
+ok 9 - independent policy does not grant the original AI execution authority or rewrite its reasoning
+  ---
+  duration_ms: 3.087863
+  type: 'test'
+  ...
+# Subtest: the two AI review scopes are distinct and design omissions are explicit
+ok 10 - the two AI review scopes are distinct and design omissions are explicit
+  ---
+  duration_ms: 1.059613
+  type: 'test'
+  ...
+# Subtest: prospective and retrospective proposals do not change historical decisions or execute remediation
+ok 11 - prospective and retrospective proposals do not change historical decisions or execute remediation
+  ---
+  duration_ms: 0.514917
+  type: 'test'
+  ...
+# Subtest: drawers and exports withhold source, counterfactual and policy findings until approved reveals
+ok 12 - drawers and exports withhold source, counterfactual and policy findings until approved reveals
+  ---
+  duration_ms: 4.382137
+  type: 'test'
+  ...
+# Subtest: research is system-level assurance, with UK AISI evasion separated from this cause
+ok 13 - research is system-level assurance, with UK AISI evasion separated from this cause
+  ---
+  duration_ms: 1.033126
+  type: 'test'
+  ...
+# Subtest: final human questions lead to NAV only on presenter command
+ok 14 - final human questions lead to NAV only on presenter command
+  ---
+  duration_ms: 0.272419
+  type: 'test'
+  ...
+# Subtest: sanctions discovery uses the approved hierarchy and only three audience-facing evidence fields
+ok 15 - sanctions discovery uses the approved hierarchy and only three audience-facing evidence fields
+  ---
+  duration_ms: 28.822949
+  type: 'test'
+  ...
+# Subtest: three findings advance directly to incomplete reviews without an extra synthesis
+ok 16 - three findings advance directly to incomplete reviews without an extra synthesis
+  ---
+  duration_ms: 1.152409
+  type: 'test'
+  ...
+# Subtest: early supervisory compression withholds later risk and authority facts
+ok 17 - early supervisory compression withholds later risk and authority facts
+  ---
+  duration_ms: 33.765564
+  type: 'test'
+  ...
+# Subtest: human challenge precedes a conditional classification test without premature source disclosure
+ok 18 - human challenge precedes a conditional classification test without premature source disclosure
+  ---
+  duration_ms: 0.678286
+  type: 'test'
+  ...
+# Subtest: counterfactual view leaves deterministic evidence and rules untouched
+ok 19 - counterfactual view leaves deterministic evidence and rules untouched
+  ---
+  duration_ms: 6.112307
+  type: 'test'
+  ...
+# Subtest: source review makes the two AI scopes and uncertainty visually distinct
+ok 20 - source review makes the two AI scopes and uncertainty visually distinct
+  ---
+  duration_ms: 0.907624
+  type: 'test'
+  ...
+# Subtest: human judgement stays uncertain while the runtime gate owns execution authority
+ok 21 - human judgement stays uncertain while the runtime gate owns execution authority
+  ---
+  duration_ms: 0.992651
+  type: 'test'
+  ...
+# Subtest: projection stage cannot scroll and counterfactual motion has a causal sequence
+ok 22 - projection stage cannot scroll and counterfactual motion has a causal sequence
+  ---
+  duration_ms: 0.748235
+  type: 'test'
+  ...
+# Subtest: Beat 7 has one dominant framing and six independently mandated agents
+ok 23 - Beat 7 has one dominant framing and six independently mandated agents
+  ---
+  duration_ms: 0.722988
+  type: 'test'
+  ...
+# Subtest: Beat 7 shock, decisions, timing and feedback stay separately controlled
+ok 24 - Beat 7 shock, decisions, timing and feedback stay separately controlled
+  ---
+  duration_ms: 1.341349
+  type: 'test'
+  ...
+# Subtest: Beat 7 parallel transmission precedes pressure and a separate BIS kicker
+ok 25 - Beat 7 parallel transmission precedes pressure and a separate BIS kicker
+  ---
+  duration_ms: 0.777409
+  type: 'test'
+  ...
+# Subtest: stage furniture and detail language follow the eight-beat hierarchy
+ok 26 - stage furniture and detail language follow the eight-beat hierarchy
+  ---
+  duration_ms: 4.779248
+  type: 'test'
+  ...
+# Subtest: trace lines expose telemetry identity without implying model deliberations
+ok 27 - trace lines expose telemetry identity without implying model deliberations
+  ---
+  duration_ms: 1.755059
+  type: 'test'
+  ...
+# Subtest: Ghost progressively synthesises supervision and preserves the exact final question
+ok 28 - Ghost progressively synthesises supervision and preserves the exact final question
+  ---
+  duration_ms: 0.609142
+  type: 'test'
+  ...
+# Subtest: keyboard advances through every stage without changing the eight-beat contract
+ok 29 - keyboard advances through every stage without changing the eight-beat contract
+  ---
+  duration_ms: 4.864556
+  type: 'test'
+  ...
+# Subtest: Beat 7 keeps one outer stage and explicit deterministic replay
+ok 30 - Beat 7 keeps one outer stage and explicit deterministic replay
+  ---
+  duration_ms: 2.256982
+  type: 'test'
+  ...
+# Subtest: Arc 2 system assurance replaces monitor-evasion staging without attributing deception
+ok 31 - Arc 2 system assurance replaces monitor-evasion staging without attributing deception
+  ---
+  duration_ms: 0.362604
+  type: 'test'
+  ...
+# Subtest: opening question precedes the retained message and uses the single presenter bar
+ok 32 - opening question precedes the retained message and uses the single presenter bar
+  ---
+  duration_ms: 0.675479
+  type: 'test'
+  ...
+# Subtest: all non-NAV screens and source modules remain identical to the accepted baseline
+ok 33 - all non-NAV screens and source modules remain identical to the accepted baseline
+  ---
+  duration_ms: 6.951081
+  type: 'test'
+  ...
+# Subtest: settlement signal, cognitive limit and requested custody responsibilities remain deterministic
+ok 34 - settlement signal, cognitive limit and requested custody responsibilities remain deterministic
+  ---
+  duration_ms: 2.004933
+  type: 'test'
+  ...
+# Subtest: NAV arithmetic compounds the reported hard-to-value asset without rounding inputs
+ok 35 - NAV arithmetic compounds the reported hard-to-value asset without rounding inputs
+  ---
+  duration_ms: 5.193039
+  type: 'test'
+  ...
+# Subtest: the independent specialist benchmark is retrospective and the cumulative difference is derived
+ok 36 - the independent specialist benchmark is retrospective and the cumulative difference is derived
+  ---
+  duration_ms: 3.168978
+  type: 'test'
+  ...
+# Subtest: movement checking measures consecutive NAV changes, not regulatory error tolerance
+ok 37 - movement checking measures consecutive NAV changes, not regulatory error tolerance
+  ---
+  duration_ms: 0.612924
+  type: 'test'
+  ...
+# Subtest: reconciliation proves recorded arithmetic while leaving the pricing-method question open
+ok 38 - reconciliation proves recorded arithmetic while leaving the pricing-method question open
+  ---
+  duration_ms: 0.403315
+  type: 'test'
+  ...
+# Subtest: each advisory warning precedes the human approval and publication in an attributable audit
+ok 39 - each advisory warning precedes the human approval and publication in an attributable audit
+  ---
+  duration_ms: 2.384303
+  type: 'test'
+  ...
+# Subtest: publication follows explicit policy and approval rather than a monitor bypass
+ok 40 - publication follows explicit policy and approval rather than a monitor bypass
+  ---
+  duration_ms: 0.255089
+  type: 'test'
+  ...
+# Subtest: eight reveals withhold the retrospective comparison until after the five-day timeline
+ok 41 - eight reveals withhold the retrospective comparison until after the five-day timeline
+  ---
+  duration_ms: 3.085257
+  type: 'test'
+  ...
+# Subtest: NAV grounding retains distinct movement, reconciliation and valuation meanings and qualified sources
+ok 42 - NAV grounding retains distinct movement, reconciliation and valuation meanings and qualified sources
+  ---
+  duration_ms: 1.443747
+  type: 'test'
+  ...
+# Subtest: supervisory adaptation causally depends on recorded limited approval, never closes the concern
+ok 43 - supervisory adaptation causally depends on recorded limited approval, never closes the concern
+  ---
+  duration_ms: 1.247106
+  type: 'test'
+  ...
+# Subtest: observable proxy and independent specialist resolution are separate from publication approval
+ok 44 - observable proxy and independent specialist resolution are separate from publication approval
+  ---
+  duration_ms: 1.262693
+  type: 'test'
+  ...
+# Subtest: Beat 6 question holds until ordinary Next enters Beat 7
+ok 45 - Beat 6 question holds until ordinary Next enters Beat 7
+  ---
+  duration_ms: 0.790522
+  type: 'test'
+  ...
+# Subtest: source challenge requires human initiation and appends separately attributable evidence
+ok 46 - source challenge requires human initiation and appends separately attributable evidence
+  ---
+  duration_ms: 22.284179
+  type: 'test'
+  ...
+# Subtest: independent source inspection reconstructs the conflict omitted from the initial summary
+ok 47 - independent source inspection reconstructs the conflict omitted from the initial summary
+  ---
+  duration_ms: 3.878219
+  type: 'test'
+  ...
+# Subtest: synthetic acceptance passes while a missing domain exception explains T-17
+ok 48 - synthetic acceptance passes while a missing domain exception explains T-17
+  ---
+  duration_ms: 2.678322
+  type: 'test'
+  ...
+# Subtest: missing evidence and probabilistic confidence cannot expand execution authority
+ok 49 - missing evidence and probabilistic confidence cannot expand execution authority
+  ---
+  duration_ms: 3.40505
+  type: 'test'
+  ...
+# Subtest: deeper failure, external research and runtime restraint all remain in Beat 5
+ok 50 - deeper failure, external research and runtime restraint all remain in Beat 5
+  ---
+  duration_ms: 0.325028
+  type: 'test'
+  ...
+# Subtest: eight escalating beats keep the systemic argument inside Beat 7
+ok 51 - eight escalating beats keep the systemic argument inside Beat 7
+  ---
+  duration_ms: 3.466751
+  type: 'test'
+  ...
+# Subtest: problems land before their solutions and the story never backtracks
+ok 52 - problems land before their solutions and the story never backtracks
+  ---
+  duration_ms: 0.542116
+  type: 'test'
+  ...
+# Subtest: six independent agent objectives remain within mandate
+ok 53 - six independent agent objectives remain within mandate
+  ---
+  duration_ms: 0.397724
+  type: 'test'
+  ...
+# Subtest: retired authorise/reject actions cannot approve or change the revised arc
+ok 54 - retired authorise/reject actions cannot approve or change the revised arc
+  ---
+  duration_ms: 1.269256
+  type: 'test'
+  ...
+# Subtest: causal case is one beat with source and counterfactual before human authority
+ok 55 - causal case is one beat with source and counterfactual before human authority
+  ---
+  duration_ms: 0.372039
+  type: 'test'
+  ...
+# Subtest: back and reset keep the eight-beat presenter path stable
+ok 56 - back and reset keep the eight-beat presenter path stable
+  ---
+  duration_ms: 0.344485
+  type: 'test'
+  ...
+# Subtest: the visible flood is a reproducible, causally linked run
+ok 57 - the visible flood is a reproducible, causally linked run
+  ---
+  duration_ms: 25.675615
+  type: 'test'
+  ...
+# Subtest: the supervisory finding fails closed when a causal event is missing
+ok 58 - the supervisory finding fails closed when a causal event is missing
+  ---
+  duration_ms: 1.928945
+  type: 'test'
+  ...
+# Subtest: prediction cannot silently authorise a material restriction
+ok 59 - prediction cannot silently authorise a material restriction
+  ---
+  duration_ms: 2.800304
+  type: 'test'
+  ...
+# Subtest: deterministic denial and bounded hold have separate authority
+ok 60 - deterministic denial and bounded hold have separate authority
+  ---
+  duration_ms: 0.302708
+  type: 'test'
+  ...
+# Subtest: six independent principals have distinct identities, objectives and bounded mandates
+ok 61 - six independent principals have distinct identities, objectives and bounded mandates
+  ---
+  duration_ms: 3.662734
+  type: 'test'
+  ...
+# Subtest: the external shock precedes first-wave actions and all transitions reproduce
+ok 62 - the external shock precedes first-wave actions and all transitions reproduce
+  ---
+  duration_ms: 2.161738
+  type: 'test'
+  ...
+# Subtest: first-wave market changes are computed from individual action contributions
+ok 63 - first-wave market changes are computed from individual action contributions
+  ---
+  duration_ms: 0.621619
+  type: 'test'
+  ...
+# Subtest: second-wave decisions consume changed market information and use role-specific rules
+ok 64 - second-wave decisions consume changed market information and use role-specific rules
+  ---
+  duration_ms: 0.551251
+  type: 'test'
+  ...
+# Subtest: execution, settlement and dated FX remain separate from earlier USD obligations
+ok 65 - execution, settlement and dated FX remain separate from earlier USD obligations
+  ---
+  duration_ms: 0.609217
+  type: 'test'
+  ...
+# Subtest: dealer and settlement effects respect their own institutional constraints
+ok 66 - dealer and settlement effects respect their own institutional constraints
+  ---
+  duration_ms: 0.314525
+  type: 'test'
+  ...
+# Subtest: pressure is conditional and dampeners can contain the same initial shock
+ok 67 - pressure is conditional and dampeners can contain the same initial shock
+  ---
+  duration_ms: 1.127881
+  type: 'test'
+  ...
+# Subtest: mandate reassurance precedes collective consequences and research remains properly qualified
+ok 68 - mandate reassurance precedes collective consequences and research remains properly qualified
+  ---
+  duration_ms: 2.511746
+  type: 'test'
+  ...
+# Subtest: NAV final question only progresses on command and Back reconstructs the boundary
+ok 69 - NAV final question only progresses on command and Back reconstructs the boundary
+  ---
+  duration_ms: 0.693916
+  type: 'test'
+  ...
+# Subtest: finale separates progressive stages and independent supervision dimensions
+ok 70 - finale separates progressive stages and independent supervision dimensions
+  ---
+  duration_ms: 1.051445
+  type: 'test'
+  ...
+# Subtest: human confidence and human-AI-both are progressively revealed before accountability
+ok 71 - human confidence and human-AI-both are progressively revealed before accountability
+  ---
+  duration_ms: 0.570022
+  type: 'test'
+  ...
+# Subtest: exact final question is the last stable state with no automatic continuation
+ok 72 - exact final question is the last stable state with no automatic continuation
+  ---
+  duration_ms: 0.396161
+  type: 'test'
+  ...
+1..72
+# tests 72
+# suites 0
+# pass 72
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 306.205047

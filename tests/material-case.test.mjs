@@ -256,15 +256,14 @@ test('opening question precedes the retained message and uses the single present
   assert.doesNotMatch(html, /motion-controls|START/);
 });
 
-test('protected settlement, NAV, systemic, finale and source modules remain identical', async () => {
+test('all non-NAV screens and source modules remain identical to the accepted baseline', async () => {
  const {createHash}=await import('node:crypto'),hash=v=>createHash('sha256').update(v).digest('hex');
- const c=JSON.parse(readFileSync(new URL('../artifacts/arc2-revision/baseline/contracts.json',import.meta.url),'utf8'));
- // Restore only the retired timing view in this historical baseline comparison.
- const markup=CUES.filter(c=>!['prediction','material-case'].includes(c.id)).flatMap(c=>{
-  const views=c.steps.map((_,s)=>renderView(c.id,s));
-  if(c.id==='systemic')views.splice(3,0,'<article class="cue cue--systemic centered"><div class="cue-content">'+renderSystemic(3)+'</div></article>');
-  return views;
- }).join('\n');
+ const c=JSON.parse(readFileSync(new URL('../artifacts/nav-revision/baseline/contracts.json',import.meta.url),'utf8'));
+ const markup=CUES.filter(c=>c.id!=='nav').flatMap(c=>c.steps.map((_,s)=>{
+  const html=renderView(c.id,s);
+  // Approved retrospective additions only; retain the exact prior hero/layout contract.
+  return c.steps[s]==='retrospective-question' ? html.replace(/<div class="arc2-retro-actions">.*?<\/div><p class="arc2-retro-reference">.*?<\/p>/s,'') : html;
+ })).join('\n');
  assert.equal(hash(markup),c.protectedMarkupHash);
  assert.equal(hash(readFileSync(new URL('../styles.css',import.meta.url),'utf8').slice(0,c.cssLength)),c.cssHash);
  for(const [f,h] of Object.entries(c.sourceHashes))assert.equal(hash(readFileSync(new URL('../src/'+f,import.meta.url))),h);

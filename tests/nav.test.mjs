@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { buildNavScenario, checkNavMovement, decideNavPublication, NAV_IDENTITIES, NAV_POLICY, NAV_REVEALS } from '../src/nav-scenario.mjs';
+import { buildNavScenario, checkNavMovement, decideNavPublication, NAV_IDENTITIES, NAV_POLICY, NAV_REVEALS, updateNavPriority, resolveNavConcern } from '../src/nav-scenario.mjs';
 import { renderNav, renderNavEvidence } from '../src/nav-theatre.mjs';
 import { CUES, createPresentationState, currentReveal, transition } from '../src/presentation.mjs';
 const near = (actual, expected, tolerance = 1e-8) => assert.ok(Math.abs(actual - expected) < tolerance, `${actual} != ${expected}`);
@@ -72,20 +72,21 @@ test('reconciliation proves recorded arithmetic while leaving the pricing-method
 test('each advisory warning precedes the human approval and publication in an attributable audit', () => {
   const run = buildNavScenario();
   const kinds = ['VALUATION_PREPARED','RECONCILIATION_PASSED','MOVEMENT_CHECK_PASSED','AI_WARNING_RECORDED','HUMAN_APPROVAL_RECORDED','PUBLICATION_APPROVED'];
-  assert.equal(run.events.length, 31);
+  assert.equal(run.events.length, 37);
   assert.equal(new Set(run.events.map(e=>e.id)).size, run.events.length);
   assert.equal(new Set(Object.values(NAV_IDENTITIES)).size, Object.values(NAV_IDENTITIES).length);
   assert.deepEqual(run.events.map(e=>e.at), run.events.map(e=>e.at).toSorted());
   for (const day of run.days) {
     const events = run.events.filter(e=>e.day===day.day);
-    assert.deepEqual(events.map(e=>e.kind), kinds);
-    assert.equal(events[0].actor, NAV_IDENTITIES.valuation);
-    assert.equal(events[3].actor, NAV_IDENTITIES.monitor);
-    assert.equal(events[4].actor, NAV_IDENTITIES.human);
-    assert.ok(events[3].at < events[4].at && events[4].at < events[5].at);
-    assert.ok(events[4].parentIds.includes(day.warning.id));
-    assert.ok(events[5].parentIds.includes(day.approval.id));
-    assert.equal(day.approval.acknowledgedWarningId, day.warning.id);
+    assert.deepEqual(events.filter(e=>!['OBSERVABLE_PROXY_RECORDED','SUPERVISORY_PRIORITY_UPDATED'].includes(e.kind)).map(e=>e.kind), kinds);
+    const core = events.filter(e=>!['OBSERVABLE_PROXY_RECORDED','SUPERVISORY_PRIORITY_UPDATED'].includes(e.kind));
+    assert.equal(core[0].actor, NAV_IDENTITIES.valuation);
+    assert.equal(core[3].actor, NAV_IDENTITIES.monitor);
+    assert.equal(core[4].actor, NAV_IDENTITIES.human);
+    assert.ok(core[3].at < core[4].at && core[4].at < core[5].at);
+    assert.ok(core[4].parentIds.includes(day.warning.id));
+    assert.ok(core[5].parentIds.includes(day.approval.id));
+    assert.equal(day.approval.acknowledgedWarningId, day.day === 'Monday' ? day.warning.id : null);
     assert.equal(day.approval.specialistDeterminationAvailable, false);
     assert.equal(day.warning.authority, 'advisory');
     assert.equal(day.warning.blocksPublication, false);
@@ -107,37 +108,68 @@ test('publication follows explicit policy and approval rather than a monitor byp
   assert.equal(decideNavPublication({...input,policy:{...NAV_POLICY,warningBlocksPublication:true}}).approved, false);
 });
 
-test('warning and independent benchmark arrive only at their intended dramatic reveals', () => {
-  for (let step=0;step<4;step++) {
-    assert.doesNotMatch(renderNav(step), /WARNING|NON-BLOCKING|UNRESOLVED|SPECIALIST|RECONSTRUCTION|2\.03%|BASELINE/);
-    assert.doesNotMatch(renderNavEvidence(step), /VALUATION METHOD REQUIRES REVIEW|SPECIALIST|specialist reconstruction|2\.03%/);
+test('eight reveals withhold the retrospective comparison until after the five-day timeline', () => {
+  assert.equal(NAV_REVEALS.length,8);
+  assert.deepEqual(NAV_REVEALS,['nav-introduction','nav-monday','nav-adaptation','nav-week','nav-reconstruction','nav-baseline','nav-grounding','nav-override']);
+  assert.doesNotMatch(renderNav(0), /nav-check|PRIORITY REDUCED|RECONSTRUCTION/);
+  assert.match(renderNav(1), /MONDAY NAV: \$100.40/);
+  assert.match(renderNav(1), /MONDAY PUBLICATION ONLY/);
+  assert.match(renderNav(2), /PRIORITY REDUCED/);
+  assert.match(renderNav(3), /PUBLICATIONS APPROVED/);
+  for(let step=0;step<4;step++) {
+    assert.doesNotMatch(renderNav(step), /SPECIALIST RECONSTRUCTION|2\.03%/);
+    assert.doesNotMatch(renderNavEvidence(step), /Retrospective specialist comparison|2\.03%|Export complete/);
   }
-  assert.match(renderNav(4), /AI WARNING: VALUATION METHOD REQUIRES REVIEW/);
-  for(let step=0;step<8;step++) {
-    assert.doesNotMatch(renderNav(step), /SPECIALIST RECONSTRUCTION/);
-    assert.doesNotMatch(renderNavEvidence(step), /Retrospective specialist comparison/);
-  }
-  assert.match(renderNav(8), /SPECIALIST RECONSTRUCTION/);
-  assert.match(renderNav(8), /Established after Friday’s publication/);
-  assert.match(renderNavEvidence(8), /AFTER Friday publication/);
-  assert.match(renderNav(9), /YESTERDAY'S ERROR/);
-  assert.match(renderNav(9), /BECAME TODAY'S BASELINE/);
-  assert.match(renderNav(10), /2\.03%/);
-  assert.match(renderNav(11), /HUMAN APPROVAL ≠.*CORRECT VALUATION/);
+  assert.match(renderNav(4), /SPECIALIST RECONSTRUCTION: \$100.00/);
+  assert.match(renderNavEvidence(4), /AFTER Friday publication/);
+  assert.match(renderNav(5), /YESTERDAY'S ERROR/);
+  assert.match(renderNav(5), /Human approval became an input to the AI's confidence about what no longer needed human attention\./);
+  assert.match(renderNav(5), /HUMAN AUTHORITY — APPROVE PUBLICATION/);
+  assert.match(renderNav(5), /MACHINE INFLUENCE — PRIORITISE ESCALATIONS/);
 });
 
-test('three controls are separately revealed and jurisdictional limits are explicit', () => {
-  assert.doesNotMatch(renderNav(5), /MOVEMENT|VALUATION/);
-  assert.doesNotMatch(renderNav(6), /UNRESOLVED/);
-  assert.match(renderNav(6), /FICTIONAL INTERNAL DAILY MOVEMENT THRESHOLD/);
-  assert.match(renderNav(7), /VALUATION.*UNRESOLVED/);
-  assert.match(renderNav(12), /WHO CHECKS THE CHECKER'S BASELINE/);
-  assert.match(renderNav(12), /CSSF 24\/856 · Luxembourg/);
-  const evidence=renderNavEvidence(12);
-  assert.match(evidence, /paragraph 38/);
-  assert.match(evidence, /not a universally applicable rule/);
-  assert.match(evidence, /distinct from this example/);
-  assert.match(evidence, /OWASP is neither an accounting standard nor a financial regulator/);
+test('NAV grounding retains distinct movement, reconciliation and valuation meanings and qualified sources', () => {
+  assert.match(renderNav(6), /WHO CHECKED THE METHOD/);
+  const evidence=renderNavEvidence(6);
+  for(const phrase of ['paragraph 38','not a universally applicable rule','distinct from this example','OWASP is neither an accounting standard nor a financial regulator','IOSCO','MAS','FSB']) assert.ok(evidence.includes(phrase));
+  assert.match(evidence,/assumptions|valuation/);
+});
+
+test('supervisory adaptation causally depends on recorded limited approval, never closes the concern', () => {
+  const run=buildNavScenario(), noApproval=buildNavScenario({mondayApproved:false});
+  assert.equal(run.days[0].warning.priority,100);
+  assert.equal(run.days[0].approval.scope,'Monday publication only');
+  assert.equal(run.days[0].approval.methodologyValidated,false);
+  assert.equal(run.days[0].approval.specialistVerification,'outstanding');
+  const feedback=run.events.find(e=>e.kind==='SUPERVISORY_PRIORITY_UPDATED');
+  assert.deepEqual(feedback.parentIds,[run.days[0].approval.id]);
+  assert.ok(feedback.at>run.events.find(e=>e.id===run.days[0].approval.id).at);
+  assert.ok(feedback.at<run.events.find(e=>e.id===run.days[1].warning.id).at);
+  for(const d of run.days.slice(1)) {
+    assert.equal(d.warning.priority,35); assert.equal(d.warning.prominentEscalation,false);
+    assert.equal(d.warning.status,'unresolved'); assert.equal(d.approval.methodologyValidated,false);
+  }
+  assert.equal(noApproval.days[0].publication.published,false);
+  assert.ok(noApproval.days.every(d=>d.warning.priority===100 && d.warning.prominentEscalation));
+  assert.deepEqual(updateNavPriority(100,null).priority,100);
+  assert.equal(updateNavPriority(100,{approved:true,scope:'method validation'}).priority,100);
+  assert.equal(run.policy.warningBlocksPublication,false);
+  assert.match(feedback.payload.permissions,/no valuation-policy, mandatory-control or release-authority changes/);
+});
+
+test('observable proxy and independent specialist resolution are separate from publication approval', () => {
+  const run=buildNavScenario();
+  for (const d of run.days) {
+    assert.equal(d.proxy.dailyRate,.008);
+    assert.equal(d.proxy.level,d.proxy.previousLevel*1.008);
+    assert.equal(d.proxy.observable,true);
+    assert.equal(d.assetB,d.previousAssetB*(1+d.proxy.dailyRate));
+  }
+  assert.throws(()=>resolveNavConcern({actor:NAV_IDENTITIES.human,evidenceId:'approval',finding:'published'}));
+  const resolution=resolveNavConcern({actor:NAV_IDENTITIES.specialist,evidenceId:'SPECIALIST-REPORT-1',finding:'Method independently validated'});
+  assert.equal(resolution.kind,'SPECIALIST_METHOD_RESOLUTION');
+  assert.equal(resolution.status,'resolved');
+  assert.ok(run.days.every(d=>d.warning.status==='unresolved'));
 });
 
 test('Beat 6 question holds until ordinary Next enters Beat 7', () => {

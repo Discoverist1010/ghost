@@ -1,0 +1,14 @@
+{
+  "baseline": "986a9984eb61ec53e44c5985887fe09d36f0cc86",
+  "protectedMarkupHash": "9982e607696aa9a9a0088b381af075be24ec3fd08c29c76e5da48c462940a44a",
+  "cssLength": 87113,
+  "cssHash": "c9af35066e3b74220ce4e89365685861cc79e06528b0a8bf9d45637e612543cb",
+  "sourceHashes": {
+    "scenario.mjs": "d880d8ec2e15750bef88e97c5fb0ca08238e5ac7d9b1c6bc77caa440200a84af",
+    "central-bank-scenario.mjs": "e8f9d920b56592fcd975fca3c2ecacede7e2abf45a90194973b897838fb63ec2",
+    "systemic-scenario.mjs": "2d55c3a4f8d084af8470fb396666157658c4d4fce38b974b95de16af50d05e1d",
+    "systemic-theatre.mjs": "da8ef0848e05df7111d1ed2125f9b82050bde152de60cd0441677e25016d1d85",
+    "finale.mjs": "2958974259f6b8a2e5fa46badd284ff36b4337a077848285bf2c5439902dc78b",
+    "settlement-workflow.mjs": "b685c15e7563652d275e44c61796189c9061e127bbd61493d1dfdef7b7f041e3"
+  }
+}

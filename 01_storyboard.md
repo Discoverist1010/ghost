@@ -1,3 +1,7 @@
+## NAV revision — 12 November 2026 (current Beat 6)
+
+Supersedes the historical Package 2 sequence below for Beat 6 only. Eight principal presenter reveals: objectives → Monday publication-specific approval → approval-driven triage adaptation → five-day timeline and completed checks → retrospective specialist reconstruction → financial baseline and supervisory-influence insight → regulatory grounding → final override question. Reveal 6 uses Next once to disclose the supervisory consequence on the same scene, then Next to continue. No timer advances the narrative. The final NAV question holds until Next enters Beat 7. All other beats retain their accepted markup.
+
 # Arc 2 — current local revision (12 November 2026)
 
 This revision supersedes the earlier Beats 4–5 descriptions below. Beat 4 contains the original 76 / 74% assessment, now explicitly linked to the failed-trade investigation. There is no standalone no-rule-breach screen. Beat 5: WHY 76 (derived classification only) → explicit human source request → AI #2 contradiction → conditional 76→39 → omitted conflict → explicit applicable-policy check → independent policy finding → RIGHT RESTRICTION / WRONG REASON → narrow AI scopes → missing cross-domain design → corrected decision versus reusable method → prospective/retrospective duties → historical-dependency question → system assurance → original proposal ESCALATE → human oversight questions → NAV only on Next.

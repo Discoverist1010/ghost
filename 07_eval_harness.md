@@ -1,3 +1,7 @@
+## NAV revision verification — 12 November 2026
+
+Baseline: 70 passing tests at 986a9984eb61ec53e44c5985887fe09d36f0cc86. Revised suite: 72 passing tests, including full-precision proxy arithmetic, approval-dependent priority, persistence of unresolved concerns, specialist-only resolution, staged evidence and eight NAV reveals. A fresh baseline contract hashes every non-NAV rendered state, protected source modules and the complete pre-existing CSS prefix. Actual Chrome review covers fullscreen 1920×1080, windowed 1440×1000, all eight beats, evidence drawers, same-scene insight, Back/Next, Pause/Play, Replay, Home and fullscreen. Review artifacts: `artifacts/nav-revision/`.
+
 # Arc 2 — current local verification
 
 Before editing: 54/54 tests, including the preserved uncommitted settlement patch. Current suite: 68/68. Original trace/source/authority tests remain; presentation assertions change only for the approved replacement of Beats 4–5. A new pre-edit hash contract protects all opening, settlement, NAV, systemic and finale markup, the full pre-edit CSS prefix and seven untouched scenario/presentation modules.

@@ -154,3 +154,20 @@ test('three findings advance directly to incomplete reviews without an extra syn
  const evidence=renderArc2Evidence(run,{...context,step:6,findingStage:3});assert.equal((evidence.match(/<dt>/g)||[]).length,3);
  assert.equal(buildArc2Audit(run,{...context,step:6}).policyResult.executed,false);
 });
+
+
+test('retrospective screen adds scoped actions and qualified evidence without changing authority or sequence',()=>{
+ const stage=renderArc2(11),drawer=renderArc2Evidence(run,{...context,step:11});
+ assert.match(stage,/ONE CASE CORRECTED/);assert.match(stage,/HOW MANY DECISIONS USED<br>THE SAME ASSUMPTION/);
+ assert.match(stage,/LOOK BACK ·.*Trace and reassess affected historical decisions/);
+ assert.match(stage,/FIX FORWARD ·.*Correct the rule and test against past failures/);
+ assert.match(stage,/MAS AI RISK MANAGEMENT · SINGAPORE AI VERIFY TESTING FRAMEWORK/);
+ assert.match(stage,/VIEW HISTORICAL REVIEW/);assert.doesNotMatch(stage,/NIST/);
+ for(const text of ['MAS AIRM','Reproducibility, Accountability','Human Agency &amp; Oversight','NIST Secure Software Development Framework','regression tests','not explicit blanket requirements imposed by AI Verify','original-date evidence and policy'])assert.ok(drawer.includes(text),text);
+ for(const url of ['https://www.mas.gov.sg/','https://aiverifyfoundation.sg/tools/ai-verify-testing-framework/','https://csrc.nist.gov/pubs/sp/800/218/final'])assert.ok(drawer.includes(url));
+ assert.doesNotMatch(renderArc2Evidence(run,{...context,step:9}),/arc2-historical-grounding/);
+ const index=CUES[4].steps.indexOf('retrospective-question'),state={...checked,step:index};
+ assert.equal(currentReveal(transition(state,'previous')),'correction-process');
+ assert.equal(currentReveal(transition(state,'next')),'system-assurance');
+ assert.equal(evaluateGate(run.gateInput).disposition,'ESCALATE');
+});
