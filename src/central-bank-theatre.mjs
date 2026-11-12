@@ -7,7 +7,7 @@ const p=(text,cls='')=>`<p class="${cls}">${text}</p>`;
 const action=(label,act,cls='case-primary')=>`<button type="button" class="${cls}" data-action="${act}">${label}</button>`;
 export const ARC2_DETAILS=Object.freeze(['VIEW AI ASSESSMENT','VIEW SOURCE EVIDENCE','VIEW TEST ASSUMPTIONS','INSPECT THE OMISSION','VIEW REVIEW SCOPE','SEE WHY THE RULE APPLIES','VIEW POLICY BASIS','VIEW REVIEW COVERAGE','VIEW REQUIREMENTS & TESTS','VIEW CORRECTION PROPOSAL','VIEW CORRECTION SCOPE','VIEW HISTORICAL REVIEW','VIEW RESEARCH EVIDENCE','VIEW AUTHORITY BOUNDARY','VIEW OVERSIGHT CONDITIONS','VIEW OVERSIGHT CONDITIONS']);
 // Keep evidence phase numbering stable while omitting the retired stage reveal.
-export const arc2SceneStep = step => step < 3 ? step : step <= 5 ? step + 1 : step <= 7 ? 6 : step <= 10 ? step - 1 : step;
+export const arc2SceneStep = step => step < 3 ? step : step <= 5 ? step + 1 : step <= 7 ? 6 : step <= 10 ? step - 1 : step < 13 ? step : step + 1;
 export const arc2FindingStage = step => step === 6 ? 2 : step === 7 ? 3 : 1;
 export const arc2DetailForStep = step => step === 6 ? 'VIEW TEST ASSUMPTIONS' : step === 7 ? 'SEE WHY THE RULE APPLIES' : ARC2_DETAILS[arc2SceneStep(step)];
 export function renderArc2(step, findingStage = 1) {

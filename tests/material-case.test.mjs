@@ -172,7 +172,7 @@ test('stage furniture and detail language follow the eight-beat hierarchy', () =
   assert.match(renderMaterialCase(0), />VIEW AI ASSESSMENT<\/button>/);
   const mainPath = CUES.flatMap((cue) => cue.steps.map((_, step) => renderView(cue.id, step))).join('');
   assert.doesNotMatch(mainPath, /RUNTIME AUTHORITY CHECK|class="gate-steps"|AUTONOMOUS TO DO WHAT/);
-  assert.equal((mainPath.match(/>ESCALATE<\/h1>/g) ?? []).length, 1);
+  assert.equal((mainPath.match(/>ESCALATE<\/h1>/g) ?? []).length, 0);
   assert.match(renderView('operations', 2), /INTERLEAVED AGENT TRACE/);
   assert.match(renderView('operations', 3), /TRACE EVENTS/);
 });
@@ -215,7 +215,7 @@ test("keyboard advances through every stage without changing the eight-beat cont
       }
     }
   }
-  assert.equal(verdicts, 1);
+  assert.equal(verdicts, 0);
   assert.equal(element("nextButton").disabled, true);
 });
 
@@ -238,7 +238,7 @@ test('Arc 2 system assurance replaces monitor-evasion staging without attributin
  assert.doesNotMatch(research,/85%|Mythos|EVASION/);
  assert.match(design,/REQUIREMENTS.*IMPLEMENTATION.*TESTING.*DOMAIN VALIDATION/s);
  assert.match(design,/THE CODE PASSED/);assert.match(design,/THE BUSINESS RULE WAS INCOMPLETE/);
- assert.match(renderMaterialCase(15),/CAN THE HUMAN DISAGREE—/);
+ assert.match(renderMaterialCase(13),/WHAT IF THE HUMAN NEVER/);
 });
 
 test('opening question precedes the retained message and uses the single presenter bar', () => {
@@ -259,7 +259,12 @@ test('opening question precedes the retained message and uses the single present
 test('protected settlement, NAV, systemic, finale and source modules remain identical', async () => {
  const {createHash}=await import('node:crypto'),hash=v=>createHash('sha256').update(v).digest('hex');
  const c=JSON.parse(readFileSync(new URL('../artifacts/arc2-revision/baseline/contracts.json',import.meta.url),'utf8'));
- const markup=CUES.filter(c=>!['prediction','material-case'].includes(c.id)).flatMap(c=>c.steps.map((_,s)=>renderView(c.id,s))).join('\n');
+ // Restore only the retired timing view in this historical baseline comparison.
+ const markup=CUES.filter(c=>!['prediction','material-case'].includes(c.id)).flatMap(c=>{
+  const views=c.steps.map((_,s)=>renderView(c.id,s));
+  if(c.id==='systemic')views.splice(3,0,'<article class="cue cue--systemic centered"><div class="cue-content">'+renderSystemic(3)+'</div></article>');
+  return views;
+ }).join('\n');
  assert.equal(hash(markup),c.protectedMarkupHash);
  assert.equal(hash(readFileSync(new URL('../styles.css',import.meta.url),'utf8').slice(0,c.cssLength)),c.cssHash);
  for(const [f,h] of Object.entries(c.sourceHashes))assert.equal(hash(readFileSync(new URL('../src/'+f,import.meta.url))),h);

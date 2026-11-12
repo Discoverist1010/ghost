@@ -4,6 +4,7 @@ import { SETTLEMENT_WORKFLOW } from './settlement-workflow.mjs';
 import { renderSystemic, renderSystemicBody, renderSystemicEvidence } from './systemic-theatre.mjs';
 import { renderFinale } from './finale.mjs';
 export { renderSystemic };
+const systemicSceneStep = step => step < 3 ? step : step + 1;
 import { renderNav, renderNavEvidence, navRun } from './nav-theatre.mjs';
 import { AGENT_IDENTITIES, DOMAIN_RULE, submitSourceChallenge, buildRun, EVIDENCE, evaluateGate, supervise, validateRun } from "./scenario.mjs";
 import { BEATS, CASE_ACTIONS, CUES, NARRATIVE_INDICATORS, SYSTEMIC_ACTIONS, SYSTEMIC_ANNOUNCEMENTS, createPresentationState, currentCue, currentReveal, transition } from "./presentation.mjs";
@@ -163,7 +164,7 @@ export function renderView(id, step) {
         '<p class="primary-line authority-restraint">RESTRICTION NOT EXECUTED</p>' +
         '<p class="authority-punch">THE SYSTEM DOESN\'T NEED TO KNOW WHO IS RIGHT<br>IN ORDER TO KNOW IT SHOULD NOT ACT.</p>', "centered");
     case "systemic":
-      return wrap(id, renderSystemic(step), "centered");
+      return wrap(id, renderSystemic(systemicSceneStep(step)), "centered");
     case "ghost":
       return wrap(id, renderFinale(step), "centered");
     default:
@@ -197,7 +198,7 @@ function renderCue(forceReplay = false) {
   stage.dataset.reveal = currentReveal(presentation);
   if (persistentSystemic) {
     persistentSystemic.dataset.phase = currentReveal(presentation);
-    persistentSystemic.innerHTML = renderSystemicBody(presentation.step);
+    persistentSystemic.innerHTML = renderSystemicBody(systemicSceneStep(presentation.step));
   } else {
     stage.innerHTML = renderView(cue.id, presentation.step);
   }
@@ -495,7 +496,7 @@ function drawerContent(kind) {
         button("Challenge the finding", "challenge-finding", "drawer-button warning"),
     };
   }
-  if (kind === "systemic") return { title: "The agents that all obeyed · evidence", body: renderSystemicEvidence(presentation.step) };
+  if (kind === "systemic") return { title: "The agents that all obeyed · evidence", body: renderSystemicEvidence(systemicSceneStep(presentation.step)) };
   if (kind === 'finale') return {title:'Supervision and accountability',body:'<p>The three arrangements are conceptual, not a mandatory institutional sequence. A sophisticated agent may only recommend; a deterministic rule may validly block execution. Capability does not grant authority.</p><p>Controls act within a formally delegated, bounded and revocable institutional mandate, with traceability and appropriate review or authorised override. Not every AI warning should block publication; enforcement depends on the approved policy and evidence.</p><p>Meaningful human challenge requires expertise, evidence, time and capacity, independence and confidence. An override button alone supplies none of these.</p><p>Human decision-makers and institutions retain accountability as assigned by applicable law, regulation and governance. The model is not an independently accountable legal person. Bounded software controls do not require a person to approve every machine-speed action.</p>'};
   return {
     title: "Replay evidence",

@@ -7,7 +7,7 @@ const reveals = CUES.flatMap((cue) => cue.steps);
 test("eight escalating beats keep the systemic argument inside Beat 7", () => {
   assert.equal(BEATS.length, 8);
   assert.equal(CUES.length, 8);
-  assert.equal(reveals.length - 1, 73);
+  assert.equal(reveals.length - 1, 70);
   assert.deepEqual(CUES.map((cue) => cue.id), [
     "opening", "operations", "supervision", "prediction", "material-case", "nav", "systemic", "ghost",
   ]);
@@ -15,6 +15,18 @@ test("eight escalating beats keep the systemic argument inside Beat 7", () => {
   assert.equal(reveals.includes('authority-ladder'),false);
   assert.equal(reveals.includes('conflict-omitted'),false);
   assert.equal(reveals.includes('correction-obligations'),false);
+  assert.equal(reveals.includes('escalate'),false);
+  assert.equal(CUES[4].steps.includes('human-confidence'),false);
+  assert.equal(CUES[6].steps.includes('funding-timing'),false);
+  const firstWave={...createPresentationState(),cueIndex:6,step:2};
+  assert.equal(currentReveal(transition(firstWave,'next')),'changed-market');
+  assert.deepEqual(transition(transition(firstWave,'next'),'previous'),firstWave);
+  const human={...createPresentationState(),cueIndex:4,step:13};
+  assert.equal(currentReveal(transition(human,'next')),'nav-introduction');
+  assert.deepEqual(transition(transition(human,'next'),'previous'),human);
+  const assurance={...createPresentationState(),cueIndex:4,step:12};
+  assert.equal(currentReveal(transition(assurance,'next')),'human-questions');
+  assert.deepEqual(transition(transition(assurance,'next'),'previous'),assurance);
   const process={...createPresentationState(),cueIndex:4,step:10};
   assert.equal(currentReveal(transition(process,'next')),'retrospective-question');
   assert.deepEqual(transition(transition(process,'next'),'previous'),process);
@@ -38,9 +50,9 @@ test("problems land before their solutions and the story never backtracks", () =
   assert.equal(reveals.includes("no-breach"),false);
   before("causal-explanation", "source-challenge");
   before("source-challenge", "counterfactual");
-  before("source-challenge", "escalate");
-  before("counterfactual", "escalate");
-  before("escalate", "human-questions");
+  before("source-challenge", "system-assurance");
+  before("counterfactual", "system-assurance");
+  before("system-assurance", "human-questions");
   before("human-questions", "independent-agents");
   assert.equal(reveals.includes("gate-run"), false);
   before("independent-agents", "common-shock");
@@ -52,7 +64,7 @@ test("problems land before their solutions and the story never backtracks", () =
   before("system-supervision", "supervision-informs");
   before("supervision-powers", "accountability");
   before("accountability", "final-question");
-  assert.equal(reveals.filter((id) => id === "escalate").length, 1);
+  assert.equal(reveals.filter((id) => id === "escalate").length, 0);
 });
 
 test("six independent agent objectives remain within mandate", () => {
@@ -61,7 +73,7 @@ test("six independent agent objectives remain within mandate", () => {
   assert.equal(new Set(SYSTEMIC_AGENTS.map((agent) => agent.objective)).size, 6);
   assert.equal(new Set(SYSTEMIC_AGENTS.map((agent) => agent.constraint)).size, 6);
   assert.equal(SYSTEMIC_ACTIONS.length,CUES[6].steps.length);
-  assert.deepEqual(CUES[6].steps,['independent-agents','common-shock','first-wave','funding-timing','changed-market','second-wave','correlation-feedback','parallel-transmission','system-pressure','system-changed','system-supervision']);
+  assert.deepEqual(CUES[6].steps,['independent-agents','common-shock','first-wave','changed-market','second-wave','correlation-feedback','parallel-transmission','system-pressure','system-changed','system-supervision']);
   let state = { ...createPresentationState(), cueIndex: 6, step: 0 };
   for (let step = 1; step < CUES[6].steps.length; step++) {
     state = transition(state, 'next');
@@ -91,7 +103,7 @@ test("retired authorise/reject actions cannot approve or change the revised arc"
 
 test("causal case is one beat with source and counterfactual before human authority", () => {
   let state = { ...createPresentationState(), cueIndex: 4 };
-  assert.equal(CASE_ACTIONS.length, 16);
+  assert.equal(CASE_ACTIONS.length, 14);
   assert.equal(transition(state, 'next'), state, 'Next cannot invoke a second AI');
   assert.equal(state.sourceCheck, null);
   state = transition(state, 'check-source');
@@ -102,11 +114,11 @@ test("causal case is one beat with source and counterfactual before human author
     assert.equal(state.cueIndex, 4);
     assert.equal(state.step, step);
   }
-  assert.equal(currentReveal(state), 'human-confidence');
+  assert.equal(currentReveal(state), 'human-questions');
   state = transition(state, 'next');
   assert.equal(currentReveal(state), 'nav-introduction');
   state = transition(state, 'previous');
-  assert.equal(currentReveal(state), 'human-confidence');
+  assert.equal(currentReveal(state), 'human-questions');
   state = transition(state, 'reset-beat');
   assert.equal(currentReveal(state), 'causal-explanation');
   assert.equal(state.sourceCheck, null);
