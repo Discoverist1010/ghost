@@ -1,0 +1,216 @@
+{
+  "browser": "157.0.8103.78",
+  "main": "http://127.0.0.1:4173/",
+  "standalone": "file:///Users/macbookpro18/Desktop/CODE/active/ghost/dist/demo.html",
+  "offline": true,
+  "viewport": [
+    1920,
+    1080
+  ],
+  "statesCompared": 51,
+  "evidenceCompared": 44,
+  "screens": [
+    {
+      "id": "cognitive-limits",
+      "references": [
+        {
+          "text": "FSB: Complex agentic activity may require AI-assisted monitoring; effective human oversight remains essential.",
+          "font": "28px",
+          "lineHeight": "39.2px",
+          "color": "rgb(192, 206, 222)",
+          "labelColor": "rgb(130, 216, 237)",
+          "x": 210,
+          "y": 652.203125,
+          "width": 1500,
+          "height": 39.1875
+        },
+        {
+          "text": "MAS AIRM: Automation bias and decision fatigue challenge meaningful human oversight.",
+          "font": "28px",
+          "lineHeight": "39.2px",
+          "color": "rgb(192, 206, 222)",
+          "labelColor": "rgb(130, 216, 237)",
+          "x": 210,
+          "y": 705.390625,
+          "width": 1500,
+          "height": 39.1875
+        },
+        {
+          "text": "HKMA 2026 DISCUSSION: Formal approval is ineffective without the capacity and opportunity for meaningful challenge.",
+          "font": "28px",
+          "lineHeight": "39.2px",
+          "color": "rgb(192, 206, 222)",
+          "labelColor": "rgb(130, 216, 237)",
+          "x": 210,
+          "y": 758.578125,
+          "width": 1500,
+          "height": 39.1875
+        }
+      ]
+    },
+    {
+      "id": "sdlc",
+      "references": [
+        {
+          "text": "HKMA 2026 DISCUSSION: Connect approved business intent to accountable ownership and enforceable controls.",
+          "font": "28px",
+          "lineHeight": "39.2px",
+          "color": "rgb(192, 206, 222)",
+          "labelColor": "rgb(130, 216, 237)",
+          "x": 249.484375,
+          "y": 699.71875,
+          "width": 1421.015625,
+          "height": 39.1875
+        }
+      ]
+    },
+    {
+      "id": "retrospective-question",
+      "references": [
+        {
+          "text": "MAS AIRM: Lifecycle monitoring and controlled changes.",
+          "font": "28px",
+          "lineHeight": "39.2px",
+          "color": "rgb(192, 206, 222)",
+          "labelColor": "rgb(130, 216, 237)",
+          "x": 521.234375,
+          "y": 669.75,
+          "width": 877.53125,
+          "height": 39.1875
+        },
+        {
+          "text": "SINGAPORE AI VERIFY: Documented processes and human oversight.",
+          "font": "28px",
+          "lineHeight": "39.2px",
+          "color": "rgb(192, 206, 222)",
+          "labelColor": "rgb(130, 216, 237)",
+          "x": 521.234375,
+          "y": 722.9375,
+          "width": 877.53125,
+          "height": 39.1875
+        }
+      ]
+    },
+    {
+      "id": "system-assurance",
+      "references": [
+        {
+          "text": "SINGAPORE AISI: Evaluate the complete AI system, including deployment context, tools, domain expertise and realistic workflows.",
+          "font": "28px",
+          "lineHeight": "39.2px",
+          "color": "rgb(192, 206, 222)",
+          "labelColor": "rgb(130, 216, 237)",
+          "x": 240,
+          "y": 521.3125,
+          "width": 1440,
+          "height": 78.375
+        },
+        {
+          "text": "GOOGLE DEEPMIND: Evaluate monitoring coverage, detection effectiveness and time-to-response.",
+          "font": "28px",
+          "lineHeight": "39.2px",
+          "color": "rgb(192, 206, 222)",
+          "labelColor": "rgb(130, 216, 237)",
+          "x": 240,
+          "y": 613.6875,
+          "width": 1440,
+          "height": 39.1875
+        }
+      ]
+    },
+    {
+      "id": "nav-grounding",
+      "references": [
+        {
+          "text": "IOSCO 2026: Appropriate valuation methodology, independent oversight and continuing review.",
+          "font": "28px",
+          "lineHeight": "39.2px",
+          "color": "rgb(192, 206, 222)",
+          "labelColor": "rgb(130, 216, 237)",
+          "x": 345,
+          "y": 497.625,
+          "width": 1230,
+          "height": 39.1875
+        },
+        {
+          "text": "CSSF 24/856: Successive NAV errors can become material in aggregate.",
+          "font": "28px",
+          "lineHeight": "39.2px",
+          "color": "rgb(192, 206, 222)",
+          "labelColor": "rgb(130, 216, 237)",
+          "x": 345,
+          "y": 550.8125,
+          "width": 1230,
+          "height": 39.1875
+        },
+        {
+          "text": "MAS AIRM / FSB: AI monitoring, performance evaluation and meaningful human oversight.",
+          "font": "28px",
+          "lineHeight": "39.2px",
+          "color": "rgb(192, 206, 222)",
+          "labelColor": "rgb(130, 216, 237)",
+          "x": 345,
+          "y": 604,
+          "width": 1230,
+          "height": 39.1875
+        },
+        {
+          "text": "SINGAPORE AISI / GOOGLE DEEPMIND: Test the complete system and unintended effects of optimisation.",
+          "font": "28px",
+          "lineHeight": "39.2px",
+          "color": "rgb(192, 206, 222)",
+          "labelColor": "rgb(130, 216, 237)",
+          "x": 345,
+          "y": 657.1875,
+          "width": 1230,
+          "height": 78.375
+        }
+      ]
+    },
+    {
+      "id": "system-pressure",
+      "references": [
+        {
+          "text": "HKMA 2026 DISCUSSION: Correlated machine-speed responses may amplify feedback loops and procyclical behaviour.",
+          "font": "28px",
+          "lineHeight": "39.2px",
+          "color": "rgb(192, 206, 222)",
+          "labelColor": "rgb(130, 216, 237)",
+          "x": 210,
+          "y": 796.296875,
+          "width": 1500,
+          "height": 78.375
+        }
+      ]
+    },
+    {
+      "id": "system-changed",
+      "references": [
+        {
+          "text": "BIS PROJECT LOGOS: CORRELATED PORTFOLIO DECISIONS",
+          "font": "28px",
+          "lineHeight": "39.2px",
+          "color": "rgb(192, 206, 222)",
+          "labelColor": "rgb(130, 216, 237)",
+          "x": 569.984375,
+          "y": 649.03125,
+          "width": 780.03125,
+          "height": 39.1875
+        },
+        {
+          "text": "BIS PROJECT AGENTI: PAYMENTS & INTRADAY LIQUIDITY",
+          "font": "28px",
+          "lineHeight": "39.2px",
+          "color": "rgb(192, 206, 222)",
+          "labelColor": "rgb(130, 216, 237)",
+          "x": 569.984375,
+          "y": 702.21875,
+          "width": 780.03125,
+          "height": 39.1875
+        }
+      ]
+    }
+  ],
+  "errors": [],
+  "httpRequests": []
+}

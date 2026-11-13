@@ -1,0 +1,250 @@
+{
+  "screens": [
+    {
+      "id": "cognitive-limits",
+      "refs": [
+        {
+          "text": "FSB: Complex agentic activity may require AI-assisted monitoring; effective human oversight remains essential.",
+          "font": "28px",
+          "lineHeight": "39.2px",
+          "color": "rgb(192, 206, 222)",
+          "labelColor": "rgb(130, 216, 237)",
+          "bounds": [
+            210,
+            652.203125,
+            1500,
+            39.1875
+          ],
+          "overlaps": []
+        },
+        {
+          "text": "MAS AIRM: Automation bias and decision fatigue challenge meaningful human oversight.",
+          "font": "28px",
+          "lineHeight": "39.2px",
+          "color": "rgb(192, 206, 222)",
+          "labelColor": "rgb(130, 216, 237)",
+          "bounds": [
+            210,
+            705.390625,
+            1500,
+            39.1875
+          ],
+          "overlaps": []
+        },
+        {
+          "text": "HKMA 2026 DISCUSSION: Formal approval is ineffective without the capacity and opportunity for meaningful challenge.",
+          "font": "28px",
+          "lineHeight": "39.2px",
+          "color": "rgb(192, 206, 222)",
+          "labelColor": "rgb(130, 216, 237)",
+          "bounds": [
+            210,
+            758.578125,
+            1500,
+            39.1875
+          ],
+          "overlaps": []
+        }
+      ]
+    },
+    {
+      "id": "sdlc",
+      "refs": [
+        {
+          "text": "HKMA 2026 DISCUSSION: Connect approved business intent to accountable ownership and enforceable controls.",
+          "font": "28px",
+          "lineHeight": "39.2px",
+          "color": "rgb(192, 206, 222)",
+          "labelColor": "rgb(130, 216, 237)",
+          "bounds": [
+            249.484375,
+            699.71875,
+            1421.015625,
+            39.1875
+          ],
+          "overlaps": []
+        }
+      ]
+    },
+    {
+      "id": "retrospective-question",
+      "refs": [
+        {
+          "text": "MAS AIRM: Lifecycle monitoring and controlled changes.",
+          "font": "28px",
+          "lineHeight": "39.2px",
+          "color": "rgb(192, 206, 222)",
+          "labelColor": "rgb(130, 216, 237)",
+          "bounds": [
+            521.234375,
+            669.75,
+            877.53125,
+            39.1875
+          ],
+          "overlaps": []
+        },
+        {
+          "text": "SINGAPORE AI VERIFY: Documented processes and human oversight.",
+          "font": "28px",
+          "lineHeight": "39.2px",
+          "color": "rgb(192, 206, 222)",
+          "labelColor": "rgb(130, 216, 237)",
+          "bounds": [
+            521.234375,
+            722.9375,
+            877.53125,
+            39.1875
+          ],
+          "overlaps": []
+        }
+      ]
+    },
+    {
+      "id": "system-assurance",
+      "refs": [
+        {
+          "text": "SINGAPORE AISI: Evaluate the complete AI system, including deployment context, tools, domain expertise and realistic workflows.",
+          "font": "28px",
+          "lineHeight": "39.2px",
+          "color": "rgb(192, 206, 222)",
+          "labelColor": "rgb(130, 216, 237)",
+          "bounds": [
+            240,
+            521.3125,
+            1440,
+            78.375
+          ],
+          "overlaps": []
+        },
+        {
+          "text": "GOOGLE DEEPMIND: Evaluate monitoring coverage, detection effectiveness and time-to-response.",
+          "font": "28px",
+          "lineHeight": "39.2px",
+          "color": "rgb(192, 206, 222)",
+          "labelColor": "rgb(130, 216, 237)",
+          "bounds": [
+            240,
+            613.6875,
+            1440,
+            39.1875
+          ],
+          "overlaps": []
+        }
+      ]
+    },
+    {
+      "id": "nav-grounding",
+      "refs": [
+        {
+          "text": "IOSCO 2026: Appropriate valuation methodology, independent oversight and continuing review.",
+          "font": "28px",
+          "lineHeight": "39.2px",
+          "color": "rgb(192, 206, 222)",
+          "labelColor": "rgb(130, 216, 237)",
+          "bounds": [
+            345,
+            497.625,
+            1230,
+            39.1875
+          ],
+          "overlaps": []
+        },
+        {
+          "text": "CSSF 24/856: Successive NAV errors can become material in aggregate.",
+          "font": "28px",
+          "lineHeight": "39.2px",
+          "color": "rgb(192, 206, 222)",
+          "labelColor": "rgb(130, 216, 237)",
+          "bounds": [
+            345,
+            550.8125,
+            1230,
+            39.1875
+          ],
+          "overlaps": []
+        },
+        {
+          "text": "MAS AIRM / FSB: AI monitoring, performance evaluation and meaningful human oversight.",
+          "font": "28px",
+          "lineHeight": "39.2px",
+          "color": "rgb(192, 206, 222)",
+          "labelColor": "rgb(130, 216, 237)",
+          "bounds": [
+            345,
+            604,
+            1230,
+            39.1875
+          ],
+          "overlaps": []
+        },
+        {
+          "text": "SINGAPORE AISI / GOOGLE DEEPMIND: Test the complete system and unintended effects of optimisation.",
+          "font": "28px",
+          "lineHeight": "39.2px",
+          "color": "rgb(192, 206, 222)",
+          "labelColor": "rgb(130, 216, 237)",
+          "bounds": [
+            345,
+            657.1875,
+            1230,
+            78.375
+          ],
+          "overlaps": []
+        }
+      ]
+    },
+    {
+      "id": "system-pressure",
+      "refs": [
+        {
+          "text": "HKMA 2026 DISCUSSION: Correlated machine-speed responses may amplify feedback loops and procyclical behaviour.",
+          "font": "28px",
+          "lineHeight": "39.2px",
+          "color": "rgb(192, 206, 222)",
+          "labelColor": "rgb(130, 216, 237)",
+          "bounds": [
+            210,
+            796.296875,
+            1500,
+            78.375
+          ],
+          "overlaps": []
+        }
+      ]
+    },
+    {
+      "id": "system-changed",
+      "refs": [
+        {
+          "text": "BIS PROJECT LOGOS: CORRELATED PORTFOLIO DECISIONS",
+          "font": "28px",
+          "lineHeight": "39.2px",
+          "color": "rgb(192, 206, 222)",
+          "labelColor": "rgb(130, 216, 237)",
+          "bounds": [
+            569.984375,
+            649.03125,
+            780.03125,
+            39.1875
+          ],
+          "overlaps": []
+        },
+        {
+          "text": "BIS PROJECT AGENTI: PAYMENTS & INTRADAY LIQUIDITY",
+          "font": "28px",
+          "lineHeight": "39.2px",
+          "color": "rgb(192, 206, 222)",
+          "labelColor": "rgb(130, 216, 237)",
+          "bounds": [
+            569.984375,
+            702.21875,
+            780.03125,
+            39.1875
+          ],
+          "overlaps": []
+        }
+      ]
+    }
+  ],
+  "errors": []
+}

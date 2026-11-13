@@ -161,7 +161,7 @@ test('retrospective screen adds scoped actions and qualified evidence without ch
  assert.match(stage,/ONE CASE CORRECTED/);assert.match(stage,/HOW MANY DECISIONS USED<br>THE SAME ASSUMPTION/);
  assert.match(stage,/LOOK BACK ·.*Trace and reassess affected historical decisions/);
  assert.match(stage,/FIX FORWARD ·.*Correct the rule and test against past failures/);
- assert.match(stage,/MAS AI RISK MANAGEMENT · SINGAPORE AI VERIFY TESTING FRAMEWORK/);
+ assert.match(stage,/MAS AIRM:.*Lifecycle monitoring and controlled changes.*SINGAPORE AI VERIFY:.*Documented processes and human oversight/s);
  assert.match(stage,/VIEW HISTORICAL REVIEW/);assert.doesNotMatch(stage,/NIST/);
  for(const text of ['MAS AIRM','Reproducibility, Accountability','Human Agency &amp; Oversight','NIST Secure Software Development Framework','regression tests','not explicit blanket requirements imposed by AI Verify','original-date evidence and policy'])assert.ok(drawer.includes(text),text);
  for(const url of ['https://www.mas.gov.sg/','https://aiverifyfoundation.sg/tools/ai-verify-testing-framework/','https://csrc.nist.gov/pubs/sp/800/218/final'])assert.ok(drawer.includes(url));

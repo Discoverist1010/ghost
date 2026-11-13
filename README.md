@@ -13,7 +13,7 @@ The presenter-led demonstration opens with **WHEN AI STARTS ACTING, WHO IS THE S
 - Developer source entry: `index.html`; Node.js 20 or newer is required for repository scripts, not to open the standalone HTML.
 - `npm run dev` serves the source at `http://127.0.0.1:4173`; `npm test` runs the deterministic checks; `npm run build` regenerates the standalone delivery. Rebuild the review candidate only for authorised source or packaging changes.
 
-The current review `dist/demo.html` is 246,658 bytes. SHA-256: `97071108a7b4f7712ddd5e92befd488e16342ca3ce60c904e0d3427f6d1cc41c`.
+The current review `dist/demo.html` is 248,882 bytes. SHA-256: `f66c33355a73db0591ff562248ebc21270ee9312d9765db0d975624e9767cf76`.
 
 ## Accepted narrative
 

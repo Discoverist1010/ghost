@@ -1,0 +1,17 @@
+[
+  {
+    "build": "verified candidate",
+    "bytes": 248882,
+    "sha256": "f66c33355a73db0591ff562248ebc21270ee9312d9765db0d975624e9767cf76"
+  },
+  {
+    "build": "npm run build repeat 1",
+    "bytes": 248882,
+    "sha256": "f66c33355a73db0591ff562248ebc21270ee9312d9765db0d975624e9767cf76"
+  },
+  {
+    "build": "npm run build repeat 2",
+    "bytes": 248882,
+    "sha256": "f66c33355a73db0591ff562248ebc21270ee9312d9765db0d975624e9767cf76"
+  }
+]

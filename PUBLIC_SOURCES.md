@@ -4,11 +4,13 @@ REGULATOR//GHOST uses public examples to frame governance questions. **None of t
 
 ## Source-led update · verified 13 November 2026
 
-The four primary sources below were checked for this patch. This does not change the verification dates of unrelated entries. Evidence drawers use institution / publication / date → supported finding → status or limitation → descriptive primary-source link. Main-stage references use source · concise finding; detailed qualifications remain here and in the drawers.
+The four primary sources below were checked for this patch. This does not change the verification dates of unrelated entries. Evidence drawers use institution / publication / date → supported finding → status or limitation → descriptive primary-source link. Main-stage references use SOURCE LABEL: concise finding; detailed qualifications remain here and in the drawers.
 
 ### HKMA · Discussion Paper on Agentic A.I. Governance in the Banking Sector · November 2026
 
 **Supported findings:** §7.2 distinguishes formal approval from meaningful oversight: the reviewer needs substantive information, practical challenge capacity and enough time to intervene. Under the proposed materiality assessment in §8.1, a read-only monitoring deployment can be material when a critical operation depends on its accuracy.
+
+Section 4.5 identifies possible sector-wide implications of correlated machine-speed responses, feedback loops and procyclical behaviour. These are discussion topics, not established outcomes of this demonstration or a separate system-wide monitoring framework.
 
 Sections 5.2–5.3 connect approved business intent and permitted actions with business accountability, technical implementation and independent control challenge. Sections 6.2 and 7.1 discuss lifecycle testing and an agent harness that translates policy into enforceable boundaries, including deterministic checks, escalation paths and controlled changes to tools and permissions.
 

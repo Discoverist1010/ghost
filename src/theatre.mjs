@@ -1,4 +1,4 @@
-import { renderHkmaOversightEvidence } from './source-notes.mjs';
+import { renderHkmaOversightEvidence, renderStageReference } from './source-notes.mjs';
 import { installPresentationScale } from './display.mjs';
 import { audienceText, audienceEvidence } from './audience.mjs';
 import { renderArc2, arc2SceneStep, arc2FindingStage, arc2DetailForStep, ARC2_DETAILS, buildArc2Audit, renderArc2Evidence } from './central-bank-theatre.mjs';
@@ -140,7 +140,10 @@ export function renderView(id, step) {
         '<div class="cognitive-scene"><h1>LOGGED. AUDITABLE.<br>THEORETICALLY REVIEWABLE.</h1>' +
         '<p class="cognitive-scale">At 10 investigations per month: ' + (10 * run.events.length).toLocaleString('en-US') + ' trace events.</p>' +
         '<h2>BUT COGNITIVELY OUT OF REACH.</h2>' +
-        '<div class="cognitive-anchors"><p><strong>FSB:</strong> Complex agentic activity may require AI-assisted monitoring;<br>effective human oversight remains essential.</p><p><strong>MAS AIRM:</strong> Automation bias and decision fatigue challenge meaningful human oversight.</p></div></div>', 'centered');
+        '<div class="cognitive-anchors stage-references">' +
+        renderStageReference('FSB', 'Complex agentic activity may require AI-assisted monitoring; effective human oversight remains essential.') +
+        renderStageReference('MAS AIRM', 'Automation bias and decision fatigue challenge meaningful human oversight.') +
+        renderStageReference('HKMA 2026 DISCUSSION', 'Formal approval is ineffective without the capacity and opportunity for meaningful challenge.') + '</div></div>', 'centered');
     case "supervision":
       return wrap(id,
         '<h1 class="hero-verdict dependency-question">WHO DECIDED WHAT THE HUMAN SAW?</h1>' +
@@ -383,10 +386,10 @@ function choiceButton(field, value, label) {
 
 function sourceLink(url, label) { return '<p><a href="' + url + '" target="_blank" rel="noopener noreferrer">' + label + '</a></p>'; }
 function regulatoryDetails() {
-  return detailBlock('FSB provenance', 'The June 10 consultation discusses hundreds of intermediate agent steps and AI-assisted monitoring. October 15 final Sound Practices 4, 7, 9 and 10 address organisational capability, data governance, performance monitoring and effective human oversight. Stage lines are paraphrases.') +
+  return '<section><h3>FSB · Sound Practices · 10 June / 15 October 2026 · Consultation / final report</h3><p>The June consultation discusses hundreds of intermediate agent steps and AI-assisted monitoring. The October final report’s Sound Practices 4, 7, 9 and 10 address organisational capability, data governance, performance monitoring and effective human oversight.</p><p>Policy reports, not validation of this synthetic case. Stage lines are paraphrases.</p>' +
     sourceLink('https://www.fsb.org/uploads/P100626.pdf', 'FSB June consultation') + sourceLink('https://www.fsb.org/uploads/P151026-1.pdf', 'FSB October final report') +
-    detailBlock('MAS AIRM', '7 October 2026 guidelines, §5.9: lifecycle human oversight considers automation bias and decision fatigue. Effective 7 October 2027; specialist capability supports lifecycle governance.') +
-    sourceLink('https://www.mas.gov.sg/regulation/guidelines/guidelines-on-artificial-intelligence-risk-management-for-financial-institutions', 'MAS AI Risk Management Guidelines');
+    '<h3>MAS · AI Risk Management Guidelines · 7 October 2026 · Guidelines, effective 7 October 2027</h3><p>Section 5.9 considers automation bias and decision fatigue in lifecycle human oversight; specialist capability supports lifecycle governance.</p><p>Financial-institution guidance with a stated future effective date, not a finding about this demonstration.</p>' +
+    sourceLink('https://www.mas.gov.sg/regulation/guidelines/guidelines-on-artificial-intelligence-risk-management-for-financial-institutions', 'MAS AI Risk Management Guidelines') + '</section>';
 }
 function safrDetails() {
   return detailBlock('SAFR status', 'Industry-developed runtime safeguards reference under MAS BuildFin.ai; V1.1. This is a synthetic teaching abstraction, not an implementation, certification or regulatory endorsement.') + sourceLink('https://www.mas.gov.sg/-/media/mas-media-library/development/fintech/ai-safr/safr-v1-1.pdf', 'SAFR V1.1');
@@ -424,18 +427,19 @@ function arc2ResearchDetails() {
 function drawerContent(kind) {
   if (['prediction','material-case'].includes(currentCue(presentation).id)) {
     const context=arc2Context();
-    return {title:context.step<0?'AI Investigator assessment':arc2DetailForStep(presentation.step),compact:context.step===5 || context.step===6 && context.findingStage===3,body:renderArc2Evidence(run,context)+(context.step>=12?arc2ResearchDetails():'')+(context.step>=13?renderGateDetails()+safrDetails():'')};
+    return {title:context.step<0?'AI Investigator assessment':arc2DetailForStep(presentation.step),compact:context.step===5 || context.step===6 && context.findingStage===3,body:(context.step>=12?arc2ResearchDetails():'')+renderArc2Evidence(run,context)+(context.step>=13?renderGateDetails()+safrDetails():'')};
   }
 
   if (kind === 'nav') return { title: 'NAV evidence · ' + navRun.id, body: renderNavEvidence(presentation.step) };
 
   const early = presentation.cueIndex < 4;
   if (early) return { title: 'Supervision and evidence', body:
+    (['operations','supervision'].includes(currentCue(presentation).id) ? renderHkmaOversightEvidence() : '') +
+    (presentation.cueIndex === 2 || currentReveal(presentation) === 'cognitive-limits' ? regulatoryDetails() : presentation.cueIndex === 3 ? detailBlock('Illustrative assessment', 'Risk coefficient 76 and separate prediction 74% are synthetic teaching values, not calibrated estimates or authority thresholds.') : '') +
     detailBlock('Objective', 'Identify material risks rapidly while minimising unnecessary human escalations.') +
     detailBlock('Authority', 'Flag and recommend only. Human decision authority is retained; attention is selected by AI.') +
     detailBlock('Trace', '8 agents / 27 subtasks / 486 trace events / 3.2 simulated seconds. Records are retained for independent inspection.') +
-    (['operations','supervision'].includes(currentCue(presentation).id) ? renderSettlementWorkEvidence() + renderHkmaOversightEvidence() : '') +
-    (presentation.cueIndex === 2 || currentReveal(presentation) === 'cognitive-limits' ? regulatoryDetails() : presentation.cueIndex === 3 ? detailBlock('Illustrative assessment', 'Risk coefficient 76 and separate prediction 74% are synthetic teaching values, not calibrated estimates or authority thresholds.') : '') };
+    (['operations','supervision'].includes(currentCue(presentation).id) ? renderSettlementWorkEvidence() : '') };
   if (kind === 'research') return { title: 'External monitoring evaluation · separate from this demonstration', body: researchDetails() };
   if (kind === 'domain') return { title: 'Synthetic requirements and acceptance evidence', body:
     Object.entries(DOMAIN_RULE).map(([key, value]) => detailBlock(key, value)).join('') +

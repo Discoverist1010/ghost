@@ -260,8 +260,16 @@ test('opening question precedes the retained message and uses the single present
 test('audience debranding preserves all approved reveals, cues and immutable scenario modules',async()=>{
  const {createHash}=await import('node:crypto'),hash=v=>createHash('sha256').update(v).digest('hex');
  const c=JSON.parse(readFileSync(new URL('../artifacts/offline-integration/baseline/contracts.json',import.meta.url),'utf8'));
- // Only the approved two-line BIS reference block changes; retain the historical fixture.
- const sourcePatchMarkup={'system-changed':'cb599699a0a20c3e4dd2b2f385baa2ed1f71fe3bf72a8d96fcc78361c6797827'};
+ // Only the seven approved reference-bearing states change; retain the historical fixture.
+ const sourcePatchMarkup={
+  "cognitive-limits": "463c2dedf6538de1201b4ee10f12cdcb8fd6c1c87dabfa06d8e0cb55feaecaf0",
+  "sdlc": "76375c2295094a34b6d121a7781d8a4c758baeb11aa9e928afd1dccfb745580d",
+  "retrospective-question": "c14c303cea896c031c04131482a49c89827207a979a2bd2196fc38d7549da481",
+  "system-assurance": "58b4386f17f8eb944ac3961c54603085a4cfda7930daf7de03c3b4d9efe7f4e9",
+  "nav-grounding": "0f811248f24643de2641c6934546286fba3b366d346bdd7d392f5811388c2bf6",
+  "system-pressure": "292f690b70804fb5e27153608f779d9df0df56d7b8f6d2cceefc80358c5ba12d",
+  "system-changed": "1ae445ffd77cf8eebcbaf79a3822116ea69f465e6b926e7cca81385833302073"
+};
  for(const cue of CUES)for(const [s,id]of cue.steps.entries())assert.equal(hash(renderView(cue.id,s)),sourcePatchMarkup[id]??c.markup[id],id);
  assert.deepEqual(CUES,c.cues);
  for(const [f,h]of Object.entries(c.sourceHashes))assert.equal(hash(readFileSync(new URL('../src/'+f,import.meta.url))),h,f);

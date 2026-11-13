@@ -1,0 +1,34 @@
+{
+  "main": {
+    "browser": "157.0.8103.78",
+    "offline": false,
+    "normalMotion": true,
+    "pausePlay": true,
+    "pShortcut": true,
+    "replayShortcut": true,
+    "spaceCannotBypassHumanChecks": true,
+    "fullscreenEnterExit": true,
+    "resizeAndTabSwitchStable": true,
+    "animationCompletionDoesNotAdvance": true,
+    "finalHolds": true,
+    "backNextReplay": true,
+    "evidenceResetButton": true,
+    "browserErrors": []
+  },
+  "standalone": {
+    "browser": "157.0.8103.78",
+    "offline": true,
+    "normalMotion": true,
+    "pausePlay": true,
+    "pShortcut": true,
+    "replayShortcut": true,
+    "spaceCannotBypassHumanChecks": true,
+    "fullscreenEnterExit": true,
+    "resizeAndTabSwitchStable": true,
+    "animationCompletionDoesNotAdvance": true,
+    "finalHolds": true,
+    "backNextReplay": true,
+    "evidenceResetButton": true,
+    "browserErrors": []
+  }
+}

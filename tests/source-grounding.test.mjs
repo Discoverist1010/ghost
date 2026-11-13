@@ -15,7 +15,7 @@ test('HKMA oversight notes attribute the two findings to exploratory proposals',
  assert.match(html,/Section 2.3.*creates no new obligations/);
  assert.match(html,/href="https:\/\/www.hkma.gov.hk\/media\/eng\/doc\/key-information\/press-release\/2026\/20261102e3a1.pdf"/);
  const theatre=await readFile(new URL('../src/theatre.mjs',import.meta.url),'utf8');
- assert.match(theatre,/\['operations','supervision'\].*renderSettlementWorkEvidence\(\) \+ renderHkmaOversightEvidence\(\)/);
+ assert.match(theatre,/\['operations','supervision'\].*renderHkmaOversightEvidence\(\)/);
 });
 
 test('requirements evidence adds proposed safeguards at the existing design reveal without inventing approvals',()=>{
@@ -33,8 +33,8 @@ test('requirements evidence adds proposed safeguards at the existing design reve
 test('BIS references appear together only at the existing research reveal and retain separate scopes',()=>{
  const html=renderSystemic(9);
  assert.match(html,/NO AGENT FAILED\./);assert.match(html,/THE SYSTEM CHANGED\./);
- assert.match(html,/<strong>BIS PROJECT LOGOS<\/strong> · CORRELATED PORTFOLIO DECISIONS/);
- assert.match(html,/<strong>BIS PROJECT AGENTI<\/strong> · PAYMENTS &amp; INTRADAY LIQUIDITY/);
+ assert.match(html,/<strong>BIS PROJECT LOGOS:<\/strong> CORRELATED PORTFOLIO DECISIONS/);
+ assert.match(html,/<strong>BIS PROJECT AGENTI:<\/strong> PAYMENTS &amp; INTRADAY LIQUIDITY/);
  for(let i=0;i<9;i++){
   assert.doesNotMatch(renderSystemic(i),/PROJECT AGENTI/);
   assert.doesNotMatch(renderSystemicEvidence(i),/Project Agenti/);

@@ -6,7 +6,7 @@ Use **[dist/demo.html](dist/demo.html)**. Copy that file alone to the presentati
 
 The HTML includes all application JavaScript, CSS, inline graphics, scenario data and essential evidence descriptions. Typography uses the Mac's installed system-font stack; there is no custom font file or font download dependency. Full external publications are references, not essential runtime assets.
 
-Current review candidate: 246,658 bytes; SHA-256 `97071108a7b4f7712ddd5e92befd488e16342ca3ce60c904e0d3427f6d1cc41c`.
+Current review candidate: 248,882 bytes; SHA-256 `f66c33355a73db0591ff562248ebc21270ee9312d9765db0d975624e9767cf76`.
 
 ## Display and controls
 
@@ -42,3 +42,7 @@ The resolution tests use fresh headless instances of the installed Chrome with s
 ## Maintenance
 
 Preserve the modular source. `npm run build` regenerates `dist/demo.html`; `npm test` rejects a stale export. Node.js is needed only for maintenance, not to present the HTML. The current local candidate includes the preceding HKMA/BIS source-led edits and awaits review; no commit or push has been performed for these patches.
+
+## Latest source/reference comparison
+
+The modular main demo is the single source of truth; never hand-edit the compiled export. The latest [source-first comparison report](artifacts/reference-consistency/README.md) records identical content across 51 stage states and 44 drawers, ten pixel-identical screenshot pairs, repeatable builds and 92 passing tests.

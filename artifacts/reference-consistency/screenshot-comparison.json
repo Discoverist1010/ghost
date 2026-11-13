@@ -1,0 +1,92 @@
+[
+  {
+    "main": "main-cognitive-limits-1920x1080.png",
+    "standalone": "standalone-cognitive-limits-1920x1080.png",
+    "size": [
+      1920,
+      1080
+    ],
+    "pixelIdentical": true
+  },
+  {
+    "main": "main-cognitive-limits-drawer-1920x1080.png",
+    "standalone": "standalone-cognitive-limits-drawer-1920x1080.png",
+    "size": [
+      1920,
+      1080
+    ],
+    "pixelIdentical": true
+  },
+  {
+    "main": "main-nav-grounding-1920x1080.png",
+    "standalone": "standalone-nav-grounding-1920x1080.png",
+    "size": [
+      1920,
+      1080
+    ],
+    "pixelIdentical": true
+  },
+  {
+    "main": "main-retrospective-question-1920x1080.png",
+    "standalone": "standalone-retrospective-question-1920x1080.png",
+    "size": [
+      1920,
+      1080
+    ],
+    "pixelIdentical": true
+  },
+  {
+    "main": "main-sdlc-1920x1080.png",
+    "standalone": "standalone-sdlc-1920x1080.png",
+    "size": [
+      1920,
+      1080
+    ],
+    "pixelIdentical": true
+  },
+  {
+    "main": "main-sdlc-drawer-1920x1080.png",
+    "standalone": "standalone-sdlc-drawer-1920x1080.png",
+    "size": [
+      1920,
+      1080
+    ],
+    "pixelIdentical": true
+  },
+  {
+    "main": "main-system-assurance-1920x1080.png",
+    "standalone": "standalone-system-assurance-1920x1080.png",
+    "size": [
+      1920,
+      1080
+    ],
+    "pixelIdentical": true
+  },
+  {
+    "main": "main-system-changed-1920x1080.png",
+    "standalone": "standalone-system-changed-1920x1080.png",
+    "size": [
+      1920,
+      1080
+    ],
+    "pixelIdentical": true
+  },
+  {
+    "main": "main-system-changed-drawer-1920x1080.png",
+    "standalone": "standalone-system-changed-drawer-1920x1080.png",
+    "size": [
+      1920,
+      1080
+    ],
+    "pixelIdentical": true
+  },
+  {
+    "main": "main-system-pressure-1920x1080.png",
+    "standalone": "standalone-system-pressure-1920x1080.png",
+    "size": [
+      1920,
+      1080
+    ],
+    "pixelIdentical": true
+  }
+]
