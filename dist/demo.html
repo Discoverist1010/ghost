@@ -31,7 +31,8 @@ button:disabled { cursor: default; opacity: .35; }
 [hidden] { display: none !important; }
 .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0; }
 
-.app-shell { position: relative; width: min(100dvw, calc(100dvh * 16 / 9)); aspect-ratio: 16 / 9; container-type: size; background: var(--field); overflow: hidden; }
+.presentation-frame { position:absolute; left:50%; top:50%; width:1920px; height:1080px; transform:translate(-50%, -50%) scale(var(--presentation-scale, 1)); transform-origin:center; }
+.app-shell { position: relative; width: 100%; height: 100%; aspect-ratio: 16 / 9; container-type: size; background: var(--field); overflow: hidden; }
 .stage { position: absolute; inset: 0; overflow: hidden; }
 .stage-identity, .narrative-indicator { position: absolute; z-index: 5; top: 34px; white-space: nowrap; }
 .stage-identity { left: 5.2cqw; color: var(--secondary); font-size: clamp(17px, 1.15cqw, 21px); font-weight: 690; letter-spacing: .07em; }
@@ -884,8 +885,8 @@ button:disabled { cursor: default; opacity: .35; }
 .p3-kicker h1 span { display:block; animation:case-rise .65s both; }
 .p3-kicker h1 span:last-child { animation-delay:1s; }
 .p3-research { margin-top:3cqh; animation:case-rise .7s 1.6s both; }
-.p3-research strong { font-size:1.65cqw; letter-spacing:.12em; color:var(--secondary); }
-.p3-research p { font-size:1.65cqw; line-height:1.45; margin-top:1.5cqh; }
+.p3-research strong { font-size:inherit; letter-spacing:inherit; color:var(--cyan); }
+.p3-research p { font-size:1.65cqw; line-height:1.45; margin:1.5cqh 0 0; color:var(--secondary); }
 @keyframes p3-link { from {stroke-dashoffset:650;opacity:.1} to {stroke-dashoffset:0;opacity:1} }
 @keyframes p3-agent-observe { from {opacity:.4;border-color:#214454} to {opacity:1;border-color:var(--cyan)} }
 .cue--ghost .cue-content { width:100%; max-width:none; }
@@ -1115,7 +1116,7 @@ button:disabled { cursor: default; opacity: .35; }
 /* The definitive ending contains only its introductory statement and question. */
 .app-shell:has([data-finale="final-question"]) .narrative-indicator { display:none; }
 
-/* Opening disclosure is shown once; the deck supplies title and context. */
+/* Opening disclosure is shown once; no presentation title is added here. */
 .opening-disclosure { display:none; position:absolute; z-index:5; left:6cqw; right:6cqw; bottom:17.5cqh; margin:0; color:var(--secondary); font-size:1.15cqw; line-height:1.4; text-align:center; }
 .is-opening .opening-disclosure { display:block; }
 .nav-header { justify-content:flex-end; }
@@ -1123,6 +1124,7 @@ button:disabled { cursor: default; opacity: .35; }
 </style>
   </head>
   <body>
+    <div class="presentation-frame">
     <div class="app-shell">
       <div id="stageStatus" class="narrative-indicator" aria-hidden="true"></div>
       <main id="stage" class="stage" aria-label="Presentation stage"></main>
@@ -1150,12 +1152,15 @@ button:disabled { cursor: default; opacity: .35; }
       </section>
     </div>
 
+    </div>
     <noscript>This presentation needs JavaScript to replay its synthetic scenario.</noscript>
     <script>
 (()=>{
 "use strict";
 const factories={
 "theatre.mjs":function(exports,__load){
+const {renderHkmaOversightEvidence} = __load("source-notes.mjs");
+const {installPresentationScale} = __load("display.mjs");
 const {audienceText, audienceEvidence} = __load("audience.mjs");
 const {renderArc2, arc2SceneStep, arc2FindingStage, arc2DetailForStep, ARC2_DETAILS, buildArc2Audit, renderArc2Evidence} = __load("central-bank-theatre.mjs");
 const {testSourceClassification, verifySanctionsPolicy} = __load("central-bank-scenario.mjs");
@@ -1589,7 +1594,7 @@ function drawerContent(kind) {
     detailBlock('Objective', 'Identify material risks rapidly while minimising unnecessary human escalations.') +
     detailBlock('Authority', 'Flag and recommend only. Human decision authority is retained; attention is selected by AI.') +
     detailBlock('Trace', '8 agents / 27 subtasks / 486 trace events / 3.2 simulated seconds. Records are retained for independent inspection.') +
-    (['operations','supervision'].includes(currentCue(presentation).id) ? renderSettlementWorkEvidence() : '') +
+    (['operations','supervision'].includes(currentCue(presentation).id) ? renderSettlementWorkEvidence() + renderHkmaOversightEvidence() : '') +
     (presentation.cueIndex === 2 || currentReveal(presentation) === 'cognitive-limits' ? regulatoryDetails() : presentation.cueIndex === 3 ? detailBlock('Illustrative assessment', 'Risk coefficient 76 and separate prediction 74% are synthetic teaching values, not calibrated estimates or authority thresholds.') : '') };
   if (kind === 'research') return { title: 'External monitoring evaluation · separate from this demonstration', body: researchDetails() };
   if (kind === 'domain') return { title: 'Synthetic requirements and acceptance evidence', body:
@@ -1681,6 +1686,10 @@ function openDrawer(kind) {
       (['prediction','material-case'].includes(currentCue(presentation).id) ? button('Export visible evidence','download-arc2','drawer-button') : '') +
       button("Reset presentation", "reset", "drawer-button") +
     "</div>");
+  for (const link of drawerBody.querySelectorAll('a[href^="https://"], a[href^="http://"]')) {
+    link.title = 'External source · internet required';
+    link.setAttribute('aria-label', link.textContent + ' (external source; internet required)');
+  }
   drawer.hidden = false;
   drawer.querySelector(".drawer-close").focus();
 }
@@ -1825,9 +1834,70 @@ document.addEventListener("keydown", (event) => {
 
 stage.addEventListener?.('animationend', syncMotionControls);
 stage.addEventListener?.('animationcancel', syncMotionControls);
+installPresentationScale(document.querySelector('.presentation-frame'), typeof window === 'undefined' ? null : window);
 renderCue();
 
 Object.assign(exports,{renderMaterialCase,renderView,formatTraceLine,renderGateDetails,renderSettlementWorkEvidence,renderSystemic});
+},
+"source-notes.mjs":function(exports,__load){
+// Public-source interpretation only; no scenario inputs or decision rules.
+const HKMA_PAPER = 'https://www.hkma.gov.hk/media/eng/doc/key-information/press-release/2026/20261102e3a1.pdf';
+const link = (url, label) => `<p><a href="${url}" target="_blank" rel="noopener noreferrer">${label}</a></p>`;
+
+function renderHkmaOversightEvidence() {
+  return `<section><h3>HKMA · Agentic A.I. Governance discussion paper · November 2026</h3>
+    <p><strong>§7.2 · Meaningful oversight.</strong> Formal approval alone is insufficient when the reviewer lacks substantive information, review capacity or time to challenge and intervene.</p>
+    <p><strong>§8.1 · Proposed materiality assessment.</strong> A read-only supervisory deployment can be material when a critical operation depends on its accuracy; lack of write access does not remove that dependency.</p>
+    <p>Exploratory discussion proposals, not binding supervisory guidance. Section 2.3 states that the paper creates no new obligations. These observations support the oversight question, not a regulatory finding about this synthetic case.</p>
+    ${link(HKMA_PAPER, 'HKMA discussion paper · §§2.3, 7.2 and 8.1')}</section>`;
+}
+
+function renderHkmaHarnessEvidence() {
+  return `<section><h3>HKMA · Agentic A.I. Governance discussion paper · November 2026</h3>
+    <p><strong>Intent-anchored accountability and risk-integrated agent harness · §§5.2–5.3, 6.2 and 7.1.</strong> The proposed approach connects business ownership of approved intent and permitted actions to technically enforced boundaries, independent control challenge and lifecycle testing.</p>
+    <p>Exploratory discussion proposals, not binding supervisory guidance; §2.3 creates no new obligations.</p>
+    ${link(HKMA_PAPER, 'HKMA discussion paper · intent, ownership, lifecycle and harness')}
+    <h3>Practical application to the missing business rule</h3>
+    <p>Recommended safeguards and tests for this failure pattern—not evidence that the fictional institution assigned these owners or obtained these approvals:</p>
+    <p><strong>Incomplete business intent → business-owned scope → domain acceptance tests.</strong> Document the complete objective, permitted actions and policy exceptions; test entity, jurisdiction, effective date and exposure together.</p>
+    <p><strong>Intent lost in implementation → enforceable harness checks → end-to-end negative tests.</strong> Translate approved policy into deterministic checks, limits and escalation paths; test that an unmatched condition cannot pass as permission.</p>
+    <p><strong>Narrow review coverage → independent control challenge → complete-workflow testing.</strong> Challenge missing domain requirements and verify the workflow across component boundaries, including failure and fallback cases.</p>
+    <p><strong>Authority creep → versioned tools and permissions → material-change tests.</strong> Reassess and approve capability expansion; test that unapproved tools, access and actions remain restricted.</p>
+    <p>This scenario illustrates incomplete cross-domain requirements, not a demonstrated coding defect. Technical execution of a partial specification does not establish complete business coverage.</p></section>`;
+}
+
+function renderBisResearchEvidence() {
+  return `<section><h3>BIS · Project Logos · project page updated 4 June 2026</h3>
+    <p>Simulation research compares rules-based and LLM portfolio managers, including conditions that amplify or dampen correlated allocation decisions.</p>
+    <p>BIS Project Logos is ongoing research, not an established experimental finding about this funding sequence.</p>
+    ${link('https://www.bis.org/project/logos', 'BIS Project Logos · portfolio decisions and correlation')}
+    <h3>BIS · Project Agenti · project page updated 14 October 2026</h3>
+    <p>An RTGS-like payment simulation explores agent-driven payment timing, intraday liquidity, possible delays, gridlock and resilience.</p>
+    <p>Ongoing research, not proof that this demonstration’s specific mechanism has occurred or been experimentally established.</p>
+    ${link('https://www.bis.org/node/87745', 'BIS Project Agenti · payments and intraday liquidity')}
+    <h3>Demonstration · separate synthetic extension</h3>
+    <p>The six-agent example combines market, FX, collateral, funding and settlement transmission. Neither BIS project validates this exact scenario or establishes an observed market incident.</p></section>`;
+}
+
+Object.assign(exports,{renderHkmaOversightEvidence,renderHkmaHarnessEvidence,renderBisResearchEvidence});
+},
+"display.mjs":function(exports,__load){
+// Fit the accepted composition as one unit; resizing never changes presenter state.
+const DISPLAY_REFERENCE = Object.freeze({width:1920,height:1080});
+
+function presentationScale(width, height) {
+  return Math.min(width / DISPLAY_REFERENCE.width, height / DISPLAY_REFERENCE.height);
+}
+
+function installPresentationScale(frame, viewport) {
+  if (!frame?.style?.setProperty || !viewport?.addEventListener) return;
+  const fit = () => frame.style.setProperty('--presentation-scale', String(presentationScale(viewport.innerWidth, viewport.innerHeight)));
+  fit();
+  viewport.addEventListener('resize', fit, {passive:true});
+  return () => viewport.removeEventListener('resize', fit);
+}
+
+Object.assign(exports,{DISPLAY_REFERENCE,presentationScale,installPresentationScale});
 },
 "audience.mjs":function(exports,__load){
 // Public presentation aliases only. Original repository identities stay unchanged.
@@ -1850,6 +1920,7 @@ function audienceEvidence(value) {
 Object.assign(exports,{audienceText,audienceEvidence});
 },
 "central-bank-theatre.mjs":function(exports,__load){
+const {renderHkmaHarnessEvidence} = __load("source-notes.mjs");
 const {ARC2_ENTITY,ARC2_JURISDICTION,ARC2_POLICY,ARC2_EXPOSURE,ARC2_DESIGN_GAP,createCorrectionPlan} = __load("central-bank-scenario.mjs");
 const {buildRun,evaluateGate,supervise} = __load("scenario.mjs");
 const run=buildRun();
@@ -1917,6 +1988,7 @@ function renderArc2Evidence(originalRun,context) {
   if(step===0)body+='<p>This is the Investigator’s derived assessment and selected inputs only. Original-source comparison requires the explicit human source-verification action.</p>';
   if(step>=2)body+='<p>The conditional 39 applies only to the original classification-dependent risk model. It is not a safety certificate, transaction permission or updated 74% probability. Original evidence, recommendation and prediction remain separate.</p>';
   if(step>=5)body+='<p><strong>Fictional institutional policy, not a real sanctions law.</strong> Verified entity relationship + jurisdiction context + specific pending exposure + effective policy date are all required. Neither a central-bank relationship nor jurisdiction alone establishes a restriction. The policy check is newly requested during this review; it was absent from the original workflow. It is deterministic, not a third AI supervisor.</p><p>The policy warrants a protective restriction only on EXPOSURE-X-USD-01. No hold is executed here. The policy pathway needs its own authorised compliance handling; it cannot validate the original AI reasoning or expand its mandate.</p>';
+  if(step===8)body+=renderHkmaHarnessEvidence();
   if(step>=9)body+='<p>Prospective changes are proposals requiring approval and complete-workflow evaluation. Retrospective review must use each case’s original-date sources and applicable policy versions. No settled transaction is reversed, earlier decision rewritten, sanctions violation presumed or later policy applied retroactively.</p>';
   if(step===11)body=`<section class="arc2-historical-grounding">
     <h3>MAS AIRM</h3><p>Lifecycle evaluation and testing (§§5.14–5.15), monitoring and incident/issue management (§5.23), re-validation (§5.24), and controlled changes (§5.25) support documented review and correction. Published 7 October 2026; effective 7 October 2027.</p><p><a href="https://www.mas.gov.sg/regulation/guidelines/guidelines-on-artificial-intelligence-risk-management-for-financial-institutions" target="_blank" rel="noopener noreferrer">MAS AI Risk Management Guidelines</a></p>
@@ -2295,6 +2367,7 @@ const SETTLEMENT_WORKFLOW = Object.freeze([
 Object.assign(exports,{SETTLEMENT_WORKFLOW});
 },
 "systemic-theatre.mjs":function(exports,__load){
+const {renderBisResearchEvidence} = __load("source-notes.mjs");
 const {buildSystemicScenario,SYSTEMIC_REVEALS} = __load("systemic-scenario.mjs");
 const systemicRun=buildSystemicScenario();
 const esc=x=>String(x).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
@@ -2312,7 +2385,7 @@ function renderSystemicBody(step){
   if(step===5)return head('THE AGENTS RE-OPTIMISE.')+network(5)+`<p class="p3-note">SAME MANDATES. CHANGED CONDITIONS.</p>`;
   if(step===6)return `<div class="p3-center">${head('CORRELATION<br>BECOMES <span class="cyan">FEEDBACK.</span>')}<p class="p3-subtitle">THE PREVIOUS STATE BECOMES THE NEXT INPUT.</p><div class="p3-cycle">OPTIMISE <span>→</span> MARKET CHANGES <span>→</span> OPTIMISE AGAIN</div></div>`;
   if(step===7||step===8)return `<div class="p3-center p3-transmission">${head(step===7?'THE EFFECT MOVES THROUGH THE SYSTEM':'SYSTEM LIQUIDITY PRESSURE <span class="amber">↑</span>')}<p class="p3-subtitle">TRANSMIT</p><div class="p3-channels">${[['FX & USD FUNDING','Cost ↑ · available depth ↓'],['COLLATERAL & MARGIN','Eligible liquidity pressure ↑'],['SETTLEMENT & PREFUNDING','Earlier currency needs']].map(([t,s],i)=>`<section style="--delay:${300+i*250}ms"><h2>${t}</h2><p>${s}</p></section>`).join('')}</div>${step===8?'<p class="p3-note amber">POSSIBLE UNDER CONSTRAINED CONDITIONS. NOT INEVITABLE.</p>':'<p class="p3-note">THREE INTERACTING CHANNELS · NO REQUIRED SERIAL CHAIN</p>'}</div>`;
-  if(step===9)return `<div class="p3-center p3-kicker"><h1><span>NO AGENT FAILED.</span><span class="cyan">THE SYSTEM CHANGED.</span></h1><div class="p3-research"><strong>BIS PROJECT LOGOS</strong><p>Research into correlated LLM portfolio-agent decisions<br>and their possible market-wide effects.</p></div></div>`;
+  if(step===9)return `<div class="p3-center p3-kicker"><h1><span>NO AGENT FAILED.</span><span class="cyan">THE SYSTEM CHANGED.</span></h1><div class="p3-research"><p><strong>BIS PROJECT LOGOS</strong> · CORRELATED PORTFOLIO DECISIONS</p><p><strong>BIS PROJECT AGENTI</strong> · PAYMENTS &amp; INTRADAY LIQUIDITY</p></div></div>`;
   return `<div class="p3-center">${head('WHO IS SUPERVISING<br><span class="cyan">THE SYSTEM?</span>')}</div>`;
 }
 function renderSystemic(step){return `<div class="systemic-stage p3-systemic" data-phase="${SYSTEMIC_REVEALS[step]}">${renderSystemicBody(step)}</div>`;}
@@ -2323,7 +2396,7 @@ function renderSystemicEvidence(step){
   if(step>=4)html+=`<h3>Reconstructable market transition</h3><p>${esc(systemicRun.metricLabel)}. Effects are summed from individually bounded actions; second-wave rules consume the computed first-wave state.</p><pre>${esc(JSON.stringify({shock:systemicRun.shock,firstWave:systemicRun.firstWave.map(({id,units,effects})=>({id,units,effects})),afterFirst:systemicRun.afterFirst,...(step>=5?{secondWave:systemicRun.secondWave.map(({id,observedStateId,decision,units})=>({id,observedStateId,decision,units})),afterSecond:systemicRun.afterSecond}:{})},null,2))}</pre>`;
   if(step>=6)html+='<h3>Optimisation boundary</h3><p>The agents optimise their existing tasks. They do not rewrite objectives, tool permissions or decision policies. FX routing and timing choices occur within a fixed approved policy. Changing the governing strategy or policy would be a separate meta-optimisation capability requiring an approved governance boundary.</p>';
   if(step>=8)html+='<h3>Conditional, not inevitable</h3><p>Netting, opposing market flows, additional dealer capacity, existing liquidity buffers or central-bank liquidity arrangements may dampen pressure. A sensitivity variant in the audit model demonstrates containment. No mandate breach is required; harm and incomplete risk objectives can still result.</p>';
-  if(step>=9)html+='<h3>Public evidence and limits</h3><p>BIS Project Logos is ongoing research, not an established experimental finding about this funding sequence. Our USD funding, FX and collateral transmission sequence is a separate synthetic extension.</p>'+systemicRun.sources.map(s=>`<p><a href="${s.url}" target="_blank" rel="noreferrer">${esc(s.name)}</a> · ${esc(s.kind)}<br>${esc(s.note)}</p>`).join('');
+  if(step>=9)html+='<h3>Public evidence and limits</h3>'+renderBisResearchEvidence()+systemicRun.sources.filter(s=>s.url!=='https://www.bis.org/project/logos').map(s=>`<p><a href="${s.url}" target="_blank" rel="noreferrer">${esc(s.name)}</a> · ${esc(s.kind)}<br>${esc(s.note)}</p>`).join('');
   return html;
 }
 

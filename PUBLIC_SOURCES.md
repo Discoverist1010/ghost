@@ -2,6 +2,48 @@
 
 REGULATOR//GHOST uses public examples to frame governance questions. **None of these organisations, projects or regulators supplies data to, validates or endorses the synthetic run.** Evidence status describes the cited activity, not the demo. Checked 29 September 2026.
 
+## Source-led update · verified 13 November 2026
+
+The four primary sources below were checked for this patch. This does not change the verification dates of unrelated entries. Evidence drawers use institution / publication / date → supported finding → status or limitation → descriptive primary-source link. Main-stage references use source · concise finding; detailed qualifications remain here and in the drawers.
+
+### HKMA · Discussion Paper on Agentic A.I. Governance in the Banking Sector · November 2026
+
+**Supported findings:** §7.2 distinguishes formal approval from meaningful oversight: the reviewer needs substantive information, practical challenge capacity and enough time to intervene. Under the proposed materiality assessment in §8.1, a read-only monitoring deployment can be material when a critical operation depends on its accuracy.
+
+Sections 5.2–5.3 connect approved business intent and permitted actions with business accountability, technical implementation and independent control challenge. Sections 6.2 and 7.1 discuss lifecycle testing and an agent harness that translates policy into enforceable boundaries, including deterministic checks, escalation paths and controlled changes to tools and permissions.
+
+**Status / limitation:** Exploratory discussion proposals. Section 2.3 explicitly says this is not a statement of supervisory expectations, creates no new obligations and does not modify or interpret existing ones. Do not present it as binding regulation or conflate it with separate HKMA supervisory guidance.
+
+**Application to the demonstration:** An incomplete cross-domain requirement calls for business-owned scope, enforceable implementation, independent challenge and end-to-end tests. Recommended tests connect entity, jurisdiction, effective date and exposure, reject unauthorised capability expansion and exercise failure/fallback paths. These are practical applications informed by the paper, not claims that the fictional institution assigned named owners, approved these controls or satisfied a regulatory requirement. The scenario illustrates incomplete requirements, not an established coding defect.
+
+[HKMA discussion paper · primary PDF](https://www.hkma.gov.hk/media/eng/doc/key-information/press-release/2026/20261102e3a1.pdf)
+
+### HKMA · Project SAGE launch announcement · 2 November 2026
+
+**Supported finding:** Project SAGE (Securing Agentic Finance with Governance and Enablement) explores practical use cases, agent identity and delegated-authority verification, interoperability and legal/regulatory considerations. Its identity work includes Know Your Agent and authentication approaches relevant to interactions across firms.
+
+**Status / limitation:** Launched initiative supported by an Agentic Finance Expert Group; exploration and ecosystem development, not proof of a deployed universal cross-firm identity standard or an obligation introduced by this announcement. Supporting documentation only: no SAGE scene or runtime integration is added.
+
+[HKMA Project SAGE · launch and Expert Group](https://www.hkma.gov.hk/eng/news-and-media/press-releases/2026/11/20261102-4/)
+
+### BIS · Project Logos · project page updated 4 June 2026
+
+**Supported finding:** Simulation research compares heuristic/rules-based and LLM portfolio managers under controlled conditions, including conditions that amplify or dampen correlated allocation decisions.
+
+**Status / limitation:** Ongoing exploratory research. The page describes planned research, not proof of the demonstration's USD-liquidity mechanism or an observed market incident.
+
+[BIS Project Logos · portfolio decisions and correlation](https://www.bis.org/project/logos)
+
+### BIS · Project Agenti · project page updated 14 October 2026
+
+**Supported finding:** Research uses an RTGS-like agent payment simulator to explore payment timing, intraday liquidity, possible delays, gridlock and resilience. The collaboration involves the BIS Innovation Hub Swiss and Toronto Centres, Bank of Canada and Swiss National Bank.
+
+**Status / limitation:** Explicitly marked ongoing. The stated research programme and early payment-policy work do not experimentally establish the demo's particular six-agent scenario.
+
+[BIS Project Agenti · payments and intraday liquidity](https://www.bis.org/node/87745)
+
+**Separate synthetic example:** The demonstration combines market, FX, collateral, funding and settlement transmission across six bounded agents. Neither BIS project validates this exact sequence, demonstrates that it occurred, or supplies its numerical assumptions. No scenario calculation, agent behaviour or presenter state is changed by these references.
+
 ## Capital markets / asset servicing
 
 | Status | Primary source | What it supports |

@@ -1,3 +1,5 @@
+import { renderHkmaOversightEvidence } from './source-notes.mjs';
+import { installPresentationScale } from './display.mjs';
 import { audienceText, audienceEvidence } from './audience.mjs';
 import { renderArc2, arc2SceneStep, arc2FindingStage, arc2DetailForStep, ARC2_DETAILS, buildArc2Audit, renderArc2Evidence } from './central-bank-theatre.mjs';
 import { testSourceClassification, verifySanctionsPolicy } from './central-bank-scenario.mjs';
@@ -432,7 +434,7 @@ function drawerContent(kind) {
     detailBlock('Objective', 'Identify material risks rapidly while minimising unnecessary human escalations.') +
     detailBlock('Authority', 'Flag and recommend only. Human decision authority is retained; attention is selected by AI.') +
     detailBlock('Trace', '8 agents / 27 subtasks / 486 trace events / 3.2 simulated seconds. Records are retained for independent inspection.') +
-    (['operations','supervision'].includes(currentCue(presentation).id) ? renderSettlementWorkEvidence() : '') +
+    (['operations','supervision'].includes(currentCue(presentation).id) ? renderSettlementWorkEvidence() + renderHkmaOversightEvidence() : '') +
     (presentation.cueIndex === 2 || currentReveal(presentation) === 'cognitive-limits' ? regulatoryDetails() : presentation.cueIndex === 3 ? detailBlock('Illustrative assessment', 'Risk coefficient 76 and separate prediction 74% are synthetic teaching values, not calibrated estimates or authority thresholds.') : '') };
   if (kind === 'research') return { title: 'External monitoring evaluation · separate from this demonstration', body: researchDetails() };
   if (kind === 'domain') return { title: 'Synthetic requirements and acceptance evidence', body:
@@ -524,6 +526,10 @@ function openDrawer(kind) {
       (['prediction','material-case'].includes(currentCue(presentation).id) ? button('Export visible evidence','download-arc2','drawer-button') : '') +
       button("Reset presentation", "reset", "drawer-button") +
     "</div>");
+  for (const link of drawerBody.querySelectorAll('a[href^="https://"], a[href^="http://"]')) {
+    link.title = 'External source · internet required';
+    link.setAttribute('aria-label', link.textContent + ' (external source; internet required)');
+  }
   drawer.hidden = false;
   drawer.querySelector(".drawer-close").focus();
 }
@@ -668,4 +674,5 @@ document.addEventListener("keydown", (event) => {
 
 stage.addEventListener?.('animationend', syncMotionControls);
 stage.addEventListener?.('animationcancel', syncMotionControls);
+installPresentationScale(document.querySelector('.presentation-frame'), typeof window === 'undefined' ? null : window);
 renderCue();

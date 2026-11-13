@@ -1,0 +1,66 @@
+[
+  {
+    "browser": "157.0.8103.78",
+    "display": [
+      1920,
+      1200
+    ],
+    "mode": "windowed",
+    "viewport": {
+      "width": 1920,
+      "height": 1113,
+      "fullscreen": false,
+      "screen": [
+        1920,
+        1200
+      ]
+    },
+    "states": 51,
+    "beats": 8,
+    "drawers": 44,
+    "humanGates": 2,
+    "externalLinks": 62,
+    "issues": [],
+    "errors": [],
+    "httpRequests": [],
+    "captures": [
+      "chrome-1920x1200-windowed-opening-question.png",
+      "chrome-1920x1200-windowed-nav-adaptation.png",
+      "chrome-1920x1200-windowed-system-changed.png",
+      "chrome-1920x1200-windowed-due-diligence.png",
+      "chrome-1920x1200-windowed-final-question.png"
+    ]
+  },
+  {
+    "browser": "157.0.8103.78",
+    "display": [
+      1920,
+      1200
+    ],
+    "mode": "fullscreen",
+    "viewport": {
+      "width": 1920,
+      "height": 1200,
+      "fullscreen": true,
+      "screen": [
+        1920,
+        1200
+      ]
+    },
+    "states": 51,
+    "beats": 8,
+    "drawers": 44,
+    "humanGates": 2,
+    "externalLinks": 62,
+    "issues": [],
+    "errors": [],
+    "httpRequests": [],
+    "captures": [
+      "chrome-1920x1200-fullscreen-opening-question.png",
+      "chrome-1920x1200-fullscreen-nav-adaptation.png",
+      "chrome-1920x1200-fullscreen-system-changed.png",
+      "chrome-1920x1200-fullscreen-due-diligence.png",
+      "chrome-1920x1200-fullscreen-final-question.png"
+    ]
+  }
+]

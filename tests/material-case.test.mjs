@@ -147,7 +147,7 @@ test("Beat 7 retains financial channel evidence, pressure and a separate BIS kic
  assert.doesNotMatch(m,/SYSTEM LIQUIDITY PRESSURE|NO AGENT FAILED|BIS PROJECT LOGOS/);
  assert.match(renderSystemic(8),/SYSTEM LIQUIDITY PRESSURE/);assert.match(renderSystemic(8),/NOT INEVITABLE/);
  const k=renderSystemic(9);assert.ok(k.indexOf('NO AGENT FAILED')<k.indexOf('THE SYSTEM CHANGED'));
- assert.match(k,/BIS PROJECT LOGOS.*Research into correlated LLM portfolio-agent decisions/s);
+ assert.match(k,/BIS PROJECT LOGOS.*CORRELATED PORTFOLIO DECISIONS.*BIS PROJECT AGENTI.*PAYMENTS &amp; INTRADAY LIQUIDITY/s);
  assert.doesNotMatch(k,/p3-network|p3-channels/);assert.match(renderSystemic(10),/WHO IS SUPERVISING/);
 });
 
@@ -260,7 +260,9 @@ test('opening question precedes the retained message and uses the single present
 test('audience debranding preserves all approved reveals, cues and immutable scenario modules',async()=>{
  const {createHash}=await import('node:crypto'),hash=v=>createHash('sha256').update(v).digest('hex');
  const c=JSON.parse(readFileSync(new URL('../artifacts/offline-integration/baseline/contracts.json',import.meta.url),'utf8'));
- for(const cue of CUES)for(const [s,id]of cue.steps.entries())assert.equal(hash(renderView(cue.id,s)),c.markup[id],id);
+ // Only the approved two-line BIS reference block changes; retain the historical fixture.
+ const sourcePatchMarkup={'system-changed':'cb599699a0a20c3e4dd2b2f385baa2ed1f71fe3bf72a8d96fcc78361c6797827'};
+ for(const cue of CUES)for(const [s,id]of cue.steps.entries())assert.equal(hash(renderView(cue.id,s)),sourcePatchMarkup[id]??c.markup[id],id);
  assert.deepEqual(CUES,c.cues);
  for(const [f,h]of Object.entries(c.sourceHashes))assert.equal(hash(readFileSync(new URL('../src/'+f,import.meta.url))),h,f);
 });

@@ -17,7 +17,7 @@ Updated 13 November 2026. The current accepted implementation is `bf34d11`; both
 | [Legacy demo folder](demo/README.md) | Earlier HTML retained as history; not the submitted delivery |
 | [Public sources](PUBLIC_SOURCES.md) | Detailed research provenance and qualifications; unchanged by this refresh |
 | `papers/ghost-in-the-harness/` | Supporting argument and research history, not a competing current UI specification |
-| [PowerPoint integration notes](POWERPOINT_INTEGRATION.md) | Existing delivery guidance, left unchanged |
+| [PowerPoint integration notes](POWERPOINT_INTEGRATION.md) | Historical handoff instructions, superseded by direct standalone-browser delivery; see [current guide](STANDALONE_DELIVERY.md) |
 
 ## Preserve history rather than rewriting it
 

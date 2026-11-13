@@ -2,18 +2,18 @@
 
 > Current documentation refreshed 13 November 2026 against accepted implementation `bf34d11`. This is internal repository documentation; audience-facing materials remain unbranded. Earlier records below are historical, not the current specification.
 
-The accepted demonstration is complete. The executive producer confirmed that the final HTML has been submitted. This housekeeping update changes documentation only; it does not rebuild or alter that delivery.
+The accepted narrative is complete. The current local review candidate includes the HKMA/BIS source-led patch and standalone conference-readiness corrections. Delivery is one local HTML file opened directly in a browser, without a server, internet connection or PowerPoint. See [standalone delivery and browser verification](STANDALONE_DELIVERY.md). The earlier submission is historical; this candidate has not been committed, pushed or resubmitted.
 
 The presenter-led demonstration opens with **WHEN AI STARTS ACTING, WHO IS THE SUPERVISOR?** and ends with **WHERE DOES SUPERVISION RESIDE?** Eight beats contain **51 principal presenter states**. All scenarios are synthetic and illustrative; public research supplies context rather than evidence of these exact events occurring in production.
 
 ## Delivery and development
 
-- [Submitted standalone HTML](dist/demo.html): self-contained browser delivery, including styles and modules, usable offline without a server, API key or external AI calls.
-- [Existing PowerPoint integration notes](POWERPOINT_INTEGRATION.md): browser launch guidance and integration boundaries. No delivery or PowerPoint work is part of this documentation refresh.
+- [Standalone conference HTML](dist/demo.html): self-contained browser delivery, including styles and modules, usable offline without a server, API key or external AI calls.
+- [Standalone delivery guide](STANDALONE_DELIVERY.md): direct launch, controls, display scaling and verification. [Earlier PowerPoint notes](POWERPOINT_INTEGRATION.md) are historical; PowerPoint is not part of the delivery path.
 - Developer source entry: `index.html`; Node.js 20 or newer is required for repository scripts, not to open the standalone HTML.
-- `npm run dev` serves the source at `http://127.0.0.1:4173`; `npm test` runs the deterministic checks; `npm run build` regenerates the standalone delivery. Do not rebuild the submitted file as routine housekeeping.
+- `npm run dev` serves the source at `http://127.0.0.1:4173`; `npm test` runs the deterministic checks; `npm run build` regenerates the standalone delivery. Rebuild the review candidate only for authorised source or packaging changes.
 
-The submitted `dist/demo.html` is 240,364 bytes. SHA-256: `450f5e90a7985ff6edc4fe244ae974eed9299a43f193cd7c195c02a6e79da9aa`.
+The current review `dist/demo.html` is 246,658 bytes. SHA-256: `97071108a7b4f7712ddd5e92befd488e16342ca3ce60c904e0d3427f6d1cc41c`.
 
 ## Accepted narrative
 

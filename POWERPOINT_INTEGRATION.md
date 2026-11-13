@@ -1,3 +1,5 @@
+> Superseded delivery mode: the conference demo now opens directly as one local HTML file in a browser. It will not be embedded in or launched from PowerPoint. See [Standalone delivery](STANDALONE_DELIVERY.md). The earlier handoff instructions below are retained as historical documentation.
+
 # Offline browser demonstration — PowerPoint handoff
 
 The audience-ready file is **`dist/demo.html`**. It contains the styles, application code, deterministic scenarios, animations, presenter controls and evidence text. It has no runtime package, server, CDN, font-download or network dependency. The document uses a neutral browser-tab label; no presentation title is added to the stage. The deck supplies its own title, introduction and context.

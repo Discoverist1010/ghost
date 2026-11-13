@@ -1,3 +1,4 @@
+import {renderHkmaHarnessEvidence} from './source-notes.mjs';
 import {ARC2_ENTITY,ARC2_JURISDICTION,ARC2_POLICY,ARC2_EXPOSURE,ARC2_DESIGN_GAP,createCorrectionPlan} from './central-bank-scenario.mjs';
 import {buildRun,evaluateGate,supervise} from './scenario.mjs';
 const run=buildRun();
@@ -65,6 +66,7 @@ export function renderArc2Evidence(originalRun,context) {
   if(step===0)body+='<p>This is the Investigator’s derived assessment and selected inputs only. Original-source comparison requires the explicit human source-verification action.</p>';
   if(step>=2)body+='<p>The conditional 39 applies only to the original classification-dependent risk model. It is not a safety certificate, transaction permission or updated 74% probability. Original evidence, recommendation and prediction remain separate.</p>';
   if(step>=5)body+='<p><strong>Fictional institutional policy, not a real sanctions law.</strong> Verified entity relationship + jurisdiction context + specific pending exposure + effective policy date are all required. Neither a central-bank relationship nor jurisdiction alone establishes a restriction. The policy check is newly requested during this review; it was absent from the original workflow. It is deterministic, not a third AI supervisor.</p><p>The policy warrants a protective restriction only on EXPOSURE-X-USD-01. No hold is executed here. The policy pathway needs its own authorised compliance handling; it cannot validate the original AI reasoning or expand its mandate.</p>';
+  if(step===8)body+=renderHkmaHarnessEvidence();
   if(step>=9)body+='<p>Prospective changes are proposals requiring approval and complete-workflow evaluation. Retrospective review must use each case’s original-date sources and applicable policy versions. No settled transaction is reversed, earlier decision rewritten, sanctions violation presumed or later policy applied retroactively.</p>';
   if(step===11)body=`<section class="arc2-historical-grounding">
     <h3>MAS AIRM</h3><p>Lifecycle evaluation and testing (§§5.14–5.15), monitoring and incident/issue management (§5.23), re-validation (§5.24), and controlled changes (§5.25) support documented review and correction. Published 7 October 2026; effective 7 October 2027.</p><p><a href="https://www.mas.gov.sg/regulation/guidelines/guidelines-on-artificial-intelligence-risk-management-for-financial-institutions" target="_blank" rel="noopener noreferrer">MAS AI Risk Management Guidelines</a></p>

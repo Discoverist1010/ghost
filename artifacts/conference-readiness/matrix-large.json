@@ -1,0 +1,130 @@
+[
+  {
+    "browser": "157.0.8103.78",
+    "display": [
+      1920,
+      1080
+    ],
+    "mode": "windowed",
+    "viewport": {
+      "width": 1920,
+      "height": 993,
+      "fullscreen": false,
+      "screen": [
+        1920,
+        1080
+      ]
+    },
+    "states": 51,
+    "beats": 8,
+    "drawers": 44,
+    "humanGates": 2,
+    "externalLinks": 62,
+    "issues": [],
+    "errors": [],
+    "httpRequests": [],
+    "captures": [
+      "chrome-1920x1080-windowed-opening-question.png",
+      "chrome-1920x1080-windowed-nav-adaptation.png",
+      "chrome-1920x1080-windowed-system-changed.png",
+      "chrome-1920x1080-windowed-due-diligence.png",
+      "chrome-1920x1080-windowed-final-question.png"
+    ]
+  },
+  {
+    "browser": "157.0.8103.78",
+    "display": [
+      1920,
+      1080
+    ],
+    "mode": "fullscreen",
+    "viewport": {
+      "width": 1920,
+      "height": 1080,
+      "fullscreen": true,
+      "screen": [
+        1920,
+        1080
+      ]
+    },
+    "states": 51,
+    "beats": 8,
+    "drawers": 44,
+    "humanGates": 2,
+    "externalLinks": 62,
+    "issues": [],
+    "errors": [],
+    "httpRequests": [],
+    "captures": [
+      "chrome-1920x1080-fullscreen-opening-question.png",
+      "chrome-1920x1080-fullscreen-nav-adaptation.png",
+      "chrome-1920x1080-fullscreen-system-changed.png",
+      "chrome-1920x1080-fullscreen-due-diligence.png",
+      "chrome-1920x1080-fullscreen-final-question.png"
+    ]
+  },
+  {
+    "browser": "157.0.8103.78",
+    "display": [
+      1600,
+      900
+    ],
+    "mode": "windowed",
+    "viewport": {
+      "width": 1600,
+      "height": 813,
+      "fullscreen": false,
+      "screen": [
+        1600,
+        900
+      ]
+    },
+    "states": 51,
+    "beats": 8,
+    "drawers": 44,
+    "humanGates": 2,
+    "externalLinks": 62,
+    "issues": [],
+    "errors": [],
+    "httpRequests": [],
+    "captures": [
+      "chrome-1600x900-windowed-opening-question.png",
+      "chrome-1600x900-windowed-nav-adaptation.png",
+      "chrome-1600x900-windowed-system-changed.png",
+      "chrome-1600x900-windowed-due-diligence.png",
+      "chrome-1600x900-windowed-final-question.png"
+    ]
+  },
+  {
+    "browser": "157.0.8103.78",
+    "display": [
+      1600,
+      900
+    ],
+    "mode": "fullscreen",
+    "viewport": {
+      "width": 1600,
+      "height": 900,
+      "fullscreen": true,
+      "screen": [
+        1600,
+        900
+      ]
+    },
+    "states": 51,
+    "beats": 8,
+    "drawers": 44,
+    "humanGates": 2,
+    "externalLinks": 62,
+    "issues": [],
+    "errors": [],
+    "httpRequests": [],
+    "captures": [
+      "chrome-1600x900-fullscreen-opening-question.png",
+      "chrome-1600x900-fullscreen-nav-adaptation.png",
+      "chrome-1600x900-fullscreen-system-changed.png",
+      "chrome-1600x900-fullscreen-due-diligence.png",
+      "chrome-1600x900-fullscreen-final-question.png"
+    ]
+  }
+]
